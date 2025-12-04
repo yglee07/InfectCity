@@ -146,12 +146,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d642254465b27c4ea0dc7446a22f8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
-  angularSpeed: 720
   detectRadius: 20
+  infectDistance: 1.2
   citizenLayer:
     serializedVersion: 2
     m_Bits: 8
   zombiePrefab: {fileID: 8265895907174677282}
-  retargetInterval: 0.2
-  retargetMoveThreshold: 0.5
+  targetCitizen: {fileID: 0}

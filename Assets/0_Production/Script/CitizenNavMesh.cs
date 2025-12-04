@@ -1,9 +1,13 @@
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class CitizenNavMesh : MonoBehaviour
 {
     public enum State { Wander, Flee }
+
+    // 전역 시민 리스트
+
 
     [Header("Speed")]
     public float wanderSpeed = 2f;
@@ -25,6 +29,28 @@ public class CitizenNavMesh : MonoBehaviour
     private Vector3 wanderTarget;
     private Vector3 fleeTarget;
 
+    void OnEnable()
+    {
+        NPCManager.Instance.RegisterCitizen(this);
+
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
+
+        ResetCitizenState();
+    }
+
+    void ResetCitizenState()
+    {
+        // TODO: 초기 wander 상태 리셋
+        // 필요하면 상태머신 리셋 가능
+    }
+
+    void OnDisable()
+    {
+        NPCManager.Instance.UnregisterCitizen(this);
+    }
+
+
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -43,6 +69,13 @@ public class CitizenNavMesh : MonoBehaviour
 
         if (state == State.Wander) UpdateWander();
         else UpdateFlee();
+    }
+
+    // 외부(좀비)에서 감염시킬 때 호출
+    public void Infect()
+    {
+        // 여기서 이펙트, 점수 증가 등 나중에 추가 가능
+        PoolManager.Instance.Despawn("Citizen", gameObject);
     }
 
     // ------------------- STATE CHANGE -------------------
@@ -129,8 +162,6 @@ public class CitizenNavMesh : MonoBehaviour
         return Physics.OverlapSphere(transform.position, radius, zombieLayer).Length > 0;
     }
 
-
-
     private void OnDrawGizmos()
     {
         if (!Application.isPlaying) return;
@@ -138,14 +169,11 @@ public class CitizenNavMesh : MonoBehaviour
         if (!agent.hasPath) return;
 
         Gizmos.color = Color.cyan;
-
         Vector3[] corners = agent.path.corners;
 
-        // �ڳ� ������ �� �ð�ȭ
         for (int i = 0; i < corners.Length; i++)
             Gizmos.DrawSphere(corners[i], 0.15f);
 
-        // �� ����
         for (int i = 0; i < corners.Length - 1; i++)
             Gizmos.DrawLine(corners[i], corners[i + 1]);
     }
