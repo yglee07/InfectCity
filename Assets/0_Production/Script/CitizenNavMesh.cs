@@ -6,8 +6,12 @@ public class CitizenNavMesh : MonoBehaviour
 {
     public enum State { Wander, Flee }
 
-    // 전역 시민 리스트
+    [Header("Idle Settings")]
+    public float idleMin = 0.5f;
+    public float idleMax = 2.0f;
 
+    private bool isIdle = false;
+    private float idleTimer = 0f;
 
     [Header("Speed")]
     public float wanderSpeed = 2f;
@@ -17,7 +21,7 @@ public class CitizenNavMesh : MonoBehaviour
     public float wanderRadius = 6f;
     public float changeWanderInterval = 3f;
 
-    [Header("Zombie Detection (Hysteresis)")]
+    [Header("Zombie Detection")]
     public float fleeEnterRadius = 4f;
     public float fleeExitRadius = 6f;
     public float fleeDistance = 7f;
@@ -29,80 +33,111 @@ public class CitizenNavMesh : MonoBehaviour
     private Vector3 wanderTarget;
     private Vector3 fleeTarget;
     private Animator anim;
+
     void OnEnable()
     {
-        NPCManager.Instance.RegisterCitizen(this);
+        if (NPCManager.Instance != null)
+            NPCManager.Instance.RegisterCitizen(this);
 
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
 
         if (anim == null)
             anim = GetComponentInChildren<Animator>();
-        ResetCitizenState();
-    }
-
-    void ResetCitizenState()
-    {
-        // TODO: 초기 wander 상태 리셋
-        // 필요하면 상태머신 리셋 가능
     }
 
     void OnDisable()
     {
-        NPCManager.Instance.UnregisterCitizen(this);
+        if (NPCManager.Instance != null)
+            NPCManager.Instance.UnregisterCitizen(this);
     }
-
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
+
         ChangeState(State.Wander);
         SetNewWanderTarget();
     }
 
     void Update()
     {
+        // 좀비 감지 → Idle 중이어도 무조건 우선순위
         bool detected = DetectZombie();
-
         if (detected && state != State.Flee)
             ChangeState(State.Flee);
         else if (!detected && state != State.Wander)
             ChangeState(State.Wander);
 
+        // 상태별 업데이트
         if (state == State.Wander) UpdateWander();
         else UpdateFlee();
 
-        float speed = agent.velocity.magnitude;
-        anim.SetFloat("MoveSpeed", speed);
-    }
-
-    // 외부(좀비)에서 감염시킬 때 호출
-    public void Infect()
-    {
-        // 여기서 이펙트, 점수 증가 등 나중에 추가 가능
-        PoolManager.Instance.Despawn("Citizen", gameObject);
+        // 애니메이션 처리
+        if (isIdle)
+        {
+            anim.SetFloat("MoveSpeed", 0f);
+        }
+        else
+        {
+            anim.SetFloat("MoveSpeed", agent.velocity.sqrMagnitude);
+        }
     }
 
     // ------------------- STATE CHANGE -------------------
     void ChangeState(State newState)
     {
         state = newState;
-        agent.speed = (state == State.Wander) ? wanderSpeed : fleeSpeed;
+        if (newState == State.Flee)
+            isIdle = false;
 
-        if (state == State.Wander)
+        agent.speed = (newState == State.Wander) ? wanderSpeed : fleeSpeed;
+
+        if (newState == State.Wander)
+        {
+            isIdle = false; // Flee → Wander 복귀시 Idle 초기화
             SetNewWanderTarget();
+        }
         else
+        {
             SetNewFleeTarget();
+        }
     }
 
     // ------------------- WANDER -------------------
     void UpdateWander()
     {
+        // --- Idle 상태 ---
+        if (isIdle)
+        {
+            // NavMeshAgent를 멈추지 말고, 그냥 자기 자리로 목적지를 고정
+            agent.SetDestination(transform.position);
+
+            idleTimer -= Time.deltaTime;
+            if (idleTimer <= 0f)
+            {
+                isIdle = false;
+                SetNewWanderTarget();
+            }
+            return;
+        }
+
+        // --- Wander 로직 ---
         timer += Time.deltaTime;
 
         if (agent.remainingDistance <= 0.4f || timer >= changeWanderInterval)
         {
             timer = 0f;
+
+            // Idle 랜덤 진입
+            if (Random.value < 0.3f)
+            {
+                isIdle = true;
+                idleTimer = Random.Range(idleMin, idleMax);
+                return;
+            }
+
             SetNewWanderTarget();
         }
     }
@@ -122,6 +157,7 @@ public class CitizenNavMesh : MonoBehaviour
     // ------------------- FLEE -------------------
     void UpdateFlee()
     {
+        // 도망 중이면 목적지에 도착할 때마다 갱신
         if (agent.remainingDistance <= 0.6f)
             SetNewFleeTarget();
     }
@@ -160,26 +196,30 @@ public class CitizenNavMesh : MonoBehaviour
         }
     }
 
-    // ------------------- DETECT ZOMBIE -------------------
+    // ------------------- ZOMBIE DETECTION -------------------
     bool DetectZombie()
     {
         float radius = (state == State.Flee) ? fleeExitRadius : fleeEnterRadius;
-        return Physics.OverlapSphere(transform.position, radius, zombieLayer).Length > 0;
+
+        var zombies = NPCManager.Instance.Zombies;
+        Vector3 myPos = transform.position;
+        float r2 = radius * radius;
+
+        for (int i = 0; i < zombies.Count; i++)
+        {
+            var z = zombies[i];
+            if (z == null || !z.gameObject.activeInHierarchy) continue;
+
+            if ((z.transform.position - myPos).sqrMagnitude <= r2)
+                return true;
+        }
+
+        return false;
     }
 
-    private void OnDrawGizmos()
+    // 외부 감염
+    public void Infect()
     {
-        if (!Application.isPlaying) return;
-        if (agent == null) return;
-        if (!agent.hasPath) return;
-
-        Gizmos.color = Color.cyan;
-        Vector3[] corners = agent.path.corners;
-
-        for (int i = 0; i < corners.Length; i++)
-            Gizmos.DrawSphere(corners[i], 0.15f);
-
-        for (int i = 0; i < corners.Length - 1; i++)
-            Gizmos.DrawLine(corners[i], corners[i + 1]);
+        PoolManager.Instance.Despawn("Citizen", gameObject);
     }
 }
