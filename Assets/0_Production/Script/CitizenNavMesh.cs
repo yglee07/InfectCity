@@ -28,7 +28,7 @@ public class CitizenNavMesh : MonoBehaviour
     private float timer;
     private Vector3 wanderTarget;
     private Vector3 fleeTarget;
-
+    private Animator anim;
     void OnEnable()
     {
         NPCManager.Instance.RegisterCitizen(this);
@@ -36,6 +36,8 @@ public class CitizenNavMesh : MonoBehaviour
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
 
+        if (anim == null)
+            anim = GetComponentInChildren<Animator>();
         ResetCitizenState();
     }
 
@@ -69,6 +71,9 @@ public class CitizenNavMesh : MonoBehaviour
 
         if (state == State.Wander) UpdateWander();
         else UpdateFlee();
+
+        float speed = agent.velocity.magnitude;
+        anim.SetFloat("MoveSpeed", speed);
     }
 
     // 외부(좀비)에서 감염시킬 때 호출

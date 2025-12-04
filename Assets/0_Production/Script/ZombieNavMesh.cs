@@ -17,12 +17,14 @@ public class ZombieNavMesh : MonoBehaviour
     private float retargetInterval = 0.2f;
     private float timer;
     private Vector3 lastTargetPos;
+    private Animator anim;
 
     void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.acceleration = 20f;
         agent.autoBraking = false;
+        anim=GetComponentInChildren<Animator>();
     }
     void OnEnable()
     {
@@ -46,6 +48,8 @@ public class ZombieNavMesh : MonoBehaviour
         }
 
         TryInfect();
+        float speed = agent.velocity.magnitude;
+        anim.SetFloat("MoveSpeed", speed);
     }
 
     // ------------------- FIND CITIZEN (GLOBAL LIST) -------------------

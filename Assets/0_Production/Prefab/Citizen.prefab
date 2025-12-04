@@ -150,6 +150,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7741611057291808138, guid: 8698befb775c215439e7703a2a745fae, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: cbb1cc171e89fea4f9e3c2434c13134a, type: 2}
     - target: {fileID: 7787874160410810658, guid: 8698befb775c215439e7703a2a745fae, type: 3}
       propertyPath: m_Name
       value: CitizenModel
