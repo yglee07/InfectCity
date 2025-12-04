@@ -1,19 +1,20 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class ZombieNavMesh : MonoBehaviour
 {
-    [Header("Settings")]
-    public float detectRadius = 10f;
+    [Header("Infect Settings")]
     public float infectDistance = 1.2f;
-    public LayerMask citizenLayer;
 
-    [Header("Prefabs")]
-    public GameObject zombiePrefab; // ���� �� ������ ����
+    [Header("Pool")]
+    public string zombiePoolKey = "Zombie";
 
     private NavMeshAgent agent;
-    private Transform targetCitizen;
-    private float retargetInterval = 0.1f;
+
+    [SerializeField]
+    private CitizenNavMesh targetCitizen;
+
+    private float retargetInterval = 0.2f;
     private float timer;
     private Vector3 lastTargetPos;
 
@@ -23,11 +24,21 @@ public class ZombieNavMesh : MonoBehaviour
         agent.acceleration = 20f;
         agent.autoBraking = false;
     }
+    void OnEnable()
+    {
+        NPCManager.Instance.RegisterZombie(this);
+    }
+
+    void OnDisable()
+    {
+        NPCManager.Instance.UnregisterZombie(this);
+    }
 
     void Update()
     {
         timer += Time.deltaTime;
 
+        // 주기적으로 타겟 재탐색
         if (timer >= retargetInterval)
         {
             timer = 0f;
@@ -37,60 +48,81 @@ public class ZombieNavMesh : MonoBehaviour
         TryInfect();
     }
 
-    // ------------------- FIND CITIZEN -------------------
+    // ------------------- FIND CITIZEN (GLOBAL LIST) -------------------
     void FindNearestCitizen()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, detectRadius, citizenLayer);
+        CitizenNavMesh nearest = null;
+        float minSqr = float.MaxValue;
 
-        if (hits.Length == 0)
+        var list = NPCManager.Instance.Citizens;
+        int count = list.Count;
+    
+        for (int i = 0; i < count; i++)
         {
-            targetCitizen = null;
-            return;
-        }
-
-        Transform nearest = hits[0].transform;
-        float min = Vector3.Distance(transform.position, nearest.position);
-
-        foreach (var h in hits)
-        {
-            float d = Vector3.Distance(transform.position, h.transform.position);
-            if (d < min)
+            var c = list[i];
+            if (c == null) continue;
+            if (!c.gameObject.activeInHierarchy) continue;
+    
+            Vector3 delta = c.transform.position - transform.position;
+            float sqr = delta.sqrMagnitude;
+    
+            if (sqr < minSqr)
             {
-                min = d;
-                nearest = h.transform;
+                minSqr = sqr;
+                nearest = c;
             }
         }
 
+        if (nearest == null)
+        {
+            agent.isStopped = true;      // ★ 즉시 멈춤
+            targetCitizen = null;
+            agent.ResetPath();
+            return;
+        }
+
+        // 타겟 변경 또는 크게 움직였을 때만 목적지 갱신
         if (targetCitizen != nearest)
         {
             targetCitizen = nearest;
-            lastTargetPos = nearest.position;
+            lastTargetPos = nearest.transform.position;
             agent.SetDestination(lastTargetPos);
         }
         else
         {
-            if (Vector3.Distance(lastTargetPos, nearest.position) > 0.5f)
+            Vector3 nowPos = nearest.transform.position;
+            if ((nowPos - lastTargetPos).sqrMagnitude > 0.25f) // 0.5m 이상 이동 시
             {
-                lastTargetPos = nearest.position;
+                lastTargetPos = nowPos;
                 agent.SetDestination(lastTargetPos);
             }
         }
     }
-
+ 
     // ------------------- INFECT -------------------
     void TryInfect()
     {
-        if (!targetCitizen) return;
+        if (targetCitizen == null) return;
+        if (!targetCitizen.gameObject.activeInHierarchy) return;
 
-        if (Vector3.Distance(transform.position, targetCitizen.position) <= infectDistance)
-        {
-            Vector3 pos = targetCitizen.position;
+        float sqrDist = (targetCitizen.transform.position - transform.position).sqrMagnitude;
+        float infectSqr = infectDistance * infectDistance;
 
-            targetCitizen.gameObject.SetActive(false);
-            Instantiate(zombiePrefab, pos, Quaternion.identity);
+        if (sqrDist > infectSqr) return;
 
-            targetCitizen = null;
-        }
+        Vector3 spawnPos = targetCitizen.transform.position;
+
+        // Citizen 감염 처리
+        targetCitizen.Infect();  // 내부에서 SetActive(false) + 리스트 제거
+
+        // 풀에서 좀비 생성
+        GameObject zombie = PoolManager.Instance.Spawn(zombiePoolKey, spawnPos, Quaternion.identity);
+
+        // 다음 타겟 초기화 및 즉시 재탐색
+        agent.isStopped = true;      // ★ 즉시 멈춤
+        targetCitizen = null;
+        agent.ResetPath();
+        FindNearestCitizen();
     }
 
     private void OnDrawGizmos()
@@ -100,14 +132,11 @@ public class ZombieNavMesh : MonoBehaviour
         if (!agent.hasPath) return;
 
         Gizmos.color = Color.cyan;
-
         Vector3[] corners = agent.path.corners;
 
-        // �ڳ� ������ �� �ð�ȭ
         for (int i = 0; i < corners.Length; i++)
             Gizmos.DrawSphere(corners[i], 0.15f);
 
-        // �� ����
         for (int i = 0; i < corners.Length - 1; i++)
             Gizmos.DrawLine(corners[i], corners[i + 1]);
     }
