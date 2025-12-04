@@ -6,18 +6,23 @@ public class DragInfectController : MonoBehaviour
     public float explosionRadius = 2f;
     public LayerMask groundMask;
 
-    [Header("Preview Settings")]
-    public Color previewColor = new Color(1f, 0f, 0f, 0.3f);
-    public int circleSegments = 32;
+    [Header("Quad Preview Settings")]
+    public Material previewMaterial; // Unlit Transparent 원 텍스처
+    public float quadHeightOffset = 0.02f; // 지면 떠있는 정도
 
     private Vector2 touchStartPos;
     private bool isDragging = false;
-    private LineRenderer circleRenderer;
+
+    private Transform previewQuad;   // 미리보기 Quad
+    private MeshRenderer quadRenderer;
     private Vector3 previewWorldPos;
 
+    [Header("Preview Colors")]
+    public Color normalColor = new Color(0f, 1f, 0f, 0.3f);
+    public Color alertColor = new Color(1f, 0f, 0f, 0.3f);
     void Start()
     {
-        CreateCircleRenderer();
+        CreatePreviewQuad();
     }
 
     void Update()
@@ -28,31 +33,34 @@ public class DragInfectController : MonoBehaviour
         HandleTouch();
 #endif
 
-        // 드래그 중이면 원형 위치 업데이트
         if (isDragging)
-            UpdateCirclePreview();
+            UpdateQuadPreview();
     }
 
-    // ============================
-    //      원형 표시 라인렌더러
-    // ============================
-    void CreateCircleRenderer()
+    // =========================================
+    //   Quad 생성
+    // =========================================
+    void CreatePreviewQuad()
     {
-        GameObject obj = new GameObject("ExplosionPreviewCircle");
-        circleRenderer = obj.AddComponent<LineRenderer>();
+        GameObject quadObj = GameObject.CreatePrimitive(PrimitiveType.Quad);
+        quadObj.name = "ExplosionPreviewQuad";
 
-        circleRenderer.positionCount = circleSegments + 1;
-        circleRenderer.loop = true;
-        circleRenderer.startWidth = 0.05f;
-        circleRenderer.endWidth = 0.05f;
-        circleRenderer.material = new Material(Shader.Find("Sprites/Default"));
-        circleRenderer.startColor = previewColor;
-        circleRenderer.endColor = previewColor;
+        // 필요한 컴포넌트만 유지
+        Destroy(quadObj.GetComponent<Collider>());
 
-        circleRenderer.enabled = false; // 기본은 숨김
+        quadRenderer = quadObj.GetComponent<MeshRenderer>();
+        quadRenderer.material = previewMaterial;
+
+        previewQuad = quadObj.transform;
+        previewQuad.gameObject.SetActive(false);
+
+        // 기본 스케일(1,1,1) → 나중에 radius에 맞게 조절
     }
 
-    void UpdateCirclePreview()
+    // =========================================
+    //   Quad Preview 업데이트
+    // =========================================
+    void UpdateQuadPreview()
     {
         Vector3 worldPos;
         if (!TryGetWorldPosition(Input.mousePosition, out worldPos))
@@ -60,40 +68,39 @@ public class DragInfectController : MonoBehaviour
 
         previewWorldPos = worldPos;
 
-        // 원형 보이게
-        if (!circleRenderer.enabled)
-            circleRenderer.enabled = true;
+        if (!previewQuad.gameObject.activeSelf)
+            previewQuad.gameObject.SetActive(true);
 
-        DrawCircle(previewWorldPos, explosionRadius);
-    }
+        // 위치 적용
+        previewQuad.position = worldPos + Vector3.up * quadHeightOffset;
 
-    void DrawCircle(Vector3 center, float radius)
-    {
-        float angle = 0f;
-        for (int i = 0; i <= circleSegments; i++)
+        // 지형 normal 따라 기울기 맞추기
+        if (Physics.Raycast(worldPos + Vector3.up, Vector3.down, out RaycastHit hit, 5f, groundMask))
         {
-            float x = Mathf.Cos(angle) * radius;
-            float z = Mathf.Sin(angle) * radius;
-            circleRenderer.SetPosition(i, center + new Vector3(x, 0.05f, z));
-            angle += (2 * Mathf.PI) / circleSegments;
+            previewQuad.rotation = Quaternion.FromToRotation(Vector3.back, hit.normal);
         }
+
+        // 스케일 적용 (Quad는 1x1 단위)
+        float scaled = explosionRadius * 2f;
+        previewQuad.localScale = new Vector3(scaled, scaled, 1f);
+
+        bool detected = IsCitizenInside(previewWorldPos, explosionRadius);
+        quadRenderer.material.color = detected ? alertColor : normalColor;
     }
 
-    void HideCircle()
+    void HideQuad()
     {
-        if (circleRenderer != null)
-            circleRenderer.enabled = false;
+        if (previewQuad != null)
+            previewQuad.gameObject.SetActive(false);
     }
 
-
-    // ============================
-    //     PC Editor 입력 처리
-    // ============================
+    // =========================================
+    //   Mouse input (Editor)
+    // =========================================
     void HandleMouse()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            touchStartPos = Input.mousePosition;
             isDragging = true;
         }
         else if (Input.GetMouseButtonUp(0) && isDragging)
@@ -103,9 +110,9 @@ public class DragInfectController : MonoBehaviour
         }
     }
 
-    // ============================
-    //     모바일 터치 입력
-    // ============================
+    // =========================================
+    //   Touch input (Mobile)
+    // =========================================
     void HandleTouch()
     {
         if (Input.touchCount == 0) return;
@@ -115,7 +122,6 @@ public class DragInfectController : MonoBehaviour
         switch (t.phase)
         {
             case TouchPhase.Began:
-                touchStartPos = t.position;
                 isDragging = true;
                 break;
 
@@ -127,25 +133,23 @@ public class DragInfectController : MonoBehaviour
         }
     }
 
-    // ============================
-    //     드래그 종료
-    // ============================
+    // =========================================
+    //   Drag End
+    // =========================================
     void EndDrag(Vector2 screenPos)
     {
-        HideCircle();
+        HideQuad();
 
         Vector3 worldPos;
         if (!TryGetWorldPosition(screenPos, out worldPos))
             return;
 
         InfectArea(worldPos, explosionRadius);
-
-        Debug.DrawRay(worldPos, Vector3.up * 2f, Color.red, 1f);
     }
 
-    // ============================
-    //   화면 → 월드 변환
-    // ============================
+    // =========================================
+    //   Screen → World
+    // =========================================
     bool TryGetWorldPosition(Vector2 screenPos, out Vector3 worldPos)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
@@ -159,13 +163,12 @@ public class DragInfectController : MonoBehaviour
         return false;
     }
 
-    // ============================
-    //     범위 내 시민 감염
-    // ============================
+    // =========================================
+    //   Citizens Infect
+    // =========================================
     void InfectArea(Vector3 center, float radius)
     {
         var citizens = NPCManager.Instance.Citizens;
-
         float r2 = radius * radius;
 
         for (int i = citizens.Count - 1; i >= 0; i--)
@@ -184,4 +187,22 @@ public class DragInfectController : MonoBehaviour
             }
         }
     }
+
+    bool IsCitizenInside(Vector3 center, float radius)
+    {
+        float r2 = radius * radius;
+        var citizens = NPCManager.Instance.Citizens;
+
+        for (int i = citizens.Count - 1; i >= 0; i--)
+        {
+            var c = citizens[i];
+            if (c == null || !c.gameObject.activeInHierarchy) continue;
+
+            float dist = (c.transform.position - center).sqrMagnitude;
+            if (dist <= r2) return true;
+        }
+
+        return false;
+    }
+
 }

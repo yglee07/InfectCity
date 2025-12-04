@@ -152,8 +152,10 @@ MonoBehaviour:
   groundMask:
     serializedVersion: 2
     m_Bits: 128
-  previewColor: {r: 1, g: 0, b: 0, a: 0.3}
-  circleSegments: 32
+  previewMaterial: {fileID: 2100000, guid: 6b9102f8abcb1564ba91569e325dd6ae, type: 2}
+  quadHeightOffset: 0.02
+  normalColor: {r: 0, g: 1, b: 0, a: 0.3}
+  alertColor: {r: 1, g: 0, b: 0, a: 0.3}
 --- !u!4 &153727090
 Transform:
   m_ObjectHideFlags: 0
