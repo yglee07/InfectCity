@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour
         shadow.normal.textColor = new Color(0, 0, 0, 0.6f);
 
         float x = 30f;
-        float y = 30f;
+        float y = 200f;
 
         // 그림자 먼저
         GUI.Label(new Rect(x + 2, y + 2, 900, 60), "▶ 1번을 누르면 Level1이 생성됩니다.", shadow);

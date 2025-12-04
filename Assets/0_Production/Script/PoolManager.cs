@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -6,11 +6,12 @@ public class PoolManager : MonoBehaviour
 {
     public static PoolManager Instance;
 
-    [Header("Pool Items (Inspector µî·Ï)")]
+    [Header("Pool Items (Inspector ë“±ë¡)")]
     public List<PoolItem> poolItems = new List<PoolItem>();
 
     private Dictionary<string, Queue<GameObject>> pools = new();
     private Dictionary<string, GameObject> prefabDict = new();
+    private Dictionary<string, Transform> folderDict = new();
 
     void Awake()
     {
@@ -20,26 +21,33 @@ public class PoolManager : MonoBehaviour
         InitializePools();
     }
 
-    // --------------- ÃÊ±â Ç® »ı¼º -------------------
+    // --------------- ì´ˆê¸° í’€ ìƒì„± -------------------
     void InitializePools()
     {
         foreach (var item in poolItems)
         {
+            // key ì¤‘ë³µ ë°©ì§€
             if (prefabDict.ContainsKey(item.key))
             {
                 Debug.LogWarning($"Duplicate pool key detected: {item.key}");
                 continue;
             }
 
+            // í´ë” ìƒì„±
+            Transform folder = new GameObject(item.key + "_Pool").transform;
+            folder.SetParent(this.transform);
+            folderDict[item.key] = folder;
+
             prefabDict[item.key] = item.prefab;
             pools[item.key] = new Queue<GameObject>();
 
+            // preload
             for (int i = 0; i < item.preloadCount; i++)
                 CreateInstance(item.key);
         }
     }
 
-    // --------------- ÀÎ½ºÅÏ½º »ı¼º -------------------
+    // --------------- ì¸ìŠ¤í„´ìŠ¤ ìƒì„± -------------------
     private GameObject CreateInstance(string key)
     {
         if (!prefabDict.ContainsKey(key))
@@ -49,8 +57,13 @@ public class PoolManager : MonoBehaviour
         }
 
         GameObject obj = Instantiate(prefabDict[key]);
+
+        // parent í´ë” ì§€ì •
+        obj.transform.SetParent(folderDict[key]);
+
         obj.SetActive(false);
         pools[key].Enqueue(obj);
+
         return obj;
     }
 
@@ -64,10 +77,7 @@ public class PoolManager : MonoBehaviour
         }
 
         if (pools[key].Count == 0)
-        {
-            //  ÀÚµ¿ È®Àå
             CreateInstance(key);
-        }
 
         GameObject obj = pools[key].Dequeue();
 
@@ -76,7 +86,7 @@ public class PoolManager : MonoBehaviour
 
         obj.SetActive(true);
 
-        // NavMeshAgent ÃÊ±âÈ­°¡ ÇÊ¿äÇÑ ¿ÀºêÁ§Æ®¶ó¸é?
+        // NavMeshAgent ì²˜ë¦¬
         if (obj.TryGetComponent<NavMeshAgent>(out var agent))
         {
             agent.enabled = false;
@@ -90,13 +100,15 @@ public class PoolManager : MonoBehaviour
     public void Despawn(string key, GameObject obj)
     {
         obj.SetActive(false);
+        obj.transform.SetParent(folderDict[key]); // Return ì‹œì—ë„ í´ë”ë¡œ ì •ë¦¬
         pools[key].Enqueue(obj);
     }
 }
+
 [System.Serializable]
 public class PoolItem
 {
-    public string key;                  // "Zombie" °°Àº ÀÌ¸§
-    public GameObject prefab;           // Ç®¸µÇÒ ÇÁ¸®ÆÕ
-    public int preloadCount = 10;       // ÃÊ±â »ı¼ºÇÒ °¹¼ö
+    public string key;
+    public GameObject prefab;
+    public int preloadCount = 10;
 }
