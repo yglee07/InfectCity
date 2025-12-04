@@ -34,6 +34,9 @@ public class CitizenNavMesh : MonoBehaviour
     private Vector3 fleeTarget;
     private Animator anim;
 
+    // 현재 실행 중인 애니메이션 트리거 이름 (중복 실행 방지)
+    private string currentAnim = "";
+
     void OnEnable()
     {
         if (NPCManager.Instance != null)
@@ -73,34 +76,38 @@ public class CitizenNavMesh : MonoBehaviour
         // 상태별 업데이트
         if (state == State.Wander) UpdateWander();
         else UpdateFlee();
+    }
 
-        // 애니메이션 처리
-        if (isIdle)
-        {
-            anim.SetFloat("MoveSpeed", 0f);
-        }
-        else
-        {
-            anim.SetFloat("MoveSpeed", agent.velocity.sqrMagnitude);
-        }
+    // ------------------- ANIMATION HELPER -------------------
+    void PlayAnim(string trigger)
+    {
+        if (currentAnim == trigger) return;
+
+        currentAnim = trigger;
+
+        anim.ResetTrigger("Idle");
+        anim.ResetTrigger("Walk");
+        anim.ResetTrigger("Run");
+
+        anim.SetTrigger(trigger);
     }
 
     // ------------------- STATE CHANGE -------------------
     void ChangeState(State newState)
     {
         state = newState;
-        if (newState == State.Flee)
-            isIdle = false;
+        isIdle = false;
 
         agent.speed = (newState == State.Wander) ? wanderSpeed : fleeSpeed;
 
         if (newState == State.Wander)
         {
-            isIdle = false; // Flee → Wander 복귀시 Idle 초기화
+            PlayAnim("Walk");
             SetNewWanderTarget();
         }
-        else
+        else // Flee 상태
         {
+            PlayAnim("Run");
             SetNewFleeTarget();
         }
     }
@@ -108,10 +115,9 @@ public class CitizenNavMesh : MonoBehaviour
     // ------------------- WANDER -------------------
     void UpdateWander()
     {
-        // --- Idle 상태 ---
+        // Idle 상태일 때
         if (isIdle)
         {
-            // NavMeshAgent를 멈추지 말고, 그냥 자기 자리로 목적지를 고정
             agent.SetDestination(transform.position);
 
             idleTimer -= Time.deltaTime;
@@ -119,11 +125,12 @@ public class CitizenNavMesh : MonoBehaviour
             {
                 isIdle = false;
                 SetNewWanderTarget();
+                PlayAnim("Walk");       // Idle→Walk 복귀
             }
             return;
         }
 
-        // --- Wander 로직 ---
+        // Wander 이동 로직
         timer += Time.deltaTime;
 
         if (agent.remainingDistance <= 0.4f || timer >= changeWanderInterval)
@@ -135,6 +142,7 @@ public class CitizenNavMesh : MonoBehaviour
             {
                 isIdle = true;
                 idleTimer = Random.Range(idleMin, idleMax);
+                PlayAnim("Idle");
                 return;
             }
 
@@ -157,7 +165,6 @@ public class CitizenNavMesh : MonoBehaviour
     // ------------------- FLEE -------------------
     void UpdateFlee()
     {
-        // 도망 중이면 목적지에 도착할 때마다 갱신
         if (agent.remainingDistance <= 0.6f)
             SetNewFleeTarget();
     }
@@ -186,7 +193,6 @@ public class CitizenNavMesh : MonoBehaviour
 
         Vector3 away = (transform.position - nearest.position).normalized;
         Vector3 raw = transform.position + away * fleeDistance;
-
         raw += new Vector3(Random.Range(-2f, 2f), 0, Random.Range(-2f, 2f));
 
         if (NavMesh.SamplePosition(raw, out var hit, 2f, NavMesh.AllAreas))
@@ -200,10 +206,10 @@ public class CitizenNavMesh : MonoBehaviour
     bool DetectZombie()
     {
         float radius = (state == State.Flee) ? fleeExitRadius : fleeEnterRadius;
+        float r2 = radius * radius;
 
         var zombies = NPCManager.Instance.Zombies;
         Vector3 myPos = transform.position;
-        float r2 = radius * radius;
 
         for (int i = 0; i < zombies.Count; i++)
         {
@@ -217,7 +223,7 @@ public class CitizenNavMesh : MonoBehaviour
         return false;
     }
 
-    // 외부 감염
+    // 외부 감염 처리
     public void Infect()
     {
         PoolManager.Instance.Despawn("Citizen", gameObject);

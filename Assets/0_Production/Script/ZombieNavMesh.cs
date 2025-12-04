@@ -6,10 +6,10 @@ public class ZombieNavMesh : MonoBehaviour
     [Header("Infect Settings")]
     public float infectDistance = 1.2f;
 
-    [Header("Move Speeds (BlendTree 기준)")]
-    [SerializeField] private float walkSpeed = 1.8f;     // 더 빠른 Walk
-    [SerializeField] private float runSpeed = 4f;        // Run 유지
-    [SerializeField] private float chaseDistance = 5f;   // 5m 이내면 Run
+    [Header("Move Speeds")]
+    [SerializeField] private float walkSpeed = 1.8f;
+    [SerializeField] private float runSpeed = 4f;
+    [SerializeField] private float chaseDistance = 5f;
 
     [Header("Pool")]
     public string zombiePoolKey = "Zombie";
@@ -21,6 +21,9 @@ public class ZombieNavMesh : MonoBehaviour
     private float timer;
     private Vector3 lastTargetPos;
     private Animator anim;
+
+    // 현재 재생 중인 애니메이션 Trigger 이름
+    private string currentAnim = "";
 
     void Start()
     {
@@ -53,9 +56,20 @@ public class ZombieNavMesh : MonoBehaviour
         }
 
         TryInfect();
+    }
 
-        // BlendTree MoveSpeed 업데이트
-        anim.SetFloat("MoveSpeed", agent.velocity.magnitude);
+    // ------- ANIMATION HELPER -------
+    void PlayAnim(string trigger)
+    {
+        if (currentAnim == trigger) return; // 중복 재생 방지
+
+        currentAnim = trigger;
+
+        anim.ResetTrigger("Idle");
+        anim.ResetTrigger("Walk");
+        anim.ResetTrigger("Run");
+
+        anim.SetTrigger(trigger);
     }
 
     // ---------------- FIND NEAREST CITIZEN ----------------
@@ -81,12 +95,13 @@ public class ZombieNavMesh : MonoBehaviour
             }
         }
 
-        // 타겟 없으면 멈춤
+        // 타겟 없으면 Idle 상태
         if (nearest == null)
         {
             agent.isStopped = true;
             targetCitizen = null;
             agent.ResetPath();
+            PlayAnim("Idle");   // ← 여기서 Idle 재생
             return;
         }
 
@@ -110,7 +125,7 @@ public class ZombieNavMesh : MonoBehaviour
             }
         }
 
-        // ★ 이동 속도 / 애니메이션 결정
+        // 속도 / 애니메이션 결정
         HandleSpeedBasedOnDistance(nearest);
     }
 
@@ -119,15 +134,16 @@ public class ZombieNavMesh : MonoBehaviour
     {
         float dist = Vector3.Distance(transform.position, target.transform.position);
 
-        // 5m 이내 → Run
+        // 가까우면 Run
         if (dist <= chaseDistance)
         {
             agent.speed = runSpeed;
+            PlayAnim("Run");
         }
-        // 멀리 있으면 → 빠르게 Walk
         else
         {
             agent.speed = walkSpeed;
+            PlayAnim("Walk");
         }
     }
 
@@ -154,6 +170,8 @@ public class ZombieNavMesh : MonoBehaviour
         agent.isStopped = true;
         targetCitizen = null;
         agent.ResetPath();
+
+        // 새 타겟 즉시 탐색
         FindNearestCitizen();
     }
 
