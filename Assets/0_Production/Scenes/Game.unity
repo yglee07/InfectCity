@@ -283,6 +283,9 @@ MonoBehaviour:
   - key: Zombie
     prefab: {fileID: 8265895907174677282, guid: 2b6670fa9fce97c44bccc9c084912bbe, type: 3}
     preloadCount: 20
+  - key: Mutant
+    prefab: {fileID: 8265895907174677282, guid: 243a88791018a0d468448d4968a3a0a1, type: 3}
+    preloadCount: 10
 --- !u!1 &490376208
 GameObject:
   m_ObjectHideFlags: 0
@@ -331,6 +334,11 @@ MonoBehaviour:
   gameView: {fileID: 299420117}
   uiLobby: {fileID: 2094395832}
   uiGameHUD: {fileID: 918648271}
+--- !u!4 &640164392 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7977078548636471046, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
+  m_PrefabInstance: {fileID: 2072466994001463533}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &918648271 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8909585198885326194, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
@@ -781,6 +789,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Citizens: []
   Zombies: []
+  zombiePrefab: {fileID: 0}
 --- !u!1 &1711083307
 GameObject:
   m_ObjectHideFlags: 0
@@ -933,22 +942,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 276295320}
     m_Modifications:
-    - target: {fileID: 1322990601384835992, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322990601384835992, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322990601384835992, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 42
-      objectReference: {fileID: 0}
-    - target: {fileID: 1322990601384835992, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 4272073155346714097, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
       propertyPath: m_Name
       value: UI_Lobby
@@ -1155,6 +1148,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1980482280}
     m_Modifications:
+    - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
+      propertyPath: uiGame
+      value: 
+      objectReference: {fileID: 918648275}
+    - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
+      propertyPath: npcManager
+      value: 
+      objectReference: {fileID: 1540442432}
+    - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
+      propertyPath: levelContainer
+      value: 
+      objectReference: {fileID: 640164392}
+    - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
+      propertyPath: levelPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
+      propertyPath: 'levelPrefabs.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1261747436639895672, guid: 8966889eecf8e0146a8a6842e080fb5c, type: 3}
     - target: {fileID: 4379723872547637043, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: m_Name
       value: Game

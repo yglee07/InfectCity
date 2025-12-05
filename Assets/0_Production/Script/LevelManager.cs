@@ -16,21 +16,21 @@ public class LevelManager : MonoBehaviour
 
     public void LoadLevelByStage(int stage)
     {
-        // stage 1 → index 0 로 변환
-        int index = stage - 1;
+        int total = levelPrefabs.Length;
 
-        if (index < 0 || index >= levelPrefabs.Length)
-        {
-            Debug.LogError($"LoadLevelByStage 실패! stage={stage} index={index} 범위 밖");
-            return;
-        }
+        // stage는 그대로 사용하되,
+        // 프리팹은 modulo로 반복
+        int index = (stage - 1) % total;
 
-        // 이전 레벨 제거
+        // 기존 레벨 삭제
         if (currentLevel != null)
             Destroy(currentLevel);
 
         // 새 레벨 생성
-        currentLevel = Instantiate(levelPrefabs[index]);
+        currentLevel = Instantiate(
+    levelPrefabs[index],
+    Game.Instance.levelContainer 
+);
         currentLevel.name = $"Level_{stage}";
     }
 }

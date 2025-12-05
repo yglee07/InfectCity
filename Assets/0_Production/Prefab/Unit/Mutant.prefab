@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4988856356992700726}
   - component: {fileID: 4279564206741621357}
   m_Layer: 6
-  m_Name: Zombie
+  m_Name: Mutant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,8 +28,8 @@ Transform:
   m_GameObject: {fileID: 8265895907174677282}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.79, y: 0.3, z: -11.78}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.17, y: 0.3, z: -2.69}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1800964860620319696}

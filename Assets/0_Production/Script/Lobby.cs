@@ -46,8 +46,5 @@ public class Lobby : MonoBehaviour
         ui.UpdateCountryUI(info.displayName, progress);
     }
 
-    public void OnClickPlay()
-    {
-        GameManager.Instance.StartGame();
-    }
+  
 }

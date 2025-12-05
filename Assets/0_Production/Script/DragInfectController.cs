@@ -20,6 +20,10 @@ public class DragInfectController : MonoBehaviour
     [Header("Preview Colors")]
     public Color normalColor = new Color(0f, 1f, 0f, 0.3f);
     public Color alertColor = new Color(1f, 0f, 0f, 0.3f);
+
+    [Header("Charges")]
+    public int maxCharges = 1;
+    public int currentCharges;
     void Start()
     {
         CreatePreviewQuad();
@@ -27,6 +31,12 @@ public class DragInfectController : MonoBehaviour
 
     void Update()
     {
+        if (currentCharges <= 0)
+        {
+            HideQuad();
+            return;
+        }
+
 #if UNITY_EDITOR
         HandleMouse();
 #else
@@ -138,6 +148,13 @@ public class DragInfectController : MonoBehaviour
     // =========================================
     void EndDrag(Vector2 screenPos)
     {
+        if (currentCharges <= 0)
+        {
+            HideQuad();
+            return;
+        }
+
+
         HideQuad();
 
         Vector3 worldPos;
@@ -145,6 +162,8 @@ public class DragInfectController : MonoBehaviour
             return;
 
         InfectArea(worldPos, explosionRadius);
+        currentCharges--;
+        Game.Instance.uiGame.UpdateCharges(currentCharges, maxCharges);
     }
 
     // =========================================
@@ -183,7 +202,10 @@ public class DragInfectController : MonoBehaviour
                 Vector3 spawnPos = c.transform.position;
 
                 c.Infect();
-                PoolManager.Instance.Spawn("Zombie", spawnPos, Quaternion.identity);
+                string key = NPCManager.Instance.GetZombiePoolKey();
+
+                var zombie = PoolManager.Instance.Spawn(key, spawnPos, Quaternion.identity);
+
             }
         }
     }

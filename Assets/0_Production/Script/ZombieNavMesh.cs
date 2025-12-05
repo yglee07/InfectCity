@@ -166,7 +166,9 @@ public class ZombieNavMesh : MonoBehaviour
         targetCitizen.Infect();
 
         // 새 좀비 생성
-        PoolManager.Instance.Spawn(zombiePoolKey, spawnPos, Quaternion.identity);
+        string key = NPCManager.Instance.GetZombiePoolKey();
+
+        var zombie = PoolManager.Instance.Spawn(key, spawnPos, Quaternion.identity);
 
         // 추적 초기화
         agent.isStopped = true;

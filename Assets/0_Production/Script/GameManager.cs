@@ -50,9 +50,7 @@ public class GameManager : MonoBehaviour
         uiLobby.SetActive(false);
         uiGameHUD.SetActive(true);
 
-        int stage = SaveSystem.Data.stage;
-
-        LevelManager.Instance.LoadLevelByStage(stage);
+ 
     }
 
     // ============================

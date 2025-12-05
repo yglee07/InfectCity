@@ -41,9 +41,9 @@ public class InfectorNamePopup : MonoBehaviour
         
         
         // HUD에 직접 반영
-        if (hud != null)
-            hud.UpdateInfectorName(name);
-        Debug.Log("Infector Name: " + InfectorName.Current);
+        //if (hud != null)
+        //    hud.UpdateInfectorName(name);
+        //Debug.Log("Infector Name: " + InfectorName.Current);
 
         // 팝업 닫기
         this.gameObject.SetActive(false);

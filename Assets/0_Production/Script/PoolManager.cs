@@ -93,6 +93,14 @@ public class PoolManager : MonoBehaviour
             agent.enabled = true;
         }
 
+        // =====================================================
+        //  사용 중 오브젝트는 자동으로 '현재 레벨' 밑으로 들어가게 함
+        // =====================================================
+        if (Game.Instance != null && Game.Instance.CurrentLevelTransform != null)
+            obj.transform.SetParent(Game.Instance.CurrentLevelTransform);
+        else
+            obj.transform.SetParent(null); // 예외 상황용
+
         return obj;
     }
 
