@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8265895907174677282}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 1.97}
+  m_LocalPosition: {x: 0.17, y: -1.4290986, z: -2.06066}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -93,6 +93,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   infectDistance: 1.2
+  walkSpeed: 1.2
+  runSpeed: 4
+  chaseDistance: 7
   zombiePoolKey: Zombie
   targetCitizen: {fileID: 0}
 --- !u!1001 &7102830507066114852

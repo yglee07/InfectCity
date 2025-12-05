@@ -2,26 +2,73 @@
 
 public class GameManager : MonoBehaviour
 {
-    void OnGUI()
+    public static GameManager Instance;
+
+    [Header("View Groups")]
+    public GameObject lobbyView;    // View/Lobby
+    public GameObject gameView;     // View/Game
+
+    [Header("UI Groups")]
+    public GameObject uiLobby;      // UI/UI_Lobby
+    public GameObject uiGameHUD;    // UI/UI_GameHUD
+
+    void Awake()
     {
-        GUIStyle style = new GUIStyle(GUI.skin.label);
-        style.fontSize = 36;               // 글씨 크게
-        style.fontStyle = FontStyle.Bold;  // 볼드체
-        style.normal.textColor = Color.white;
+        SaveSystem.Load();
+        Instance = this;
+    }
 
-        // 간단한 그림자 효과 (두 번째 텍스트를 어둡게 해서 약간 뒤에 출력)
-        GUIStyle shadow = new GUIStyle(style);
-        shadow.normal.textColor = new Color(0, 0, 0, 0.6f);
+    void Start()
+    {
+        ShowLobby();
+    }
 
-        float x = 30f;
-        float y = 200f;
+    // ============================
+    //         LOBBY
+    // ============================
+    public void ShowLobby()
+    {
+        // View 활성화
+        lobbyView.SetActive(true);
+        gameView.SetActive(false);
 
-        // 그림자 먼저
-        GUI.Label(new Rect(x + 2, y + 2, 900, 60), "▶ 1번을 누르면 Level1이 생성됩니다.", shadow);
-        GUI.Label(new Rect(x + 2, y + 52, 900, 60), "▶ 화면을 드래그하면 범위 내 시민들이 감염됩니다.", shadow);
+        // UI 활성화
+        uiLobby.SetActive(true);
+        uiGameHUD.SetActive(false);
 
-        // 본문 텍스트
-        GUI.Label(new Rect(x, y, 900, 60), "▶ 1번을 누르면 Level1이 생성됩니다.", style);
-        GUI.Label(new Rect(x, y + 50, 900, 60), "▶ 화면을 드래그하면 범위 내 시민들이 감염됩니다.", style);
+        // 로비 새로고침
+        Lobby lobby = lobbyView.GetComponent<Lobby>();
+        if (lobby != null)
+            lobby.RefreshLobby();
+    }
+
+    // ============================
+    //         GAME
+    // ============================
+    public void StartGame()
+    {
+        // View 활성화
+        lobbyView.SetActive(false);
+        gameView.SetActive(true);
+
+        // UI 활성화
+        uiLobby.SetActive(false);
+        uiGameHUD.SetActive(true);
+
+        // 게임 로직 시작
+        LevelManager.Instance.LoadLevel(0);
+    }
+
+    public void ReturnToLobby()
+    {
+        ShowLobby();
+    }
+
+    public void OnGameClear()
+    {
+        SaveSystem.Data.stage++;
+        SaveSystem.Save();
+
+        ReturnToLobby();
     }
 }

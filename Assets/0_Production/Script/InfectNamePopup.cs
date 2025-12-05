@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class InfectorNamePopup : MonoBehaviour
 {
-    public TopBarHUD hud;  // ← 여기 public reference
+    public UIGame hud;  // ← 여기 public reference
     [Header("UI References")]
     public TMP_InputField inputField;
     public Button playButton;

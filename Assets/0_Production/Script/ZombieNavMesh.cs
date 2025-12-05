@@ -36,12 +36,14 @@ public class ZombieNavMesh : MonoBehaviour
 
     void OnEnable()
     {
-        NPCManager.Instance.RegisterZombie(this);
+        if (NPCManager.Instance != null)
+            NPCManager.Instance.RegisterZombie(this);
     }
 
     void OnDisable()
     {
-        NPCManager.Instance.UnregisterZombie(this);
+        if (NPCManager.Instance != null)
+            NPCManager.Instance.UnregisterZombie(this);
     }
 
     void Update()

@@ -1,0 +1,25 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2d6234b94a6fd24facc09ed8c2657ee, type: 3}
+  m_Name: CountryDatabase
+  m_EditorClassIdentifier: 
+  countries:
+  - id: 1
+    displayName: China
+    startStage: 1
+    endStage: 9
+    prefab: {fileID: 820875494354719102, guid: cef1973b13cc05a438415c85e4065e6b, type: 3}
+  - id: 2
+    displayName: US
+    startStage: 10
+    endStage: 19
+    prefab: {fileID: 3351769008109284831, guid: b8416eaf2bc4cf145a953bf92c970d8d, type: 3}

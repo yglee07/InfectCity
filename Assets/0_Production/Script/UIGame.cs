@@ -2,7 +2,7 @@
 using TMPro;
 using UnityEngine.UI;
 
-public class TopBarHUD : MonoBehaviour
+public class UIGame : MonoBehaviour
 {
     [Header("UI Text")]
     public TMP_Text infectorNameText;

@@ -7,6 +7,12 @@ public class LevelManager : MonoBehaviour
 
     private GameObject currentLevel;
 
+    public static LevelManager Instance;
+
+    void Awake()
+    {
+        Instance = this;
+    }
     void Update()
     {
         // 키보드 숫자 1~9 입력 처리
