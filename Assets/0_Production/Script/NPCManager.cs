@@ -5,36 +5,71 @@ public class NPCManager : MonoBehaviour
 {
     public static NPCManager Instance;
 
-    [Header("Active Citizens")]
     public List<CitizenNavMesh> Citizens = new List<CitizenNavMesh>();
-
-    [Header("Active Zombies")]
     public List<ZombieNavMesh> Zombies = new List<ZombieNavMesh>();
+
+    public GameObject zombiePrefab;
+
+    [Header("Mutant Settings")]
+    [Range(0f, 1f)]
+    public float mutantChance = 0.1f; // 10% 확률
 
     void Awake()
     {
         Instance = this;
     }
 
-    public void RegisterCitizen(CitizenNavMesh c)
+
+    // ======================
+    //   REGISTER / UNREGISTER
+    // ======================
+    public void RegisterCitizen(CitizenNavMesh citizen)
     {
-        if (!Citizens.Contains(c))
-            Citizens.Add(c);
+        if (!Citizens.Contains(citizen))
+            Citizens.Add(citizen);
     }
 
-    public void UnregisterCitizen(CitizenNavMesh c)
+    public void UnregisterCitizen(CitizenNavMesh citizen)
     {
-        Citizens.Remove(c);
+        if (Citizens.Contains(citizen))
+            Citizens.Remove(citizen);
     }
 
-    public void RegisterZombie(ZombieNavMesh z)
+    public void RegisterZombie(ZombieNavMesh zombie)
     {
-        if (!Zombies.Contains(z))
-            Zombies.Add(z);
+        if (!Zombies.Contains(zombie))
+            Zombies.Add(zombie);
     }
 
-    public void UnregisterZombie(ZombieNavMesh z)
+    public void UnregisterZombie(ZombieNavMesh zombie)
     {
-        Zombies.Remove(z);
+        if (Zombies.Contains(zombie))
+            Zombies.Remove(zombie);
     }
+
+
+
+    public string GetZombiePoolKey()
+    {
+        return (Random.value < mutantChance) ? "Mutant" : "Zombie";
+    }
+    // ======================
+    //     CLEAR / PROGRESS
+    // ======================
+    public bool IsStageClear()
+    {
+        return Citizens.Count == 0;
+    }
+
+    public float InfectionProgress
+    {
+        get
+        {
+            int total = Citizens.Count + Zombies.Count;
+            return (total == 0) ? 0f : (float)Zombies.Count / total;
+        }
+    }
+
+    public int CurrentCitizenCount => Citizens.Count;
+    public int CurrentZombieCount => Zombies.Count;
 }

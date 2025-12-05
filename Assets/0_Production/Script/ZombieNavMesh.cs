@@ -3,6 +3,8 @@ using UnityEngine.AI;
 
 public class ZombieNavMesh : MonoBehaviour
 {
+    public ZombieStats stats;
+
     [Header("Infect Settings")]
     public float infectDistance = 1.2f;
 
@@ -25,7 +27,7 @@ public class ZombieNavMesh : MonoBehaviour
     // 현재 재생 중인 애니메이션 Trigger 이름
     private string currentAnim = "";
 
-    void Start()
+    private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
         agent.acceleration = 20f;
@@ -33,15 +35,42 @@ public class ZombieNavMesh : MonoBehaviour
 
         anim = GetComponentInChildren<Animator>();
     }
+  
 
+    public void ApplyStats()
+    {
+        if (stats == null) return;
+        if (agent == null) return;
+
+
+        infectDistance = stats.infectDistance * stats.sizeMultiplier; // 자동 반영 추천
+
+        walkSpeed = stats.walkSpeed;
+        runSpeed = stats.runSpeed;
+        chaseDistance = stats.chaseDistance;
+
+        // 크기 적용
+        transform.localScale = Vector3.one * stats.sizeMultiplier;
+
+        // 애니메이션 속도
+        if (anim != null)
+            anim.speed = stats.animSpeed;
+
+        // NavMeshAgent 초기 속도 설정
+        agent.speed = walkSpeed;
+    }
     void OnEnable()
     {
-        NPCManager.Instance.RegisterZombie(this);
+        if (NPCManager.Instance != null)
+            NPCManager.Instance.RegisterZombie(this);
+
+        ApplyStats();
     }
 
     void OnDisable()
     {
-        NPCManager.Instance.UnregisterZombie(this);
+        if (NPCManager.Instance != null)
+            NPCManager.Instance.UnregisterZombie(this);
     }
 
     void Update()
@@ -164,7 +193,9 @@ public class ZombieNavMesh : MonoBehaviour
         targetCitizen.Infect();
 
         // 새 좀비 생성
-        PoolManager.Instance.Spawn(zombiePoolKey, spawnPos, Quaternion.identity);
+        string key = NPCManager.Instance.GetZombiePoolKey();
+
+        var zombie = PoolManager.Instance.Spawn(key, spawnPos, Quaternion.identity);
 
         // 추적 초기화
         agent.isStopped = true;
