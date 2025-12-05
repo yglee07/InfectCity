@@ -13,7 +13,46 @@ public class UIGame : MonoBehaviour
 
     [Header("Skill")]
     public TMP_Text dragChargesText; // Drag skill charges 표시
+    [Header("Popups")]
+    public GameObject popupComplete;
+    public GameObject popupFailed;
+    [Header("Popup Buttons")]
+    public Button btnCompleteOK;
+    public Button btnFailedOK;
+    void Awake()
+    {
+        if (btnCompleteOK != null)
+            btnCompleteOK.onClick.AddListener(OnClickCompleteOK);
 
+        if (btnFailedOK != null)
+            btnFailedOK.onClick.AddListener(OnClickFailedOK);
+    }
+    public void ShowCompletePopup()
+    {
+        popupComplete.SetActive(true);
+    }
+
+    public void ShowFailedPopup()
+    {
+        popupFailed.SetActive(true);
+    }
+
+    public void OnClickCompleteOK()
+    {
+        SaveSystem.Data.stage++;
+        SaveSystem.Save();
+
+        popupComplete.SetActive(false);
+
+        GameManager.Instance.ReturnToLobby();
+    }
+
+    public void OnClickFailedOK()
+    {
+        popupFailed.SetActive(false);
+
+        GameManager.Instance.ReturnToLobby();
+    }
     public void SetStage(int stage)
     {
         stageText.text = $"Stage {stage}";

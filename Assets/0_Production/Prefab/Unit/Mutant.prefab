@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d642254465b27c4ea0dc7446a22f8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 9048f74b7cef3ea41a1ccf222b85be6c, type: 2}
   infectDistance: 1.2
   walkSpeed: 1.2
   runSpeed: 4

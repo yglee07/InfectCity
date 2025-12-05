@@ -111,7 +111,8 @@ public class Game : MonoBehaviour
     private void StageClear()
     {
         isPlaying = false;
-        GameManager.Instance.OnGameClear();
+        uiGame.ShowCompletePopup();
+        //GameManager.Instance.OnGameClear();
     }
 
 
@@ -121,6 +122,7 @@ public class Game : MonoBehaviour
     public void StageFail()
     {
         isPlaying = false;
-        GameManager.Instance.ReturnToLobby();
+        uiGame.ShowFailedPopup();    // ← 실패 팝업
+        //GameManager.Instance.ReturnToLobby();
     }
 }

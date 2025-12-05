@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 8265895907174677282}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.79, y: 0.3, z: -11.78}
+  m_LocalPosition: {x: 0.17, y: 0.3, z: -2.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -92,6 +92,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d642254465b27c4ea0dc7446a22f8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stats: {fileID: 11400000, guid: 1e44c44cbe5d0984da1b84e377401339, type: 2}
   infectDistance: 1.2
   walkSpeed: 1.2
   runSpeed: 4
