@@ -2,34 +2,26 @@
 
 public class LevelManager : MonoBehaviour
 {
-    [Header("Level Prefabs (순서대로 Level1, Level2, Level3...)")]
-    public GameObject[] levelPrefabs;
-
-    private GameObject currentLevel;
-
     public static LevelManager Instance;
 
     void Awake()
     {
         Instance = this;
     }
-    void Update()
-    {
-        // 키보드 숫자 1~9 입력 처리
-        for (int i = 1; i <= levelPrefabs.Length; i++)
-        {
-            if (Input.GetKeyDown(i.ToString()))
-            {
-                LoadLevel(i - 1); // 배열은 0부터니까 -1
-            }
-        }
-    }
 
-    public void LoadLevel(int index)
+    [Header("Level Prefabs")]
+    public GameObject[] levelPrefabs;
+
+    private GameObject currentLevel;
+
+    public void LoadLevelByStage(int stage)
     {
+        // stage 1 → index 0 로 변환
+        int index = stage - 1;
+
         if (index < 0 || index >= levelPrefabs.Length)
         {
-            Debug.LogError($"레벨 인덱스 {index} 잘못됨!");
+            Debug.LogError($"LoadLevelByStage 실패! stage={stage} index={index} 범위 밖");
             return;
         }
 
@@ -39,8 +31,6 @@ public class LevelManager : MonoBehaviour
 
         // 새 레벨 생성
         currentLevel = Instantiate(levelPrefabs[index]);
-        currentLevel.name = $"Level_{index + 1}";
-
-        Debug.Log($"Loaded Level {index + 1}");
+        currentLevel.name = $"Level_{stage}";
     }
 }

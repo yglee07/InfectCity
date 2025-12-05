@@ -5,12 +5,12 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
 
     [Header("View Groups")]
-    public GameObject lobbyView;    // View/Lobby
-    public GameObject gameView;     // View/Game
+    public GameObject lobbyView;
+    public GameObject gameView;
 
     [Header("UI Groups")]
-    public GameObject uiLobby;      // UI/UI_Lobby
-    public GameObject uiGameHUD;    // UI/UI_GameHUD
+    public GameObject uiLobby;
+    public GameObject uiGameHUD;
 
     void Awake()
     {
@@ -28,15 +28,12 @@ public class GameManager : MonoBehaviour
     // ============================
     public void ShowLobby()
     {
-        // View 활성화
         lobbyView.SetActive(true);
         gameView.SetActive(false);
 
-        // UI 활성화
         uiLobby.SetActive(true);
         uiGameHUD.SetActive(false);
 
-        // 로비 새로고침
         Lobby lobby = lobbyView.GetComponent<Lobby>();
         if (lobby != null)
             lobby.RefreshLobby();
@@ -47,23 +44,36 @@ public class GameManager : MonoBehaviour
     // ============================
     public void StartGame()
     {
-        // View 활성화
         lobbyView.SetActive(false);
         gameView.SetActive(true);
 
-        // UI 활성화
         uiLobby.SetActive(false);
         uiGameHUD.SetActive(true);
 
-        // 게임 로직 시작
-        LevelManager.Instance.LoadLevel(0);
+        int stage = SaveSystem.Data.stage;
+
+        LevelManager.Instance.LoadLevelByStage(stage);
     }
 
+    // ============================
+    //     RETURN TO LOBBY
+    // ============================
     public void ReturnToLobby()
     {
-        ShowLobby();
+        uiLobby.SetActive(true);
+        uiGameHUD.SetActive(false);
+
+        lobbyView.SetActive(true);
+        gameView.SetActive(false);
+
+        Lobby lobby = lobbyView.GetComponent<Lobby>();
+        if (lobby != null)
+            lobby.RefreshLobby();
     }
 
+    // ============================
+    //     GAME CLEAR EVENT
+    // ============================
     public void OnGameClear()
     {
         SaveSystem.Data.stage++;
