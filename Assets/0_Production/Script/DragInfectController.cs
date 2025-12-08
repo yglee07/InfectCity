@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class DragInfectController : MonoBehaviour
 {
@@ -24,6 +25,8 @@ public class DragInfectController : MonoBehaviour
     [Header("Charges")]
     public int maxCharges = 1;
     public int currentCharges;
+
+    private List<CitizenNavMesh> highlighted = new List<CitizenNavMesh>();
     void Start()
     {
         CreatePreviewQuad();
@@ -94,6 +97,8 @@ public class DragInfectController : MonoBehaviour
         float scaled = explosionRadius * 2f;
         previewQuad.localScale = new Vector3(scaled, scaled, 1f);
 
+        UpdateCitizenHighlights(worldPos);
+
         bool detected = IsCitizenInside(previewWorldPos, explosionRadius);
         quadRenderer.material.color = detected ? alertColor : normalColor;
     }
@@ -148,6 +153,8 @@ public class DragInfectController : MonoBehaviour
     // =========================================
     void EndDrag(Vector2 screenPos)
     {
+        ClearHighlights();
+
         if (currentCharges <= 0)
         {
             HideQuad();
@@ -226,5 +233,49 @@ public class DragInfectController : MonoBehaviour
 
         return false;
     }
+    void UpdateCitizenHighlights(Vector3 center)
+    {
+        float r2 = explosionRadius * explosionRadius;
+        var citizens = NPCManager.Instance.Citizens;
 
+        List<CitizenNavMesh> inside = new List<CitizenNavMesh>();
+
+        for (int i = 0; i < citizens.Count; i++)
+        {
+            var c = citizens[i];
+            if (c == null || !c.gameObject.activeInHierarchy) continue;
+
+            float dist = (c.transform.position - center).sqrMagnitude;
+
+            if (dist <= r2)
+            {
+                inside.Add(c);
+
+                if (!highlighted.Contains(c))
+                {
+                    highlighted.Add(c);
+                    c.GetComponent<OutlineController>()?.SetHighlight(true);
+                }
+            }
+        }
+
+        // 범위 벗어난 시민 하이라이트 제거
+        for (int i = highlighted.Count - 1; i >= 0; i--)
+        {
+            var c = highlighted[i];
+            if (!inside.Contains(c))
+            {
+                c.GetComponent<OutlineController>()?.SetHighlight(false);
+                highlighted.RemoveAt(i);
+            }
+        }
+    }
+
+    void ClearHighlights()
+    {
+        foreach (var c in highlighted)
+            c.GetComponent<OutlineController>()?.SetHighlight(false);
+
+        highlighted.Clear();
+    }
 }

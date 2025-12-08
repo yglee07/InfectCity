@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6431116152711520376}
   - component: {fileID: 4988856356992700726}
   - component: {fileID: 4279564206741621357}
+  - component: {fileID: 1797190334640182588}
   m_Layer: 6
   m_Name: Zombie
   m_TagString: Untagged
@@ -99,6 +100,19 @@ MonoBehaviour:
   chaseDistance: 7
   zombiePoolKey: Zombie
   targetCitizen: {fileID: 0}
+--- !u!114 &1797190334640182588
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8265895907174677282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9091771d4e333224393a355745b3769e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  highlightColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &7102830507066114852
 PrefabInstance:
   m_ObjectHideFlags: 0

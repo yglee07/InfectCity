@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 867448605703015536}
   - component: {fileID: 6989306695252396011}
   - component: {fileID: 3945762368813651091}
+  - component: {fileID: 5620326103552762710}
   m_Layer: 3
   m_Name: Citizen
   m_TagString: Untagged
@@ -92,6 +93,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53cc35c1bcefcdc409703e4fe7736bbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  idleMin: 0.5
+  idleMax: 2
   wanderSpeed: 2
   fleeSpeed: 4
   wanderRadius: 5
@@ -102,6 +105,22 @@ MonoBehaviour:
   zombieLayer:
     serializedVersion: 2
     m_Bits: 64
+--- !u!114 &5620326103552762710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7809207238147872883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9091771d4e333224393a355745b3769e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rend: {fileID: 0}
+  outlineMat: {fileID: 0}
+  normalColor: {r: 0, g: 0, b: 0, a: 0}
+  highlightColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1001 &6015698864426541913
 PrefabInstance:
   m_ObjectHideFlags: 0
