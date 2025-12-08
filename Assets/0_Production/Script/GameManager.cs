@@ -76,6 +76,7 @@ public class GameManager : MonoBehaviour
     public void OnGameClear()
     {
         SaveSystem.Data.stage++;
+        SaveSystem.Data.coin += 10;
         SaveSystem.Save();
 
         ReturnToLobby();

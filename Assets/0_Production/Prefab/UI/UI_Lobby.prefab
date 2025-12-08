@@ -307,6 +307,7 @@ MonoBehaviour:
   countryNameText: {fileID: 1520806959666600364}
   percentText: {fileID: 439560703651519568}
   levelText: {fileID: 8713479639670191685}
+  coinText: {fileID: 5131974337064278426}
   gaugeSlider: {fileID: 3766410040406434149}
   startButton: {fileID: 7202957005307361732}
 --- !u!1001 &516531923016844706
@@ -1458,3 +1459,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6593344280321785815, guid: 3df2f25e396bcd549b8e52d8ebd77f36, type: 3}
   m_PrefabInstance: {fileID: 8686530355038073850}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &5131974337064278426 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4590485431506840160, guid: 3df2f25e396bcd549b8e52d8ebd77f36, type: 3}
+  m_PrefabInstance: {fileID: 8686530355038073850}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

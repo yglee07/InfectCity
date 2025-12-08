@@ -8,12 +8,15 @@ public class UILobby : MonoBehaviour
     public TMP_Text countryNameText;   // 국가명
     public TMP_Text percentText;       // 퍼센트
     public TMP_Text levelText;         // "Level 999"
+    public TMP_Text coinText;     // 🔥 코인 UI 추가
 
     [Header("Gauge")]
     public Slider gaugeSlider;
 
     [Header("Buttons")]
     public Button startButton;         // ← Start 버튼
+
+
 
     void Start()
     {
@@ -44,6 +47,9 @@ public class UILobby : MonoBehaviour
         // 현재 스테이지 표시
         int stage = SaveSystem.Data.stage;
         levelText.text = $"Level {stage}";
+        // 🔥 코인 표시 업데이트
+        if (coinText != null)
+            coinText.text = SaveSystem.Data.coin.ToString();
     }
 
     private void OnClickStart()
