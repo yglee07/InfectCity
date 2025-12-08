@@ -32,13 +32,19 @@ public class CameraController : MonoBehaviour
 
     void ClampPosition()
     {
-        Vector3 pos = transform.position;
+        float distance = 10f; // 카메라와 실제 바라보는 지점의 거리(필요하면 변수화)
 
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.z = Mathf.Clamp(pos.z, minZ, maxZ);
+        // 카메라가 바라보는 지점 계산
+        Vector3 center = transform.position + transform.forward * distance;
 
-        transform.position = pos;
+        // Clamp는 center에 적용
+        center.x = Mathf.Clamp(center.x, minX, maxX);
+        center.z = Mathf.Clamp(center.z, minZ, maxZ);
+
+        // 다시 카메라 위치 계산
+        transform.position = center - transform.forward * distance;
     }
+
 
     void HandleMove()
     {

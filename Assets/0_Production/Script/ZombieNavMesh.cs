@@ -27,6 +27,9 @@ public class ZombieNavMesh : MonoBehaviour
     // 현재 재생 중인 애니메이션 Trigger 이름
     private string currentAnim = "";
 
+    [Header("Effects")]
+    public GameObject infectEffectPrefab;
+
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
@@ -188,6 +191,13 @@ public class ZombieNavMesh : MonoBehaviour
         if (sqrDist > infectSqr) return;
 
         Vector3 spawnPos = targetCitizen.transform.position;
+
+        // 감염 이펙트 생성
+        if (infectEffectPrefab != null)
+        {
+            GameObject fx = Instantiate(infectEffectPrefab);
+            fx.transform.position = spawnPos;
+        }
 
         // 시민 감염
         targetCitizen.Infect();
