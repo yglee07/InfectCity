@@ -20,6 +20,8 @@ public class CameraController : MonoBehaviour
 
 
     private Vector3 lastPos;
+
+    public Transform cameraPos;
     void Start()
     {
         cam = Camera.main;
@@ -102,7 +104,7 @@ public class CameraController : MonoBehaviour
 
             // 🔥 Perspective 줌은 카메라 위치 이동!
             Vector3 dir = cam.transform.forward;     // 카메라가 바라보는 방향
-            cam.transform.position -= dir * diff;    // 확대(가까이), 축소(멀리)
+            cam.transform.position += dir * diff;    // 확대(가까이), 축소(멀리)
 
             // 🔥 줌 범위 제한 (카메라 높이 기준)
             float height = cam.transform.position.y;
@@ -120,5 +122,13 @@ public class CameraController : MonoBehaviour
         pos.x = Mathf.Clamp(pos.x, minX, maxX);
         pos.z = Mathf.Clamp(pos.z, minZ, maxZ);
         transform.position = pos;
+    }
+
+    public void SnapToOrigin()
+    {
+        if (cameraPos == null) return;
+
+        cam.transform.position = cameraPos.position;
+        cam.transform.rotation = cameraPos.rotation;
     }
 }

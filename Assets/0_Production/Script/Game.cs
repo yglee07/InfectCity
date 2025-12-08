@@ -114,6 +114,8 @@ public class Game : MonoBehaviour
         isPlaying = false;
         uiGame.ShowCompletePopup();
         //GameManager.Instance.OnGameClear();
+        // 카메라 원위치 이동
+   
     }
 
 
@@ -142,5 +144,7 @@ public class Game : MonoBehaviour
         isPlaying = false;
         uiGame.ShowFailedPopup();    // ← 실패 팝업
         //GameManager.Instance.ReturnToLobby();
+           // 카메라 원위치 이동
+      
     }
 }

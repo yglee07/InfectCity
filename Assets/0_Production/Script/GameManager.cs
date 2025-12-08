@@ -30,15 +30,7 @@ public class GameManager : MonoBehaviour
     // ============================
     public void ShowLobby()
     {
-        lobbyView.SetActive(true);
-        gameView.SetActive(false);
-
-        uiLobby.SetActive(true);
-        uiGameHUD.SetActive(false);
-
-        Lobby lobby = lobbyView.GetComponent<Lobby>();
-        if (lobby != null)
-            lobby.RefreshLobby();
+        ActivateLobbyView();
     }
 
     // ============================
@@ -60,17 +52,24 @@ public class GameManager : MonoBehaviour
     // ============================
     public void ReturnToLobby()
     {
-        uiLobby.SetActive(true);
-        uiGameHUD.SetActive(false);
+        ActivateLobbyView();
+    }
+    private void ActivateLobbyView()
+    {
+        CameraController cam = Camera.main.GetComponent<CameraController>();
+        if (cam != null)
+            cam.SnapToOrigin();
 
         lobbyView.SetActive(true);
         gameView.SetActive(false);
+
+        uiLobby.SetActive(true);
+        uiGameHUD.SetActive(false);
 
         Lobby lobby = lobbyView.GetComponent<Lobby>();
         if (lobby != null)
             lobby.RefreshLobby();
     }
-
     // ============================
     //     GAME CLEAR EVENT
     // ============================
