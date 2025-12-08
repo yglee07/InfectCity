@@ -187,7 +187,7 @@ public class DragInfectController : MonoBehaviour
         if (explosionEffectPrefab != null)
         {
             GameObject fx = Instantiate(explosionEffectPrefab);
-            fx.transform.position = worldPos; // 위치만 적용 (회전/스케일은 프리팹대로)
+            fx.transform.position = infectPos + new Vector3(0, 1f, 0);
         }
 
         InfectArea(infectPos, explosionRadius);

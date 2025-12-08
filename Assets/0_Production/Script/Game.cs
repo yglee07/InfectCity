@@ -45,6 +45,7 @@ public class Game : MonoBehaviour
 
         UpdateHUD();
         CheckStageClear();
+        CheckStageFail();
     }
 
 
@@ -119,6 +120,23 @@ public class Game : MonoBehaviour
     // =============================
     //        FAIL CHECK
     // =============================
+    private void CheckStageFail()
+    {
+        // 시민 남아있고
+        bool citizensRemain = npcManager.CurrentCitizenCount > 0;
+
+        // 좀비 모두 사망
+        bool noZombies = npcManager.CurrentZombieCount == 0;
+
+        // 감염 스킬 0회
+        bool noCharges = dragInfector.currentCharges <= 0;
+
+        if (citizensRemain && noZombies && noCharges)
+        {
+            StageFail();
+        }
+    }
+
     public void StageFail()
     {
         isPlaying = false;
