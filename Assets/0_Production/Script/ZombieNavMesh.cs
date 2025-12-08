@@ -58,6 +58,10 @@ public class ZombieNavMesh : MonoBehaviour
         // 애니메이션 속도
         if (anim != null)
             anim.speed = stats.animSpeed;
+        // MoveSpeed 업그레이드 적용 (핵심!)
+        float multiplier = UpgradeManager.Instance.GetMoveSpeedMultiplier();
+        walkSpeed *= multiplier;
+        runSpeed *= multiplier;
 
         // NavMeshAgent 초기 속도 설정
         agent.speed = walkSpeed;
