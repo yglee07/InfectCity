@@ -30,6 +30,8 @@ public class DragInfectController : MonoBehaviour
     public GameObject explosionEffectPrefab;
 
     private List<CitizenNavMesh> highlighted = new List<CitizenNavMesh>();
+
+    public bool IsDraggingBomb => uiDragging;
     void Start()
     {
         CreatePreviewQuad();
@@ -37,7 +39,8 @@ public class DragInfectController : MonoBehaviour
 
     void Update()
     {
-        if (GameManager.Instance.controlMode != ControlMode.Infect)
+        // 폭탄 UI에서 끌어올 때만 동작하게
+        if (!uiDragging)
         {
             HideQuad();
             ClearHighlights();
@@ -50,14 +53,77 @@ public class DragInfectController : MonoBehaviour
             return;
         }
 
-#if UNITY_EDITOR
-        HandleMouse();
-#else
-        HandleTouch();
-#endif
+        // 여기서는 더 이상 HandleMouse/HandleTouch 필요 없음
+        // 드래그 위치는 BombButton에서 UpdatePreviewByScreenPos로 들어옴
+    }
+    private bool isActive = false;
 
-        if (isDragging)
-            UpdateQuadPreview();
+    public void Activate()
+    {
+        isActive = true;
+    }
+
+    public void Deactivate()
+    {
+        isActive = false;
+        HideQuad();
+        ClearHighlights();
+    }
+    // UI에서 활성화 여부
+    private bool uiDragging = false;
+
+    // UI에서 폭탄 드래그 시작
+    public void BeginUIDrag()
+    {
+        if (currentCharges <= 0) return;
+
+        uiDragging = true;
+        isDragging = true;          // 기존 플래그 그대로 활용
+    }
+
+    // UI 드래그 중 위치 업데이트
+    public void UpdatePreviewByScreenPos(Vector2 screenPos)
+    {
+        if (!uiDragging) return;
+
+        Vector3 worldPos;
+        if (!TryGetWorldPosition(screenPos, out worldPos))
+            return;
+
+        // 기존 UpdateQuadPreview 내용을 worldPos 기반으로 옮겨온 느낌
+        previewWorldPos = worldPos;
+
+        if (!previewQuad.gameObject.activeSelf)
+            previewQuad.gameObject.SetActive(true);
+
+        float offsetZ = 3f;
+        Vector3 offsetPos = worldPos + new Vector3(0, 0, offsetZ);
+
+        previewQuad.position = offsetPos + Vector3.up * quadHeightOffset;
+
+        if (Physics.Raycast(worldPos + Vector3.up, Vector3.down, out RaycastHit hit, 5f, groundMask))
+        {
+            previewQuad.rotation = Quaternion.FromToRotation(Vector3.back, hit.normal);
+        }
+
+        float scaled = explosionRadius * 2f;
+        previewQuad.localScale = new Vector3(scaled, scaled, 1f);
+
+        UpdateCitizenHighlights(worldPos);
+
+        bool detected = IsCitizenInside(previewWorldPos, explosionRadius);
+        quadRenderer.material.color = detected ? alertColor : normalColor;
+    }
+
+    // UI 드래그 끝(손 뗐을 때)
+    public void EndUIDrag(Vector2 screenPos)
+    {
+        if (!uiDragging) return;
+
+        uiDragging = false;
+        isDragging = false;
+
+        EndDrag(screenPos);   // 기존 로직 재사용
     }
 
     // =========================================
@@ -171,6 +237,7 @@ public class DragInfectController : MonoBehaviour
         if (currentCharges <= 0)
         {
             HideQuad();
+            Deactivate();   // ← 폭탄 사용 불가 상태로 자동 종료
             return;
         }
 
@@ -193,6 +260,8 @@ public class DragInfectController : MonoBehaviour
         InfectArea(infectPos, explosionRadius);
         currentCharges--;
         Game.Instance.uiGame.UpdateCharges(currentCharges, maxCharges);
+
+        Deactivate();
     }
 
     // =========================================

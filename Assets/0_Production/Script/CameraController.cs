@@ -22,19 +22,24 @@ public class CameraController : MonoBehaviour
     private Vector3 lastPos;
 
     public Transform cameraPos;
-    void Start()
+    void Awake()
     {
         cam = Camera.main;
     }
 
     void LateUpdate()
     {
-        if (GameManager.Instance.controlMode != ControlMode.Camera)
+        if (Game.Instance == null || !Game.Instance.gameObject.activeInHierarchy)
+            return;
+
+
+        // 폭탄 드래그 중이면 카메라 멈춤
+        if (Game.Instance.dragInfector != null &&
+            Game.Instance.dragInfector.IsDraggingBomb)
             return;
 
         HandleDrag();
         HandleZoom();
-
         ClampPosition();
     }
 
