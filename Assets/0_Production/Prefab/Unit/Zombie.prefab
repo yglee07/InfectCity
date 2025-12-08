@@ -100,6 +100,7 @@ MonoBehaviour:
   chaseDistance: 7
   zombiePoolKey: Zombie
   targetCitizen: {fileID: 0}
+  infectEffectPrefab: {fileID: 160118, guid: 73a3a14a35c722943ad82f0150bfeb69, type: 3}
 --- !u!114 &1797190334640182588
 MonoBehaviour:
   m_ObjectHideFlags: 0
