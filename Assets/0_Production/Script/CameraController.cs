@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 public class CameraController : MonoBehaviour
 {
-    public float moveSpeed = 0.1f;
-    public float zoomSpeed = 0.5f;
-    public float minZoom = 5;
-    public float maxZoom = 25;
+    [Header("Move")]
+    public float dragSpeed = 0.02f;
+
+    [Header("Zoom")]
+    public float zoomSpeed = 0.1f;
+    public float minZoom = 5f;
+    public float maxZoom = 25f;
+
 
     private Camera cam;
 
@@ -14,6 +18,8 @@ public class CameraController : MonoBehaviour
     public float minZ = -20f;
     public float maxZ = 20f;
 
+
+    private Vector3 lastPos;
     void Start()
     {
         cam = Camera.main;
@@ -24,41 +30,64 @@ public class CameraController : MonoBehaviour
         if (GameManager.Instance.controlMode != ControlMode.Camera)
             return;
 
-        HandleMove();
+        HandleDrag();
         HandleZoom();
 
         ClampPosition();
     }
 
-    void ClampPosition()
+    // -------------------------
+    // 자연스러운 드래그 이동
+    // -------------------------
+    void HandleDrag()
     {
-        float distance = 10f; // 카메라와 실제 바라보는 지점의 거리(필요하면 변수화)
+#if UNITY_EDITOR
+        // 마우스용
+        if (Input.GetMouseButtonDown(0))
+            lastPos = GetWorldPoint(Input.mousePosition);
 
-        // 카메라가 바라보는 지점 계산
-        Vector3 center = transform.position + transform.forward * distance;
-
-        // Clamp는 center에 적용
-        center.x = Mathf.Clamp(center.x, minX, maxX);
-        center.z = Mathf.Clamp(center.z, minZ, maxZ);
-
-        // 다시 카메라 위치 계산
-        transform.position = center - transform.forward * distance;
-    }
-
-
-    void HandleMove()
-    {
         if (Input.GetMouseButton(0))
         {
-            Vector3 delta = Input.mousePosition - lastMousePos;
-            Vector3 move = new Vector3(-delta.x, 0, -delta.y) * moveSpeed;
-
-            transform.position += move;
+            Vector3 newPos = GetWorldPoint(Input.mousePosition);
+            Vector3 diff = lastPos - newPos;
+            transform.position += diff;
         }
+#else
+        // 터치용
+        if (Input.touchCount == 1)
+        {
+            Touch t = Input.GetTouch(0);
 
-        lastMousePos = Input.mousePosition;
+            if (t.phase == TouchPhase.Began)
+                lastPos = GetWorldPoint(t.position);
+
+            if (t.phase == TouchPhase.Moved)
+            {
+                Vector3 newPos = GetWorldPoint(t.position);
+                Vector3 diff = lastPos - newPos;
+                transform.position += diff;
+            }
+        }
+#endif
     }
 
+    // 화면 → 월드 평면 위치 변환
+    Vector3 GetWorldPoint(Vector2 screen)
+    {
+        Ray ray = cam.ScreenPointToRay(screen);
+
+        Plane plane = new Plane(Vector3.up, Vector3.zero);
+        // y=0 지면 기준
+
+        if (plane.Raycast(ray, out float enter))
+            return ray.GetPoint(enter);
+
+        return transform.position;
+    }
+
+    // -------------------------
+    // 정확한 핀치 줌
+    // -------------------------
     void HandleZoom()
     {
         if (Input.touchCount == 2)
@@ -66,15 +95,30 @@ public class CameraController : MonoBehaviour
             Touch t0 = Input.GetTouch(0);
             Touch t1 = Input.GetTouch(1);
 
-            float prevDist = (t0.position - t1.position - t0.deltaPosition - t1.deltaPosition).magnitude;
+            float prevDist = (t0.position - t0.deltaPosition - (t1.position - t1.deltaPosition)).magnitude;
             float currDist = (t0.position - t1.position).magnitude;
 
-            float diff = currDist - prevDist;
+            float diff = (currDist - prevDist) * zoomSpeed;
 
-            cam.orthographicSize -= diff * zoomSpeed;
-            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, minZoom, maxZoom);
+            // 🔥 Perspective 줌은 카메라 위치 이동!
+            Vector3 dir = cam.transform.forward;     // 카메라가 바라보는 방향
+            cam.transform.position -= dir * diff;    // 확대(가까이), 축소(멀리)
+
+            // 🔥 줌 범위 제한 (카메라 높이 기준)
+            float height = cam.transform.position.y;
+            height = Mathf.Clamp(height, minZoom, maxZoom);
+            cam.transform.position = new Vector3(cam.transform.position.x, height, cam.transform.position.z);
         }
     }
 
-    Vector3 lastMousePos;
+    // -------------------------
+    // Clamp 카메라 위치
+    // -------------------------
+    void ClampPosition()
+    {
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, minX, maxX);
+        pos.z = Mathf.Clamp(pos.z, minZ, maxZ);
+        transform.position = pos;
+    }
 }
