@@ -1136,14 +1136,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 276295320}
     m_Modifications:
-    - target: {fileID: 849848397976280738, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2445485335019772577, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3193452064525689013, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1151,10 +1143,6 @@ PrefabInstance:
     - target: {fileID: 3193452064525689013, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4058749363881441123, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_Transition
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4842854323658360298, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_Pivot.x
@@ -1236,21 +1224,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6178467150875546752, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7360716553243475265, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_Transition
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8909585198885326194, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_Name
       value: UI_Game
-      objectReference: {fileID: 0}
-    - target: {fileID: 9188764129158172803, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_Enabled
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
