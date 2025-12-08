@@ -335,11 +335,6 @@ MonoBehaviour:
   uiLobby: {fileID: 2094395832}
   uiGameHUD: {fileID: 918648271}
   controlMode: 1
---- !u!4 &640164392 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 7977078548636471046, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
-  m_PrefabInstance: {fileID: 2072466994001463533}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &918648271 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8909585198885326194, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
@@ -515,6 +510,10 @@ MonoBehaviour:
   zoomSpeed: 0.5
   minZoom: 5
   maxZoom: 25
+  minX: -20
+  maxX: 20
+  minZ: -20
+  maxZ: 20
 --- !u!1 &1202978951
 GameObject:
   m_ObjectHideFlags: 0
@@ -1104,6 +1103,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 276295320}
     m_Modifications:
+    - target: {fileID: 849848397976280738, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2445485335019772577, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1200,6 +1203,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6178467150875546752, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7360716553243475265, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_Transition
       value: 1
@@ -1233,18 +1240,6 @@ PrefabInstance:
       propertyPath: npcManager
       value: 
       objectReference: {fileID: 1540442432}
-    - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
-      propertyPath: levelContainer
-      value: 
-      objectReference: {fileID: 640164392}
-    - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
-      propertyPath: levelPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
-      propertyPath: 'levelPrefabs.Array.data[0]'
-      value: 
-      objectReference: {fileID: 1261747436639895672, guid: 8966889eecf8e0146a8a6842e080fb5c, type: 3}
     - target: {fileID: 4379723872547637043, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: m_Name
       value: Game
