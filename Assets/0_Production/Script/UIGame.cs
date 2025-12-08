@@ -19,6 +19,9 @@ public class UIGame : MonoBehaviour
     [Header("Popup Buttons")]
     public Button btnCompleteOK;
     public Button btnFailedOK;
+    [Header("Mode Buttons")]
+    public Button btnInfectMode;
+    public Button btnCameraMode;
     void Awake()
     {
         if (btnCompleteOK != null)
@@ -26,6 +29,12 @@ public class UIGame : MonoBehaviour
 
         if (btnFailedOK != null)
             btnFailedOK.onClick.AddListener(OnClickFailedOK);
+
+        if (btnInfectMode != null)
+            btnInfectMode.onClick.AddListener(SetInfectMode);
+
+        if (btnCameraMode != null)
+            btnCameraMode.onClick.AddListener(SetCameraMode);
     }
     public void ShowCompletePopup()
     {
@@ -68,5 +77,15 @@ public class UIGame : MonoBehaviour
     public void UpdateCharges(int current, int max)
     {
         dragChargesText.text = $"{current}/{max}";
+    }
+
+    public void SetInfectMode()
+    {
+        GameManager.Instance.controlMode = ControlMode.Infect;
+    }
+
+    public void SetCameraMode()
+    {
+        GameManager.Instance.controlMode = ControlMode.Camera;
     }
 }

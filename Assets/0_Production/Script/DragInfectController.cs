@@ -34,6 +34,13 @@ public class DragInfectController : MonoBehaviour
 
     void Update()
     {
+        if (GameManager.Instance.controlMode != ControlMode.Infect)
+        {
+            HideQuad();
+            ClearHighlights();
+            return;
+        }
+
         if (currentCharges <= 0)
         {
             HideQuad();
