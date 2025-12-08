@@ -30,10 +30,13 @@ public class DragInfectController : MonoBehaviour
     public GameObject explosionEffectPrefab;
 
     private List<CitizenNavMesh> highlighted = new List<CitizenNavMesh>();
-
+    private float baseRadius;
     public bool IsDraggingBomb => uiDragging;
+    public float FinalRadius => baseRadius * UpgradeManager.Instance.GetBombRadiusMultiplier();
     void Start()
     {
+        baseRadius = explosionRadius;   // 인스펙터 기본값 저장
+   
         CreatePreviewQuad();
     }
 
@@ -106,12 +109,12 @@ public class DragInfectController : MonoBehaviour
             previewQuad.rotation = Quaternion.FromToRotation(Vector3.back, hit.normal);
         }
 
-        float scaled = explosionRadius * 2f;
+        float scaled = FinalRadius * 2f;
         previewQuad.localScale = new Vector3(scaled, scaled, 1f);
 
-        UpdateCitizenHighlights(worldPos);
+        UpdateCitizenHighlights(offsetPos,FinalRadius);
 
-        bool detected = IsCitizenInside(previewWorldPos, explosionRadius);
+        bool detected = IsCitizenInside(offsetPos, FinalRadius);
         quadRenderer.material.color = detected ? alertColor : normalColor;
     }
 
@@ -149,38 +152,38 @@ public class DragInfectController : MonoBehaviour
     // =========================================
     //   Quad Preview 업데이트
     // =========================================
-    void UpdateQuadPreview()
-    {
-        Vector3 worldPos;
-        if (!TryGetWorldPosition(Input.mousePosition, out worldPos))
-            return;
+    //void UpdateQuadPreview()
+    //{
+    //    Vector3 worldPos;
+    //    if (!TryGetWorldPosition(Input.mousePosition, out worldPos))
+    //        return;
 
-        previewWorldPos = worldPos;
+    //    previewWorldPos = worldPos;
 
-        if (!previewQuad.gameObject.activeSelf)
-            previewQuad.gameObject.SetActive(true);
+    //    if (!previewQuad.gameObject.activeSelf)
+    //        previewQuad.gameObject.SetActive(true);
 
-        // 위치 적용
-        float offsetZ = 3f;
-        Vector3 offsetPos = worldPos + new Vector3(0, 0, offsetZ);
+    //    // 위치 적용
+    //    float offsetZ = 3f;
+    //    Vector3 offsetPos = worldPos + new Vector3(0, 0, offsetZ);
 
-        previewQuad.position = offsetPos + Vector3.up * quadHeightOffset;
+    //    previewQuad.position = offsetPos + Vector3.up * quadHeightOffset;
 
-        // 지형 normal 따라 기울기 맞추기
-        if (Physics.Raycast(worldPos + Vector3.up, Vector3.down, out RaycastHit hit, 5f, groundMask))
-        {
-            previewQuad.rotation = Quaternion.FromToRotation(Vector3.back, hit.normal);
-        }
+    //    // 지형 normal 따라 기울기 맞추기
+    //    if (Physics.Raycast(worldPos + Vector3.up, Vector3.down, out RaycastHit hit, 5f, groundMask))
+    //    {
+    //        previewQuad.rotation = Quaternion.FromToRotation(Vector3.back, hit.normal);
+    //    }
 
-        // 스케일 적용 (Quad는 1x1 단위)
-        float scaled = explosionRadius * 2f;
-        previewQuad.localScale = new Vector3(scaled, scaled, 1f);
+    //    // 스케일 적용 (Quad는 1x1 단위)
+    //    float scaled = explosionRadius * 2f;
+    //    previewQuad.localScale = new Vector3(scaled, scaled, 1f);
 
-        UpdateCitizenHighlights(worldPos);
+    //    UpdateCitizenHighlights(worldPos);
 
-        bool detected = IsCitizenInside(previewWorldPos, explosionRadius);
-        quadRenderer.material.color = detected ? alertColor : normalColor;
-    }
+    //    bool detected = IsCitizenInside(previewWorldPos, explosionRadius);
+    //    quadRenderer.material.color = detected ? alertColor : normalColor;
+    //}
 
     void HideQuad()
     {
@@ -255,9 +258,14 @@ public class DragInfectController : MonoBehaviour
         {
             GameObject fx = Instantiate(explosionEffectPrefab);
             fx.transform.position = infectPos + new Vector3(0, 1f, 0);
+
+            float scale = FinalRadius / baseRadius;
+            fx.transform.localScale *= scale;
+
+          
         }
 
-        InfectArea(infectPos, explosionRadius);
+        InfectArea(infectPos, FinalRadius);
         currentCharges--;
         Game.Instance.uiGame.UpdateCharges(currentCharges, maxCharges);
 
@@ -324,9 +332,9 @@ public class DragInfectController : MonoBehaviour
 
         return false;
     }
-    void UpdateCitizenHighlights(Vector3 center)
+    void UpdateCitizenHighlights(Vector3 center,float radius)
     {
-        float r2 = explosionRadius * explosionRadius;
+        float r2 = radius * radius;
         var citizens = NPCManager.Instance.Citizens;
 
         List<CitizenNavMesh> inside = new List<CitizenNavMesh>();

@@ -25,6 +25,7 @@ public class GameManager : MonoBehaviour
         ShowLobby();
     }
 
+ 
     // ============================
     //         LOBBY
     // ============================
@@ -73,14 +74,14 @@ public class GameManager : MonoBehaviour
     // ============================
     //     GAME CLEAR EVENT
     // ============================
-    public void OnGameClear()
-    {
-        SaveSystem.Data.stage++;
-        SaveSystem.Data.coin += 10;
-        SaveSystem.Save();
+    //public void OnGameClear()
+    //{
+    //    SaveSystem.Data.stage++;
+    //    SaveSystem.Data.coin += 10;
+    //    SaveSystem.Save();
 
-        ReturnToLobby();
-    }
+    //    ReturnToLobby();
+    //}
 
  
 

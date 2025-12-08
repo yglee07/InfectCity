@@ -16,6 +16,15 @@ public class UILobby : MonoBehaviour
     [Header("Buttons")]
     public Button startButton;         // ← Start 버튼
 
+    [Header("Upgrade Buttons")]
+    public Button moveSpeedButton;
+    public Button radiusButton;
+    public Button mutateChanceButton;
+
+    [Header("Upgrade Texts")]
+    public TMP_Text moveSpeedText;
+    public TMP_Text radiusText;
+    public TMP_Text mutateChanceText;
 
 
     void Start()
@@ -25,14 +34,26 @@ public class UILobby : MonoBehaviour
         {
             startButton.onClick.AddListener(OnClickStart);
         }
-        else
+
+        if(moveSpeedButton !=null)
         {
-            Debug.LogError("UILobby: startButton이 연결되지 않았습니다!");
+            moveSpeedButton.onClick.AddListener(OnUpgradeMoveSpeed);
         }
+        if(radiusButton !=null)
+        {
+            radiusButton.onClick.AddListener(OnUpgradeRadius);
+        }
+        //if(mutateChanceButton !=null)
+        //{
+        //    mutateChanceButton.onClick.AddListener(OnUpgradeMutate);
+        //}
+
+      
     }
 
     public void UpdateCountryUI(string countryName, float progress)
     {
+
         // 국가명
         countryNameText.text = countryName;
 
@@ -48,13 +69,64 @@ public class UILobby : MonoBehaviour
         int stage = SaveSystem.Data.stage;
         levelText.text = $"Level {stage}";
         // 🔥 코인 표시 업데이트
-        if (coinText != null)
-            coinText.text = SaveSystem.Data.coin.ToString();
+        RefreshLobbyUI();
     }
+    public void RefreshLobbyUI()
+    {
+        // 코인 업데이트
+        coinText.text = SaveSystem.Data.coin.ToString();
 
+        // 버튼 텍스트 업데이트
+        moveSpeedText.text = $"Move Speed Lv{SaveSystem.Data.moveSpeedLevel}";
+        radiusText.text = $"Radius Lv{SaveSystem.Data.radiusLevel}";
+        //mutateChanceText.text = $"Mutate Chance Lv{SaveSystem.Data.mutateChanceLevel}";
+    }
     private void OnClickStart()
     {
         // GameManager 통해 게임 실행
         GameManager.Instance.StartGame();
     }
+
+    void OnUpgradeMoveSpeed()
+    {
+        int level = SaveSystem.Data.moveSpeedLevel;
+        int cost = 10;
+
+        if (SaveSystem.Data.coin < cost)
+        {
+            Debug.Log("코인이 부족함");
+            return;
+        }
+
+        if (UpgradeManager.Instance.TryUpgradeMoveSpeed())
+            RefreshLobbyUI();
+    }
+
+    void OnUpgradeRadius()
+    {
+        int level = SaveSystem.Data.radiusLevel;
+        int cost = 10;
+
+        if (SaveSystem.Data.coin < cost)
+            return;
+
+        if (UpgradeManager.Instance.TryUpgradeRadius())
+            RefreshLobbyUI();
+    }
+
+    //void OnUpgradeMutate()
+    //{
+    //    int level = SaveSystem.Data.mutateChanceLevel;
+    //    int cost = level * 10;
+
+    //    if (SaveSystem.Data.coin < cost)
+    //        return;
+
+    //    SaveSystem.Data.coin -= cost;
+    //    SaveSystem.Data.mutateChanceLevel++;
+    //    SaveSystem.Save();
+
+    //    if (UpgradeManager.Instance.TryUpgradeMutate())
+    //        RefreshLobbyUI();
+    //}
 }
