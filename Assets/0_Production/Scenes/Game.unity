@@ -625,23 +625,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1483611839 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 849848397976280738, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-  m_PrefabInstance: {fileID: 1745739257840936619}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1483611845
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1483611839}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d47895baca3eb5419bef6d7a1d60ae2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1512191436
 GameObject:
   m_ObjectHideFlags: 0
@@ -1154,42 +1137,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 276295320}
     m_Modifications:
-    - target: {fileID: 849848397976280738, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_Name
-      value: Btn_Bomb
-      objectReference: {fileID: 0}
-    - target: {fileID: 2458831023359481562, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_Pivot.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2458831023359481562, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_Pivot.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2458831023359481562, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_AnchorMax.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2458831023359481562, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_AnchorMax.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2458831023359481562, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_AnchorMin.x
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2458831023359481562, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_AnchorMin.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2458831023359481562, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 120
-      objectReference: {fileID: 0}
-    - target: {fileID: 2458831023359481562, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3193452064525689013, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -1197,46 +1144,6 @@ PrefabInstance:
     - target: {fileID: 3193452064525689013, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4058749363881441123, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4058749363881441123, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4058749363881441123, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1483611845}
-    - target: {fileID: 4058749363881441123, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4058749363881441123, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnBeginDrag
-      objectReference: {fileID: 0}
-    - target: {fileID: 4058749363881441123, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BombButton, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 4058749363881441123, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4299869154549005446, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_text
-      value: 'Drag
-
-        ME
-
-'
-      objectReference: {fileID: 0}
-    - target: {fileID: 4299869154549005446, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_fontSize
-      value: 16.75
       objectReference: {fileID: 0}
     - target: {fileID: 4842854323658360298, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_Pivot.x
@@ -1318,10 +1225,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6178467150875546752, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8909585198885326194, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_Name
       value: UI_Game
@@ -1329,10 +1232,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 849848397976280738, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1483611845}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
 --- !u!1001 &2072466994001463533
 PrefabInstance:
