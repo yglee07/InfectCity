@@ -26,6 +26,9 @@ public class DragInfectController : MonoBehaviour
     public int maxCharges = 1;
     public int currentCharges;
 
+    [Header("Effects")]
+    public GameObject explosionEffectPrefab;
+
     private List<CitizenNavMesh> highlighted = new List<CitizenNavMesh>();
     void Start()
     {
@@ -174,6 +177,12 @@ public class DragInfectController : MonoBehaviour
         Vector3 worldPos;
         if (!TryGetWorldPosition(screenPos, out worldPos))
             return;
+
+        if (explosionEffectPrefab != null)
+        {
+            GameObject fx = Instantiate(explosionEffectPrefab);
+            fx.transform.position = worldPos; // 위치만 적용 (회전/스케일은 프리팹대로)
+        }
 
         InfectArea(worldPos, explosionRadius);
         currentCharges--;
