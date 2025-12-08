@@ -95,7 +95,10 @@ public class DragInfectController : MonoBehaviour
             previewQuad.gameObject.SetActive(true);
 
         // 위치 적용
-        previewQuad.position = worldPos + Vector3.up * quadHeightOffset;
+        float offsetZ = 3f;
+        Vector3 offsetPos = worldPos + new Vector3(0, 0, offsetZ);
+
+        previewQuad.position = offsetPos + Vector3.up * quadHeightOffset;
 
         // 지형 normal 따라 기울기 맞추기
         if (Physics.Raycast(worldPos + Vector3.up, Vector3.down, out RaycastHit hit, 5f, groundMask))
@@ -178,13 +181,16 @@ public class DragInfectController : MonoBehaviour
         if (!TryGetWorldPosition(screenPos, out worldPos))
             return;
 
+        float offsetZ = 3f;  // 너가 원하는 값으로 조절
+        Vector3 infectPos = worldPos + new Vector3(0, 0, offsetZ);
+
         if (explosionEffectPrefab != null)
         {
             GameObject fx = Instantiate(explosionEffectPrefab);
             fx.transform.position = worldPos; // 위치만 적용 (회전/스케일은 프리팹대로)
         }
 
-        InfectArea(worldPos, explosionRadius);
+        InfectArea(infectPos, explosionRadius);
         currentCharges--;
         Game.Instance.uiGame.UpdateCharges(currentCharges, maxCharges);
     }
