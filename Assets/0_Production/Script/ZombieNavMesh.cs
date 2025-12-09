@@ -13,11 +13,12 @@ public class ZombieNavMesh : MonoBehaviour
     [SerializeField] private float walkSpeed = 1.8f;
     [SerializeField] private float runSpeed = 4f;
     [SerializeField] private float chaseDistance = 5f;
+    private bool isMerging = false;
+    public float mergeDistance = 1.5f;  // 감염거리(infectDistance)와 별도로 설정 가능
 
-  
     private NavMeshAgent agent;
     [SerializeField] private CitizenNavMesh targetCitizen;
-
+    private ZombieNavMesh targetZombie;
     private float retargetInterval = 0.2f;
     private float timer;
     private Vector3 lastTargetPos;
@@ -30,6 +31,11 @@ public class ZombieNavMesh : MonoBehaviour
     public GameObject infectEffectPrefab;
 
     public Faction faction = Faction.Green;
+    public string zombiePoolKey;
+
+
+    public int maxHP = 1;
+    public int currentHP = 1;
 
     private void Awake()
     {
@@ -64,6 +70,9 @@ public class ZombieNavMesh : MonoBehaviour
         walkSpeed *= multiplier;
         runSpeed *= multiplier;
 
+        // HP 적용
+        maxHP = stats.maxHP;
+        currentHP = maxHP;
         // NavMeshAgent 초기 속도 설정
         agent.speed = walkSpeed;
     }
@@ -85,7 +94,26 @@ public class ZombieNavMesh : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        // 타겟 재탐색
+        // =======================
+        // COMBAT MODE (좀비 vs 좀비)
+        // =======================
+        if (NPCManager.Instance.combatMode)
+        {
+            // 타겟 재탐색은 일정 간격으로만
+            if (timer >= retargetInterval)
+            {
+                timer = 0f;
+                FindEnemyZombie();
+            }
+
+            // 거리는 매 프레임 체크(머지 타이밍 때문에)
+            TryMergeEnemy();
+            return;
+        }
+
+        // =======================
+        // NORMAL MODE (시민 추적)
+        // =======================
         if (timer >= retargetInterval)
         {
             timer = 0f;
@@ -165,43 +193,75 @@ public class ZombieNavMesh : MonoBehaviour
         // 속도 / 애니메이션 결정
         HandleSpeedBasedOnDistance(nearest);
     }
+
     void FindEnemyZombie()
     {
         List<ZombieNavMesh> enemies =
             (faction == Faction.Green)
             ? NPCManager.Instance.PurpleZombies
             : NPCManager.Instance.GreenZombies;
-
+        // 🔥 적이 없다 → 싸움 끝
         if (enemies.Count == 0)
         {
-            // 내가 마지막 생존자 → 승리 처리
-            Game.Instance.ZombieCombatEnd(faction);
+            targetZombie = null;
+            isMerging = false;
+
+            agent.isStopped = true;
+            agent.ResetPath();   // ★ 목적지 초기화 필수
+            PlayAnim("Idle");
+
             return;
         }
+
 
         ZombieNavMesh nearest = null;
         float minSqr = float.MaxValue;
 
-        foreach (var z in enemies)
+        foreach (var e in enemies)
         {
-            if (z == null || !z.gameObject.activeInHierarchy) continue;
+            if (e == null || !e.gameObject.activeInHierarchy) continue;
 
-            float sqr = (z.transform.position - transform.position).sqrMagnitude;
+            float sqr = (e.transform.position - transform.position).sqrMagnitude;
             if (sqr < minSqr)
             {
                 minSqr = sqr;
-                nearest = z;
+                nearest = e;
             }
         }
 
         if (nearest != null)
         {
-            targetZombie = nearest;
+            agent.isStopped = false;
+            agent.speed = runSpeed * 1.3f; // 조금 빠르게
             agent.SetDestination(nearest.transform.position);
+            targetZombie = nearest;
+            isMerging = true;
             PlayAnim("Run");
         }
     }
+    void TryMergeEnemy()
+    {
+        if (!isMerging) return;
 
+        if (targetZombie == null || !targetZombie.gameObject.activeInHierarchy)
+        {
+            targetZombie = null;
+            isMerging = false;
+            agent.ResetPath();   // ★ 목적지 완전 초기화
+            PlayAnim("Idle");
+            return;
+        }
+
+        float sqr = (targetZombie.transform.position - transform.position).sqrMagnitude;
+
+        if (sqr <= mergeDistance * mergeDistance)
+        {
+
+            ResolveCombat(targetZombie);
+           
+          
+        }
+    }
     // ---------------- SPEED / ANIMATION LOGIC ----------------
     void HandleSpeedBasedOnDistance(CitizenNavMesh target)
     {
@@ -254,20 +314,80 @@ public class ZombieNavMesh : MonoBehaviour
         FindNearestCitizen();
     }
 
-    // ---------------- DEBUG ----------------
-    private void OnDrawGizmos()
+    public void TakeDamage(int dmg)
     {
-        if (!Application.isPlaying) return;
-        if (agent == null) return;
-        if (!agent.hasPath) return;
+        currentHP -= dmg;
 
-        Gizmos.color = Color.cyan;
-        Vector3[] corners = agent.path.corners;
-
-        for (int i = 0; i < corners.Length; i++)
-            Gizmos.DrawSphere(corners[i], 0.15f);
-
-        for (int i = 0; i < corners.Length - 1; i++)
-            Gizmos.DrawLine(corners[i], corners[i + 1]);
+        if (currentHP <= 0)
+        {
+            Die();
+        }
     }
+    void ResolveCombat(ZombieNavMesh other)
+    {
+        bool thisMutant = this.maxHP > 1;   // Mutant = HP2
+        bool otherMutant = other.maxHP > 1;
+
+        // --------------------------
+        // Case 1) 둘 다 일반 좀비
+        // --------------------------
+        if (!thisMutant && !otherMutant)
+        {
+            // 즉사 교환
+            Die();
+            other.Die();
+            return;
+        }
+
+        // --------------------------
+        // Case 2) Mutant 포함 전투
+        // --------------------------
+        // 서로 체력 1씩 감소
+        this.TakeDamage(1);
+        other.TakeDamage(1);
+
+        // ★HP 감소 후 Target 초기화 필요!
+        if (!this.gameObject.activeInHierarchy)
+        {
+            // 내가 죽었으면 더 이상 Merge 못함
+            return;
+        }
+        if (!other.gameObject.activeInHierarchy)
+        {
+            // 상대 죽으면 타겟 해제
+            targetZombie = null;
+            isMerging = false;
+            agent.ResetPath();
+            PlayAnim("Idle");
+            return;
+        }
+    }
+    public void Die()
+    {
+        // 죽을 때 Merge 이펙트 생성
+        if (infectEffectPrefab != null)
+        {
+            Instantiate(infectEffectPrefab, transform.position, Quaternion.identity);
+        }
+
+        PoolManager.Instance.Despawn(zombiePoolKey, this.gameObject);
+    }
+
+    // 살아남았으면 다시 다음 전투를 
+    // ---------------- DEBUG ----------------
+    //private void OnDrawGizmos()
+    //{
+    //    if (!Application.isPlaying) return;
+    //    if (agent == null) return;
+    //    if (!agent.hasPath) return;
+
+    //    Gizmos.color = Color.cyan;
+    //    Vector3[] corners = agent.path.corners;
+
+    //    for (int i = 0; i < corners.Length; i++)
+    //        Gizmos.DrawSphere(corners[i], 0.15f);
+
+    //    for (int i = 0; i < corners.Length - 1; i++)
+    //        Gizmos.DrawLine(corners[i], corners[i + 1]);
+    //}
 }

@@ -24,6 +24,7 @@ public class NPCManager : MonoBehaviour
     [Range(0f, 1f)]
     public float mutantChance = 0.1f; // 10% 확률
 
+    public bool combatMode = false;
     void Awake()
     {
         Instance = this;
@@ -89,10 +90,10 @@ public class NPCManager : MonoBehaviour
     // ======================
     //     CLEAR / PROGRESS
     // ======================
-    public bool IsStageClear()
-    {
-        return Citizens.Count == 0;
-    }
+    //public bool IsStageClear()
+    //{
+    //    return Citizens.Count == 0 && PurpleZombies.Count==0;
+    //}
 
     public float InfectionProgress
     {

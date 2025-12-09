@@ -229,18 +229,29 @@ public class CitizenNavMesh : MonoBehaviour
         // 1) 시민 제거
         PoolManager.Instance.Despawn("Citizen", gameObject);
 
-        // 2) 감염된 시민을 해당 진영의 좀비로 변환
-        string key = (faction == Faction.Green)
-            ? NPCManager.Instance.greenZombiePool
-            : NPCManager.Instance.purpleZombiePool;
+        string key;
 
-        var zombie = PoolManager.Instance.Spawn(key, transform.position, Quaternion.identity);
+        // 2) 초록 감염 시에만 Mutant 확률 적용
+        if (faction == Faction.Green)
+        {
+            key = (Random.value < NPCManager.Instance.mutantChance)
+                ? "Mutant"
+                : NPCManager.Instance.greenZombiePool;
+        }
+        else
+        {
+            // 보라는 기존대로
+            key = NPCManager.Instance.purpleZombiePool;
+        }
 
-        // 3) 새 좀비에 faction 할당
-        var znm = zombie.GetComponent<ZombieNavMesh>();
-        znm.faction = faction;
+        // 3) 좀비 생성
+        GameObject zombieObj = PoolManager.Instance.Spawn(key, transform.position, Quaternion.identity);
+        ZombieNavMesh zombie = zombieObj.GetComponent<ZombieNavMesh>();
 
-        // 4) NPCManager에 감염 카운트 증가
+        // Mutant도 Green 진영으로 취급해야 게임 로직이 깨지지 않음
+        zombie.faction = faction;
+
+        // 4) 감염 카운트
         NPCManager.Instance.AddInfectCount(faction);
     }
 }

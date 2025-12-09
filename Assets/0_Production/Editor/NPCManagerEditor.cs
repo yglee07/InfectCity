@@ -9,7 +9,8 @@ public class NPCManagerEditor : Editor
     private NPCManager mgr;
 
     private bool foldCitizens = true;
-    private bool foldZombies = true;
+    private bool foldGreen = true;
+    private bool foldPurple = true;
 
     private string searchFilter = "";
 
@@ -32,22 +33,31 @@ public class NPCManagerEditor : Editor
         EditorGUILayout.LabelField("NPC Manager", EditorStyles.boldLabel);
         EditorGUILayout.Space();
 
-        // ---------------- SEARCH ----------------
+        // --- Mutant chance slider 표시 ---
+        EditorGUILayout.LabelField("Mutant Settings", EditorStyles.boldLabel);
+        mgr.mutantChance = EditorGUILayout.Slider("Mutant Chance", mgr.mutantChance, 0f, 1f);
+        EditorGUILayout.Space();
+        // SEARCH
         EditorGUILayout.LabelField("Search");
         searchFilter = EditorGUILayout.TextField(searchFilter);
         EditorGUILayout.Space();
 
-        // ---------------- SORT OPTIONS ----------------
+        // SORT
         sortMode = (SortMode)EditorGUILayout.EnumPopup("Sort", sortMode);
         EditorGUILayout.Space();
 
-        // ---------------- CITIZENS ----------------
+        // Citizens
         DrawNPCList("Citizens", mgr.Citizens, ref foldCitizens);
 
         EditorGUILayout.Space();
 
-        // ---------------- ZOMBIES ----------------
-        DrawNPCList("Zombies", mgr.Zombies, ref foldZombies);
+        // Green Zombies
+        DrawNPCList("Green Zombies", mgr.GreenZombies, ref foldGreen);
+
+        EditorGUILayout.Space();
+
+        // Purple Zombies
+        DrawNPCList("Purple Zombies", mgr.PurpleZombies, ref foldPurple);
 
         serializedObject.ApplyModifiedProperties();
     }
@@ -73,7 +83,7 @@ public class NPCManagerEditor : Editor
         {
             SortMode.Name => filtered.OrderBy(x => x.name),
             SortMode.ID => filtered.OrderBy(x => x.GetInstanceID()),
-            SortMode.Latest => filtered.Reverse(),  // 최신 생성된 오브젝트가 리스트 마지막이라고 가정
+            SortMode.Latest => filtered.Reverse(),
             _ => filtered
         };
 
@@ -85,14 +95,8 @@ public class NPCManagerEditor : Editor
                 continue;
             }
 
-            var comp = npc as Component;
-
             EditorGUILayout.BeginHorizontal();
-
-            GUIStyle style = new GUIStyle(EditorStyles.label);
-   
-
-            EditorGUILayout.LabelField(npc.name, style);
+            EditorGUILayout.LabelField(npc.name);
 
             if (GUILayout.Button("Select", GUILayout.Width(60)))
                 Selection.activeObject = npc;
@@ -103,11 +107,12 @@ public class NPCManagerEditor : Editor
         EditorGUI.indentLevel--;
     }
 
-    // ---------------- SCENE VIEW LABELS (ID 표시) ----------------
+    // ===== Scene View Labels =====
     private void OnSceneGUI(SceneView view)
     {
         DrawLabels(mgr.Citizens, Color.green);
-        DrawLabels(mgr.Zombies, Color.red);
+        DrawLabels(mgr.GreenZombies, Color.yellow);
+        DrawLabels(mgr.PurpleZombies, Color.magenta);
     }
 
     private void DrawLabels<T>(List<T> list, Color color) where T : Object

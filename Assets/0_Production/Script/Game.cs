@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Game : MonoBehaviour
 {
@@ -43,9 +44,10 @@ public class Game : MonoBehaviour
     {
         if (!isPlaying) return;
 
-        UpdateHUD();
+        //UpdateHUD();
         CheckStageClear();
         CheckStageFail();
+
     }
 
 
@@ -54,6 +56,9 @@ public class Game : MonoBehaviour
     // =============================
     public void StartStage()
     {
+        NPCManager.Instance.combatMode = false;
+        stageClearStarted = false;
+
         int stage = SaveSystem.Data.stage;
 
 
@@ -94,29 +99,50 @@ public class Game : MonoBehaviour
     // =============================
     private void UpdateHUD()
     {
-        //uiGame.UpdateInfectionProgress(npcManager.InfectionProgress);
+        uiGame.UpdatePieChart();
     }
 
 
     // =============================
     //        CLEAR CHECK
     // =============================
+ private bool stageClearStarted = false;
+
     private void CheckStageClear()
     {
-        if (npcManager.IsStageClear())
+        Debug.Log($"[CheckStageClear] Citizens: {npcManager.Citizens.Count}, Purple: {npcManager.PurpleZombies.Count}, CombatMode: {npcManager.combatMode}, stageClearStarted: {stageClearStarted}");
+
+        // 시민 0 → Combat Mode ON
+        if (npcManager.Citizens.Count == 0 && !npcManager.combatMode)
         {
-            StageClear();
+            Debug.Log("[CheckStageClear] 시민이 0 → CombatMode ON");
+            npcManager.combatMode = true;
+        }
+
+        // 승리 조건: 시민 0 + 보라 0
+        if (!stageClearStarted &&
+            npcManager.Citizens.Count == 0 &&
+            npcManager.PurpleZombies.Count == 0)
+        {
+            Debug.Log("[CheckStageClear] ★ 스테이지 클리어 조건 충족! 코루틴 시작");
+            stageClearStarted = true;
+            StartCoroutine(DelayedStageClear());
         }
     }
 
-    private void StageClear()
-    {
-        isPlaying = false;
-        uiGame.ShowCompletePopup();
-        //GameManager.Instance.OnGameClear();
-        // 카메라 원위치 이동
-   
-    }
+    private IEnumerator DelayedStageClear()
+{
+    // 전투 후 자연스러운 연출 시간
+    yield return new WaitForSeconds(1f); // 0.5~1.0 추천
+
+    StageClear();
+}
+
+private void StageClear()
+{
+    isPlaying = false;
+    uiGame.ShowCompletePopup();
+}
 
 
     // =============================
@@ -128,12 +154,12 @@ public class Game : MonoBehaviour
         bool citizensRemain = npcManager.CurrentCitizenCount > 0;
 
         // 좀비 모두 사망
-        bool noZombies = npcManager.CurrentZombieCount == 0;
+        bool noGreenZombies = npcManager.GreenZombies.Count == 0;
 
         // 감염 스킬 0회
         bool noCharges = dragInfector.currentCharges <= 0;
 
-        if (citizensRemain && noZombies && noCharges)
+        if (citizensRemain && noGreenZombies && noCharges)
         {
             StageFail();
         }

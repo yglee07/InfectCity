@@ -7,10 +7,6 @@ public class UIGame : MonoBehaviour
     [Header("Stage")]
     public TMP_Text stageText;
 
-    [Header("Infection")]
-    public Slider infectionSlider;
-    public TMP_Text infectionPercentText; 
-
     [Header("Skill")]
     public TMP_Text dragChargesText; // Drag skill charges 표시
     [Header("Popups")]
@@ -22,6 +18,13 @@ public class UIGame : MonoBehaviour
     [Header("Mode Buttons")]
     public Button btnInfectMode;
     public Button btnCameraMode;
+
+    [Header("Pie Chart")]
+    public Image[] imagesPieChart;
+    public TMP_Text pieCenterText;
+    public float pieSmoothSpeed = 6f;
+
+    private float[] pieValues = new float[3]; // purple, citizen, green
     void Awake()
     {
         if (btnCompleteOK != null)
@@ -35,6 +38,11 @@ public class UIGame : MonoBehaviour
 
         if (btnCameraMode != null)
             btnCameraMode.onClick.AddListener(SetCameraMode);
+    }
+
+    private void Update()
+    {
+        UpdatePieChart();
     }
     public void ShowCompletePopup()
     {
@@ -68,16 +76,9 @@ public class UIGame : MonoBehaviour
         stageText.text = $"Stage {stage}";
     }
 
-    public void UpdateInfectionProgress(float progress)
-    {
-        infectionSlider.value = progress;
-        int pct = Mathf.RoundToInt(progress * 100f);
-        infectionPercentText.text = pct + "%";
-    }
-
     public void UpdateCharges(int current, int max)
     {
-        dragChargesText.text = $"{current}/{max}";
+        dragChargesText.text = $"Drag Me\n{current}/{max}";
     }
 
     public void SetInfectMode()
@@ -88,5 +89,51 @@ public class UIGame : MonoBehaviour
     public void SetCameraMode()
     {
         GameManager.Instance.controlMode = ControlMode.Camera;
+    }
+    public void UpdatePieChart()
+    {
+        // 1) 값 수집
+        float blue = NPCManager.Instance.Citizens.Count;
+        float green = NPCManager.Instance.GreenZombies.Count;
+        float purple = NPCManager.Instance.PurpleZombies.Count;
+
+        pieValues[0] = purple;
+        pieValues[1] = blue;
+        pieValues[2] = green;
+
+        // 2) UI 적용
+        SetPieValues(pieValues);
+        UpdatePieText(pieValues);
+    }
+
+    private void SetPieValues(float[] values)
+    {
+        float total = values[0] + values[1] + values[2];
+        if (total <= 0) total = 1;
+
+        float accumulated = 0f;
+
+        for (int i = 0; i < imagesPieChart.Length; i++)
+        {
+            float percent = values[i] / total;
+            accumulated += percent;
+
+            imagesPieChart[i].fillAmount =
+                Mathf.Lerp(imagesPieChart[i].fillAmount, accumulated, Time.deltaTime * pieSmoothSpeed);
+        }
+    }
+    private void UpdatePieText(float[] values)
+    {
+        float total = values[0] + values[1] + values[2];
+        if (total <= 0)
+        {
+            pieCenterText.text = "0%";
+            return;
+        }
+
+        float greenRatio = values[2] / total;
+        int pct = Mathf.RoundToInt(greenRatio * 100f);
+
+        pieCenterText.text = pct + "%";
     }
 }

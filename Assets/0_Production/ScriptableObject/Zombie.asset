@@ -12,9 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e212906e1ee99b24790ea9e0c87b6faa, type: 3}
   m_Name: Zombie
   m_EditorClassIdentifier: 
+  infectDistance: 1.2
+  sizeMultiplier: 1
   walkSpeed: 1.8
   runSpeed: 4
-  sizeMultiplier: 1
+  chaseDistance: 7
   animSpeed: 1
-  tintColor: {r: 1, g: 1, b: 1, a: 1}
-  maxHP: 100
+  maxHP: 1

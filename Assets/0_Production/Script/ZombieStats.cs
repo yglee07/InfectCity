@@ -16,4 +16,8 @@ public class ZombieStats : ScriptableObject
 
     [Header("Animation")]
     public float animSpeed = 1f;
+
+    [Header("Combat")]
+    [Tooltip("좀비 기본 체력. 일반 좀비 = 1, Mutant = 2 추천")]
+    public int maxHP = 1;
 }
