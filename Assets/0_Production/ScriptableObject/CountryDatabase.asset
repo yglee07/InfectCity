@@ -18,8 +18,10 @@ MonoBehaviour:
     startStage: 1
     endStage: 9
     prefab: {fileID: 820875494354719102, guid: cef1973b13cc05a438415c85e4065e6b, type: 3}
+    countryImage: {fileID: 21300000, guid: 8d6daac71aff32648964c344b31953b9, type: 3}
   - id: 2
     displayName: US
     startStage: 10
     endStage: 99
     prefab: {fileID: 3351769008109284831, guid: b8416eaf2bc4cf145a953bf92c970d8d, type: 3}
+    countryImage: {fileID: 21300000, guid: a18b3a7407140704bb065b4bafe5a8bd, type: 3}
