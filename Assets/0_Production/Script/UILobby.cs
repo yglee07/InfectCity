@@ -6,6 +6,7 @@ public class UILobby : MonoBehaviour
 {
     [Header("Texts")]
     public TMP_Text countryNameText;   // 국가명
+    public Image countryImage;
     public TMP_Text percentText;       // 퍼센트
     public TMP_Text levelText;         // "Level 999"
     public TMP_Text coinText;     // 🔥 코인 UI 추가
@@ -25,6 +26,7 @@ public class UILobby : MonoBehaviour
     public TMP_Text moveSpeedText;
     public TMP_Text radiusText;
     public TMP_Text mutateChanceText;
+
 
 
     void Start()
@@ -51,7 +53,7 @@ public class UILobby : MonoBehaviour
       
     }
 
-    public void UpdateCountryUI(string countryName, float progress)
+    public void UpdateCountryUI(string countryName, float progress, Sprite countrySprite)
     {
 
         // 국가명
@@ -69,6 +71,10 @@ public class UILobby : MonoBehaviour
         int stage = SaveSystem.Data.stage;
         levelText.text = $"Level {stage}";
         // 🔥 코인 표시 업데이트
+
+        // ★ 국기 이미지 적용
+        if (countryImage != null)
+            countryImage.sprite = countrySprite;
         RefreshLobbyUI();
     }
     public void RefreshLobbyUI()

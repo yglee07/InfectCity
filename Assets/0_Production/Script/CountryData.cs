@@ -9,5 +9,7 @@ public class CountryData
     public int endStage;
     public GameObject prefab;
 
+    public Sprite countryImage;
+
     public int TotalStages => endStage - startStage + 1;
 }

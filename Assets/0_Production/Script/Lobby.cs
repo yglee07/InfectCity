@@ -43,7 +43,7 @@ public class Lobby : MonoBehaviour
         float progress = (float)cleared / info.TotalStages;
 
         // UI 갱신
-        ui.UpdateCountryUI(info.displayName, progress);
+        ui.UpdateCountryUI(info.displayName, progress,info.countryImage);
     }
 
   
