@@ -73,12 +73,31 @@ public class UILobby : MonoBehaviour
     }
     public void RefreshLobbyUI()
     {
+        int moveLv = UpgradeManager.Instance.MoveSpeedLevel;
+        int radiusLv = UpgradeManager.Instance.RadiusLevel;
+        // int mutateLv = UpgradeManager.Instance.MutateChanceLevel;
         // 코인 업데이트
         coinText.text = SaveSystem.Data.coin.ToString();
 
         // 버튼 텍스트 업데이트
-        moveSpeedText.text = $"Move Speed Lv{SaveSystem.Data.moveSpeedLevel}";
-        radiusText.text = $"Radius Lv{SaveSystem.Data.radiusLevel}";
+        // Move Speed UI
+        if (moveLv >= 5)
+            moveSpeedText.text = $"Move Speed Lv{moveLv} (MAX)";
+        else
+            moveSpeedText.text = $"Move Speed Lv{moveLv}";
+
+        // Radius UI
+        if (radiusLv >= 5)
+            radiusText.text = $"Radius Lv{radiusLv} (MAX)";
+        else
+            radiusText.text = $"Radius Lv{radiusLv}";
+
+        // 버튼 활성/비활성
+        if (moveSpeedButton != null)
+            moveSpeedButton.interactable = !UpgradeManager.Instance.IsMoveSpeedMax;
+
+        if (radiusButton != null)
+            radiusButton.interactable = !UpgradeManager.Instance.IsRadiusMax;
         //mutateChanceText.text = $"Mutate Chance Lv{SaveSystem.Data.mutateChanceLevel}";
     }
     private void OnClickStart()
