@@ -8,6 +8,16 @@ public class NPCManager : MonoBehaviour
     public List<CitizenNavMesh> Citizens = new List<CitizenNavMesh>();
     public List<ZombieNavMesh> Zombies = new List<ZombieNavMesh>();
 
+    // 새로 추가: 초록/보라 각각의 리스트 (선택, 없어도 되지만 디버깅 편함)
+    public List<ZombieNavMesh> GreenZombies = new List<ZombieNavMesh>();
+    public List<ZombieNavMesh> PurpleZombies = new List<ZombieNavMesh>();
+
+    // ★ 초록/보라 감염 수 카운트
+    public int greenInfectCount = 0;
+    public int purpleInfectCount = 0;
+    // ★ 초록/보라 스폰 풀 이름
+    public string greenZombiePool = "Zombie";         // 기존 초록 좀비 풀 키
+    public string purpleZombiePool = "ZombiePurple";  // 보라 좀비 풀 키 (PoolManager에 반드시 
     public GameObject zombiePrefab;
 
     [Header("Mutant Settings")]
@@ -39,15 +49,38 @@ public class NPCManager : MonoBehaviour
     {
         if (!Zombies.Contains(zombie))
             Zombies.Add(zombie);
+
+        // ★ 진영별로 등록
+        if (zombie.faction == Faction.Green)
+        {
+            if (!GreenZombies.Contains(zombie))
+                GreenZombies.Add(zombie);
+        }
+        else
+        {
+            if (!PurpleZombies.Contains(zombie))
+                PurpleZombies.Add(zombie);
+        }
     }
 
     public void UnregisterZombie(ZombieNavMesh zombie)
     {
         if (Zombies.Contains(zombie))
             Zombies.Remove(zombie);
+
+        if (GreenZombies.Contains(zombie))
+            GreenZombies.Remove(zombie);
+
+        if (PurpleZombies.Contains(zombie))
+            PurpleZombies.Remove(zombie);
     }
-
-
+    public void AddInfectCount(Faction faction)
+    {
+        if (faction == Faction.Green)
+            greenInfectCount++;
+        else
+            purpleInfectCount++;
+    }
 
     public string GetZombiePoolKey()
     {

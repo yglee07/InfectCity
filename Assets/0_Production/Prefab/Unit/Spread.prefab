@@ -93,14 +93,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0d642254465b27c4ea0dc7446a22f8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stats: {fileID: 11400000, guid: 1e44c44cbe5d0984da1b84e377401339, type: 2}
+  stats: {fileID: 11400000, guid: 1899c0799c40e4b408c7deadad32d6d7, type: 2}
   infectDistance: 1.2
   walkSpeed: 1.2
   runSpeed: 4
   chaseDistance: 7
-  zombiePoolKey: Zombie
   targetCitizen: {fileID: 0}
   infectEffectPrefab: {fileID: 160118, guid: cae57573362b4944294737c169a2eacb, type: 3}
+  faction: 1
 --- !u!114 &1797190334640182588
 MonoBehaviour:
   m_ObjectHideFlags: 0

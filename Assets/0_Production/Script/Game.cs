@@ -94,7 +94,7 @@ public class Game : MonoBehaviour
     // =============================
     private void UpdateHUD()
     {
-        uiGame.UpdateInfectionProgress(npcManager.InfectionProgress);
+        //uiGame.UpdateInfectionProgress(npcManager.InfectionProgress);
     }
 
 

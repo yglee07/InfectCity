@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class ZombieNavMesh : MonoBehaviour
@@ -13,9 +14,7 @@ public class ZombieNavMesh : MonoBehaviour
     [SerializeField] private float runSpeed = 4f;
     [SerializeField] private float chaseDistance = 5f;
 
-    [Header("Pool")]
-    public string zombiePoolKey = "Zombie";
-
+  
     private NavMeshAgent agent;
     [SerializeField] private CitizenNavMesh targetCitizen;
 
@@ -29,6 +28,8 @@ public class ZombieNavMesh : MonoBehaviour
 
     [Header("Effects")]
     public GameObject infectEffectPrefab;
+
+    public Faction faction = Faction.Green;
 
     private void Awake()
     {
@@ -91,7 +92,7 @@ public class ZombieNavMesh : MonoBehaviour
             FindNearestCitizen();
         }
 
-        TryInfect();
+        TryInfect(this.faction);
     }
 
     // ------- ANIMATION HELPER -------
@@ -164,6 +165,42 @@ public class ZombieNavMesh : MonoBehaviour
         // 속도 / 애니메이션 결정
         HandleSpeedBasedOnDistance(nearest);
     }
+    void FindEnemyZombie()
+    {
+        List<ZombieNavMesh> enemies =
+            (faction == Faction.Green)
+            ? NPCManager.Instance.PurpleZombies
+            : NPCManager.Instance.GreenZombies;
+
+        if (enemies.Count == 0)
+        {
+            // 내가 마지막 생존자 → 승리 처리
+            Game.Instance.ZombieCombatEnd(faction);
+            return;
+        }
+
+        ZombieNavMesh nearest = null;
+        float minSqr = float.MaxValue;
+
+        foreach (var z in enemies)
+        {
+            if (z == null || !z.gameObject.activeInHierarchy) continue;
+
+            float sqr = (z.transform.position - transform.position).sqrMagnitude;
+            if (sqr < minSqr)
+            {
+                minSqr = sqr;
+                nearest = z;
+            }
+        }
+
+        if (nearest != null)
+        {
+            targetZombie = nearest;
+            agent.SetDestination(nearest.transform.position);
+            PlayAnim("Run");
+        }
+    }
 
     // ---------------- SPEED / ANIMATION LOGIC ----------------
     void HandleSpeedBasedOnDistance(CitizenNavMesh target)
@@ -184,7 +221,7 @@ public class ZombieNavMesh : MonoBehaviour
     }
 
     // ---------------- INFECT ----------------
-    void TryInfect()
+    void TryInfect(Faction faction)
     {
         if (targetCitizen == null) return;
         if (!targetCitizen.gameObject.activeInHierarchy) return;
@@ -204,12 +241,9 @@ public class ZombieNavMesh : MonoBehaviour
         }
 
         // 시민 감염
-        targetCitizen.Infect();
+        targetCitizen.Infect(this.faction);
 
-        // 새 좀비 생성
-        string key = NPCManager.Instance.GetZombiePoolKey();
-
-        var zombie = PoolManager.Instance.Spawn(key, spawnPos, Quaternion.identity);
+       
 
         // 추적 초기화
         agent.isStopped = true;

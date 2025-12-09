@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 8265895907174677282}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.79, y: 0.3, z: -11.78}
+  m_LocalPosition: {x: 0.17, y: 0.3, z: -2.69}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -98,9 +98,9 @@ MonoBehaviour:
   walkSpeed: 1.2
   runSpeed: 4
   chaseDistance: 7
-  zombiePoolKey: Zombie
   targetCitizen: {fileID: 0}
   infectEffectPrefab: {fileID: 160118, guid: 73a3a14a35c722943ad82f0150bfeb69, type: 3}
+  faction: 0
 --- !u!114 &1797190334640182588
 MonoBehaviour:
   m_ObjectHideFlags: 0

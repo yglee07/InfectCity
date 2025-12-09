@@ -224,8 +224,23 @@ public class CitizenNavMesh : MonoBehaviour
     }
 
     // 외부 감염 처리
-    public void Infect()
+    public void Infect(Faction faction)
     {
+        // 1) 시민 제거
         PoolManager.Instance.Despawn("Citizen", gameObject);
+
+        // 2) 감염된 시민을 해당 진영의 좀비로 변환
+        string key = (faction == Faction.Green)
+            ? NPCManager.Instance.greenZombiePool
+            : NPCManager.Instance.purpleZombiePool;
+
+        var zombie = PoolManager.Instance.Spawn(key, transform.position, Quaternion.identity);
+
+        // 3) 새 좀비에 faction 할당
+        var znm = zombie.GetComponent<ZombieNavMesh>();
+        znm.faction = faction;
+
+        // 4) NPCManager에 감염 카운트 증가
+        NPCManager.Instance.AddInfectCount(faction);
     }
 }

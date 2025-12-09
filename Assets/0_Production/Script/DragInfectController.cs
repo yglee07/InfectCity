@@ -307,10 +307,10 @@ public class DragInfectController : MonoBehaviour
             {
                 Vector3 spawnPos = c.transform.position;
 
-                c.Infect();
-                string key = NPCManager.Instance.GetZombiePoolKey();
+                c.Infect(Faction.Green);
+                //string key = NPCManager.Instance.GetZombiePoolKey();
 
-                var zombie = PoolManager.Instance.Spawn(key, spawnPos, Quaternion.identity);
+                //var zombie = PoolManager.Instance.Spawn(key, spawnPos, Quaternion.identity);
 
             }
         }
