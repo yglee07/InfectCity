@@ -4,6 +4,8 @@ public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance;
 
+    private const int MaxLevel = 5;   // ← 업그레이드 최대 레벨
+
     void Awake()
     {
         Instance = this;
@@ -12,9 +14,14 @@ public class UpgradeManager : MonoBehaviour
     // -----------------------
     // 레벨 불러오기
     // -----------------------
-    public int MoveSpeedLevel => SaveSystem.Data.moveSpeedLevel;
-    public int RadiusLevel => SaveSystem.Data.radiusLevel;
-    public int MutateChanceLevel => SaveSystem.Data.mutateChanceLevel;
+    public int MoveSpeedLevel => Mathf.Min(SaveSystem.Data.moveSpeedLevel, MaxLevel);
+    public int RadiusLevel => Mathf.Min(SaveSystem.Data.radiusLevel, MaxLevel);
+    public int MutateChanceLevel => Mathf.Min(SaveSystem.Data.mutateChanceLevel, MaxLevel);
+
+    // Max 여부 체크용 헬퍼
+    public bool IsMoveSpeedMax => MoveSpeedLevel >= MaxLevel;
+    public bool IsRadiusMax => RadiusLevel >= MaxLevel;
+    public bool IsMutateMax => MutateChanceLevel >= MaxLevel;
 
     // -----------------------
     // 강화 수치 변환
@@ -43,6 +50,12 @@ public class UpgradeManager : MonoBehaviour
     // -----------------------
     public bool TryUpgradeMoveSpeed()
     {
+        if (IsMoveSpeedMax)
+        {
+            Debug.Log("MoveSpeed 이미 최대 레벨입니다.");
+            return false;
+        }
+
         int cost = 10;
         if (SaveSystem.Data.coin < cost) return false;
 
@@ -54,6 +67,12 @@ public class UpgradeManager : MonoBehaviour
 
     public bool TryUpgradeRadius()
     {
+        if (IsRadiusMax)
+        {
+            Debug.Log("Radius 이미 최대 레벨입니다.");
+            return false;
+        }
+
         int cost = 10;
         if (SaveSystem.Data.coin < cost) return false;
 
