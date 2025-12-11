@@ -46,6 +46,7 @@ public class ZombieNavMesh : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
+        
         agent.acceleration = 20f;
         agent.autoBraking = false;
 
@@ -88,12 +89,14 @@ public class ZombieNavMesh : MonoBehaviour
             NPCManager.Instance.RegisterZombie(this);
 
         ApplyStats();
+     
     }
 
     void OnDisable()
     {
         if (NPCManager.Instance != null)
             NPCManager.Instance.UnregisterZombie(this);
+       
     }
 
     void Update()

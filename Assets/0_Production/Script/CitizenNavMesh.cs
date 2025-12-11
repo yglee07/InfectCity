@@ -27,46 +27,49 @@ public class CitizenNavMesh : MonoBehaviour
     public float fleeDistance = 7f;
     public LayerMask zombieLayer;
 
-    // 🔥 반드시 protected로 변경 (상속용)
+    [SerializeField]
     protected NavMeshAgent agent;
-    protected Animator anim;
-
     protected State state;
     protected float timer;
     protected Vector3 wanderTarget;
     protected Vector3 fleeTarget;
+    protected Animator anim;
 
     protected string currentAnim = "";
 
     [Header("Debug")]
     public bool debugLog = false;
 
-    protected virtual void OnEnable()
+    private void OnEnable()
     {
         NPCManager.Instance?.RegisterCitizen(this);
 
         if (agent == null)
-            agent = GetComponent<NavMeshAgent>();
+            agent=GetComponent<NavMeshAgent>();
+
+
 
         if (anim == null)
             anim = GetComponentInChildren<Animator>();
     }
 
-    protected virtual void OnDisable()
+    private void OnDisable()
     {
         NPCManager.Instance?.UnregisterCitizen(this);
     }
 
-    protected virtual void Start()
+    private void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
 
+
+        if (!agent.enabled)
+            agent.enabled = true;  // ⭐ 안전장치 (Spawn보다 Start가 먼저 실행될 때 대비)
         ChangeState(State.Wander);
         SetNewWanderTarget();
     }
 
-    // 🔥 반드시 virtual (CitizenShooter가 override하려면 필요)
     protected virtual void Update()
     {
         bool detected = DetectZombie();
@@ -80,12 +83,11 @@ public class CitizenNavMesh : MonoBehaviour
         else UpdateFlee();
     }
 
-    // ======================
-    //    Animation
-    // ======================
+    // ---------------- ANIMATION ----------------
     protected void PlayAnim(string trigger)
     {
         if (currentAnim == trigger) return;
+
         currentAnim = trigger;
 
         anim.ResetTrigger("Idle");
@@ -95,16 +97,13 @@ public class CitizenNavMesh : MonoBehaviour
         anim.SetTrigger(trigger);
     }
 
-    // ======================
-    //    State Change
-    // ======================
-    protected virtual void ChangeState(State newState)
+    // ---------------- STATE CHANGE ----------------
+    private void ChangeState(State newState)
     {
         Log($"State → {newState}");
 
         state = newState;
         isIdle = false;
-
         agent.speed = (newState == State.Wander) ? wanderSpeed : fleeSpeed;
 
         if (newState == State.Wander)
@@ -119,82 +118,101 @@ public class CitizenNavMesh : MonoBehaviour
         }
     }
 
-    // ======================
-    //    Wander Logic
-    // ======================
-    protected virtual void UpdateWander()
+    // ---------------- WANDER ----------------
+    private void UpdateWander()
     {
+        // Idle 상태일 때
         if (isIdle)
         {
+            agent.SetDestination(transform.position);
+
             idleTimer -= Time.deltaTime;
             if (idleTimer <= 0f)
             {
                 Log("Idle → Exit");
                 isIdle = false;
+                SetNewWanderTarget();     // ⭐ 복구됨
+                PlayAnim("Walk");
             }
             return;
         }
 
         timer += Time.deltaTime;
+
+        // ⭐ Wander 도중 목적지 도착 체크
+        if (agent.remainingDistance <= 0.4f)
+        {
+            Log("Reached wander target → Set new wander target");
+
+            timer = 0f;
+            SetNewWanderTarget();
+            return;
+        }
+
+        // ⭐ 정기적으로 Idle 상태 진입
         if (timer >= changeWanderInterval)
         {
             timer = 0f;
-            isIdle = true;
-            idleTimer = Random.Range(idleMin, idleMax);
-            Log($"Idle → Enter ({idleTimer:F2} sec)");
-            return;
+
+            if (Random.value < 0.3f)
+            {
+                isIdle = true;
+                idleTimer = Random.Range(idleMin, idleMax);
+                PlayAnim("Idle");
+                Log($"Idle → Enter ({idleTimer:F2} sec)");
+                return;
+            }
+
+            SetNewWanderTarget();
         }
 
         agent.SetDestination(wanderTarget);
     }
 
-    protected void SetNewWanderTarget()
+    private void SetNewWanderTarget()
     {
-        Vector3 random = Random.insideUnitSphere * wanderRadius;
-        random.y = 0;
+        Vector2 rnd = Random.insideUnitCircle * wanderRadius;
+        Vector3 target = transform.position + new Vector3(rnd.x, 0, rnd.y);
 
-        wanderTarget = transform.position + random;
-
-        if (NavMesh.SamplePosition(wanderTarget, out NavMeshHit hit, wanderRadius, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(target, out var hit, 2f, NavMesh.AllAreas))
+        {
             wanderTarget = hit.position;
-
-        Log($"WanderTarget = {wanderTarget}");
-    }
-
-    // ======================
-    //    Flee logic
-    // ======================
-    protected virtual void UpdateFlee()
-    {
-        agent.SetDestination(fleeTarget);
-    }
-
-    protected void SetNewFleeTarget()
-    {
-        var zombies = NPCManager.Instance.Zombies;
-
-        float min = float.MaxValue;
-        Transform nearest = null;
-
-        foreach (var z in zombies)
-        {
-            if (!z || !z.gameObject.activeInHierarchy) continue;
-
-            float d = (z.transform.position - transform.position).sqrMagnitude;
-            if (d < min)
-            {
-                min = d;
-                nearest = z.transform;
-            }
+            agent.SetDestination(wanderTarget);
+            Log($"WanderTarget = {wanderTarget}");
         }
+    }
 
-        if (nearest == null)
+    // ---------------- FLEE ----------------
+    private void UpdateFlee()
+    {
+        if (agent.remainingDistance <= 0.6f)
+            SetNewFleeTarget();
+    }
+
+    private void SetNewFleeTarget()
+    {
+        Collider[] hits = Physics.OverlapSphere(transform.position, fleeEnterRadius, zombieLayer);
+        if (hits.Length == 0)
         {
-            Log("FleeTarget: No zombies found");
+            ChangeState(State.Wander);
             return;
         }
 
+        Transform nearest = hits[0].transform;
+        float min = Vector3.Distance(transform.position, nearest.position);
+
+        foreach (var h in hits)
+        {
+            float d = Vector3.Distance(transform.position, h.transform.position);
+            if (d < min)
+            {
+                min = d;
+                nearest = h.transform;
+            }
+        }
+
         Vector3 away = (transform.position - nearest.position).normalized;
+
         Vector3 raw = transform.position + away * fleeDistance;
         raw += new Vector3(Random.Range(-2f, 2f), 0, Random.Range(-2f, 2f));
 
@@ -206,10 +224,8 @@ public class CitizenNavMesh : MonoBehaviour
         }
     }
 
-    // ======================
-    //    Detect Zombie
-    // ======================
-    protected bool DetectZombie()
+    // ---------------- DETECT ZOMBIE ----------------
+    private bool DetectZombie()
     {
         float radius = (state == State.Flee) ? fleeExitRadius : fleeEnterRadius;
         float r2 = radius * radius;
@@ -224,24 +240,21 @@ public class CitizenNavMesh : MonoBehaviour
             float dist2 = (z.transform.position - myPos).sqrMagnitude;
 
             if (dist2 <= r2)
-            {
-                Log($"Zombie detected → {z.name}, dist={Mathf.Sqrt(dist2):F2}");
                 return true;
-            }
         }
 
         return false;
     }
 
-    // ======================
-    //    External Infect
-    // ======================
+    // ---------------- INFECT ----------------
     public virtual void Infect(Faction faction)
     {
         Log($"INFECTED → Turns into {faction} zombie");
+
         PoolManager.Instance.Despawn("Citizen", gameObject);
 
-        string key = NPCManager.Instance.greenZombiePool;
+        string key;
+
         if (faction == Faction.Green)
         {
             key = (Random.value < NPCManager.Instance.mutantChance)
@@ -253,14 +266,15 @@ public class CitizenNavMesh : MonoBehaviour
             key = NPCManager.Instance.purpleZombiePool;
         }
 
-        GameObject obj = PoolManager.Instance.Spawn(key, transform.position, Quaternion.identity);
-        ZombieNavMesh zombie = obj.GetComponent<ZombieNavMesh>();
+        GameObject zombieObj = PoolManager.Instance.Spawn(key, transform.position, Quaternion.identity);
+        ZombieNavMesh zombie = zombieObj.GetComponent<ZombieNavMesh>();
         zombie.faction = faction;
 
         NPCManager.Instance.AddInfectCount(faction);
     }
 
-    protected void Log(string msg)
+    // ---------------- DEBUG LOG ----------------
+    private void Log(string msg)
     {
         if (!debugLog) return;
         Debug.Log($"[Citizen {name}] {msg}");

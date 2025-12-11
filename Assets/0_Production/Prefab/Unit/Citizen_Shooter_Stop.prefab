@@ -150,7 +150,7 @@ NavMeshAgent:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7809207238147872883}
-  m_Enabled: 1
+  m_Enabled: 0
   m_AgentTypeID: 0
   m_Radius: 0.5
   m_Speed: 3.5
@@ -189,6 +189,7 @@ MonoBehaviour:
   zombieLayer:
     serializedVersion: 2
     m_Bits: 64
+  agent: {fileID: 0}
   debugLog: 0
   mode: 0
   shootRange: 5
