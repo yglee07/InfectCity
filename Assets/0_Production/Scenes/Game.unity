@@ -381,7 +381,6 @@ MonoBehaviour:
   gameView: {fileID: 299420117}
   uiLobby: {fileID: 2094395832}
   uiGameHUD: {fileID: 918648271}
-  controlMode: 1
 --- !u!1 &892461534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1388,6 +1387,10 @@ PrefabInstance:
     - target: {fileID: 4379723872547637043, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: m_Name
       value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379723872547637043, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5676543936834433335, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: m_LocalPosition.x

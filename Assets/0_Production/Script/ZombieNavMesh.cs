@@ -14,8 +14,11 @@ public class ZombieNavMesh : MonoBehaviour
     [SerializeField] private float walkSpeed = 1.8f;
     [SerializeField] private float runSpeed = 4f;
     [SerializeField] private float chaseDistance = 5f;
+
+    [Header("Merge")]
+    public float mergeDistance = 1.5f;
     private bool isMerging = false;
-    public float mergeDistance = 1.5f;  // 감염거리(infectDistance)와 별도로 설정 가능
+
 
     private NavMeshAgent agent;
     [SerializeField] private CitizenNavMesh targetCitizen;
