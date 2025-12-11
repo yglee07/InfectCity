@@ -12,7 +12,11 @@ public class Game : MonoBehaviour
     [Header("Level Prefabs")]
     public GameObject[] levelPrefabs;
 
-    private GameObject currentLevel;
+  
+    [SerializeField] private Level currentLevel;
+    public Level CurrentLevel => currentLevel;
+    public Transform CurrentLevelTransform => currentLevel != null ? currentLevel.transform : null;
+
 
     [Header("Level Root")]
     public Transform levelContainer;
@@ -22,13 +26,7 @@ public class Game : MonoBehaviour
 
     public bool isPlaying = false;
 
-    public Transform CurrentLevelTransform
-    {
-        get
-        {
-            return currentLevel != null ? currentLevel.transform : null;
-        }
-    }
+ 
 
     void Awake()
     {
@@ -79,34 +77,21 @@ public class Game : MonoBehaviour
     // ========================================================
     private void LoadLevel(int stage)
     {
-        int total = levelPrefabs.Length;
+        int index = (stage - 1) % levelPrefabs.Length;
 
-        // Prefab index는 반복
-        int index = (stage - 1) % total;
-
-        // 기존 레벨 삭제
         if (currentLevel != null)
-            Destroy(currentLevel);
+            Destroy(currentLevel.gameObject);
 
-        // 새 레벨 생성 → LevelContainer의 child
-        currentLevel = Instantiate(levelPrefabs[index], levelContainer);
-        currentLevel.name = $"Level_{stage}";
+        GameObject inst = Instantiate(levelPrefabs[index], levelContainer);
+        inst.name = $"Level_{stage}";
+
+        currentLevel = inst.GetComponent<Level>();
     }
-
-
-    // =============================
-    //         UPDATE HUD
-    // =============================
-    private void UpdateHUD()
-    {
-        uiGame.UpdatePieChart();
-    }
-
 
     // =============================
     //        CLEAR CHECK
     // =============================
- private bool stageClearStarted = false;
+    private bool stageClearStarted = false;
 
     private void CheckStageClear()
     {

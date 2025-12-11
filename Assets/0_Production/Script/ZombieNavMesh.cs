@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -36,6 +37,8 @@ public class ZombieNavMesh : MonoBehaviour
 
     public int maxHP = 1;
     public int currentHP = 1;
+
+    [SerializeField] private Breakable targetBarricade;
 
     private void Awake()
     {
@@ -120,7 +123,16 @@ public class ZombieNavMesh : MonoBehaviour
             FindNearestCitizen();
         }
 
+       
+
+       
+
         TryInfect(this.faction);
+
+        if (targetBarricade != null)
+            TryBreakBarricade();
+
+
     }
 
     // ------- ANIMATION HELPER -------
@@ -192,6 +204,39 @@ public class ZombieNavMesh : MonoBehaviour
 
         // 속도 / 애니메이션 결정
         HandleSpeedBasedOnDistance(nearest);
+        // 경로 계산
+
+        NavMeshPath path = new NavMeshPath();
+        agent.CalculatePath(nearest.transform.position, path);
+
+
+        // ⭐ Case 1: 시민까지 경로가 막혀 있다
+        if (path.status != NavMeshPathStatus.PathComplete)
+        {
+            Debug.Log("[Zombie] 시민 경로 막힘 → Breakable 탐색 시도");
+
+            // 막힌 지점
+            Vector3 blockedPoint = path.corners[path.corners.Length - 1];
+
+            // 막힌 지점 주변 Breakable 검색
+            Breakable blocker = FindBreakableBlockingPath(blockedPoint, 3f);
+
+            if (blocker != null)
+            {
+                Debug.Log("[Zombie] 막고 있는 Breakable 발견 → Breakable 공격 모드 진입");
+
+                targetCitizen = null;
+                targetBarricade = blocker;
+
+                agent.SetDestination(blocker.transform.position);
+                agent.isStopped = false;
+                return;
+            }
+
+            // 가까운 Breakable이 없어도 기존 로직은 유지
+            FindNearestBarricade();
+            return;
+        }
     }
 
     void FindEnemyZombie()
@@ -373,21 +418,105 @@ public class ZombieNavMesh : MonoBehaviour
         PoolManager.Instance.Despawn(zombiePoolKey, this.gameObject);
     }
 
-    // 살아남았으면 다시 다음 전투를 
-    // ---------------- DEBUG ----------------
-    //private void OnDrawGizmos()
-    //{
-    //    if (!Application.isPlaying) return;
-    //    if (agent == null) return;
-    //    if (!agent.hasPath) return;
 
-    //    Gizmos.color = Color.cyan;
-    //    Vector3[] corners = agent.path.corners;
+    void FindNearestBarricade()
+    {
+        targetCitizen = null;
 
-    //    for (int i = 0; i < corners.Length; i++)
-    //        Gizmos.DrawSphere(corners[i], 0.15f);
+        var level = Game.Instance.CurrentLevel;
+        if (level == null) return;
 
-    //    for (int i = 0; i < corners.Length - 1; i++)
-    //        Gizmos.DrawLine(corners[i], corners[i + 1]);
-    //}
+        var breakables = level.Breakables;
+
+        float min = float.MaxValue;
+        Breakable nearest = null;
+
+        foreach (var b in breakables)
+        {
+            if (b == null || !b.gameObject.activeInHierarchy) continue;
+
+            float dist = (b.transform.position - transform.position).sqrMagnitude;
+            if (dist < min)
+            {
+                min = dist;
+                nearest = b;
+            }
+        }
+
+        if (nearest != null)
+        {
+            targetBarricade = nearest;
+
+            Vector3 targetPos = GetClosestPointOnBreakable(nearest);
+
+            agent.isStopped = false;
+            agent.SetDestination(targetPos);
+        }
+        else
+        {
+            targetBarricade = null;
+        }
+    }
+
+
+    void TryBreakBarricade()
+    {
+        if (targetBarricade == null) return;
+
+        Vector3 attackPoint = GetClosestPointOnBreakable(targetBarricade);
+        float dist = Vector3.Distance(transform.position, attackPoint);
+
+        if (dist <= infectDistance)
+        {
+            // 공격
+            targetBarricade.TakeDamage(1);
+
+            if (!targetBarricade.gameObject.activeInHierarchy)
+            {
+                targetBarricade = null;
+                agent.ResetPath();
+                FindNearestCitizen();
+            }
+        }
+    }
+    Breakable FindBreakableBlockingPath(Vector3 blockedPoint, float radius = 2.5f)
+    {
+        var level = Game.Instance.CurrentLevel;
+        if (level == null) return null;
+
+        var breakables = level.Breakables;
+
+        Breakable nearest = null;
+        float minDist = float.MaxValue;
+
+        foreach (var b in breakables)
+        {
+            if (b == null || !b.gameObject.activeInHierarchy) continue;
+
+            float dist = Vector3.Distance(b.transform.position, blockedPoint);
+            if (dist < radius && dist < minDist)
+            {
+                minDist = dist;
+                nearest = b;
+            }
+        }
+
+        return nearest;
+    }
+
+
+    Vector3 GetClosestPointOnBreakable(Breakable b)
+    {
+        Vector3 bPos = b.transform.position;
+        Vector3 half = b.size * 0.5f;
+
+        Vector3 z = transform.position;
+
+        return new Vector3(
+            Mathf.Clamp(z.x, bPos.x - half.x, bPos.x + half.x),
+            z.y,
+            Mathf.Clamp(z.z, bPos.z - half.z, bPos.z + half.z)
+        );
+    }
+
 }

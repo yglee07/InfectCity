@@ -1359,12 +1359,12 @@ PrefabInstance:
       objectReference: {fileID: 1540442432}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: levelPrefabs.Array.size
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 1261747436639895672, guid: 8966889eecf8e0146a8a6842e080fb5c, type: 3}
+      objectReference: {fileID: 1261747436639895672, guid: ab22e493bfd5a5c44b722f79c9e0c508, type: 3}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[1]'
       value: 
