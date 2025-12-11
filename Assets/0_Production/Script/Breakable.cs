@@ -91,8 +91,8 @@ public class Breakable : MonoBehaviour
 
             // ★ 무게감 부여
             rb.mass = 1.5f;         // 무겁게
-            rb.drag = 0.4f;         // 옆으로 잘 안 날아감
-            rb.angularDrag = 0.4f;  // 너무 휙휙 돌지 않음
+            rb.linearDamping = 0.4f;         // 옆으로 잘 안 날아감
+            rb.angularDamping = 0.4f;  // 너무 휙휙 돌지 않음
         }
         //// 일정 시간 후 Breakable 삭제
         //Destroy(gameObject, removeAfter);

@@ -95,12 +95,12 @@ public class Game : MonoBehaviour
 
     private void CheckStageClear()
     {
-        Debug.Log($"[CheckStageClear] Citizens: {npcManager.Citizens.Count}, Purple: {npcManager.PurpleZombies.Count}, CombatMode: {npcManager.combatMode}, stageClearStarted: {stageClearStarted}");
+        //Debug.Log($"[CheckStageClear] Citizens: {npcManager.Citizens.Count}, Purple: {npcManager.PurpleZombies.Count}, CombatMode: {npcManager.combatMode}, stageClearStarted: {stageClearStarted}");
 
         // 시민 0 → Combat Mode ON
         if (npcManager.Citizens.Count == 0 && !npcManager.combatMode)
         {
-            Debug.Log("[CheckStageClear] 시민이 0 → CombatMode ON");
+           
             npcManager.combatMode = true;
         }
 
@@ -109,7 +109,7 @@ public class Game : MonoBehaviour
             npcManager.Citizens.Count == 0 &&
             npcManager.PurpleZombies.Count == 0)
         {
-            Debug.Log("[CheckStageClear] ★ 스테이지 클리어 조건 충족! 코루틴 시작");
+        
             stageClearStarted = true;
             StartCoroutine(DelayedStageClear());
         }

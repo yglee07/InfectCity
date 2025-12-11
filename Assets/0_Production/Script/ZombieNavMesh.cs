@@ -216,7 +216,7 @@ public class ZombieNavMesh : MonoBehaviour
         // ⭐ Case 1: 시민까지 경로가 막혀 있다
         if (path.status != NavMeshPathStatus.PathComplete)
         {
-            Debug.Log("[Zombie] 시민 경로 막힘 → Breakable 탐색 시도");
+            
 
             // 막힌 지점
             Vector3 blockedPoint = path.corners[path.corners.Length - 1];
@@ -226,7 +226,7 @@ public class ZombieNavMesh : MonoBehaviour
 
             if (blocker != null)
             {
-                Debug.Log("[Zombie] 막고 있는 Breakable 발견 → Breakable 공격 모드 진입");
+               
 
                 targetCitizen = null;
                 targetBarricade = blocker;
