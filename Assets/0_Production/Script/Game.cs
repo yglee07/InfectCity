@@ -86,6 +86,13 @@ public class Game : MonoBehaviour
         inst.name = $"Level_{stage}";
 
         currentLevel = inst.GetComponent<Level>();
+
+        Camera mainCam = Camera.main;
+        if (mainCam != null && currentLevel.startCameraPoint != null)
+        {
+            mainCam.transform.position = currentLevel.startCameraPoint.position;
+            mainCam.transform.rotation = currentLevel.startCameraPoint.rotation;
+        }
     }
 
     // =============================

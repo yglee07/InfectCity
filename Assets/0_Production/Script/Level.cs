@@ -5,6 +5,9 @@ public class Level : MonoBehaviour
 {
     public List<Breakable> Breakables { get; private set; }
 
+    [Header("Camera")]
+    public Transform startCameraPoint;   // ⭐ 여기만 사용
+
     void Awake()
     {
         Breakables = new List<Breakable>(GetComponentsInChildren<Breakable>());

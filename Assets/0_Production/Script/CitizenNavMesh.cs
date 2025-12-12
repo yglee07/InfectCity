@@ -152,6 +152,7 @@ public class CitizenNavMesh : MonoBehaviour
         anim.ResetTrigger("Idle");
         anim.ResetTrigger("Walk");
         anim.ResetTrigger("Run");
+        anim.ResetTrigger("Shoot");  // ⭐ 여기도 추가!
 
         anim.SetTrigger(trigger);
     }

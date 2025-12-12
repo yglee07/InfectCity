@@ -98,6 +98,8 @@ public class CitizenShooter : CitizenNavMesh
 
     protected void Shoot(ZombieNavMesh target)
     {
+        PlayAnim("Shoot");   // ⭐ Shoot 애니메이션 실행
+
         if (muzzleFlashPrefab)
             Instantiate(muzzleFlashPrefab,
                 transform.position + transform.forward * 0.4f,
