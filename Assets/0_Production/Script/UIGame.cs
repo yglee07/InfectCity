@@ -33,11 +33,7 @@ public class UIGame : MonoBehaviour
         if (btnFailedOK != null)
             btnFailedOK.onClick.AddListener(OnClickFailedOK);
 
-        if (btnInfectMode != null)
-            btnInfectMode.onClick.AddListener(SetInfectMode);
-
-        if (btnCameraMode != null)
-            btnCameraMode.onClick.AddListener(SetCameraMode);
+      
     }
 
     private void Update()
@@ -81,15 +77,7 @@ public class UIGame : MonoBehaviour
         dragChargesText.text = $"Drag Me\n{current}/{max}";
     }
 
-    public void SetInfectMode()
-    {
-        GameManager.Instance.controlMode = ControlMode.Infect;
-    }
-
-    public void SetCameraMode()
-    {
-        GameManager.Instance.controlMode = ControlMode.Camera;
-    }
+    
     public void UpdatePieChart()
     {
         // 1) 값 수집

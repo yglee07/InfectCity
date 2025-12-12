@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour
     public GameObject uiLobby;
     public GameObject uiGameHUD;
 
-    public ControlMode controlMode = ControlMode.Infect;
 
     void Awake()
     {

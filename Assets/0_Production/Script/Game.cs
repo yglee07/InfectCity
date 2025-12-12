@@ -12,7 +12,11 @@ public class Game : MonoBehaviour
     [Header("Level Prefabs")]
     public GameObject[] levelPrefabs;
 
-    private GameObject currentLevel;
+  
+    [SerializeField] private Level currentLevel;
+    public Level CurrentLevel => currentLevel;
+    public Transform CurrentLevelTransform => currentLevel != null ? currentLevel.transform : null;
+
 
     [Header("Level Root")]
     public Transform levelContainer;
@@ -22,13 +26,7 @@ public class Game : MonoBehaviour
 
     public bool isPlaying = false;
 
-    public Transform CurrentLevelTransform
-    {
-        get
-        {
-            return currentLevel != null ? currentLevel.transform : null;
-        }
-    }
+ 
 
     void Awake()
     {
@@ -79,43 +77,30 @@ public class Game : MonoBehaviour
     // ========================================================
     private void LoadLevel(int stage)
     {
-        int total = levelPrefabs.Length;
+        int index = (stage - 1) % levelPrefabs.Length;
 
-        // Prefab index는 반복
-        int index = (stage - 1) % total;
-
-        // 기존 레벨 삭제
         if (currentLevel != null)
-            Destroy(currentLevel);
+            Destroy(currentLevel.gameObject);
 
-        // 새 레벨 생성 → LevelContainer의 child
-        currentLevel = Instantiate(levelPrefabs[index], levelContainer);
-        currentLevel.name = $"Level_{stage}";
+        GameObject inst = Instantiate(levelPrefabs[index], levelContainer);
+        inst.name = $"Level_{stage}";
+
+        currentLevel = inst.GetComponent<Level>();
     }
-
-
-    // =============================
-    //         UPDATE HUD
-    // =============================
-    private void UpdateHUD()
-    {
-        uiGame.UpdatePieChart();
-    }
-
 
     // =============================
     //        CLEAR CHECK
     // =============================
- private bool stageClearStarted = false;
+    private bool stageClearStarted = false;
 
     private void CheckStageClear()
     {
-        Debug.Log($"[CheckStageClear] Citizens: {npcManager.Citizens.Count}, Purple: {npcManager.PurpleZombies.Count}, CombatMode: {npcManager.combatMode}, stageClearStarted: {stageClearStarted}");
+        //Debug.Log($"[CheckStageClear] Citizens: {npcManager.Citizens.Count}, Purple: {npcManager.PurpleZombies.Count}, CombatMode: {npcManager.combatMode}, stageClearStarted: {stageClearStarted}");
 
         // 시민 0 → Combat Mode ON
         if (npcManager.Citizens.Count == 0 && !npcManager.combatMode)
         {
-            Debug.Log("[CheckStageClear] 시민이 0 → CombatMode ON");
+           
             npcManager.combatMode = true;
         }
 
@@ -124,7 +109,7 @@ public class Game : MonoBehaviour
             npcManager.Citizens.Count == 0 &&
             npcManager.PurpleZombies.Count == 0)
         {
-            Debug.Log("[CheckStageClear] ★ 스테이지 클리어 조건 충족! 코루틴 시작");
+        
             stageClearStarted = true;
             StartCoroutine(DelayedStageClear());
         }
@@ -151,7 +136,7 @@ private void StageClear()
     private void CheckStageFail()
     {
         // 시민 남아있고
-        bool citizensRemain = npcManager.CurrentCitizenCount > 0;
+        bool citizensRemain = npcManager.CurrentCitizenCount >= 0;
 
         // 좀비 모두 사망
         bool noGreenZombies = npcManager.GreenZombies.Count == 0;

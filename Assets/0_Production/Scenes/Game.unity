@@ -119,6 +119,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &129275679
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 129275680}
+  - component: {fileID: 129275681}
+  m_Layer: 0
+  m_Name: FrameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &129275680
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129275679}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1996332706}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &129275681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 129275679}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6a02d674fb10c6847b93c449f071a57a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &276295316
 GameObject:
   m_ObjectHideFlags: 0
@@ -337,7 +381,6 @@ MonoBehaviour:
   gameView: {fileID: 299420117}
   uiLobby: {fileID: 2094395832}
   uiGameHUD: {fileID: 918648271}
-  controlMode: 1
 --- !u!1 &892461534
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,14 +584,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dragSpeed: 0.1
-  zoomSpeed: 0.1
+  zoomSpeed: 1
   minZoom: 5
-  maxZoom: 25
+  maxZoom: 30
   minX: -5
   maxX: 5
   minZ: -25
   maxZ: -20
   cameraPos: {fileID: 892461535}
+  dragMultiplier: 0.1
+  smoothTime: 0.05
 --- !u!1 &1202978951
 GameObject:
   m_ObjectHideFlags: 0
@@ -846,7 +891,7 @@ MonoBehaviour:
   greenZombiePool: Zombie
   purpleZombiePool: ZombiePurple
   zombiePrefab: {fileID: 0}
-  mutantChance: 1
+  mutantChance: 0.1
   combatMode: 0
 --- !u!1 &1711083307
 GameObject:
@@ -975,6 +1020,7 @@ Transform:
   - {fileID: 490376209}
   - {fileID: 1711083308}
   - {fileID: 2025363000}
+  - {fileID: 129275680}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2025362999
@@ -1063,6 +1109,22 @@ PrefabInstance:
     - target: {fileID: 4272073155346714097, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
       propertyPath: m_Name
       value: UI_Lobby
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318503294571268607, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318503294571268607, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318503294571268607, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7318503294571268607, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8222355609254120230, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
       propertyPath: m_Pivot.x
@@ -1154,6 +1216,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8607055573818630959, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8818589606896712787, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8818589606896712787, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8818589606896712787, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8818589606896712787, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1280,12 +1358,12 @@ PrefabInstance:
       objectReference: {fileID: 1540442432}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: levelPrefabs.Array.size
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 1261747436639895672, guid: 8966889eecf8e0146a8a6842e080fb5c, type: 3}
+      objectReference: {fileID: 1261747436639895672, guid: 249b06073355c47408d5574886984a49, type: 3}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[1]'
       value: 
@@ -1298,9 +1376,21 @@ PrefabInstance:
       propertyPath: 'levelPrefabs.Array.data[3]'
       value: 
       objectReference: {fileID: 1261747436639895672, guid: 1236051e1ac253a408f40f9a8cff6949, type: 3}
+    - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
+      propertyPath: 'levelPrefabs.Array.data[4]'
+      value: 
+      objectReference: {fileID: 1261747436639895672, guid: 249b06073355c47408d5574886984a49, type: 3}
+    - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
+      propertyPath: 'levelPrefabs.Array.data[5]'
+      value: 
+      objectReference: {fileID: 1261747436639895672, guid: 5f51c2943edf7bd40b7c24debfeb1e33, type: 3}
     - target: {fileID: 4379723872547637043, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: m_Name
       value: Game
+      objectReference: {fileID: 0}
+    - target: {fileID: 4379723872547637043, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5676543936834433335, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: m_LocalPosition.x

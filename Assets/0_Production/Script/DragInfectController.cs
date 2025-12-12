@@ -94,13 +94,15 @@ public class DragInfectController : MonoBehaviour
             return;
 
         // 기존 UpdateQuadPreview 내용을 worldPos 기반으로 옮겨온 느낌
-        previewWorldPos = worldPos;
+        float offsetZ = 3f;
+        Vector3 offsetPos = worldPos + new Vector3(0, 0, offsetZ);
+
+        previewWorldPos = offsetPos;
 
         if (!previewQuad.gameObject.activeSelf)
             previewQuad.gameObject.SetActive(true);
 
-        float offsetZ = 3f;
-        Vector3 offsetPos = worldPos + new Vector3(0, 0, offsetZ);
+   
 
         previewQuad.position = offsetPos + Vector3.up * quadHeightOffset;
 
@@ -236,23 +238,24 @@ public class DragInfectController : MonoBehaviour
     void EndDrag(Vector2 screenPos)
     {
         ClearHighlights();
-
+        HideQuad();
         if (currentCharges <= 0)
         {
-            HideQuad();
+            
             Deactivate();   // ← 폭탄 사용 불가 상태로 자동 종료
             return;
         }
 
 
-        HideQuad();
 
-        Vector3 worldPos;
-        if (!TryGetWorldPosition(screenPos, out worldPos))
-            return;
 
-        float offsetZ = 3f;  // 너가 원하는 값으로 조절
-        Vector3 infectPos = worldPos + new Vector3(0, 0, offsetZ);
+        //Vector3 worldPos;
+        //if (!TryGetWorldPosition(screenPos, out worldPos))
+        //    return;
+
+        //float offsetZ = 3f;  // 너가 원하는 값으로 조절
+        //Vector3 infectPos = worldPos + new Vector3(0, 0, offsetZ);
+        Vector3 infectPos = previewQuad.position;
 
         if (explosionEffectPrefab != null)
         {
@@ -278,16 +281,19 @@ public class DragInfectController : MonoBehaviour
     bool TryGetWorldPosition(Vector2 screenPos, out Vector3 worldPos)
     {
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
+
+        // 1) 먼저 groundMask로 레이캐스트 시도
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, groundMask))
         {
             worldPos = hit.point;
             return true;
         }
 
-        worldPos = Vector3.zero;
-        return false;
+        // 2) 실패하면 fallback: 카메라 앞쪽 일정 거리의 가상의 plane 사용
+        float fallbackDist = 10f;
+        worldPos = ray.GetPoint(fallbackDist);
+        return true; // 실패해도 true
     }
-
     // =========================================
     //   Citizens Infect
     // =========================================
@@ -377,4 +383,15 @@ public class DragInfectController : MonoBehaviour
 
         highlighted.Clear();
     }
+    public void CancelUIDrag()
+    {
+       
+        uiDragging = false;
+        isDragging = false;
+
+        HideQuad();
+        ClearHighlights();
+    }
+
+
 }

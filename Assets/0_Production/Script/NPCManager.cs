@@ -103,6 +103,25 @@ public class NPCManager : MonoBehaviour
             return (total == 0) ? 0f : (float)Zombies.Count / total;
         }
     }
+    public ZombieNavMesh FindClosestZombie(Vector3 pos)
+    {
+        ZombieNavMesh nearest = null;
+        float min = float.MaxValue;
+
+        foreach (var z in Zombies) // ← PurpleZombies, GreenZombies 쓰고 싶으면 합쳐도 됨
+        {
+            if (!z || !z.gameObject.activeInHierarchy) continue;
+
+            float sqr = (z.transform.position - pos).sqrMagnitude;
+            if (sqr < min)
+            {
+                min = sqr;
+                nearest = z;
+            }
+        }
+
+        return nearest;
+    }
 
     public int CurrentCitizenCount => Citizens.Count;
     public int CurrentZombieCount => Zombies.Count;

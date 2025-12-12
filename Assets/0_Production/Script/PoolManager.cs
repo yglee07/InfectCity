@@ -58,12 +58,13 @@ public class PoolManager : MonoBehaviour
 
         GameObject obj = Instantiate(prefabDict[key]);
 
-        // parent 폴더 지정
-        obj.transform.SetParent(folderDict[key]);
+        //// ⭐ NavMeshAgent 경고 제거 핵심
+        //if (obj.TryGetComponent<NavMeshAgent>(out var agent))
+        //    agent.enabled = true;
 
+        obj.transform.SetParent(folderDict[key]);
         obj.SetActive(false);
         pools[key].Enqueue(obj);
-
         return obj;
     }
 
@@ -89,7 +90,7 @@ public class PoolManager : MonoBehaviour
         // NavMeshAgent 처리
         if (obj.TryGetComponent<NavMeshAgent>(out var agent))
         {
-            agent.enabled = false;
+            Debug.Log("Enabling NavMeshAgent on spawned object.");
             agent.enabled = true;
         }
 
