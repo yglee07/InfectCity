@@ -46,14 +46,52 @@ public class CameraController : MonoBehaviour
             Game.Instance.dragInfector.IsDraggingBomb)
             return;
 
-
-        HandleTouchInput();
-
+#if UNITY_EDITOR || UNITY_STANDALONE
+        HandleMouseInput();          // ★ PC 전용 입력 추가
+#else
+    HandleTouchInput();          // 모바일 입력 계속 사용
+#endif
 
         ClampPosition();
     }
 
-  
+    void HandleMouseInput()
+    {
+        // =====================
+        // 줌 (마우스 휠)
+        // =====================
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        if (Mathf.Abs(scroll) > 0.001f)
+        {
+            cam.orthographicSize -= scroll * zoomSpeed * 10f; // 속도 보정
+            cam.orthographicSize = Mathf.Clamp(cam.orthographicSize, minZoom, maxZoom);
+        }
+
+        // =====================
+        // 드래그 (좌클 or 우클)
+        // =====================
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            lastDragWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
+        }
+
+        if (Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        {
+            Vector3 newPos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 diff = lastDragWorldPos - newPos;
+            diff.y = 0;
+
+            // 줌 크기에 따라 이동량 증가
+            float zoomFactor = cam.orthographicSize * dragMultiplier;
+
+            transform.position += diff * zoomFactor;
+
+            lastDragWorldPos = newPos;
+        }
+    }
+
+
     void HandleTouchInput()
     {
         int touchCount = Input.touchCount;

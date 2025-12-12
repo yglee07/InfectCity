@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.EventSystems;
 
 public class BombButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
@@ -24,7 +25,25 @@ public class BombButton : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public void OnEndDrag(PointerEventData eventData)
     {
         if (Game.Instance.dragInfector == null) return;
+        // ★ 여기서 UI 위면 취소!
+        if (IsPointerOverUI(eventData.position))
+        {
+            Game.Instance.dragInfector.CancelUIDrag();
+            Debug.Log("드래그 취소 - UI 위");
+            return;
+        }
 
         Game.Instance.dragInfector.EndUIDrag(eventData.position);
+    }
+
+    bool IsPointerOverUI(Vector2 screenPos)
+    {
+        PointerEventData ped = new PointerEventData(EventSystem.current);
+        ped.position = screenPos;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(ped, results);
+
+        return results.Count > 0; // UI 위면 true
     }
 }

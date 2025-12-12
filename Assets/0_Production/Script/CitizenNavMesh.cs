@@ -37,6 +37,13 @@ public class CitizenNavMesh : MonoBehaviour
 
     protected string currentAnim = "";
 
+    public enum CitizenBehaviorType
+    {
+        Normal,   // 기존 이동 패턴
+        Idle      // 움직이지 않는 시민
+    }
+    public CitizenBehaviorType behaviorType = CitizenBehaviorType.Normal;
+
     [Header("Debug")]
     public bool debugLog = false;
 
@@ -74,14 +81,66 @@ public class CitizenNavMesh : MonoBehaviour
     {
         bool detected = DetectZombie();
 
-        if (detected && state != State.Flee)
-            ChangeState(State.Flee);
-        else if (!detected && state != State.Wander)
-            ChangeState(State.Wander);
+        Log($"Update | behavior={behaviorType} state={state} detected={detected}");
 
-        if (state == State.Wander) UpdateWander();
-        else UpdateFlee();
+        // ============================================
+        // ★ CitizenBehaviorType.Idle 전용 로직
+        // ============================================
+        if (behaviorType == CitizenBehaviorType.Idle)
+        {
+            if (!detected)
+            {
+                // 좀비 없으면 Idle 유지
+                agent.isStopped = true;
+                agent.velocity = Vector3.zero;
+                PlayAnim("Idle");
+
+                Log("Idle citizen: No zombie → staying idle");
+                return;   // Wander/Idle 랜덤 로직 접근 금지
+            }
+            else
+            {
+                Log("Idle citizen: Zombie detected → switching to Flee");
+                agent.isStopped = false;
+                // 좀비 감지 → Flee 전환
+                if (state != State.Flee)
+                {
+                    ChangeState(State.Flee);
+                    Log("Force ChangeState(Flee)");
+                }
+            }
+        }
+
+        // ============================================
+        // Normal 시민 + Idle 시민 공통 상태 전환
+        // ============================================
+        if (detected && state != State.Flee)
+        {
+            Log("Detected → ChangeState(Flee)");
+            ChangeState(State.Flee);
+        }
+        else if (!detected && state != State.Wander)
+        {
+            Log("No zombie → ChangeState(Wander)");
+            ChangeState(State.Wander);
+        }
+
+        // ============================================
+        // 상태 실행
+        // ============================================
+        if (state == State.Wander)
+        {
+            Log("Run UpdateWander()");
+            UpdateWander();
+        }
+        else
+        {
+            Log("Run UpdateFlee()");
+            UpdateFlee();
+        }
     }
+
+
 
     // ---------------- ANIMATION ----------------
     protected void PlayAnim(string trigger)
@@ -240,7 +299,10 @@ public class CitizenNavMesh : MonoBehaviour
             float dist2 = (z.transform.position - myPos).sqrMagnitude;
 
             if (dist2 <= r2)
+            {
+                Log($"DetectZombie → {z.name}, dist={Mathf.Sqrt(dist2):F2}");
                 return true;
+            }
         }
 
         return false;

@@ -383,5 +383,15 @@ public class DragInfectController : MonoBehaviour
 
         highlighted.Clear();
     }
-    
+    public void CancelUIDrag()
+    {
+       
+        uiDragging = false;
+        isDragging = false;
+
+        HideQuad();
+        ClearHighlights();
+    }
+
+
 }
