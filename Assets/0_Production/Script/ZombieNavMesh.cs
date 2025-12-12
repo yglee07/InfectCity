@@ -46,7 +46,7 @@ public class ZombieNavMesh : MonoBehaviour
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        
+        agent.enabled = true;
         agent.acceleration = 20f;
         agent.autoBraking = false;
 
