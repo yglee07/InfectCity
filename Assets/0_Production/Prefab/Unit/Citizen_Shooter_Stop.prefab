@@ -191,7 +191,7 @@ MonoBehaviour:
     m_Bits: 64
   agent: {fileID: 0}
   behaviorType: 0
-  debugLog: 1
+  debugLog: 0
   mode: 0
   shootRange: 5
   shootInterval: 1
@@ -215,7 +215,7 @@ MonoBehaviour:
   rend: {fileID: 0}
   outlineMat: {fileID: 0}
   normalColor: {r: 0, g: 0, b: 0, a: 0}
-  highlightColor: {r: 1, g: 0, b: 0, a: 1}
+  highlightColor: {r: 0.13725491, g: 1, b: 0, a: 1}
 --- !u!1001 &6015698864426541913
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -82,7 +82,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   agent: {fileID: 0}
-  debugLog: 0
+  behaviorType: 0
+  debugLog: 1
 --- !u!114 &5620326103552762710
 MonoBehaviour:
   m_ObjectHideFlags: 0

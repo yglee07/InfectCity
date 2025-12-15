@@ -132,14 +132,16 @@ public class CitizenNavMesh : MonoBehaviour
         // ============================================
         if (state == State.Wander)
         {
-            Log("Run UpdateWander()");
+
             UpdateWander();
         }
         else
         {
-            Log("Run UpdateFlee()");
             UpdateFlee();
         }
+     
+          
+        
     }
 
 
@@ -257,47 +259,139 @@ public class CitizenNavMesh : MonoBehaviour
         }
     }
 
+
     // ---------------- FLEE ----------------
+    [SerializeField] private float fleeRetargetInterval = 0.4f;
+    private float fleeRetargetTimer = 0f;
+
+    private Vector3 debugFleeDir; // Gizmo용
     private void UpdateFlee()
     {
-        if (agent.remainingDistance <= 0.6f)
+        fleeRetargetTimer += Time.deltaTime;
+
+        // 일정 시간마다 무조건 새 도망 목표 설정
+        if (fleeRetargetTimer >= fleeRetargetInterval)
+        {
+            fleeRetargetTimer = 0f;
             SetNewFleeTarget();
+        }
     }
 
     private void SetNewFleeTarget()
     {
-        Collider[] hits = Physics.OverlapSphere(transform.position, fleeEnterRadius, zombieLayer);
-        if (hits.Length == 0)
-        {
-            ChangeState(State.Wander);
+        var zombies = NPCManager.Instance.Zombies;
+        if (zombies == null || zombies.Count == 0)
             return;
+
+        Vector3 myPos = transform.position;
+
+        // ===============================
+        // 1️⃣ fleeExitRadius 안의 좀비 필터
+        // ===============================
+        List<ZombieNavMesh> nearby = new List<ZombieNavMesh>();
+        foreach (var z in zombies)
+        {
+            if (z == null || !z.gameObject.activeInHierarchy) continue;
+
+            float dist = Vector3.Distance(myPos, z.transform.position);
+            if (dist <= fleeExitRadius)
+                nearby.Add(z);
         }
 
-        Transform nearest = hits[0].transform;
-        float min = Vector3.Distance(transform.position, nearest.position);
+        if (nearby.Count == 0)
+            return;
 
-        foreach (var h in hits)
+        // ===============================
+        // 2️⃣ 평균 반대 방향 계산
+        // ===============================
+        Vector3 fleeDir = Vector3.zero;
+        foreach (var z in nearby)
         {
-            float d = Vector3.Distance(transform.position, h.transform.position);
-            if (d < min)
+            Vector3 dir = myPos - z.transform.position;
+            float weight = 1f / Mathf.Max(dir.magnitude, 0.1f);
+            fleeDir += dir.normalized * weight;
+        }
+
+        if (fleeDir.sqrMagnitude < 0.001f)
+            return;
+
+        fleeDir.Normalize();
+        debugFleeDir = fleeDir;
+
+        // ===============================
+        // 3️⃣ 좌/우 회전 포함 시도 (정면 → 측면)
+        // ===============================
+        if (TrySetFleeTarget(myPos, fleeDir, nearby, 0)) return;
+        if (TrySetFleeTarget(myPos, fleeDir, nearby, 45)) return;
+        if (TrySetFleeTarget(myPos, fleeDir, nearby, -45)) return;
+        if (TrySetFleeTarget(myPos, fleeDir, nearby, 90)) return;
+        if (TrySetFleeTarget(myPos, fleeDir, nearby, -90)) return;
+
+        // 전부 실패 → 이번 프레임 포기
+    }
+
+    private bool TrySetFleeTarget(
+    Vector3 myPos,
+    Vector3 baseDir,
+    List<ZombieNavMesh> nearby,
+    float angleDeg
+)
+    {
+        Vector3 dir = Quaternion.Euler(0, angleDeg, 0) * baseDir;
+        dir.Normalize();
+
+        Vector3 targetPos = myPos + dir * fleeDistance;
+
+        // NavMesh 위치 보정
+        if (!NavMesh.SamplePosition(targetPos, out var hit, 2.5f, NavMesh.AllAreas))
+            return false;
+
+        // 방향 뒤집힘 방지
+        Vector3 toSample = (hit.position - myPos).normalized;
+        if (Vector3.Dot(dir, toSample) < 0.5f)
+            return false;
+
+        // 경로 계산
+        NavMeshPath path = new NavMeshPath();
+        if (!agent.CalculatePath(hit.position, path))
+            return false;
+
+        if (path.status != NavMeshPathStatus.PathComplete)
+            return false;
+
+        // ===============================
+        // 경로 안전성 검사 (좀비 쪽으로 휘는지)
+        // ===============================
+        // ===============================
+        // 경로 위험도 검사 (중간 경로가 좀비에 가까워지는지)
+        // ===============================
+        foreach (var corner in path.corners)
+        {
+            foreach (var z in nearby)
             {
-                min = d;
-                nearest = h.transform;
+                float startDist = Vector3.Distance(myPos, z.transform.position);
+                float cornerDist = Vector3.Distance(corner, z.transform.position);
+
+                // ⚠️ 경로 중간에서 좀비에게 더 가까워지면 폐기
+                if (cornerDist < startDist - 0.2f)
+                {
+                    // 이 목적지는 "좀비를 피해 도망"이 아니라
+                    // "좀비를 스쳐서 도망"이 됨 → 부자연
+                    return false;
+                }
             }
         }
 
-        Vector3 away = (transform.position - nearest.position).normalized;
 
-        Vector3 raw = transform.position + away * fleeDistance;
-        raw += new Vector3(Random.Range(-2f, 2f), 0, Random.Range(-2f, 2f));
-
-        if (NavMesh.SamplePosition(raw, out var hit, 2f, NavMesh.AllAreas))
-        {
-            fleeTarget = hit.position;
-            agent.SetDestination(fleeTarget);
-            Log($"FleeTarget = {fleeTarget} (from zombie {nearest.name})");
-        }
+        // ===============================
+        // 최종 적용
+        // ===============================
+        fleeTarget = hit.position;
+        agent.SetDestination(fleeTarget);
+        return true;
     }
+
+
 
     // ---------------- DETECT ZOMBIE ----------------
     private bool DetectZombie()
@@ -349,6 +443,18 @@ public class CitizenNavMesh : MonoBehaviour
         zombie.faction = faction;
 
         NPCManager.Instance.AddInfectCount(faction);
+    }
+
+    private void OnDrawGizmosSelected()
+    {
+        if (agent == null) return;
+
+        // 현재 목적지
+        Gizmos.color = (state == State.Flee) ? Color.red : Color.green;
+        Gizmos.DrawSphere(agent.destination, 1.0f);
+
+        // 현재 위치 → 목적지 선
+        Gizmos.DrawLine(transform.position, agent.destination);
     }
 
     // ---------------- DEBUG LOG ----------------
