@@ -191,12 +191,13 @@ MonoBehaviour:
     m_Bits: 64
   agent: {fileID: 0}
   behaviorType: 0
-  debugLog: 0
+  debugLog: 1
   mode: 0
   shootRange: 5
-  shootInterval: 1.8
+  shootInterval: 1
   damage: 1
-  viewAngle: 45
+  shootTimer: 0
+  viewAngle: 90
   muzzleFlashPrefab: {fileID: 0}
   impactFxPrefab: {fileID: 0}
 --- !u!114 &5620326103552762710
@@ -277,7 +278,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6821204479217944736, guid: 8698befb775c215439e7703a2a745fae, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5581772443564236293}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7787874160410810658, guid: 8698befb775c215439e7703a2a745fae, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8953926848025708897}
   m_SourcePrefab: {fileID: 100100000, guid: 8698befb775c215439e7703a2a745fae, type: 3}
 --- !u!4 &996922158226320377 stripped
 Transform:
@@ -289,3 +293,21 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7448890999504012184, guid: 8698befb775c215439e7703a2a745fae, type: 3}
   m_PrefabInstance: {fileID: 6015698864426541913}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4568928724961442427 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7787874160410810658, guid: 8698befb775c215439e7703a2a745fae, type: 3}
+  m_PrefabInstance: {fileID: 6015698864426541913}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8953926848025708897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4568928724961442427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5e151a68490a2754aaf9df1daa484d2b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  shooter: {fileID: 8604421698482730385}

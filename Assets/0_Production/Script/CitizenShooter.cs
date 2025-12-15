@@ -1,104 +1,193 @@
 ﻿using UnityEngine;
+using UnityEngine.AI;
 
 public class CitizenShooter : CitizenNavMesh
 {
     public enum ShooterMode { Stationary, Mobile }
-    public ShooterMode mode = ShooterMode.Mobile; // Inspector에서 선택
+    public ShooterMode mode = ShooterMode.Mobile;
 
     [Header("Shooter Settings")]
-    public float shootRange = 5f;
-    public float shootInterval = 2f;
+    public float shootRange = 6f;
+    public float shootInterval = 1.2f;
     public int damage = 1;
-    protected float shootTimer = 0f;
+    [SerializeField]
+    private float shootTimer = 0f;
 
     [Header("Vision")]
     public float viewAngle = 90f;
 
+    [Header("FX")]
     public GameObject muzzleFlashPrefab;
     public GameObject impactFxPrefab;
 
-    protected ZombieNavMesh currentTarget;
+    private ZombieNavMesh currentTarget;
+    private ZombieNavMesh lastTarget;
+
+    protected override void Start()
+    {
+        agent = GetComponent<NavMeshAgent>();
+        anim = GetComponentInChildren<Animator>();
+
+        if (!agent.enabled)
+            agent.enabled = true;
+
+        agent.isStopped = true; // Wander 제거
+
+        if (debugLog) Debug.Log("[Shooter] Start()");
+    }
 
     protected override void Update()
     {
-        // 전투 시도
         if (HandleCombat())
             return;
 
-        // 전투 중이 아니면 이동 모드에 따라 행동
-        if (mode == ShooterMode.Mobile)
-            UpdateWanderOnly();      // 기존 시민처럼 돌아다님
-        else
-            StayIdle();              // 정지형
-    }
-
-    void StayIdle()
-    {
         agent.isStopped = true;
-        PlayAnim("Idle");
     }
 
-    // ============================
-    // Combat Logic
-    // ============================
+    // ================= Combat =================
     protected bool HandleCombat()
     {
-        currentTarget = NPCManager.Instance.FindClosestZombie(transform.position);
+        currentTarget = FindShootableTarget();
+
         if (currentTarget == null)
-            return false;
-
-        // 시야각 체크
-        if (!IsInFront(currentTarget))
-            return false;
-
-        float dist = Vector3.Distance(transform.position, currentTarget.transform.position);
-
-        // 사거리 밖
-        if (dist > shootRange)
         {
-            if (mode == ShooterMode.Mobile)
-            {
-                // 이동형만 접근한다
-                agent.isStopped = false;
-                agent.SetDestination(currentTarget.transform.position);
-                PlayAnim("Run");
-                return true;
-            }
-
-            // 정지형은 사거리 밖이면 대기
-            StayIdle();
-            return true;
+            if (debugLog) Debug.Log("[Shooter] HandleCombat: 타겟 없음");
+            return false;
         }
 
-        // 사거리 안 — 사격
+        if (debugLog) Debug.Log($"[Shooter] HandleCombat: 타겟 = {currentTarget.name}");
+
         agent.isStopped = true;
 
+        // 회전
         Vector3 look = currentTarget.transform.position;
         look.y = transform.position.y;
         transform.LookAt(look);
 
+        // 타겟 바뀌면 첫발 바로 쏘게 타이머 리셋
+        if (currentTarget != lastTarget)
+        {
+            if (debugLog) Debug.Log("[Shooter] 새 타겟 → shootTimer 리셋");
+            shootTimer = 0f;
+            lastTarget = currentTarget;
+        }
+
         shootTimer -= Time.deltaTime;
+        if (debugLog) Debug.Log($"[Shooter] shootTimer = {shootTimer}");
+
         if (shootTimer <= 0f)
         {
-            Shoot(currentTarget);
+            if (debugLog) Debug.Log("[Shooter] ▶ PlayAnim(\"Shoot\")");
+            PlayAnim("Shoot");
             shootTimer = shootInterval;
         }
 
-        PlayAnim("Idle");
         return true;
     }
 
+    // ================= Target 찾기 =================
+    private ZombieNavMesh FindShootableTarget()
+    {
+        // 1차: NPCManager에서 가장 가까운 좀비
+        ZombieNavMesh closest = NPCManager.Instance.FindClosestZombie(transform.position);
+
+        if (closest != null)
+        {
+            float dist = Vector3.Distance(transform.position, closest.transform.position);
+            if (debugLog) Debug.Log($"[Target] closest = {closest.name}, dist = {dist}");
+
+            if (closest.gameObject.activeInHierarchy &&
+                dist <= shootRange &&
+                IsInFront(closest))
+            {
+                if (debugLog) Debug.Log("[Target] closest 조건 통과 → 타겟 확정");
+                return closest;
+            }
+            else
+            {
+                if (debugLog) Debug.Log("[Target] closest 조건 실패 → fallback 탐색");
+            }
+        }
+        else
+        {
+            if (debugLog) Debug.Log("[Target] closest = null");
+        }
+
+        // 2차: 사거리+시야각 만족하는 것 중 최단거리
+        ZombieNavMesh best = null;
+        float bestDist = float.MaxValue;
+
+        foreach (var z in NPCManager.Instance.Zombies)
+        {
+            if (z == null || !z.gameObject.activeInHierarchy)
+            {
+                if (debugLog) Debug.Log("[Target] 후보 스킵 (null / inactive)");
+                continue;
+            }
+
+            float dist = Vector3.Distance(transform.position, z.transform.position);
+            if (dist > shootRange)
+            {
+                if (debugLog) Debug.Log($"[Target] 후보 {z.name} 실패: 사거리 초과 ({dist})");
+                continue;
+            }
+
+            if (!IsInFront(z))
+            {
+                if (debugLog) Debug.Log($"[Target] 후보 {z.name} 실패: 시야각 바깥");
+                continue;
+            }
+
+            if (dist < bestDist)
+            {
+                if (debugLog) Debug.Log($"[Target] 후보 {z.name} → best 갱신");
+                bestDist = dist;
+                best = z;
+            }
+        }
+
+        if (best != null)
+        {
+            if (debugLog) Debug.Log("[Target] fallback 타겟 = " + best.name);
+        }
+        else
+        {
+            if (debugLog) Debug.Log("[Target] fallback 실패 → 타겟 없음");
+        }
+
+        return best;
+    }
+
+    // ================= Vision =================
     protected bool IsInFront(ZombieNavMesh target)
     {
         Vector3 dir = (target.transform.position - transform.position).normalized;
         float angle = Vector3.Angle(transform.forward, dir);
 
+        if (debugLog)
+            Debug.Log($"[Vision] angle={angle}, limit={viewAngle * 0.5f}");
+
         return angle < viewAngle * 0.5f;
     }
 
-    protected void Shoot(ZombieNavMesh target)
+    // ================= Animation Event =================
+    public void OnShootEvent()
     {
-        PlayAnim("Shoot");   // ⭐ Shoot 애니메이션 실행
+        Debug.Log("[Shooter] OnShootEvent() 호출");
+
+        if (currentTarget == null || !currentTarget.gameObject.activeInHierarchy)
+        {
+            Debug.Log("[Shooter] OnShootEvent 실패: 타겟 null / inactive");
+            return;
+        }
+
+        PerformShot(currentTarget);
+        PlayAnim("Idle");
+    }
+
+    protected void PerformShot(ZombieNavMesh target)
+    {
+        Debug.Log("[Shooter] PerformShot → " + target.name);
 
         if (muzzleFlashPrefab)
             Instantiate(muzzleFlashPrefab,
@@ -113,32 +202,19 @@ public class CitizenShooter : CitizenNavMesh
         target.TakeDamage(damage);
     }
 
-    // ====================================
-    // Wandering logic copied from parent
-    // ====================================
-    protected void UpdateWanderOnly()
+    private void OnDrawGizmosSelected()
     {
-        if (isIdle)
-        {
-            agent.SetDestination(transform.position);
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, shootRange);
 
-            idleTimer -= Time.deltaTime;
-            if (idleTimer <= 0f)
-                isIdle = false;
+        Gizmos.color = Color.yellow;
+        Vector3 leftDir = Quaternion.Euler(0, -viewAngle * 0.5f, 0) * transform.forward;
+        Vector3 rightDir = Quaternion.Euler(0, viewAngle * 0.5f, 0) * transform.forward;
 
-            return;
-        }
+        Gizmos.DrawLine(transform.position, transform.position + leftDir * shootRange);
+        Gizmos.DrawLine(transform.position, transform.position + rightDir * shootRange);
 
-        timer += Time.deltaTime;
-
-        if (timer >= changeWanderInterval)
-        {
-            timer = 0f;
-            isIdle = true;
-            idleTimer = Random.Range(idleMin, idleMax);
-            return;
-        }
-
-        agent.SetDestination(wanderTarget);
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + transform.forward * shootRange);
     }
 }

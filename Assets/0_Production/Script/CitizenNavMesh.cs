@@ -65,7 +65,7 @@ public class CitizenNavMesh : MonoBehaviour
         NPCManager.Instance?.UnregisterCitizen(this);
     }
 
-    private void Start()
+    protected virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponentInChildren<Animator>();
@@ -79,6 +79,8 @@ public class CitizenNavMesh : MonoBehaviour
 
     protected virtual void Update()
     {
+        if(debugLog)
+            Debug.Log("parent update");
         bool detected = DetectZombie();
 
         Log($"Update | behavior={behaviorType} state={state} detected={detected}");
@@ -143,19 +145,32 @@ public class CitizenNavMesh : MonoBehaviour
 
 
     // ---------------- ANIMATION ----------------
-    protected void PlayAnim(string trigger)
+    protected virtual void PlayAnim(string trigger)
     {
-        if (currentAnim == trigger) return;
+        if (debugLog) Debug.Log("[Shooter] PlayAnim(" + trigger + ") called");
+
+
+        if (currentAnim == trigger)
+        {
+       
+            return;
+        }
 
         currentAnim = trigger;
+
+       
 
         anim.ResetTrigger("Idle");
         anim.ResetTrigger("Walk");
         anim.ResetTrigger("Run");
-        anim.ResetTrigger("Shoot");  // ⭐ 여기도 추가!
+        anim.ResetTrigger("Shoot");
+
+
+
 
         anim.SetTrigger(trigger);
     }
+
 
     // ---------------- STATE CHANGE ----------------
     private void ChangeState(State newState)

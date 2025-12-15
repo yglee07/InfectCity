@@ -369,11 +369,15 @@ public class ZombieNavMesh : MonoBehaviour
     {
         currentHP -= dmg;
 
+        Debug.Log($"[Damage] {name} took {dmg} damage → HP: {currentHP}/{maxHP}");
+
         if (currentHP <= 0)
         {
+            Debug.Log($"[Death] {name} has died.");
             Die();
         }
     }
+
     void ResolveCombat(ZombieNavMesh other)
     {
         bool thisMutant = this.maxHP > 1;   // Mutant = HP2
