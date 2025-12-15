@@ -21,7 +21,7 @@ public class ZombieNavMesh : MonoBehaviour
 
 
     private NavMeshAgent agent;
-    [SerializeField] private CitizenNavMesh targetCitizen;
+    [SerializeField] private CitizenBase targetCitizen;
     private ZombieNavMesh targetZombie;
     private float retargetInterval = 0.2f;
     private float timer;
@@ -158,7 +158,7 @@ public class ZombieNavMesh : MonoBehaviour
     // ---------------- FIND NEAREST CITIZEN ----------------
     void FindNearestCitizen()
     {
-        CitizenNavMesh nearest = null;
+        CitizenBase nearest = null;
         float minSqr = float.MaxValue;
 
         var list = NPCManager.Instance.Citizens;
@@ -314,7 +314,7 @@ public class ZombieNavMesh : MonoBehaviour
         }
     }
     // ---------------- SPEED / ANIMATION LOGIC ----------------
-    void HandleSpeedBasedOnDistance(CitizenNavMesh target)
+    void HandleSpeedBasedOnDistance(CitizenBase target)
     {
         float dist = Vector3.Distance(transform.position, target.transform.position);
 

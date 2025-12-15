@@ -29,7 +29,7 @@ public class DragInfectController : MonoBehaviour
     [Header("Effects")]
     public GameObject explosionEffectPrefab;
 
-    private List<CitizenNavMesh> highlighted = new List<CitizenNavMesh>();
+    private List<CitizenBase> highlighted = new List<CitizenBase>();
     private float baseRadius;
     public bool IsDraggingBomb => uiDragging;
     public float FinalRadius => baseRadius * UpgradeManager.Instance.GetBombRadiusMultiplier();
@@ -343,7 +343,7 @@ public class DragInfectController : MonoBehaviour
         float r2 = radius * radius;
         var citizens = NPCManager.Instance.Citizens;
 
-        List<CitizenNavMesh> inside = new List<CitizenNavMesh>();
+        List<CitizenBase> inside = new List<CitizenBase>();
 
         for (int i = 0; i < citizens.Count; i++)
         {

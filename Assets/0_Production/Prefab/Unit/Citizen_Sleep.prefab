@@ -10,10 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 3728917005830668807}
   - component: {fileID: 6989306695252396011}
-  - component: {fileID: 3945762368813651091}
+  - component: {fileID: 3526378512545341213}
   - component: {fileID: 5620326103552762710}
   m_Layer: 3
-  m_Name: Citizen
+  m_Name: Citizen_Sleep
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -57,7 +57,7 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3945762368813651091
+--- !u!114 &3526378512545341213
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -66,24 +66,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 7809207238147872883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53cc35c1bcefcdc409703e4fe7736bbd, type: 3}
+  m_Script: {fileID: 11500000, guid: f0121b8569ad7984d9b7a31171364705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   idleMin: 0.5
   idleMax: 2
   wanderSpeed: 2
   fleeSpeed: 4
-  wanderRadius: 5
+  wanderRadius: 6
   changeWanderInterval: 3
   fleeEnterRadius: 4
   fleeExitRadius: 6
-  fleeDistance: 6
-  zombieLayer:
-    serializedVersion: 2
-    m_Bits: 64
+  fleeDistance: 7
   agent: {fileID: 0}
-  behaviorType: 0
-  debugLog: 1
+  debugLog: 0
+  fleeRetargetInterval: 0.4
 --- !u!114 &5620326103552762710
 MonoBehaviour:
   m_ObjectHideFlags: 0

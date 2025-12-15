@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-public class CitizenShooter : CitizenNavMesh
+public class CitizenShooter : CitizenBase
 {
     public enum ShooterMode { Stationary, Mobile }
     public ShooterMode mode = ShooterMode.Mobile;
@@ -35,7 +35,10 @@ public class CitizenShooter : CitizenNavMesh
 
         if (debugLog) Debug.Log("[Shooter] Start()");
     }
-
+    protected override void Tick()
+    {
+        throw new System.NotImplementedException();
+    }
     protected override void Update()
     {
         if (HandleCombat())

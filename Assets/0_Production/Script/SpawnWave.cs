@@ -21,9 +21,7 @@ public class SpawnWave : MonoBehaviour
     public float spawnDelay = 0.05f;       // 그룹 내 개별 딜레이
     public float groupDelay = 0.5f;        // 그룹 간 딜레이
 
-    [Header("Citizen Type")]
-    public CitizenNavMesh.CitizenBehaviorType citizenType =
-        CitizenNavMesh.CitizenBehaviorType.Normal;
+   
 
     [Header("Pattern Settings")]
     public SpawnShape spawnShape = SpawnShape.Grid;
@@ -66,10 +64,10 @@ public class SpawnWave : MonoBehaviour
 
             GameObject obj = PoolManager.Instance.Spawn(poolKey, pos, Quaternion.identity);
 
-            // 시민 타입 설정
-            CitizenNavMesh citizen = obj.GetComponent<CitizenNavMesh>();
-            if (citizen != null)
-                citizen.behaviorType = citizenType;
+            //// 시민 타입 설정
+            //CitizenNavMesh citizen = obj.GetComponent<CitizenNavMesh>();
+            //if (citizen != null)
+            //    citizen.behaviorType = citizenType;
 
             // 개별 스폰 딜레이
             if (spawnDelay > 0)

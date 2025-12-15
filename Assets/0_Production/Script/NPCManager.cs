@@ -5,7 +5,7 @@ public class NPCManager : MonoBehaviour
 {
     public static NPCManager Instance;
 
-    public List<CitizenNavMesh> Citizens = new List<CitizenNavMesh>();
+    public List<CitizenBase> Citizens = new List<CitizenBase>();
     public List<ZombieNavMesh> Zombies = new List<ZombieNavMesh>();
 
     // 새로 추가: 초록/보라 각각의 리스트 (선택, 없어도 되지만 디버깅 편함)
@@ -34,13 +34,13 @@ public class NPCManager : MonoBehaviour
     // ======================
     //   REGISTER / UNREGISTER
     // ======================
-    public void RegisterCitizen(CitizenNavMesh citizen)
+    public void RegisterCitizen(CitizenBase citizen)
     {
         if (!Citizens.Contains(citizen))
             Citizens.Add(citizen);
     }
 
-    public void UnregisterCitizen(CitizenNavMesh citizen)
+    public void UnregisterCitizen(CitizenBase citizen)
     {
         if (Citizens.Contains(citizen))
             Citizens.Remove(citizen);
