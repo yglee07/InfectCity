@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6539311133442297352}
   - component: {fileID: 1998802987015244874}
   m_Layer: 0
-  m_Name: TopDownRectangle_NoObstacle
+  m_Name: TopDownRectangle_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1594962395709282256}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -63,7 +63,7 @@ Transform:
   - {fileID: 5827554883632796736}
   - {fileID: 4786970731381526850}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1998802987015244874
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 183c085c32a4ebd41a185d9436014110, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: ab43573969e7f1346a72392877f67b52, type: 2}
   m_BuildHeightMesh: 0
 --- !u!1001 &405839121610398797
 PrefabInstance:

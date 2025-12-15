@@ -39,8 +39,9 @@ public class CitizenNavMesh : MonoBehaviour
 
     public enum CitizenBehaviorType
     {
-        Normal,   // 기존 이동 패턴
-        Idle      // 움직이지 않는 시민
+        Normal,
+        Idle,
+        Sleep
     }
     public CitizenBehaviorType behaviorType = CitizenBehaviorType.Normal;
 
@@ -81,6 +82,13 @@ public class CitizenNavMesh : MonoBehaviour
     {
         if(debugLog)
             Debug.Log("parent update");
+        if (behaviorType == CitizenBehaviorType.Sleep)
+        {
+            agent.isStopped = true;
+            agent.velocity = Vector3.zero;
+            PlayAnim("Sleep");
+            return;
+        }
         bool detected = DetectZombie();
 
         Log($"Update | behavior={behaviorType} state={state} detected={detected}");
