@@ -4,7 +4,7 @@ public class UpgradeManager : MonoBehaviour
 {
     public static UpgradeManager Instance;
 
-    private const int MaxLevel = 5;   // ← 업그레이드 최대 레벨
+    private const int MaxLevel = 1;   // ← 업그레이드 최대 레벨
 
     void Awake()
     {

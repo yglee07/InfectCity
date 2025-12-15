@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
@@ -12,11 +13,11 @@ public class CameraController : MonoBehaviour
 
     private Camera cam;
 
-    [Header("Camera Bounds")]
-    public float minX = -20f;
-    public float maxX = 20f;
-    public float minZ = -20f;
-    public float maxZ = 20f;
+    //[Header("Camera Bounds")]
+    //public float minX = -20f;
+    //public float maxX = 20f;
+    //public float minZ = -20f;
+    //public float maxZ = 20f;
 
     public Transform cameraPos;
 
@@ -29,7 +30,16 @@ public class CameraController : MonoBehaviour
 
     // 줌용 (모바일)
     private float prevPinchDistance;
+    [Header("Intro Move")]
+    public Transform startPos;
+    public Transform endPos;
+    public float introDuration = 1.2f;
 
+    private bool isIntroPlaying = false;
+    [SerializeField]
+    private float introStartZoom;
+    [SerializeField]
+    private float introEndZoom;
     void Awake()
     {
         cam = Camera.main;
@@ -52,7 +62,7 @@ public class CameraController : MonoBehaviour
     HandleTouchInput();          // 모바일 입력 계속 사용
 #endif
 
-        ClampPosition();
+        //ClampPosition();
     }
 
     void HandleMouseInput()
@@ -196,15 +206,15 @@ public class CameraController : MonoBehaviour
     // ===========================
     //  위치 클램프
     // ===========================
-    void ClampPosition()
-    {
-        Vector3 pos = transform.position;
+    //void ClampPosition()
+    //{
+    //    Vector3 pos = transform.position;
 
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.z = Mathf.Clamp(pos.z, minZ, maxZ);
+    //    pos.x = Mathf.Clamp(pos.x, minX, maxX);
+    //    pos.z = Mathf.Clamp(pos.z, minZ, maxZ);
 
-        transform.position = pos;
-    }
+    //    transform.position = pos;
+    //}
 
     public void SnapToOrigin()
     {
@@ -213,4 +223,72 @@ public class CameraController : MonoBehaviour
         transform.position = cameraPos.position;
         transform.rotation = cameraPos.rotation;
     }
+
+    public void PlayIntro(
+      Transform start,
+      Transform end,
+      float startZoom,
+      float endZoom
+  )
+    {
+        Debug.Log($"[Intro] PlayIntro params startZoom={startZoom}, endZoom={endZoom}, levelStart={start?.name}, levelEnd={end?.name}");
+        if (start == null || end == null)
+            return;
+
+        startPos = start;
+        endPos = end;
+
+        introStartZoom = startZoom;
+        introEndZoom = endZoom;
+
+        StopAllCoroutines();
+        StartCoroutine(IntroRoutine());
+    }
+
+    IEnumerator IntroRoutine()
+    {
+        isIntroPlaying = true;
+
+        // 시작 상태 세팅
+        transform.position = startPos.position;
+        transform.rotation = startPos.rotation;
+        cam.orthographicSize = introStartZoom;
+
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime / introDuration;
+            float eased = Mathf.SmoothStep(0f, 1f, t);
+
+            transform.position = Vector3.Lerp(
+                startPos.position,
+                endPos.position,
+                eased
+            );
+
+            transform.rotation = Quaternion.Slerp(
+                startPos.rotation,
+                endPos.rotation,
+                eased
+            );
+
+            cam.orthographicSize = Mathf.Lerp(
+                introStartZoom,
+                introEndZoom,
+                eased
+            );
+
+            yield return null;
+        }
+
+        // 보정
+        transform.position = endPos.position;
+        transform.rotation = endPos.rotation;
+        cam.orthographicSize = introEndZoom;
+
+        isIntroPlaying = false;
+    }
+
+
 }

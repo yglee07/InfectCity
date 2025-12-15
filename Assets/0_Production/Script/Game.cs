@@ -61,6 +61,7 @@ public class Game : MonoBehaviour
 
 
         LoadLevel(stage);
+
         //npcManager.SetupStage(stage);
 
         //dragInfector.ResetCharges();
@@ -87,12 +88,14 @@ public class Game : MonoBehaviour
 
         currentLevel = inst.GetComponent<Level>();
 
-        Camera mainCam = Camera.main;
-        if (mainCam != null && currentLevel.startCameraPoint != null)
-        {
-            mainCam.transform.position = currentLevel.startCameraPoint.position;
-            mainCam.transform.rotation = currentLevel.startCameraPoint.rotation;
-        }
+        CameraController cam = Camera.main.GetComponent<CameraController>();
+        Debug.Log($"[LoadLevel] level={currentLevel.name}, startZoom={currentLevel.startZoom}, endZoom={currentLevel.endZoom}");
+        cam.PlayIntro(
+            currentLevel.startCameraPoint,
+            currentLevel.endCameraPoint,
+            currentLevel.startZoom,
+            currentLevel.endZoom
+        );
     }
 
     // =============================

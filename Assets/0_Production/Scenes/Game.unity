@@ -586,12 +586,13 @@ MonoBehaviour:
   dragSpeed: 0.1
   zoomSpeed: 1
   minZoom: 5
-  maxZoom: 30
-  minX: -5
-  maxX: 5
-  minZ: -25
-  maxZ: -20
+  maxZoom: 25
   cameraPos: {fileID: 892461535}
+  startPos: {fileID: 0}
+  endPos: {fileID: 0}
+  introDuration: 1.2
+  introStartZoom: 0
+  introEndZoom: 0
   dragMultiplier: 0.1
   smoothTime: 0.05
 --- !u!1 &1202978951
@@ -1363,7 +1364,7 @@ PrefabInstance:
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 1261747436639895672, guid: 0a03dfc988b257743afb618bb815f99f, type: 3}
+      objectReference: {fileID: 1261747436639895672, guid: 293f7c677e08f614aa210a2abe416acc, type: 3}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[1]'
       value: 
