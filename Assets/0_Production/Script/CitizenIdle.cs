@@ -60,4 +60,9 @@ public class CitizenIdle : CitizenBase
             UpdateFlee();
         }
     }
+
+    protected override void DespawnSelf()
+    {
+        PoolManager.Instance.Despawn("Citizen_Idle", gameObject);
+    }
 }

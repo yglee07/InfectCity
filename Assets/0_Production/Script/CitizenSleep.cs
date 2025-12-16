@@ -26,4 +26,9 @@ public class CitizenSleep : CitizenBase
     {
         // 아무것도 안 함
     }
+
+    protected override void DespawnSelf()
+    {
+        PoolManager.Instance.Despawn("Citizen_Sleep", gameObject);
+    }
 }

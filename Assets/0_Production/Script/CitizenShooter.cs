@@ -221,4 +221,8 @@ public class CitizenShooter : CitizenBase
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + transform.forward * shootRange);
     }
+    protected override void DespawnSelf()
+    {
+        PoolManager.Instance.Despawn("Citizen_Shooter", gameObject);
+    }
 }

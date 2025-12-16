@@ -321,9 +321,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolItems:
-  - key: Citizen
+  - key: Citizen_Normal
     prefab: {fileID: 7809207238147872883, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
     preloadCount: 20
+  - key: Citizen_Idle
+    prefab: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
+    preloadCount: 10
+  - key: Citizen_Sleep
+    prefab: {fileID: 7809207238147872883, guid: 8c08f854d5248fd46a024463eb3ce61a, type: 3}
+    preloadCount: 10
+  - key: Citizen_Shooter_Stop
+    prefab: {fileID: 7809207238147872883, guid: c32e328506964e64da240941996b0d62, type: 3}
+    preloadCount: 10
   - key: Zombie
     prefab: {fileID: 8265895907174677282, guid: 2b6670fa9fce97c44bccc9c084912bbe, type: 3}
     preloadCount: 20
@@ -1364,7 +1373,7 @@ PrefabInstance:
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 1261747436639895672, guid: 48a3b915df2d5d447835e9721f8fa4ef, type: 3}
+      objectReference: {fileID: 1261747436639895672, guid: daf7289be6489064ea7c7355a33367a5, type: 3}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[1]'
       value: 

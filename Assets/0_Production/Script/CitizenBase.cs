@@ -37,6 +37,7 @@ public abstract class CitizenBase: MonoBehaviour
 
     protected string currentAnim = "";
 
+    protected bool isCommandLocked;
 
 
     [Header("Debug")]
@@ -44,6 +45,8 @@ public abstract class CitizenBase: MonoBehaviour
 
     private void OnEnable()
     {
+        ResetForReuse();
+
         NPCManager.Instance?.RegisterCitizen(this);
 
         if (agent == null)
@@ -76,8 +79,8 @@ public abstract class CitizenBase: MonoBehaviour
         if (!agent.enabled)
             agent.enabled = true;
 
-        ChangeState(State.Wander);
-        SetNewWanderTarget();
+        //ChangeState(State.Wander);
+        //SetNewWanderTarget();
     }
     //protected virtual void Update()
     //{
@@ -155,6 +158,19 @@ public abstract class CitizenBase: MonoBehaviour
 
     protected virtual void Update()
     {
+
+        if (isCommandLocked)
+        {
+            Debug.Log(
+                $"[LOCK] {name} " +
+                $"dest={agent.destination} " +
+                $"hasPath={agent.hasPath} " +
+                $"pathStatus={agent.pathStatus}"
+            );
+            return;
+        }
+
+
         Tick();
     }
 
@@ -439,8 +455,8 @@ public abstract class CitizenBase: MonoBehaviour
     {
         Log($"INFECTED → Turns into {faction} zombie");
 
-        PoolManager.Instance.Despawn("Citizen", gameObject);
-
+       
+        DespawnSelf();
         string key;
 
         if (faction == Faction.Green)
@@ -460,6 +476,12 @@ public abstract class CitizenBase: MonoBehaviour
 
         NPCManager.Instance.AddInfectCount(faction);
     }
+    protected virtual void DespawnSelf()
+    {
+        // 기본 구현은 막아두거나 경고
+        Debug.LogError("DespawnSelf() not overridden!");
+    }
+
 
     private void OnDrawGizmosSelected()
     {
@@ -472,7 +494,44 @@ public abstract class CitizenBase: MonoBehaviour
         // 현재 위치 → 목적지 선
         Gizmos.DrawLine(transform.position, agent.destination);
     }
+    public virtual void RunTo(Vector3 target)
+    {
+        Debug.Log($"[RunTo] {name} → target={target}");
 
+        isCommandLocked = true;
+        agent.speed = fleeSpeed; // 임시 가속
+
+        agent.isStopped = false;
+        agent.SetDestination(target);
+
+        Debug.Log($"[RunTo] locked={isCommandLocked}, dest={agent.destination}");
+
+        PlayAnim("Run");
+    }
+
+    public virtual void ResetForReuse()
+    {
+        isCommandLocked = false;
+        isIdle = false;
+        idleTimer = 0f;
+        timer = 0f;
+
+        state = State.Wander;
+        currentAnim = "";
+
+        if (agent != null)
+        {
+            agent.isStopped = false;
+            agent.ResetPath();
+            agent.speed = wanderSpeed;
+        }
+
+        if (anim != null)
+        {
+            anim.Rebind();     // 🔥 핵심
+            anim.Update(0f);
+        }
+    }
     // ---------------- DEBUG LOG ----------------
     private void Log(string msg)
     {

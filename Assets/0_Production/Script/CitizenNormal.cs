@@ -34,4 +34,8 @@ public class CitizenNormal : CitizenBase
         }
 
     }
+    protected override void DespawnSelf()
+    {
+        PoolManager.Instance.Despawn("Citizen_Normal", gameObject);
+    }
 }

@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using TMPro;
+using UnityEngine;
 
 public enum SpawnShape
 {
@@ -21,7 +22,8 @@ public class SpawnWave : MonoBehaviour
     public float spawnDelay = 0.05f;       // 그룹 내 개별 딜레이
     public float groupDelay = 0.5f;        // 그룹 간 딜레이
 
-   
+    [Header("Run Target")]
+    public Transform runTarget;
 
     [Header("Pattern Settings")]
     public SpawnShape spawnShape = SpawnShape.Grid;
@@ -70,6 +72,12 @@ public class SpawnWave : MonoBehaviour
             //    citizen.behaviorType = citizenType;
 
             // 개별 스폰 딜레이
+            CitizenBase citizen = obj.GetComponent<CitizenBase>();
+            if (citizen != null)
+            {
+                citizen.RunTo(runTarget.position);
+            }
+
             if (spawnDelay > 0)
                 yield return new WaitForSeconds(spawnDelay);
         }

@@ -87,6 +87,7 @@ public class PoolManager : MonoBehaviour
 
         obj.SetActive(true);
 
+       
         // NavMeshAgent 처리
         if (obj.TryGetComponent<NavMeshAgent>(out var agent))
         {
