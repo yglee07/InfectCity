@@ -60,33 +60,93 @@ public class StageLayoutGeneratorWindow : EditorWindow
 
     void Generate()
     {
+        Debug.Log("===== STAGE LAYOUT GENERATE START =====");
+
         if (string.IsNullOrEmpty(jsonText))
         {
-            Debug.LogError("JSON is empty");
+            Debug.LogError("❌ JSON is empty");
             return;
         }
 
-        StageLayoutData data = JsonUtility.FromJson<StageLayoutData>(jsonText);
+        Debug.Log("📄 Raw JSON:");
+        Debug.Log(jsonText);
+
+        StageLayoutData data = null;
+
+        try
+        {
+            data = JsonUtility.FromJson<StageLayoutData>(jsonText);
+        }
+        catch (System.Exception e)
+        {
+            Debug.LogError("❌ JSON parse exception");
+            Debug.LogException(e);
+            return;
+        }
+
         if (data == null)
         {
-            Debug.LogError("Failed to parse JSON");
+            Debug.LogError("❌ Parsed data is NULL (JsonUtility silently failed)");
             return;
         }
 
-        Vector3 origin = data.origin.ToVector3();
+        Debug.Log("✅ JSON parsed successfully");
+
+        // origin / unit
+        Debug.Log($"origin = {data.origin?.ToVector3()}");
+        Debug.Log($"unitSize = {data.unitSize}");
+
+        if (data.groups == null)
+        {
+            Debug.LogError("❌ data.groups is NULL (field name mismatch?)");
+            return;
+        }
+
+        Debug.Log($"groups count = {data.groups.Count}");
+
+        if (data.groups.Count == 0)
+        {
+            Debug.LogWarning("⚠️ groups is EMPTY (nothing to generate)");
+            return;
+        }
+
+        Debug.Log(parentRoot == null
+            ? "⚠️ parentRoot is NULL (objects will spawn at scene root)"
+            : $"✅ parentRoot = {parentRoot.name}");
+
+        Vector3 origin =
+      parentRoot != null
+      ? parentRoot.position
+      : data.origin.ToVector3();
         float unit = data.unitSize;
+
+        int spawnCount = 0;
 
         foreach (var group in data.groups)
         {
-            GameObject prefab = FindPrefab(group.type);
-            if (prefab == null)
+            if (group == null)
             {
-                Debug.LogError($"Prefab not found for type: {group.type}");
+                Debug.LogError("❌ group is NULL");
                 continue;
             }
 
+            Debug.Log($"--- GROUP START ---");
+            Debug.Log($"type = {group.type}, pattern = {group.pattern}");
+
+            GameObject prefab = FindPrefab(group.type);
+            if (prefab == null)
+            {
+                Debug.LogError($"❌ Prefab NOT FOUND for type: {group.type}");
+                continue;
+            }
+
+            Debug.Log($"✅ Prefab found: {prefab.name}");
+
             if (group.pattern == "Rect")
             {
+                Debug.Log($"Rect: rows={group.rows}, cols={group.cols}, spacing={group.spacing}");
+                Debug.Log($"start = {group.start?.ToVector3()}");
+
                 for (int r = 0; r < group.rows; r++)
                 {
                     for (int c = 0; c < group.cols; c++)
@@ -99,12 +159,14 @@ public class StageLayoutGeneratorWindow : EditorWindow
                             );
 
                         Spawn(prefab, pos);
+                        spawnCount++;
                     }
                 }
             }
             else if (group.pattern == "Line")
             {
                 Vector3 dir = group.dir == "Z" ? Vector3.forward : Vector3.right;
+                Debug.Log($"Line: count={group.count}, spacing={group.spacing}, dir={group.dir}");
 
                 for (int i = 0; i < group.count; i++)
                 {
@@ -113,23 +175,45 @@ public class StageLayoutGeneratorWindow : EditorWindow
                         dir * group.spacing * i;
 
                     Spawn(prefab, pos);
+                    spawnCount++;
                 }
             }
             else if (group.pattern == "Single")
             {
                 Vector3 pos = origin + group.pos.ToVector3();
+                Debug.Log($"Single at {pos}");
+
                 Spawn(prefab, pos);
+                spawnCount++;
             }
+            else
+            {
+                Debug.LogError($"❌ Unknown pattern: {group.pattern}");
+            }
+
+            Debug.Log($"--- GROUP END ---");
         }
+
+        Debug.Log($"===== GENERATE END | spawned {spawnCount} objects =====");
     }
 
     void Spawn(GameObject prefab, Vector3 pos)
     {
+        if (prefab == null)
+        {
+            Debug.LogError("❌ Spawn called with NULL prefab");
+            return;
+        }
+
         GameObject obj = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
         obj.transform.position = pos;
+
         if (parentRoot != null)
             obj.transform.SetParent(parentRoot);
+
         Undo.RegisterCreatedObjectUndo(obj, "Spawn Stage Unit");
+
+        Debug.Log($"🟢 Spawned {prefab.name} at {pos}");
     }
 
     GameObject FindPrefab(string type)

@@ -60,18 +60,25 @@ public abstract class CitizenBase: MonoBehaviour
         NPCManager.Instance?.UnregisterCitizen(this);
     }
 
+    protected virtual void Awake()
+    {
+        // 🔹 캐싱만 한다
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
+
+        if (anim == null)
+            anim = GetComponentInChildren<Animator>();
+    }
+
     protected virtual void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
-        anim = GetComponentInChildren<Animator>();
-
-
+        // 🔹 "행동 시작"은 Start에서
         if (!agent.enabled)
-            agent.enabled = true;  // ⭐ 안전장치 (Spawn보다 Start가 먼저 실행될 때 대비)
+            agent.enabled = true;
+
         ChangeState(State.Wander);
         SetNewWanderTarget();
     }
-
     //protected virtual void Update()
     //{
     //    if(debugLog)
@@ -174,6 +181,7 @@ public abstract class CitizenBase: MonoBehaviour
         anim.ResetTrigger("Walk");
         anim.ResetTrigger("Run");
         anim.ResetTrigger("Shoot");
+        anim.ResetTrigger("Sleep");
 
 
 
