@@ -26,8 +26,7 @@ public class DragInfectController : MonoBehaviour
     public int maxCharges = 1;
     public int currentCharges;
 
-    [Header("Effects")]
-    public GameObject explosionEffectPrefab;
+ 
 
     private List<CitizenBase> highlighted = new List<CitizenBase>();
     private float baseRadius;
@@ -257,16 +256,16 @@ public class DragInfectController : MonoBehaviour
         //Vector3 infectPos = worldPos + new Vector3(0, 0, offsetZ);
         Vector3 infectPos = previewQuad.position;
 
-        if (explosionEffectPrefab != null)
-        {
-            GameObject fx = Instantiate(explosionEffectPrefab);
-            fx.transform.position = infectPos + new Vector3(0, 1f, 0);
+ 
+      
+        GameObject fx = PoolManager.Instance.Spawn("NukeExplosionGreen",transform.position,Quaternion.identity);
+        fx.transform.position = infectPos + new Vector3(0, 1f, 0);
 
-            float scale = FinalRadius / baseRadius;
-            fx.transform.localScale *= scale;
+        float scale = FinalRadius / baseRadius;
+        fx.transform.localScale *= scale;
 
           
-        }
+        
 
         InfectArea(infectPos, FinalRadius);
         currentCharges--;

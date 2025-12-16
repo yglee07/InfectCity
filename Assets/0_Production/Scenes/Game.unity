@@ -342,6 +342,15 @@ MonoBehaviour:
   - key: Mutant
     prefab: {fileID: 8265895907174677282, guid: 243a88791018a0d468448d4968a3a0a1, type: 3}
     preloadCount: 10
+  - key: NukeExplosionGreen
+    prefab: {fileID: 136800, guid: 50c0d8c73dfeed248826c384c274984d, type: 3}
+    preloadCount: 10
+  - key: SpikyExplosionGreen
+    prefab: {fileID: 160118, guid: 73a3a14a35c722943ad82f0150bfeb69, type: 3}
+    preloadCount: 10
+  - key: SpikyExplosionPurple
+    prefab: {fileID: 160118, guid: cae57573362b4944294737c169a2eacb, type: 3}
+    preloadCount: 10
 --- !u!1 &490376208
 GameObject:
   m_ObjectHideFlags: 0

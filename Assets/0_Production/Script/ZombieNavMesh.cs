@@ -31,8 +31,7 @@ public class ZombieNavMesh : MonoBehaviour
     // 현재 재생 중인 애니메이션 Trigger 이름
     private string currentAnim = "";
 
-    [Header("Effects")]
-    public GameObject infectEffectPrefab;
+  
 
     public Faction faction = Faction.Green;
     public string zombiePoolKey;
@@ -386,11 +385,20 @@ public class ZombieNavMesh : MonoBehaviour
         Vector3 spawnPos = targetCitizen.transform.position;
 
         // 감염 이펙트 생성
-        if (infectEffectPrefab != null)
+        string effectKey = faction switch
         {
-            GameObject fx = Instantiate(infectEffectPrefab);
-            fx.transform.position = spawnPos;
-        }
+            Faction.Green => "SpikyExplosionGreen",
+            Faction.Purple => "SpikyExplosionPurple",
+            _ => "SpikyExplosionGreen"
+        };
+
+        PoolManager.Instance.Spawn(effectKey, spawnPos, Quaternion.identity);
+      
+        //if (infectEffectPrefab != null)
+        //{
+        //    GameObject fx = Instantiate(infectEffectPrefab);
+        //    fx.transform.position = spawnPos;
+        //}
 
         // 시민 감염
         targetCitizen.Infect(this.faction);
@@ -460,11 +468,15 @@ public class ZombieNavMesh : MonoBehaviour
     }
     public void Die()
     {
-        // 죽을 때 Merge 이펙트 생성
-        if (infectEffectPrefab != null)
+      
+        string effectKey = faction switch
         {
-            Instantiate(infectEffectPrefab, transform.position, Quaternion.identity);
-        }
+            Faction.Green => "SpikyExplosionGreen",
+            Faction.Purple => "SpikyExplosionPurple",
+            _ => "SpikyExplosionGreen"
+        };
+
+        PoolManager.Instance.Spawn(effectKey, transform.position, Quaternion.identity);
 
         PoolManager.Instance.Despawn(zombiePoolKey, this.gameObject);
     }
