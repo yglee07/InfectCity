@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
 public abstract class CitizenBase: MonoBehaviour
 {
-    public enum State { Wander, Flee }
+    public enum State { Idle, Wander, Flee }
 
     [Header("Idle Settings")]
     public float idleMin = 0.5f;
@@ -209,23 +210,34 @@ public abstract class CitizenBase: MonoBehaviour
     // ---------------- STATE CHANGE ----------------
     protected void ChangeState(State newState)
     {
-        Log($"State → {newState}");
+        if (state == newState) return;
 
         state = newState;
-        isIdle = false;
-        agent.speed = (newState == State.Wander) ? wanderSpeed : fleeSpeed;
 
-        if (newState == State.Wander)
+        switch (state)
         {
-            PlayAnim("Walk");
-            SetNewWanderTarget();
-        }
-        else
-        {
-            PlayAnim("Run");
-            SetNewFleeTarget();
+            case State.Idle:
+                agent.isStopped = true;
+                agent.velocity = Vector3.zero;
+                PlayAnim("Idle");
+                break;
+
+            case State.Wander:
+                agent.isStopped = false;
+                agent.speed = wanderSpeed;
+                PlayAnim("Walk");
+                SetNewWanderTarget();
+                break;
+
+            case State.Flee:
+                agent.isStopped = false;
+                agent.speed = fleeSpeed;
+                PlayAnim("Run");
+                SetNewFleeTarget();
+                break;
         }
     }
+
 
     // ---------------- WANDER ----------------
     protected void UpdateWander()
@@ -494,6 +506,19 @@ public abstract class CitizenBase: MonoBehaviour
         // 현재 위치 → 목적지 선
         Gizmos.DrawLine(transform.position, agent.destination);
     }
+    private void OnDrawGizmos()
+    {
+#if UNITY_EDITOR
+        Vector3 pos = transform.position + Vector3.up * 2.0f;
+
+        string text =
+            $"State: {state}\n" +
+            $"Idle: {isIdle}\n" +
+            $"CmdLock: {isCommandLocked}";
+
+        Handles.Label(pos, text);
+#endif
+    }
     public virtual void RunTo(Vector3 target)
     {
         Debug.Log($"[RunTo] {name} → target={target}");
@@ -518,8 +543,7 @@ public abstract class CitizenBase: MonoBehaviour
 
         state = State.Wander;
         currentAnim = "";
-
-        if (agent != null)
+        if (agent != null && agent.isOnNavMesh)
         {
             agent.isStopped = false;
             agent.ResetPath();
