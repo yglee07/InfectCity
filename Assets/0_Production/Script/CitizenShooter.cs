@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using UnityEditor;
+using UnityEngine;
 using UnityEngine.AI;
 
 public class CitizenShooter : CitizenBase
@@ -83,7 +84,7 @@ public class CitizenShooter : CitizenBase
             if (debugLog) Debug.Log("[Shooter] ▶ PlayAnim(\"Shoot\")");
             PlayAnim("Shoot");
 
-            shootTimer = shootInterval;
+            //shootTimer = shootInterval;
         }
 
         return true;
@@ -186,6 +187,7 @@ public class CitizenShooter : CitizenBase
         }
 
         PerformShot(currentTarget);
+        shootTimer = shootInterval;
         PlayAnim("Idle");
     }
 
@@ -224,5 +226,26 @@ public class CitizenShooter : CitizenBase
     protected override void DespawnSelf()
     {
         PoolManager.Instance.Despawn("Citizen_Shooter", gameObject);
+    }
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        if (currentTarget == null) return;
+
+        // 🔴 타겟 라인/구체는 그대로
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(transform.position, currentTarget.transform.position);
+        Gizmos.DrawSphere(currentTarget.transform.position, 0.5f);
+
+        // ✅ 텍스트를 "나 자신 머리 위"에 표시
+        Handles.Label(
+            transform.position + Vector3.up * 2.4f,
+            $"State: {state}\n" +
+            $"Idle: {isIdle}\n" +
+            $"CmdLock: {isCommandLocked}\n" +
+            $"Target: {currentTarget.name}"
+        );
     }
 }

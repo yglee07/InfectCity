@@ -184,12 +184,8 @@ public abstract class CitizenBase: MonoBehaviour
         if (debugLog) Debug.Log("[Shooter] PlayAnim(" + trigger + ") called");
 
 
-        if (currentAnim == trigger)
-        {
-       
+        if (trigger != "Shoot" && currentAnim == trigger)
             return;
-        }
-
         currentAnim = trigger;
 
        
@@ -506,7 +502,7 @@ public abstract class CitizenBase: MonoBehaviour
         // 현재 위치 → 목적지 선
         Gizmos.DrawLine(transform.position, agent.destination);
     }
-    private void OnDrawGizmos()
+    protected virtual void OnDrawGizmos()
     {
 #if UNITY_EDITOR
         Vector3 pos = transform.position + Vector3.up * 2.0f;
