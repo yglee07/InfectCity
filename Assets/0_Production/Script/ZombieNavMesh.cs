@@ -24,7 +24,7 @@ public class ZombieNavMesh : MonoBehaviour
     [SerializeField] private CitizenBase targetCitizen;
     private ZombieNavMesh targetZombie;
     private float retargetInterval = 0.2f;
-    private float timer;
+    private float retargetTimer;
     private Vector3 lastTargetPos;
     private Animator anim;
 
@@ -41,7 +41,12 @@ public class ZombieNavMesh : MonoBehaviour
     public int maxHP = 1;
     public int currentHP = 1;
 
-    [SerializeField] private Breakable targetBarricade;
+    [Header("Barricade Attack")]
+    public float barricadeAttackInterval = 0.6f; // 한 대 치는 간격
+    private float barricadeAttackTimer = 0f;
+
+    [SerializeField]
+    private Breakable targetBarricade;
 
     private void Awake()
     {
@@ -101,7 +106,11 @@ public class ZombieNavMesh : MonoBehaviour
 
     void Update()
     {
-        timer += Time.deltaTime;
+        float dt = Time.deltaTime;
+
+        retargetTimer += dt;
+        barricadeAttackTimer += dt;
+   
 
         // =======================
         // COMBAT MODE (좀비 vs 좀비)
@@ -109,9 +118,9 @@ public class ZombieNavMesh : MonoBehaviour
         if (NPCManager.Instance.combatMode)
         {
             // 타겟 재탐색은 일정 간격으로만
-            if (timer >= retargetInterval)
+            if (retargetTimer >= retargetInterval)
             {
-                timer = 0f;
+                retargetTimer = 0f;
                 FindEnemyZombie();
             }
 
@@ -123,9 +132,9 @@ public class ZombieNavMesh : MonoBehaviour
         // =======================
         // NORMAL MODE (시민 추적)
         // =======================
-        if (timer >= retargetInterval)
+        if (retargetTimer >= retargetInterval)
         {
-            timer = 0f;
+            retargetTimer = 0f;
             FindNearestCitizen();
         }
 
@@ -280,15 +289,47 @@ public class ZombieNavMesh : MonoBehaviour
             }
         }
 
-        if (nearest != null)
+        //if (nearest != null)
+        //{
+        //    agent.isStopped = false;
+        //    agent.speed = runSpeed * 1.3f; // 조금 빠르게
+        //    agent.SetDestination(nearest.transform.position);
+        //    targetZombie = nearest;
+        //    isMerging = true;
+        //    PlayAnim("Run");
+        //}
+        if (nearest == null) return;
+
+        // ⭐ 경로 계산
+        NavMeshPath path = new NavMeshPath();
+        agent.CalculatePath(nearest.transform.position, path);
+
+        // ⭐ 경로가 막혀 있으면 → 장애물 처리
+        if (path.status != NavMeshPathStatus.PathComplete)
         {
-            agent.isStopped = false;
-            agent.speed = runSpeed * 1.3f; // 조금 빠르게
-            agent.SetDestination(nearest.transform.position);
-            targetZombie = nearest;
-            isMerging = true;
-            PlayAnim("Run");
+            Vector3 blockedPoint = path.corners[path.corners.Length - 1];
+            Breakable blocker = FindBreakableBlockingPath(blockedPoint, 3f);
+
+            if (blocker != null)
+            {
+                targetZombie = null;
+                isMerging = false;
+
+                targetBarricade = blocker;
+                agent.isStopped = false;
+                agent.SetDestination(GetClosestPointOnBreakable(blocker));
+                PlayAnim("Run");
+                return;
+            }
         }
+
+        // ⭐ 정상 경로면 적 좀비 추적
+        agent.isStopped = false;
+        agent.speed = runSpeed * 1.3f;
+        agent.SetDestination(nearest.transform.position);
+        targetZombie = nearest;
+        isMerging = true;
+        PlayAnim("Run");
     }
     void TryMergeEnemy()
     {
@@ -473,22 +514,29 @@ public class ZombieNavMesh : MonoBehaviour
     {
         if (targetBarricade == null) return;
 
+        // ⭐ 쿨타임 체크
+        if (barricadeAttackTimer < barricadeAttackInterval)
+            return;
+
         Vector3 attackPoint = GetClosestPointOnBreakable(targetBarricade);
         float dist = Vector3.Distance(transform.position, attackPoint);
 
-        if (dist <= infectDistance)
-        {
-            // 공격
-            targetBarricade.TakeDamage(1);
+        if (dist > infectDistance)
+            return;
 
-            if (!targetBarricade.gameObject.activeInHierarchy)
-            {
-                targetBarricade = null;
-                agent.ResetPath();
-                FindNearestCitizen();
-            }
+        barricadeAttackTimer = 0f; // 쿨타임 리셋
+
+        // ---- 한 대 ----
+        targetBarricade.TakeDamage(1);
+
+        if (!targetBarricade.gameObject.activeInHierarchy)
+        {
+            targetBarricade = null;
+            agent.ResetPath();
+            FindNearestCitizen();
         }
     }
+
     Breakable FindBreakableBlockingPath(Vector3 blockedPoint, float radius = 2.5f)
     {
         var level = Game.Instance.CurrentLevel;

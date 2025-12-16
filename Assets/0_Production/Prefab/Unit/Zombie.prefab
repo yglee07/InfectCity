@@ -81,6 +81,7 @@ MonoBehaviour:
   zombiePoolKey: Zombie
   maxHP: 1
   currentHP: 1
+  barricadeAttackInterval: 0.6
   targetBarricade: {fileID: 0}
 --- !u!114 &1797190334640182588
 MonoBehaviour:
@@ -106,6 +107,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7607615818979496236}
     m_Modifications:
+    - target: {fileID: 1769686288947375021, guid: 03df7d68e77b4a247af87f9462a9dba0, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3874621416303375283, guid: 03df7d68e77b4a247af87f9462a9dba0, type: 3}
       propertyPath: m_Controller
       value: 

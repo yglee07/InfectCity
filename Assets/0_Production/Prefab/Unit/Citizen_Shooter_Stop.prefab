@@ -186,18 +186,15 @@ MonoBehaviour:
   fleeEnterRadius: 4
   fleeExitRadius: 6
   fleeDistance: 7
-  zombieLayer:
-    serializedVersion: 2
-    m_Bits: 64
   agent: {fileID: 0}
-  behaviorType: 0
   debugLog: 0
+  fleeRetargetInterval: 0.4
   mode: 0
-  shootRange: 5
+  shootRange: 7
   shootInterval: 1
   damage: 1
   shootTimer: 0
-  viewAngle: 90
+  viewAngle: 60
   muzzleFlashPrefab: {fileID: 0}
   impactFxPrefab: {fileID: 0}
 --- !u!114 &5620326103552762710
@@ -224,6 +221,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3728917005830668807}
     m_Modifications:
+    - target: {fileID: 413464619019600065, guid: 8698befb775c215439e7703a2a745fae, type: 3}
+      propertyPath: m_CastShadows
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7448890999504012184, guid: 8698befb775c215439e7703a2a745fae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

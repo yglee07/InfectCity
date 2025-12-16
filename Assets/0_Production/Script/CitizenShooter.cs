@@ -71,7 +71,7 @@ public class CitizenShooter : CitizenBase
         if (currentTarget != lastTarget)
         {
             if (debugLog) Debug.Log("[Shooter] 새 타겟 → shootTimer 리셋");
-            shootTimer = 0f;
+         
             lastTarget = currentTarget;
         }
 
@@ -82,6 +82,7 @@ public class CitizenShooter : CitizenBase
         {
             if (debugLog) Debug.Log("[Shooter] ▶ PlayAnim(\"Shoot\")");
             PlayAnim("Shoot");
+
             shootTimer = shootInterval;
         }
 
