@@ -275,7 +275,7 @@ public abstract class CitizenBase: MonoBehaviour
             {
                 isIdle = true;
                 idleTimer = Random.Range(idleMin, idleMax);
-                PlayAnim("Idle");
+                ChangeState(State.Idle);   // ⭐ 핵심
                 Log($"Idle → Enter ({idleTimer:F2} sec)");
                 return;
             }
@@ -299,7 +299,15 @@ public abstract class CitizenBase: MonoBehaviour
         }
     }
 
+    protected virtual void UpdateIdle()
+    {
+        idleTimer -= Time.deltaTime;
 
+        if (idleTimer <= 0f)
+        {
+            ChangeState(State.Wander);
+        }
+    }
     // ---------------- FLEE ----------------
     [SerializeField] private float fleeRetargetInterval = 0.4f;
     private float fleeRetargetTimer = 0f;

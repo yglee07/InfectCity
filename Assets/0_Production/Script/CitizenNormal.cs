@@ -3,6 +3,11 @@ using UnityEngine.AI;
 
 public class CitizenNormal : CitizenBase
 {
+    protected override void Start()
+    {
+        base.Start();
+        ChangeState(State.Idle);
+    }
     protected override void Tick()
     {
        
@@ -22,15 +27,17 @@ public class CitizenNormal : CitizenBase
 
         // ============================================
         // 상태 실행
-        // ============================================
-        if (state == State.Wander)
+        switch (state)
         {
-
-            UpdateWander();
-        }
-        else
-        {
-            UpdateFlee();
+            case State.Wander:
+                UpdateWander();
+                break;
+            case State.Idle:
+                UpdateIdle();
+                break;
+            case State.Flee:
+                UpdateFlee();
+                break;
         }
 
     }

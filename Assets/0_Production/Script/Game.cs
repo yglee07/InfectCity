@@ -145,16 +145,25 @@ private void StageClear()
     // =============================
     private void CheckStageFail()
     {
-        // 시민 남아있고
-        bool citizensRemain = npcManager.CurrentCitizenCount >= 0;
+        bool citizensRemain = npcManager.CurrentCitizenCount > 0;
+        bool noCitizens = npcManager.CurrentCitizenCount == 0;
 
-        // 좀비 모두 사망
         bool noGreenZombies = npcManager.GreenZombies.Count == 0;
+        bool hasPurpleZombies = npcManager.PurpleZombies.Count > 0;
 
-        // 감염 스킬 0회
         bool noCharges = dragInfector.currentCharges <= 0;
 
-        if (citizensRemain && noGreenZombies && noCharges)
+        bool case1_Blockaded =
+            citizensRemain &&
+            noGreenZombies &&
+            noCharges;
+
+        bool case2_NoFighterLeft =
+            hasPurpleZombies &&
+            noCitizens &&
+            noGreenZombies;
+
+        if (case1_Blockaded || case2_NoFighterLeft)
         {
             StageFail();
         }
