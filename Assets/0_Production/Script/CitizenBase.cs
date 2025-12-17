@@ -243,23 +243,36 @@ public abstract class CitizenBase: MonoBehaviour
     private Vector3 debugFleeDir; // Gizmo용
     protected void UpdateFlee()
     {
-        // ⭐ 1. 좀비 없으면 Flee 종료
+        // 1️⃣ 좀비 없으면 그때만 종료
         if (!DetectZombie())
         {
-            ChangeState(State.Wander); // 또는 Idle
+            ChangeState(State.Wander);
             return;
         }
 
-        // ⭐ 2. 주기적으로 도망 방향 재계산
+        // 2️⃣ 목적지 거의 도착했으면 즉시 다음 도망
+        if (!agent.pathPending && agent.remainingDistance <= 0.6f)
+        {
+            TrySetNewFleeTarget();
+            fleeRetargetTimer = 0f;   // ⭐ 타이머 리셋
+            return;
+        }
+
+        // 3️⃣ 혹시 경로가 없으면 강제 재설정
+        if (!agent.hasPath)
+        {
+            TrySetNewFleeTarget();
+            fleeRetargetTimer = 0f;
+            return;
+        }
+
+        // 4️⃣ 그 외엔 interval 기반 보정
         fleeRetargetTimer += Time.deltaTime;
         if (fleeRetargetTimer >= fleeRetargetInterval)
         {
             fleeRetargetTimer = 0f;
             TrySetNewFleeTarget();
         }
-
-        // ⭐ 3. 목적지에 도착해도 아무것도 하지 않음
-        // → 다음 retarget에서 다시 도망
     }
     protected bool TrySetNewFleeTarget()
     {
