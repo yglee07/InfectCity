@@ -26,7 +26,9 @@ public class ZombieNavMesh : MonoBehaviour
     private float retargetInterval = 0.2f;
     private float retargetTimer;
     private Vector3 lastTargetPos;
-    private Animator anim;
+
+    [Header("Animation")]
+    [SerializeField] private AnimatedMesh animatedMesh;
 
     // 현재 재생 중인 애니메이션 Trigger 이름
     private string currentAnim = "";
@@ -54,7 +56,8 @@ public class ZombieNavMesh : MonoBehaviour
         agent.acceleration = 20f;
         agent.autoBraking = false;
 
-        anim = GetComponentInChildren<Animator>();
+        animatedMesh = GetComponentInChildren<AnimatedMesh>();
+        //anim = GetComponentInChildren<Animator>();
     }
   
 
@@ -74,8 +77,8 @@ public class ZombieNavMesh : MonoBehaviour
         transform.localScale = Vector3.one * stats.sizeMultiplier;
 
         // 애니메이션 속도
-        if (anim != null)
-            anim.speed = stats.animSpeed;
+        //if (anim != null)
+        //    anim.speed = stats.animSpeed;
         // MoveSpeed 업그레이드 적용 (핵심!)
         float multiplier = UpgradeManager.Instance.GetMoveSpeedMultiplier();
         walkSpeed *= multiplier;
@@ -199,17 +202,12 @@ public class ZombieNavMesh : MonoBehaviour
     //}
 
     // ------- ANIMATION HELPER -------
-    void PlayAnim(string trigger)
+    void PlayAnim(string animName)
     {
-        if (currentAnim == trigger) return; // 중복 재생 방지
+        if (currentAnim == animName) return;
 
-        currentAnim = trigger;
-
-        anim.ResetTrigger("Idle");
-        anim.ResetTrigger("Walk");
-        anim.ResetTrigger("Run");
-
-        anim.SetTrigger(trigger);
+        currentAnim = animName;
+        animatedMesh.Play(animName);
     }
 
     // ---------------- FIND NEAREST CITIZEN ----------------
@@ -241,7 +239,7 @@ public class ZombieNavMesh : MonoBehaviour
             agent.isStopped = true;
             targetCitizen = null;
             agent.ResetPath();
-            PlayAnim("Idle");   // ← 여기서 Idle 재생
+            PlayAnim("Zombie_Idle");   // ← 여기서 Idle 재생
             return;
         }
 
@@ -316,7 +314,7 @@ public class ZombieNavMesh : MonoBehaviour
 
             agent.isStopped = true;
             agent.ResetPath();   // ★ 목적지 초기화 필수
-            PlayAnim("Idle");
+            PlayAnim("Zombie_Idle");
 
             return;
         }
@@ -366,7 +364,7 @@ public class ZombieNavMesh : MonoBehaviour
                 targetBarricade = blocker;
                 agent.isStopped = false;
                 agent.SetDestination(GetClosestPointOnBreakable(blocker));
-                PlayAnim("Run");
+                PlayAnim("Zombie_Run");
                 return;
             }
         }
@@ -377,7 +375,7 @@ public class ZombieNavMesh : MonoBehaviour
         agent.SetDestination(nearest.transform.position);
         targetZombie = nearest;
         isMerging = true;
-        PlayAnim("Run");
+        PlayAnim("Zombie_Run");
     }
     void TryMergeEnemy()
     {
@@ -388,7 +386,7 @@ public class ZombieNavMesh : MonoBehaviour
             targetZombie = null;
             isMerging = false;
             agent.ResetPath();   // ★ 목적지 완전 초기화
-            PlayAnim("Idle");
+            PlayAnim("Zombie_Idle");
             return;
         }
 
@@ -411,12 +409,12 @@ public class ZombieNavMesh : MonoBehaviour
         if (dist <= chaseDistance)
         {
             agent.speed = runSpeed;
-            PlayAnim("Run");
+            PlayAnim("Zombie_Run");
         }
         else
         {
             agent.speed = walkSpeed;
-            PlayAnim("Walk");
+            PlayAnim("Zombie_Walk");
         }
     }
 
@@ -511,7 +509,7 @@ public class ZombieNavMesh : MonoBehaviour
             targetZombie = null;
             isMerging = false;
             agent.ResetPath();
-            PlayAnim("Idle");
+            PlayAnim("Zombie_Idle");
             return;
         }
     }
