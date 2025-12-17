@@ -2,6 +2,8 @@
 
 public class CitizenIdle : CitizenBase
 {
+    protected bool hasFledOnce = false;
+    
     protected override void Start()
     {
         base.Start();
@@ -15,6 +17,7 @@ public class CitizenIdle : CitizenBase
         if (detected && state != State.Flee)
         {
             ChangeState(State.Flee);
+            hasFledOnce = true;
         }
         else if (!detected && state == State.Flee)
         {
@@ -24,7 +27,8 @@ public class CitizenIdle : CitizenBase
         switch (state)
         {
             case State.Idle:
-                UpdateIdle();
+                if (hasFledOnce)
+                    UpdateIdle();
                 break;
 
             case State.Flee:

@@ -142,6 +142,7 @@ public abstract class CitizenBase: MonoBehaviour
             case State.Idle:
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
+                agent.ResetPath();
                 idleTimer = Random.Range(idleMin, idleMax); // ⭐ 여기서 세팅
                 PlayAnim("StickMan_Idle");
                 break;
