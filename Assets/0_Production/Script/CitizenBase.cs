@@ -11,7 +11,7 @@ public abstract class CitizenBase: MonoBehaviour
     public float idleMin = 0.5f;
     public float idleMax = 2.0f;
 
-    protected bool isIdle = false;
+  
     protected float idleTimer = 0f;
 
     [Header("Speed")]
@@ -88,80 +88,7 @@ public abstract class CitizenBase: MonoBehaviour
         //ChangeState(State.Wander);
         //SetNewWanderTarget();
     }
-    //protected virtual void Update()
-    //{
-    //    if(debugLog)
-    //        Debug.Log("parent update");
-    //    if (behaviorType == CitizenBehaviorType.Sleep)
-    //    {
-    //        agent.isStopped = true;
-    //        agent.velocity = Vector3.zero;
-    //        PlayAnim("Sleep");
-    //        return;
-    //    }
-    //    bool detected = DetectZombie();
-
-    //    Log($"Update | behavior={behaviorType} state={state} detected={detected}");
-
-    //    // ============================================
-    //    // ★ CitizenBehaviorType.Idle 전용 로직
-    //    // ============================================
-    //    if (behaviorType == CitizenBehaviorType.Idle)
-    //    {
-    //        if (!detected)
-    //        {
-    //            // 좀비 없으면 Idle 유지
-    //            agent.isStopped = true;
-    //            agent.velocity = Vector3.zero;
-    //            PlayAnim("Idle");
-
-    //            Log("Idle citizen: No zombie → staying idle");
-    //            return;   // Wander/Idle 랜덤 로직 접근 금지
-    //        }
-    //        else
-    //        {
-    //            Log("Idle citizen: Zombie detected → switching to Flee");
-    //            agent.isStopped = false;
-    //            // 좀비 감지 → Flee 전환
-    //            if (state != State.Flee)
-    //            {
-    //                ChangeState(State.Flee);
-    //                Log("Force ChangeState(Flee)");
-    //            }
-    //        }
-    //    }
-
-    //    // ============================================
-    //    // Normal 시민 + Idle 시민 공통 상태 전환
-    //    // ============================================
-    //    if (detected && state != State.Flee)
-    //    {
-    //        Log("Detected → ChangeState(Flee)");
-    //        ChangeState(State.Flee);
-    //    }
-    //    else if (!detected && state != State.Wander)
-    //    {
-    //        Log("No zombie → ChangeState(Wander)");
-    //        ChangeState(State.Wander);
-    //    }
-
-    //    // ============================================
-    //    // 상태 실행
-    //    // ============================================
-    //    if (state == State.Wander)
-    //    {
-
-    //        UpdateWander();
-    //    }
-    //    else
-    //    {
-    //        UpdateFlee();
-    //    }
-
-
-
-    //}
-
+   
     [SerializeField] protected float thinkInterval = 0.2f; // 초당 5회
     protected float thinkTimer = 0f;
 
@@ -184,9 +111,15 @@ public abstract class CitizenBase: MonoBehaviour
     // ---------------- ANIMATION ----------------
     protected virtual void PlayAnim(string animName)
     {
-        if (debugLog)
-            Debug.Log("[Shooter] PlayAnim(" + animName + ") called");
-
+        if (animatedMesh == null)
+        {
+            animatedMesh = GetComponentInChildren<AnimatedMesh>();
+            if (animatedMesh == null)
+            {
+                Debug.LogError($"[Citizen] AnimatedMesh missing on {name}");
+                return;
+            }
+        }
         // Shoot 같은 1회성도 포함해서, 같으면 재생 안 하게
         if (currentAnim == animName)
             return;
@@ -200,7 +133,7 @@ public abstract class CitizenBase: MonoBehaviour
     {
         if (isCommandLocked)
             return;   // ⭐ 이거 없으면 구조적으로 절대 해결 안 됨
-        if (state == newState) return;
+   
 
         state = newState;
 
@@ -209,6 +142,7 @@ public abstract class CitizenBase: MonoBehaviour
             case State.Idle:
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
+                idleTimer = Random.Range(idleMin, idleMax); // ⭐ 여기서 세팅
                 PlayAnim("StickMan_Idle");
                 break;
 
@@ -223,7 +157,7 @@ public abstract class CitizenBase: MonoBehaviour
                 agent.isStopped = false;
                 agent.speed = fleeSpeed;
                 PlayAnim("StickMan_Run");
-                SetNewWanderTarget();
+                TrySetNewFleeTarget();
                 break;
         }
     }
@@ -233,20 +167,9 @@ public abstract class CitizenBase: MonoBehaviour
     protected void UpdateWander()
     {
         // Idle 상태일 때
-        if (isIdle)
-        {
-            agent.SetDestination(transform.position);
-
-            idleTimer -= Time.deltaTime;
-            if (idleTimer <= 0f)
-            {
-                Log("Idle → Exit");
-                isIdle = false;
-                SetNewWanderTarget();     // ⭐ 복구됨
-                PlayAnim("StickMan_Walk");
-            }
-            return;
-        }
+        
+           
+        
 
         timer += Time.deltaTime;
 
@@ -267,7 +190,7 @@ public abstract class CitizenBase: MonoBehaviour
 
             if (Random.value < 0.3f)
             {
-                isIdle = true;
+              
                 idleTimer = Random.Range(idleMin, idleMax);
                 ChangeState(State.Idle);   // ⭐ 핵심
                 Log($"Idle → Enter ({idleTimer:F2} sec)");
@@ -278,6 +201,13 @@ public abstract class CitizenBase: MonoBehaviour
         }
 
         agent.SetDestination(wanderTarget);
+        agent.isStopped = false;
+
+        if (agent.velocity.sqrMagnitude > 0.01f)
+        {
+            PlayAnim("StickMan_Walk");
+        }
+
     }
 
     private void SetNewWanderTarget()
@@ -295,8 +225,12 @@ public abstract class CitizenBase: MonoBehaviour
 
     protected virtual void UpdateIdle()
     {
-        idleTimer -= Time.deltaTime;
+        agent.isStopped = true;
+        agent.velocity = Vector3.zero;
 
+        PlayAnim("StickMan_Idle");
+
+        idleTimer -= Time.deltaTime;
         if (idleTimer <= 0f)
         {
             ChangeState(State.Wander);
@@ -309,24 +243,24 @@ public abstract class CitizenBase: MonoBehaviour
     private Vector3 debugFleeDir; // Gizmo용
     protected void UpdateFlee()
     {
-        // ✅ 도망 성공 판정
-        if (!agent.pathPending && agent.remainingDistance <= 0.4f)
+        // ⭐ 1. 좀비 없으면 Flee 종료
+        if (!DetectZombie())
         {
-            ChangeState(State.Idle); // 또는 Wander
+            ChangeState(State.Wander); // 또는 Idle
             return;
         }
 
+        // ⭐ 2. 주기적으로 도망 방향 재계산
         fleeRetargetTimer += Time.deltaTime;
-        if (fleeRetargetTimer < fleeRetargetInterval)
-            return;
+        if (fleeRetargetTimer >= fleeRetargetInterval)
+        {
+            fleeRetargetTimer = 0f;
+            TrySetNewFleeTarget();
+        }
 
-        fleeRetargetTimer = 0f;
-
-        // ❌ 실패하면 다시 시도
-        bool success = TrySetNewFleeTarget();
-        // 실패 시 아무것도 안 함 → 다음 주기에 재시도
+        // ⭐ 3. 목적지에 도착해도 아무것도 하지 않음
+        // → 다음 retarget에서 다시 도망
     }
-
     protected bool TrySetNewFleeTarget()
     {
         var zombies = NPCManager.Instance.Zombies;
@@ -507,7 +441,7 @@ public abstract class CitizenBase: MonoBehaviour
         string text =
             $"State: {state}\n" +
               // ⭐ 추가
-            $"Idle: {isIdle}\n" +
+           
             $"CmdLock: {isCommandLocked}";
 
         Handles.Label(pos, text);
@@ -531,11 +465,11 @@ public abstract class CitizenBase: MonoBehaviour
     public virtual void ResetForReuse()
     {
         isCommandLocked = false;
-        isIdle = false;
+
         idleTimer = 0f;
         timer = 0f;
 
-        state = State.Wander;
+        state = State.Idle; // 기본값
         currentAnim = "";
         if (agent != null && agent.isOnNavMesh)
         {

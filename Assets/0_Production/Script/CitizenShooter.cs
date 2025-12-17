@@ -269,7 +269,7 @@ public class CitizenShooter : CitizenBase
         Handles.Label(
             transform.position + Vector3.up * 2.4f,
             $"State: {state}\n" +
-            $"Idle: {isIdle}\n" +
+           
             $"CmdLock: {isCommandLocked}\n" +
             $"Target: {currentTarget.name}"
         );

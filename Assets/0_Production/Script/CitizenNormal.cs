@@ -5,13 +5,17 @@ public class CitizenNormal : CitizenBase
     protected override void Start()
     {
         base.Start();
-        ChangeState(State.Wander); // ⭐ 처음부터 Wander
+        ChangeState(State.Wander); // ✅ 안전
     }
-
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        // 상태만 변수로 지정
+        state = State.Wander;
+    }
     protected override void Tick()
     {
         bool detected = DetectZombie();
-     
 
         // =========================
         // 상태 전환
@@ -20,12 +24,20 @@ public class CitizenNormal : CitizenBase
         {
             ChangeState(State.Flee);
         }
+        else if (!detected && state == State.Flee)
+        {
+            ChangeState(State.Wander);
+        }
 
         // =========================
         // 상태 실행
         // =========================
         switch (state)
         {
+            case State.Idle:
+                UpdateIdle();
+                break;
+
             case State.Wander:
                 UpdateWander();
                 break;
