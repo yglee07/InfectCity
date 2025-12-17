@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AnimationFPS: 30
   Animations:
-  - Name: Stickman_Idle
+  - Name: StickMan_Idle
     Meshes:
     - {fileID: 4300000, guid: de0fcaaf2e44ff14b9fcc4fc39cc5392, type: 2}
     - {fileID: 4300000, guid: e0eb347ef2d2c2a43b3a93ddf5eac49a, type: 2}
@@ -345,7 +345,7 @@ MonoBehaviour:
     - {fileID: 4300000, guid: b29f609a9be6ac7469dfb7d03ce459c6, type: 2}
     - {fileID: 4300000, guid: 465de57d79639d544a699c68e9d2e138, type: 2}
     - {fileID: 4300000, guid: 78dab3c13a035bb43a151d48ce40cba8, type: 2}
-  - Name: Stickman_Run
+  - Name: StickMan_Run
     Meshes:
     - {fileID: 4300000, guid: bc83177567296bb4ca426e3f1407a86b, type: 2}
     - {fileID: 4300000, guid: 264fa38aed39d8e40bad15d450847558, type: 2}
@@ -980,7 +980,7 @@ MonoBehaviour:
     - {fileID: 4300000, guid: db93f4d409b8e3948807ee426c8e42ef, type: 2}
     - {fileID: 4300000, guid: 58edc4f629be27b4b89acb9cae0481eb, type: 2}
     - {fileID: 4300000, guid: 0b6860d4e06f75c409690f24c3846757, type: 2}
-  - Name: Stickman_Shoot
+  - Name: StickMan_Shoot
     Meshes:
     - {fileID: 4300000, guid: e5d9ff267c2a5b544b33a74bf574042a, type: 2}
     - {fileID: 4300000, guid: d44cf3d6eea6c724aaf4194b44c3a5a7, type: 2}
@@ -1016,7 +1016,7 @@ MonoBehaviour:
     - {fileID: 4300000, guid: a4afe99d46f877c46b19303be9dfcc3b, type: 2}
     - {fileID: 4300000, guid: c84216c33562ba646ba3164fef0998e9, type: 2}
     - {fileID: 4300000, guid: ea7d48c845769b54ca0ea728d336356e, type: 2}
-  - Name: Stickman_Sleep
+  - Name: StickMan_Sleep
     Meshes:
     - {fileID: 4300000, guid: 2e5b2aeb06ce28946b7357ec911a52ca, type: 2}
     - {fileID: 4300000, guid: e51808c48eb04f345be1a1b20788acf0, type: 2}

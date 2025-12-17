@@ -58,7 +58,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stickman_Shoot
+  m_Name: StickMan_Shoot
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -171,7 +171,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stickman_Run
+  m_Name: StickMan_Run
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -247,7 +247,7 @@ AnimatorController:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stickman_Controller
+  m_Name: StickMan_Controller
   serializedVersion: 5
   m_AnimatorParameters:
   - m_Name: Walk
@@ -319,7 +319,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Stickman_Sleep
+  m_Name: StickMan_Sleep
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []

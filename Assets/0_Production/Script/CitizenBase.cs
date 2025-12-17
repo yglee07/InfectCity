@@ -40,7 +40,8 @@ public abstract class CitizenBase: MonoBehaviour
 
     protected bool isCommandLocked;
 
-    private AnimatedMesh animatedMesh;
+    [SerializeField]
+    protected AnimatedMesh animatedMesh;
        
 
     [Header("Debug")]
@@ -205,20 +206,20 @@ public abstract class CitizenBase: MonoBehaviour
             case State.Idle:
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
-                PlayAnim("Stickman_Idle");
+                PlayAnim("StickMan_Idle");
                 break;
 
             case State.Wander:
                 agent.isStopped = false;
                 agent.speed = wanderSpeed;
-                PlayAnim("Stickman_Walk");
+                PlayAnim("StickMan_Walk");
                 SetNewWanderTarget();
                 break;
 
             case State.Flee:
                 agent.isStopped = false;
                 agent.speed = fleeSpeed;
-                PlayAnim("Stickman_Run");
+                PlayAnim("StickMan_Run");
                 SetNewFleeTarget();
                 break;
         }
@@ -239,7 +240,7 @@ public abstract class CitizenBase: MonoBehaviour
                 Log("Idle → Exit");
                 isIdle = false;
                 SetNewWanderTarget();     // ⭐ 복구됨
-                PlayAnim("Stickman_Walk");
+                PlayAnim("StickMan_Walk");
             }
             return;
         }
@@ -525,7 +526,7 @@ public abstract class CitizenBase: MonoBehaviour
 
         Debug.Log($"[RunTo] locked={isCommandLocked}, dest={agent.destination}");
 
-        PlayAnim("Stickman_Run");
+        PlayAnim("StickMan_Run");
     }
 
     public virtual void ResetForReuse()

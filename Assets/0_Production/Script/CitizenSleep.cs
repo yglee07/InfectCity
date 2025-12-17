@@ -2,20 +2,22 @@
 using UnityEngine.AI;
 public class CitizenSleep : CitizenBase
 {
-    protected override void Awake()
-    {
-        base.Awake();
+    
+  
 
-        // 🔥 행동 로직 차단
-        //agent.enabled = false;
-
-        // 🔥 애니메이션 고정
-        PlayAnim("Stickman_Sleep");
-    }
 
     protected override void Start()
     {
-        
+        base.Start();
+
+        // 이 시점이면 animatedMesh + SO + Disable 처리 다 끝남
+        if (animatedMesh == null)
+        {
+            Debug.LogError("[CitizenSleep] animatedMesh is NULL");
+            return;
+        }
+
+        PlayAnim("StickMan_Sleep");
         // 🔹 "행동 시작"은 Start에서
         if (!agent.enabled)
             agent.enabled = true;
