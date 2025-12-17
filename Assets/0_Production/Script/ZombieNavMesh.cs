@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -48,6 +49,8 @@ public class ZombieNavMesh : MonoBehaviour
 
     [SerializeField]
     private Breakable targetBarricade;
+    
+
 
     private void Awake()
     {
@@ -131,6 +134,12 @@ public class ZombieNavMesh : MonoBehaviour
         // =======================
         if (NPCManager.Instance.combatMode)
         {
+            if (targetBarricade != null)
+            {
+                TryBreakBarricade();
+                return;
+            }
+
             if (retargetTimer >= retargetInterval)
             {
                 retargetTimer = 0f;
@@ -358,14 +367,19 @@ public class ZombieNavMesh : MonoBehaviour
 
             if (blocker != null)
             {
+                Debug.Log("경로막혀있습니다 내 색: "+faction);
                 targetZombie = null;
                 isMerging = false;
-
+                
+                // ⭐ 핵심
                 targetBarricade = blocker;
+
                 agent.isStopped = false;
+                agent.ResetPath(); // 이전 좀비 목적지 제거
                 agent.SetDestination(GetClosestPointOnBreakable(blocker));
+
                 PlayAnim("Zombie_Run");
-                return;
+                return; // ← 반드시 끊어야 함
             }
         }
 
@@ -592,7 +606,10 @@ public class ZombieNavMesh : MonoBehaviour
         {
             targetBarricade = null;
             agent.ResetPath();
-            FindNearestCitizen();
+            if (NPCManager.Instance.combatMode)
+                FindEnemyZombie();
+            else
+                FindNearestCitizen();
         }
     }
 
@@ -635,5 +652,49 @@ public class ZombieNavMesh : MonoBehaviour
             Mathf.Clamp(z.z, bPos.z - half.z, bPos.z + half.z)
         );
     }
+#if UNITY_EDITOR
+    void OnDrawGizmos()
+    {
+        Handles.Label(
+        transform.position + Vector3.up * 2f,
+        $"Faction: {faction}\n" +
+        $"Citizen: {(targetCitizen ? targetCitizen.name : "None")}\n" +
+        $"Zombie: {(targetZombie ? targetZombie.name : "None")}\n" +
+        $"Barricade: {(targetBarricade ? targetBarricade.name : "None")}"
+    );
+        if (agent == null) return;
 
+        // 기본 목적지
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawLine(transform.position, agent.destination);
+        Gizmos.DrawSphere(agent.destination, 0.25f);
+
+        // 시민 타겟
+        if (targetCitizen != null)
+        {
+            Gizmos.color = Color.blue;
+            Gizmos.DrawLine(transform.position, targetCitizen.transform.position);
+            Gizmos.DrawSphere(targetCitizen.transform.position, 0.35f);
+        }
+
+        // 좀비 타겟
+        if (targetZombie != null)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawLine(transform.position, targetZombie.transform.position);
+            Gizmos.DrawSphere(targetZombie.transform.position, 0.35f);
+        }
+
+        // 문(바리케이드) 타겟
+        if (targetBarricade != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawLine(transform.position, targetBarricade.transform.position);
+            Gizmos.DrawCube(
+                targetBarricade.transform.position,
+                targetBarricade.size
+            );
+        }
+    }
+#endif
 }
