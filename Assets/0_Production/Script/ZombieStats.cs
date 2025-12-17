@@ -14,8 +14,8 @@ public class ZombieStats : ScriptableObject
     public float runSpeed = 4f;
     public float chaseDistance = 7f;
 
-    [Header("Animation")]
-    public float animSpeed = 1f;
+    [Header("Animatio\n애니메이션 스피드 조절은 더이상 지원을 하지 않습니다")]
+    //public float animSpeed = 1f;
 
     [Header("Combat")]
     [Tooltip("좀비 기본 체력. 일반 좀비 = 1, Mutant = 2 추천")]
