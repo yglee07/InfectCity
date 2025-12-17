@@ -607,6 +607,7 @@ MonoBehaviour:
   zoomSpeed: 1
   minZoom: 5
   maxZoom: 25
+  isCameraLocked: 0
   cameraPos: {fileID: 892461535}
   startPos: {fileID: 0}
   endPos: {fileID: 0}
@@ -1379,7 +1380,7 @@ PrefabInstance:
       objectReference: {fileID: 1540442432}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: levelPrefabs.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[0]'
