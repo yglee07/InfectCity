@@ -223,7 +223,7 @@ public abstract class CitizenBase: MonoBehaviour
                 agent.isStopped = false;
                 agent.speed = fleeSpeed;
                 PlayAnim("StickMan_Run");
-                SetNewFleeTarget();
+                SetNewWanderTarget();
                 break;
         }
     }
@@ -309,68 +309,63 @@ public abstract class CitizenBase: MonoBehaviour
     private Vector3 debugFleeDir; // Gizmo용
     protected void UpdateFlee()
     {
-        fleeRetargetTimer += Time.deltaTime;
-
-        // 일정 시간마다 무조건 새 도망 목표 설정
-        if (fleeRetargetTimer >= fleeRetargetInterval)
+        // ✅ 도망 성공 판정
+        if (!agent.pathPending && agent.remainingDistance <= 0.4f)
         {
-            fleeRetargetTimer = 0f;
-            SetNewFleeTarget();
+            ChangeState(State.Idle); // 또는 Wander
+            return;
         }
+
+        fleeRetargetTimer += Time.deltaTime;
+        if (fleeRetargetTimer < fleeRetargetInterval)
+            return;
+
+        fleeRetargetTimer = 0f;
+
+        // ❌ 실패하면 다시 시도
+        bool success = TrySetNewFleeTarget();
+        // 실패 시 아무것도 안 함 → 다음 주기에 재시도
     }
 
-    private void SetNewFleeTarget()
+    protected bool TrySetNewFleeTarget()
     {
         var zombies = NPCManager.Instance.Zombies;
         if (zombies == null || zombies.Count == 0)
-            return;
+            return false;
 
         Vector3 myPos = transform.position;
 
-        // ===============================
-        // 1️⃣ fleeExitRadius 안의 좀비 필터
-        // ===============================
-        List<ZombieNavMesh> nearby = new List<ZombieNavMesh>();
+        List<ZombieNavMesh> nearby = new();
         foreach (var z in zombies)
         {
             if (z == null || !z.gameObject.activeInHierarchy) continue;
-
-            float dist = Vector3.Distance(myPos, z.transform.position);
-            if (dist <= fleeExitRadius)
+            if (Vector3.Distance(myPos, z.transform.position) <= fleeExitRadius)
                 nearby.Add(z);
         }
 
         if (nearby.Count == 0)
-            return;
+            return false;
 
-        // ===============================
-        // 2️⃣ 평균 반대 방향 계산
-        // ===============================
         Vector3 fleeDir = Vector3.zero;
         foreach (var z in nearby)
         {
             Vector3 dir = myPos - z.transform.position;
-            float weight = 1f / Mathf.Max(dir.magnitude, 0.1f);
-            fleeDir += dir.normalized * weight;
+            fleeDir += dir.normalized;
         }
 
         if (fleeDir.sqrMagnitude < 0.001f)
-            return;
+            return false;
 
         fleeDir.Normalize();
-        debugFleeDir = fleeDir;
 
-        // ===============================
-        // 3️⃣ 좌/우 회전 포함 시도 (정면 → 측면)
-        // ===============================
-        if (TrySetFleeTarget(myPos, fleeDir, nearby, 0)) return;
-        if (TrySetFleeTarget(myPos, fleeDir, nearby, 45)) return;
-        if (TrySetFleeTarget(myPos, fleeDir, nearby, -45)) return;
-        if (TrySetFleeTarget(myPos, fleeDir, nearby, 90)) return;
-        if (TrySetFleeTarget(myPos, fleeDir, nearby, -90)) return;
-
-        // 전부 실패 → 이번 프레임 포기
+        return
+            TrySetFleeTarget(myPos, fleeDir, nearby, 0) ||
+            TrySetFleeTarget(myPos, fleeDir, nearby, 45) ||
+            TrySetFleeTarget(myPos, fleeDir, nearby, -45) ||
+            TrySetFleeTarget(myPos, fleeDir, nearby, 90) ||
+            TrySetFleeTarget(myPos, fleeDir, nearby, -90);
     }
+
 
     private bool TrySetFleeTarget(
     Vector3 myPos,
@@ -511,6 +506,7 @@ public abstract class CitizenBase: MonoBehaviour
 
         string text =
             $"State: {state}\n" +
+              // ⭐ 추가
             $"Idle: {isIdle}\n" +
             $"CmdLock: {isCommandLocked}";
 
