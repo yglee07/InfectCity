@@ -457,6 +457,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animationSO: {fileID: 11400000, guid: 8ec1edc52488d6942b58a4a15fb5da88, type: 2}
   defaultAnimation: Zombie_Idle
-  playOnAwake: 0
+  playOnAwake: 1
   animatorToDisable: {fileID: 3874621416303375283}
   skinnedMeshToDisable: {fileID: 1769686288947375021}
