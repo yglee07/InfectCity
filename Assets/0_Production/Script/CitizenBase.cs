@@ -34,6 +34,7 @@ public abstract class CitizenBase: MonoBehaviour
     protected float timer;
     protected Vector3 wanderTarget;
     protected Vector3 fleeTarget;
+    [SerializeField]
     protected Animator anim;
 
     protected string currentAnim = "";
@@ -47,7 +48,7 @@ public abstract class CitizenBase: MonoBehaviour
     [Header("Debug")]
     public bool debugLog = false;
 
-    private void OnEnable()
+    protected virtual void OnEnable()
     {
         ResetForReuse();
 
@@ -197,6 +198,8 @@ public abstract class CitizenBase: MonoBehaviour
     // ---------------- STATE CHANGE ----------------
     protected void ChangeState(State newState)
     {
+        if (isCommandLocked)
+            return;   // ⭐ 이거 없으면 구조적으로 절대 해결 안 됨
         if (state == newState) return;
 
         state = newState;

@@ -23,6 +23,7 @@ public class CitizenShooter : CitizenBase
 
     private ZombieNavMesh currentTarget;
     private ZombieNavMesh lastTarget;
+    private bool isShooting = false;
 
     protected override void Start()
     {
@@ -33,8 +34,13 @@ public class CitizenShooter : CitizenBase
             agent.enabled = true;
 
         agent.isStopped = true; // Wander 제거
-
+        PlayAnim("StickMan_Idle");
         if (debugLog) Debug.Log("[Shooter] Start()");
+    }
+    protected override void OnEnable()
+    {
+        base.OnEnable();
+        isShooting = false;
     }
     protected override void Tick()
     {
@@ -79,11 +85,12 @@ public class CitizenShooter : CitizenBase
         shootTimer -= Time.deltaTime;
         if (debugLog) Debug.Log($"[Shooter] shootTimer = {shootTimer}");
 
-        if (shootTimer <= 0f)
+        if (shootTimer <= 0f && !isShooting)
         {
             if (debugLog) Debug.Log("[Shooter] ▶ PlayAnim(\"Shoot\")");
+            isShooting = true;
+     
             PlayAnim("StickMan_Shoot");
-
             //shootTimer = shootInterval;
         }
 
@@ -188,6 +195,7 @@ public class CitizenShooter : CitizenBase
 
         PerformShot(currentTarget);
         shootTimer = shootInterval;
+        isShooting = false;
         PlayAnim("StickMan_Idle");
     }
 
@@ -226,6 +234,23 @@ public class CitizenShooter : CitizenBase
     protected override void DespawnSelf()
     {
         PoolManager.Instance.Despawn("Citizen_Shooter", gameObject);
+    }
+    protected override void PlayAnim(string animName)
+    {
+        if (anim == null) return;
+
+        switch (animName)
+        {
+            case "StickMan_Shoot":
+                anim.ResetTrigger("Shoot");
+                anim.SetTrigger("Shoot");
+                break;
+
+            case "StickMan_Idle":
+                anim.ResetTrigger("Idle");
+                anim.SetTrigger("Idle");
+                break;
+        }
     }
 
 #if UNITY_EDITOR

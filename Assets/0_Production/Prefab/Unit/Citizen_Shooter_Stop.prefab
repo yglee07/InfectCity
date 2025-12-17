@@ -187,6 +187,7 @@ MonoBehaviour:
   fleeExitRadius: 6
   fleeDistance: 7
   agent: {fileID: 0}
+  animatedMesh: {fileID: 0}
   debugLog: 0
   thinkInterval: 0.2
   fleeRetargetInterval: 0.4
@@ -274,7 +275,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CitizenModel
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3995937370020919682, guid: 8698befb775c215439e7703a2a745fae, type: 3}
+    - {fileID: 4469796563609816925, guid: 8698befb775c215439e7703a2a745fae, type: 3}
+    - {fileID: 4020883150794958260, guid: 8698befb775c215439e7703a2a745fae, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 6821204479217944736, guid: 8698befb775c215439e7703a2a745fae, type: 3}
