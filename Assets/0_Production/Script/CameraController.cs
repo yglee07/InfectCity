@@ -67,6 +67,8 @@ public class CameraController : MonoBehaviour
         if (Game.Instance.dragInfector != null &&
             Game.Instance.dragInfector.IsDraggingBomb)
             return;
+
+        HandleTouchInput();
         // ===== 실제 적용 =====
         transform.position = Vector3.SmoothDamp(
             transform.position,
