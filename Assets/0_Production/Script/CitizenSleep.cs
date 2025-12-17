@@ -10,7 +10,7 @@ public class CitizenSleep : CitizenBase
         //agent.enabled = false;
 
         // 🔥 애니메이션 고정
-        PlayAnim("Sleep");
+        PlayAnim("Stickman_Sleep");
     }
 
     protected override void Start()

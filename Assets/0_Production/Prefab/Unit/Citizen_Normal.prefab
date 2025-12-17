@@ -80,6 +80,7 @@ MonoBehaviour:
   fleeDistance: 7
   agent: {fileID: 0}
   debugLog: 0
+  thinkInterval: 0.2
   fleeRetargetInterval: 0.4
 --- !u!114 &5620326103552762710
 MonoBehaviour:
@@ -109,6 +110,10 @@ PrefabInstance:
       propertyPath: m_CastShadows
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3995937370020919682, guid: 8698befb775c215439e7703a2a745fae, type: 3}
+      propertyPath: animationSO
+      value: 
+      objectReference: {fileID: 11400000, guid: c287be5d0a9fc7b4b9b7f6795e5dd419, type: 2}
     - target: {fileID: 7448890999504012184, guid: 8698befb775c215439e7703a2a745fae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

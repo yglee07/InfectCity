@@ -82,7 +82,7 @@ public class CitizenShooter : CitizenBase
         if (shootTimer <= 0f)
         {
             if (debugLog) Debug.Log("[Shooter] ▶ PlayAnim(\"Shoot\")");
-            PlayAnim("Shoot");
+            PlayAnim("Stickman_Shoot");
 
             //shootTimer = shootInterval;
         }
@@ -188,7 +188,7 @@ public class CitizenShooter : CitizenBase
 
         PerformShot(currentTarget);
         shootTimer = shootInterval;
-        PlayAnim("Idle");
+        PlayAnim("Stickman_Idle");
     }
 
     protected void PerformShot(ZombieNavMesh target)

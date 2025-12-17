@@ -40,6 +40,8 @@ public abstract class CitizenBase: MonoBehaviour
 
     protected bool isCommandLocked;
 
+    private AnimatedMesh animatedMesh;
+       
 
     [Header("Debug")]
     public bool debugLog = false;
@@ -69,9 +71,10 @@ public abstract class CitizenBase: MonoBehaviour
         // 🔹 캐싱만 한다
         if (agent == null)
             agent = GetComponent<NavMeshAgent>();
-
         if (anim == null)
             anim = GetComponentInChildren<Animator>();
+        if(animatedMesh == null)
+            animatedMesh = GetComponentInChildren<AnimatedMesh>();
     }
 
     protected virtual void Start()
@@ -177,29 +180,18 @@ public abstract class CitizenBase: MonoBehaviour
 
 
     // ---------------- ANIMATION ----------------
-    protected virtual void PlayAnim(string trigger)
+    protected virtual void PlayAnim(string animName)
     {
-        if (debugLog) Debug.Log("[Shooter] PlayAnim(" + trigger + ") called");
+        if (debugLog)
+            Debug.Log("[Shooter] PlayAnim(" + animName + ") called");
 
-
-        if (trigger != "Shoot" && currentAnim == trigger)
+        // Shoot 같은 1회성도 포함해서, 같으면 재생 안 하게
+        if (currentAnim == animName)
             return;
-        currentAnim = trigger;
 
-       
-
-        anim.ResetTrigger("Idle");
-        anim.ResetTrigger("Walk");
-        anim.ResetTrigger("Run");
-        anim.ResetTrigger("Shoot");
-        anim.ResetTrigger("Sleep");
-
-
-
-
-        anim.SetTrigger(trigger);
+        currentAnim = animName;
+        animatedMesh.Play(animName);
     }
-
 
     // ---------------- STATE CHANGE ----------------
     protected void ChangeState(State newState)
@@ -213,20 +205,20 @@ public abstract class CitizenBase: MonoBehaviour
             case State.Idle:
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
-                PlayAnim("Idle");
+                PlayAnim("Stickman_Idle");
                 break;
 
             case State.Wander:
                 agent.isStopped = false;
                 agent.speed = wanderSpeed;
-                PlayAnim("Walk");
+                PlayAnim("Stickman_Walk");
                 SetNewWanderTarget();
                 break;
 
             case State.Flee:
                 agent.isStopped = false;
                 agent.speed = fleeSpeed;
-                PlayAnim("Run");
+                PlayAnim("Stickman_Run");
                 SetNewFleeTarget();
                 break;
         }
@@ -247,7 +239,7 @@ public abstract class CitizenBase: MonoBehaviour
                 Log("Idle → Exit");
                 isIdle = false;
                 SetNewWanderTarget();     // ⭐ 복구됨
-                PlayAnim("Walk");
+                PlayAnim("Stickman_Walk");
             }
             return;
         }
@@ -533,7 +525,7 @@ public abstract class CitizenBase: MonoBehaviour
 
         Debug.Log($"[RunTo] locked={isCommandLocked}, dest={agent.destination}");
 
-        PlayAnim("Run");
+        PlayAnim("Stickman_Run");
     }
 
     public virtual void ResetForReuse()
@@ -564,4 +556,6 @@ public abstract class CitizenBase: MonoBehaviour
         if (!debugLog) return;
         Debug.Log($"[Citizen {name}] {msg}");
     }
+    
+
 }
