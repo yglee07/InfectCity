@@ -157,21 +157,19 @@ public abstract class CitizenBase: MonoBehaviour
 
     //}
 
+    [SerializeField] protected float thinkInterval = 0.2f; // 초당 5회
+    protected float thinkTimer = 0f;
+
     protected virtual void Update()
     {
-
         if (isCommandLocked)
-        {
-            Debug.Log(
-                $"[LOCK] {name} " +
-                $"dest={agent.destination} " +
-                $"hasPath={agent.hasPath} " +
-                $"pathStatus={agent.pathStatus}"
-            );
             return;
-        }
 
+        thinkTimer -= Time.deltaTime;
+        if (thinkTimer > 0f)
+            return;
 
+        thinkTimer = thinkInterval;
         Tick();
     }
 

@@ -228,6 +228,7 @@ public class CitizenShooter : CitizenBase
         PoolManager.Instance.Despawn("Citizen_Shooter", gameObject);
     }
 
+#if UNITY_EDITOR
     protected override void OnDrawGizmos()
     {
         base.OnDrawGizmos();
@@ -248,4 +249,6 @@ public class CitizenShooter : CitizenBase
             $"Target: {currentTarget.name}"
         );
     }
+#endif
 }
+

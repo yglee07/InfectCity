@@ -102,28 +102,38 @@ public class ZombieNavMesh : MonoBehaviour
             NPCManager.Instance.UnregisterZombie(this);
        
     }
-
+    [SerializeField] float thinkInterval = 0.25f;
+    float thinkTimer;
     void Update()
     {
         float dt = Time.deltaTime;
 
+        // ⏱️ 타이머들은 매 프레임 누적 (애니/공격 타이밍용)
         retargetTimer += dt;
         barricadeAttackTimer += dt;
-   
 
+        // 🔒 Think 주기 제한
+        thinkTimer -= dt;
+        if (thinkTimer > 0f)
+            return;
+
+        thinkTimer = thinkInterval;
+
+        Tick();
+    }
+    void Tick()
+    {
         // =======================
         // COMBAT MODE (좀비 vs 좀비)
         // =======================
         if (NPCManager.Instance.combatMode)
         {
-            // 타겟 재탐색은 일정 간격으로만
             if (retargetTimer >= retargetInterval)
             {
                 retargetTimer = 0f;
                 FindEnemyZombie();
             }
 
-            // 거리는 매 프레임 체크(머지 타이밍 때문에)
             TryMergeEnemy();
             return;
         }
@@ -137,17 +147,56 @@ public class ZombieNavMesh : MonoBehaviour
             FindNearestCitizen();
         }
 
-       
-
-       
-
         TryInfect(this.faction);
 
         if (targetBarricade != null)
             TryBreakBarricade();
-
-
     }
+    //void Update()
+    //{
+    //    float dt = Time.deltaTime;
+
+    //    retargetTimer += dt;
+    //    barricadeAttackTimer += dt;
+
+
+    //    // =======================
+    //    // COMBAT MODE (좀비 vs 좀비)
+    //    // =======================
+    //    if (NPCManager.Instance.combatMode)
+    //    {
+    //        // 타겟 재탐색은 일정 간격으로만
+    //        if (retargetTimer >= retargetInterval)
+    //        {
+    //            retargetTimer = 0f;
+    //            FindEnemyZombie();
+    //        }
+
+    //        // 거리는 매 프레임 체크(머지 타이밍 때문에)
+    //        TryMergeEnemy();
+    //        return;
+    //    }
+
+    //    // =======================
+    //    // NORMAL MODE (시민 추적)
+    //    // =======================
+    //    if (retargetTimer >= retargetInterval)
+    //    {
+    //        retargetTimer = 0f;
+    //        FindNearestCitizen();
+    //    }
+
+
+
+
+
+    //    TryInfect(this.faction);
+
+    //    if (targetBarricade != null)
+    //        TryBreakBarricade();
+
+
+    //}
 
     // ------- ANIMATION HELPER -------
     void PlayAnim(string trigger)
