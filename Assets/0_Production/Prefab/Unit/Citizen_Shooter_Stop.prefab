@@ -187,6 +187,7 @@ MonoBehaviour:
   fleeExitRadius: 6
   fleeDistance: 7
   agent: {fileID: 0}
+  anim: {fileID: 0}
   animatedMesh: {fileID: 0}
   debugLog: 0
   thinkInterval: 0.2
@@ -211,7 +212,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9091771d4e333224393a355745b3769e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rend: {fileID: 0}
+  targetRenderer: {fileID: 6251249032992547736}
   outlineMat: {fileID: 0}
   normalColor: {r: 0, g: 0, b: 0, a: 0}
   highlightColor: {r: 0.13725491, g: 1, b: 0, a: 1}
@@ -317,3 +318,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   shooter: {fileID: 8604421698482730385}
+--- !u!137 &6251249032992547736 stripped
+SkinnedMeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 413464619019600065, guid: 8698befb775c215439e7703a2a745fae, type: 3}
+  m_PrefabInstance: {fileID: 6015698864426541913}
+  m_PrefabAsset: {fileID: 0}
