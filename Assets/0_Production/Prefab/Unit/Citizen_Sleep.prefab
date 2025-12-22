@@ -66,7 +66,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7809207238147872883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f0121b8569ad7984d9b7a31171364705, type: 3}
+  m_Script: {fileID: 11500000, guid: c3476a03ce464054ab0156012c909014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   idleMin: 0.5
@@ -84,6 +84,7 @@ MonoBehaviour:
   debugLog: 0
   thinkInterval: 0.2
   fleeRetargetInterval: 0.4
+  mode: 2
 --- !u!114 &5620326103552762710
 MonoBehaviour:
   m_ObjectHideFlags: 0

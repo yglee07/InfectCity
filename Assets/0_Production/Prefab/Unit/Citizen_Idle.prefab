@@ -66,13 +66,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 7809207238147872883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a78c1b78c6d441489e5037a10e05f31, type: 3}
+  m_Script: {fileID: 11500000, guid: c3476a03ce464054ab0156012c909014, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   idleMin: 0.5
   idleMax: 2
   wanderSpeed: 2
-  fleeSpeed: 3.6
+  fleeSpeed: 4
   wanderRadius: 6
   changeWanderInterval: 3
   fleeEnterRadius: 4
@@ -84,6 +84,7 @@ MonoBehaviour:
   debugLog: 0
   thinkInterval: 0.2
   fleeRetargetInterval: 0.4
+  mode: 1
 --- !u!114 &5620326103552762710
 MonoBehaviour:
   m_ObjectHideFlags: 0

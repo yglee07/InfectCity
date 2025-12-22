@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9091771d4e333224393a355745b3769e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rend: {fileID: 0}
+  targetRenderer: {fileID: 0}
   outlineMat: {fileID: 0}
   normalColor: {r: 0, g: 0, b: 0, a: 0}
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
