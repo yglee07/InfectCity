@@ -43,7 +43,11 @@ public abstract class CitizenBase: MonoBehaviour
 
     [SerializeField]
     protected AnimatedMesh animatedMesh;
-       
+        
+        
+        // ===== Swim =====
+    protected bool isSwimming = false;
+    int waterAreaMask;
 
     [Header("Debug")]
     public bool debugLog = false;
@@ -77,6 +81,8 @@ public abstract class CitizenBase: MonoBehaviour
             anim = GetComponentInChildren<Animator>();
         if(animatedMesh == null)
             animatedMesh = GetComponentInChildren<AnimatedMesh>();
+
+        waterAreaMask = 1 << NavMesh.GetAreaFromName("Water");
     }
 
     protected virtual void Start()
@@ -174,7 +180,27 @@ public abstract class CitizenBase: MonoBehaviour
                 break;
         }
     }
+    bool CheckSwimming()
+    {
+        if (!agent.isOnNavMesh) return false;
 
+        if (NavMesh.SamplePosition(
+            transform.position,
+            out var hit,
+            0.3f,
+            NavMesh.AllAreas))
+        {
+            return (hit.mask & waterAreaMask) != 0;
+        }
+        return false;
+    }
+    void UpdateSwimmingState()
+    {
+        bool nowSwimming = CheckSwimming();
+        if (nowSwimming == isSwimming) return;
+
+        isSwimming = nowSwimming;
+    }
 
     // ---------------- WANDER ----------------
     protected void UpdateWander()

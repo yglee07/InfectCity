@@ -116,6 +116,7 @@ public class ZombieNavMesh : MonoBehaviour
     float thinkTimer;
     void Update()
     {
+        Debug.Log("isSwimming: "+isSwimming);
         float dt = Time.deltaTime;
 
         // ⏱️ 타이머들은 매 프레임 누적 (애니/공격 타이밍용)
@@ -331,20 +332,36 @@ public class ZombieNavMesh : MonoBehaviour
 
         isSwimming = nowSwimming;
     }
-    bool CheckSwimming()
-    {
-        if (!agent.isOnNavMesh) return false;
+bool CheckSwimming()
+{
+    if (!agent.isOnNavMesh) return false;
 
-        if (NavMesh.SamplePosition(
-            transform.position,
-            out var hit,
-            0.3f,
-            NavMesh.AllAreas))
-        {
-            return (hit.mask & waterAreaMask) != 0;
-        }
-        return false;
+    if (NavMesh.SamplePosition(
+        transform.position,
+        out var hit,
+        0.3f,
+        NavMesh.AllAreas))
+    {
+        int waterMask = 1 << NavMesh.GetAreaFromName("Water");
+
+        bool isWater = (hit.mask & waterMask) != 0;
+
+        Debug.Log(
+            $"[NavMesh Check] " +
+            $"IsWater: {isWater}, " +
+            $"HitMask: {hit.mask}, " +
+            $"WaterMask: {waterMask}"
+        );
+
+        return isWater;
     }
+
+    Debug.Log("[NavMesh Check] SamplePosition 실패");
+    return false;
+}
+
+  
+
 
     void FindEnemyZombie()
     {
@@ -707,48 +724,47 @@ public class ZombieNavMesh : MonoBehaviour
         );
     }
 #if UNITY_EDITOR
-    void OnDrawGizmos()
+void OnDrawGizmos()
+{
+    if (!Application.isPlaying) return;
+    if (agent == null) return;
+
+    // ===== NavMesh Area Debug =====
+    if (agent.isOnNavMesh &&
+        NavMesh.SamplePosition(
+            transform.position,
+            out var hit,
+            0.3f,
+            NavMesh.AllAreas))
     {
+        int waterMask = 1 << NavMesh.GetAreaFromName("Water");
+        bool isWater = (hit.mask & waterMask) != 0;
+
+        // 🔵 Water / 🟢 Walkable
+        Gizmos.color = isWater ? Color.blue : Color.green;
+
+        // 발밑 히트 지점
+        Gizmos.DrawSphere(hit.position, 0.25f);
+
+        // 캐릭터 → 히트 지점
+        Gizmos.DrawLine(transform.position, hit.position);
+
+        // 상태 텍스트
         Handles.Label(
+            hit.position + Vector3.up * 0.5f,
+            isWater ? "WATER" : "LAND"
+        );
+    }
+
+    // ===== 기존 타겟 디버그 =====
+    Handles.Label(
         transform.position + Vector3.up * 2f,
         $"Faction: {faction}\n" +
         $"Citizen: {(targetCitizen ? targetCitizen.name : "None")}\n" +
         $"Zombie: {(targetZombie ? targetZombie.name : "None")}\n" +
         $"Barricade: {(targetBarricade ? targetBarricade.name : "None")}"
     );
-        if (agent == null) return;
-
-        // 기본 목적지
-        Gizmos.color = Color.cyan;
-        Gizmos.DrawLine(transform.position, agent.destination);
-        Gizmos.DrawSphere(agent.destination, 0.25f);
-
-        // 시민 타겟
-        if (targetCitizen != null)
-        {
-            Gizmos.color = Color.blue;
-            Gizmos.DrawLine(transform.position, targetCitizen.transform.position);
-            Gizmos.DrawSphere(targetCitizen.transform.position, 0.35f);
-        }
-
-        // 좀비 타겟
-        if (targetZombie != null)
-        {
-            Gizmos.color = Color.magenta;
-            Gizmos.DrawLine(transform.position, targetZombie.transform.position);
-            Gizmos.DrawSphere(targetZombie.transform.position, 0.35f);
-        }
-
-        // 문(바리케이드) 타겟
-        if (targetBarricade != null)
-        {
-            Gizmos.color = Color.red;
-            Gizmos.DrawLine(transform.position, targetBarricade.transform.position);
-            Gizmos.DrawCube(
-                targetBarricade.transform.position,
-                targetBarricade.size
-            );
-        }
-    }
+}
 #endif
+
 }

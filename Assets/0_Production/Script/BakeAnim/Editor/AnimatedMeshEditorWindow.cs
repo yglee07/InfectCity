@@ -48,7 +48,7 @@ public class AnimatedMeshEditorWindow : EditorWindow
 
             GenerateFolderPaths(BASE_PATH + Name);
             EditorCoroutineUtility.StartCoroutine(GenerateModels(animator, DryRun), this);
-            //GenerateModels(animator, DryRun);
+            GenerateModels(animator, DryRun);
         }
         GUI.enabled = true;
         if (GUILayout.Button("Clear progress bar"))
@@ -81,10 +81,7 @@ public class AnimatedMeshEditorWindow : EditorWindow
 
         string parentFolder = "Assets/Animated Models/" + Name + "/";
 
-        var uniqueClips = Animator.runtimeAnimatorController.animationClips
-    .Distinct()
-    .ToArray();
-        foreach (AnimationClip clip in uniqueClips)
+        foreach (AnimationClip clip in Animator.runtimeAnimatorController.animationClips)
         {
             Debug.Log($"Processing clip {clipIndex}: \"{clip.name}\". Length: {clip.length:N4}.");
             EditorUtility.DisplayProgressBar("Processing Animations", $"Processing animation {clip.name} ({clipIndex} / {Animator.runtimeAnimatorController.animationClips.Length})", clipIndex / (float)Animator.runtimeAnimatorController.animationClips.Length);
@@ -105,39 +102,24 @@ public class AnimatedMeshEditorWindow : EditorWindow
                 }
                 foreach (SkinnedMeshRenderer skinnedMeshRenderer in AnimatedModel.GetComponentsInChildren<SkinnedMeshRenderer>())
                 {
-                 
-                    // ===============================
-                    Mesh tempMesh = new Mesh();
-                    skinnedMeshRenderer.BakeMesh(tempMesh, true);
+                    Mesh mesh = new Mesh();
+                    skinnedMeshRenderer.BakeMesh(mesh, true);
 
                     if (Optimize)
                     {
-                        tempMesh.Optimize();
+                        mesh.Optimize(); // maybe saves
                     }
 
-                    // ===============================
-                    // 6️⃣ 에셋 저장 + 로드
-                    // ===============================
                     if (!DryRun)
                     {
-                        string clipFolder = parentFolder + clip.name;
-                        if (!AssetDatabase.IsValidFolder(clipFolder))
+                        if (!AssetDatabase.IsValidFolder(parentFolder + clip.name))
                         {
-                            System.IO.Directory.CreateDirectory(clipFolder);
+                            Debug.Log("Path doesn't exist for clip. Creating folder: " + parentFolder + clip.name);
+                            System.IO.Directory.CreateDirectory(parentFolder + clip.name);
                         }
-
-                        string meshPath = clipFolder + $"/{time:N4}.asset";
-
-                        if (AssetDatabase.LoadAssetAtPath<Mesh>(meshPath) != null)
-                        {
-                            AssetDatabase.DeleteAsset(meshPath);
-                        }
-
-                        AssetDatabase.CreateAsset(tempMesh, meshPath);
-
-                        Mesh assetMesh = AssetDatabase.LoadAssetAtPath<Mesh>(meshPath);
-                        meshes.Add(assetMesh);
+                        AssetDatabase.CreateAsset(mesh, parentFolder + clip.name + $"/{time:N4}.asset");
                     }
+                    meshes.Add(mesh);
                 }
             }
             Debug.Log($"Setting {clip.name} to have {meshes.Count} meshes");
