@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -100,6 +100,8 @@ public abstract class CitizenBase: MonoBehaviour
 
     protected virtual void Update()
     {
+         UpdateSwimmingState();
+         
         if (isCommandLocked)
             return;
 
@@ -112,7 +114,6 @@ public abstract class CitizenBase: MonoBehaviour
     }
 
     protected abstract void Tick();
-
 
     // ---------------- ANIMATION ----------------
     protected virtual void PlayAnim(string animName)
@@ -132,6 +133,13 @@ public abstract class CitizenBase: MonoBehaviour
 
         currentAnim = animName;
         animatedMesh.Play(animName);
+    }
+    protected void PlayMoveAnim(string landAnim)
+    {
+        if (isSwimming)
+            PlayAnim("StickMan_Swim");
+        else
+            PlayAnim(landAnim);
     }
     bool IsOnWater()
     {
@@ -162,20 +170,20 @@ public abstract class CitizenBase: MonoBehaviour
                 agent.velocity = Vector3.zero;
                 agent.ResetPath();
                 idleTimer = Random.Range(idleMin, idleMax); // ⭐ 여기서 세팅
-                PlayAnim("StickMan_Idle");
+                PlayMoveAnim("StickMan_Idle");
                 break;
 
             case State.Wander:
                 agent.isStopped = false;
                 agent.speed = wanderSpeed;
-                PlayAnim("StickMan_Walk");
+                PlayMoveAnim("StickMan_Walk");
                 SetNewWanderTarget();
                 break;
 
             case State.Flee:
                 agent.isStopped = false;
                 agent.speed = fleeSpeed;
-                PlayAnim("StickMan_Run");
+                PlayMoveAnim("StickMan_Run");
                 TrySetNewFleeTarget();
                 break;
         }
@@ -244,7 +252,7 @@ public abstract class CitizenBase: MonoBehaviour
 
         if (agent.velocity.sqrMagnitude > 0.01f)
         {
-            PlayAnim("StickMan_Walk");
+            PlayMoveAnim("StickMan_Walk");
         }
 
     }
@@ -267,7 +275,7 @@ public abstract class CitizenBase: MonoBehaviour
         agent.isStopped = true;
         agent.velocity = Vector3.zero;
 
-        PlayAnim("StickMan_Idle");
+        PlayMoveAnim("StickMan_Idle");
 
         idleTimer -= Time.deltaTime;
         if (idleTimer <= 0f)
@@ -495,20 +503,84 @@ public abstract class CitizenBase: MonoBehaviour
         // 현재 위치 → 목적지 선
         Gizmos.DrawLine(transform.position, agent.destination);
     }
-    protected virtual void OnDrawGizmos()
+  #if UNITY_EDITOR
+protected virtual void OnDrawGizmos()
+{
+    if (!Application.isPlaying) return;
+    if (agent == null) return;
+
+    // =============================
+    // 1️⃣ 상태 텍스트
+    // =============================
+    Vector3 pos = transform.position + Vector3.up * 2.0f;
+
+    string text =
+        $"State: {state}\n" +
+        $"CmdLock: {isCommandLocked}";
+
+    Handles.Label(pos, text);
+
+    // =============================
+    // 2️⃣ NavMesh Area 디버그 (UI 패키지 방식)
+    // =============================
+    if (agent.isOnNavMesh &&
+        NavMesh.SamplePosition(
+            transform.position,
+            out var hit,
+            0.3f,
+            NavMesh.AllAreas))
     {
-#if UNITY_EDITOR
-        Vector3 pos = transform.position + Vector3.up * 2.0f;
+        int waterMask = 1 << NavMesh.GetAreaFromName("Water");
+        bool isWater = (hit.mask & waterMask) != 0;
 
-        string text =
-            $"State: {state}\n" +
-              // ⭐ 추가
-           
-            $"CmdLock: {isCommandLocked}";
+        // 색상
+        Gizmos.color = isWater ? Color.blue : Color.green;
 
-        Handles.Label(pos, text);
-#endif
+        // 발밑 포인트
+        Gizmos.DrawSphere(hit.position, 0.25f);
+        Gizmos.DrawLine(transform.position, hit.position);
+
+        // 텍스트
+        Handles.Label(
+            hit.position + Vector3.up * 0.4f,
+            isWater ? "AREA: WATER" : "AREA: LAND"
+        );
     }
+}
+#endif
+
+bool IsOnWater(NavMeshHit hit)
+{
+    int waterMask = 1 << NavMesh.GetAreaFromName("Water");
+    return (hit.mask & waterMask) != 0;
+}
+void DebugNavMeshArea_UI()
+{
+    if (!agent.isOnNavMesh)
+    {
+        Debug.Log("[NavMesh] Agent not on NavMesh");
+        return;
+    }
+
+    if (NavMesh.SamplePosition(
+        transform.position,
+        out var hit,
+        0.3f,
+        NavMesh.AllAreas))
+    {
+        int waterMask = 1 << NavMesh.GetAreaFromName("Water");
+
+        bool isWater = (hit.mask & waterMask) != 0;
+
+        Debug.Log(
+            $"[NavMesh UI] " +
+            $"IsWater={isWater}, " +
+            $"HitMask={hit.mask}, " +
+            $"WaterMask={waterMask}"
+        );
+    }
+}
+
     public virtual void RunTo(Vector3 target)
     {
         Debug.Log($"[RunTo] {name} → target={target}");
@@ -521,9 +593,9 @@ public abstract class CitizenBase: MonoBehaviour
 
         Debug.Log($"[RunTo] locked={isCommandLocked}, dest={agent.destination}");
 
-        PlayAnim("StickMan_Run");
+        PlayMoveAnim("StickMan_Run");
     }
-
+ 
     public virtual void ResetForReuse()
     {
         isCommandLocked = false;

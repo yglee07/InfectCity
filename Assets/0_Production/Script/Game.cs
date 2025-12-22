@@ -27,7 +27,10 @@ public class Game : MonoBehaviour
     public bool isPlaying = false;
 
  
+   [SerializeField] float gameSpeed = 1f;
+    public float GameSpeed => gameSpeed;
 
+    const float BASE_FIXED_DT = 0.02f;
     void Awake()
     {
         Instance = this;
@@ -47,7 +50,20 @@ public class Game : MonoBehaviour
         CheckStageFail();
 
     }
+    public void SetGameSpeed(float speed)
+    {
+        gameSpeed = speed;
 
+        Time.timeScale = gameSpeed;
+        Time.fixedDeltaTime = BASE_FIXED_DT * gameSpeed;
+
+        Debug.Log($"[Game] Speed = {gameSpeed}x");
+    }
+
+    public void ToggleSpeed()
+    {
+        SetGameSpeed(Mathf.Approximately(gameSpeed, 1f) ? 2f : 1f);
+    }
 
     // =============================
     //        STAGE START

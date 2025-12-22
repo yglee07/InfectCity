@@ -25,6 +25,9 @@ public class UIGame : MonoBehaviour
     public float pieSmoothSpeed = 6f;
 
     private float[] pieValues = new float[4]; // purple, yellow, citizen, green
+
+    [SerializeField] Button speedToggleButton;
+    [SerializeField] TMP_Text speedText;
     void Awake()
     {
         if (btnCompleteOK != null)
@@ -32,7 +35,10 @@ public class UIGame : MonoBehaviour
 
         if (btnFailedOK != null)
             btnFailedOK.onClick.AddListener(OnClickFailedOK);
-
+        if(speedToggleButton!=null)
+        {
+            speedToggleButton.onClick.AddListener(OnClickToggleSpeed);
+        }
       
     }
 
@@ -76,8 +82,16 @@ public class UIGame : MonoBehaviour
     {
         dragChargesText.text = $"Drag Me\n{current}/{max}";
     }
-
-    
+   void OnClickToggleSpeed()
+    {
+        Game.Instance.ToggleSpeed();
+        UpdateLabel();
+    }
+      void UpdateLabel()
+    {
+        if (speedText != null)
+            speedText.text = $"{Game.Instance.GameSpeed:0.#}x";
+    }
     public void UpdatePieChart()
     {
         // 1) 값 수집
