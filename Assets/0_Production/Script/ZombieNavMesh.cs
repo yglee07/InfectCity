@@ -50,7 +50,9 @@ public class ZombieNavMesh : MonoBehaviour
     [SerializeField]
     private Breakable targetBarricade;
     
-
+    // ===== Swim =====
+    bool isSwimming = false;
+    int waterAreaMask;
 
     private void Awake()
     {
@@ -61,6 +63,8 @@ public class ZombieNavMesh : MonoBehaviour
 
         animatedMesh = GetComponentInChildren<AnimatedMesh>();
         //anim = GetComponentInChildren<Animator>();
+
+           waterAreaMask = 1 << NavMesh.GetAreaFromName("Water");
     }
   
 
@@ -129,6 +133,7 @@ public class ZombieNavMesh : MonoBehaviour
     }
     void Tick()
     {
+        UpdateSwimmingState();
         // =======================
         // COMBAT MODE (좀비 vs 좀비)
         // =======================
@@ -211,6 +216,17 @@ public class ZombieNavMesh : MonoBehaviour
     //}
 
     // ------- ANIMATION HELPER -------
+    void PlayMoveAnim(string normalAnim)
+    {
+        if (isSwimming)
+        {
+            PlayAnim("Zombie_Swim");
+        }
+        else
+        {
+            PlayAnim(normalAnim);
+        }
+    }
     void PlayAnim(string animName)
     {
         if (currentAnim == animName) return;
@@ -248,7 +264,7 @@ public class ZombieNavMesh : MonoBehaviour
             agent.isStopped = true;
             targetCitizen = null;
             agent.ResetPath();
-            PlayAnim("Zombie_Idle");   // ← 여기서 Idle 재생
+            PlayMoveAnim("Zombie_Idle");   // ← 여기서 Idle 재생
             return;
         }
 
@@ -308,6 +324,27 @@ public class ZombieNavMesh : MonoBehaviour
             return;
         }
     }
+    void UpdateSwimmingState()
+    {
+        bool nowSwimming = CheckSwimming();
+        if (nowSwimming == isSwimming) return;
+
+        isSwimming = nowSwimming;
+    }
+    bool CheckSwimming()
+    {
+        if (!agent.isOnNavMesh) return false;
+
+        if (NavMesh.SamplePosition(
+            transform.position,
+            out var hit,
+            0.3f,
+            NavMesh.AllAreas))
+        {
+            return (hit.mask & waterAreaMask) != 0;
+        }
+        return false;
+    }
 
     void FindEnemyZombie()
     {
@@ -338,7 +375,7 @@ public class ZombieNavMesh : MonoBehaviour
 
             agent.isStopped = true;
             agent.ResetPath();   // ★ 목적지 초기화 필수
-            PlayAnim("Zombie_Idle");
+            PlayMoveAnim("Zombie_Idle");
 
             return;
         }
@@ -393,7 +430,7 @@ public class ZombieNavMesh : MonoBehaviour
                 agent.ResetPath(); // 이전 좀비 목적지 제거
                 agent.SetDestination(GetClosestPointOnBreakable(blocker));
 
-                PlayAnim("Zombie_Run");
+                PlayMoveAnim("Zombie_Run");
                 return; // ← 반드시 끊어야 함
             }
         }
@@ -404,7 +441,7 @@ public class ZombieNavMesh : MonoBehaviour
         agent.SetDestination(nearest.transform.position);
         targetZombie = nearest;
         isMerging = true;
-        PlayAnim("Zombie_Run");
+        PlayMoveAnim("Zombie_Run");
     }
     void TryMergeEnemy()
     {
@@ -415,7 +452,7 @@ public class ZombieNavMesh : MonoBehaviour
             targetZombie = null;
             isMerging = false;
             agent.ResetPath();   // ★ 목적지 완전 초기화
-            PlayAnim("Zombie_Idle");
+            PlayMoveAnim("Zombie_Idle");
             return;
         }
 
@@ -438,12 +475,12 @@ public class ZombieNavMesh : MonoBehaviour
         if (dist <= chaseDistance)
         {
             agent.speed = runSpeed;
-            PlayAnim("Zombie_Run");
+            PlayMoveAnim("Zombie_Run");
         }
         else
         {
             agent.speed = walkSpeed;
-            PlayAnim("Zombie_Walk");
+            PlayMoveAnim("Zombie_Walk");
         }
     }
 
@@ -539,7 +576,7 @@ public class ZombieNavMesh : MonoBehaviour
             targetZombie = null;
             isMerging = false;
             agent.ResetPath();
-            PlayAnim("Zombie_Idle");
+            PlayMoveAnim("Zombie_Idle");
             return;
         }
     }

@@ -127,6 +127,18 @@ public abstract class CitizenBase: MonoBehaviour
         currentAnim = animName;
         animatedMesh.Play(animName);
     }
+    bool IsOnWater()
+    {
+        if (!agent.isOnNavMesh) return false;
+
+        NavMeshHit hit;
+        if (NavMesh.SamplePosition(transform.position, out hit, 0.2f, NavMesh.AllAreas))
+        {
+            int area = hit.mask;
+            return (area & (1 << NavMesh.GetAreaFromName("Water"))) != 0;
+        }
+        return false;
+    }
 
     // ---------------- STATE CHANGE ----------------
     protected void ChangeState(State newState)
@@ -275,6 +287,8 @@ public abstract class CitizenBase: MonoBehaviour
             TrySetNewFleeTarget();
         }
     }
+ 
+
     protected bool TrySetNewFleeTarget()
     {
         var zombies = NPCManager.Instance.Zombies;
