@@ -354,6 +354,9 @@ MonoBehaviour:
     prefab: {fileID: 160118, guid: 73a3a14a35c722943ad82f0150bfeb69, type: 3}
     preloadCount: 100
   - key: SpikyExplosionPurple
+    prefab: {fileID: 160118, guid: cae57573362b4944294737c169a2eacb, type: 3}
+    preloadCount: 100
+  - key: SpikyExplosionYellow
     prefab: {fileID: 160118, guid: 03feceae0f581f84daa727501c78f8b8, type: 3}
     preloadCount: 100
 --- !u!1 &490376208
@@ -955,10 +958,13 @@ MonoBehaviour:
   Zombies: []
   GreenZombies: []
   PurpleZombies: []
+  YellowZombies: []
   greenInfectCount: 0
   purpleInfectCount: 0
+  yellowInfectCount: 0
   greenZombiePool: Zombie
   purpleZombiePool: ZombiePurple
+  yellowZombiePool: ZombieYellow
   zombiePrefab: {fileID: 0}
   mutantChance: 0
   combatMode: 0
@@ -1403,10 +1409,6 @@ PrefabInstance:
     - target: {fileID: 8909585198885326194, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_Name
       value: UI_Game
-      objectReference: {fileID: 0}
-    - target: {fileID: 8909585198885326194, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -11,6 +11,7 @@ public class NPCManagerEditor : Editor
     private bool foldCitizens = true;
     private bool foldGreen = true;
     private bool foldPurple = true;
+    private bool foldYellow = true;
 
     private string searchFilter = "";
 
@@ -20,12 +21,12 @@ public class NPCManagerEditor : Editor
     private void OnEnable()
     {
         mgr = (NPCManager)target;
-        SceneView.duringSceneGui += OnSceneGUI;
+        SceneView.duringSceneGui += DrawSceneLabels;
     }
 
     private void OnDisable()
     {
-        SceneView.duringSceneGui -= OnSceneGUI;
+        SceneView.duringSceneGui -= DrawSceneLabels;
     }
 
     public override void OnInspectorGUI()
@@ -58,6 +59,11 @@ public class NPCManagerEditor : Editor
 
         // Purple Zombies
         DrawNPCList("Purple Zombies", mgr.PurpleZombies, ref foldPurple);
+
+        EditorGUILayout.Space();
+
+        // Yellow Zombies
+        DrawNPCList("Yellow Zombies", mgr.YellowZombies, ref foldYellow);
 
         serializedObject.ApplyModifiedProperties();
     }
@@ -108,11 +114,12 @@ public class NPCManagerEditor : Editor
     }
 
     // ===== Scene View Labels =====
-    private void OnSceneGUI(SceneView view)
+    private void DrawSceneLabels(SceneView sceneView)
     {
-        DrawLabels(mgr.Citizens, Color.green);
-        DrawLabels(mgr.GreenZombies, Color.yellow);
+        DrawLabels(mgr.Citizens, Color.cyan);
+        DrawLabels(mgr.GreenZombies, Color.green);
         DrawLabels(mgr.PurpleZombies, Color.magenta);
+        DrawLabels(mgr.YellowZombies, Color.yellow);
     }
 
     private void DrawLabels<T>(List<T> list, Color color) where T : Object

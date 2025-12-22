@@ -311,10 +311,25 @@ public class ZombieNavMesh : MonoBehaviour
 
     void FindEnemyZombie()
     {
-        List<ZombieNavMesh> enemies =
-            (faction == Faction.Green)
-            ? NPCManager.Instance.PurpleZombies
-            : NPCManager.Instance.GreenZombies;
+        // 적 진영 리스트 가져오기 (Green은 Purple+Yellow, Purple은 Green+Yellow, Yellow는 Green+Purple)
+        List<ZombieNavMesh> enemies = new List<ZombieNavMesh>();
+        
+        if (faction == Faction.Green)
+        {
+            enemies.AddRange(NPCManager.Instance.PurpleZombies);
+            enemies.AddRange(NPCManager.Instance.YellowZombies);
+        }
+        else if (faction == Faction.Purple)
+        {
+            enemies.AddRange(NPCManager.Instance.GreenZombies);
+            enemies.AddRange(NPCManager.Instance.YellowZombies);
+        }
+        else if (faction == Faction.Yellow)
+        {
+            enemies.AddRange(NPCManager.Instance.GreenZombies);
+            enemies.AddRange(NPCManager.Instance.PurpleZombies);
+        }
+        
         // 🔥 적이 없다 → 싸움 끝
         if (enemies.Count == 0)
         {
@@ -450,6 +465,7 @@ public class ZombieNavMesh : MonoBehaviour
         {
             Faction.Green => "SpikyExplosionGreen",
             Faction.Purple => "SpikyExplosionPurple",
+            Faction.Yellow => "SpikyExplosionYellow",
             _ => "SpikyExplosionGreen"
         };
 
@@ -534,6 +550,7 @@ public class ZombieNavMesh : MonoBehaviour
         {
             Faction.Green => "SpikyExplosionGreen",
             Faction.Purple => "SpikyExplosionPurple",
+            Faction.Yellow => "SpikyExplosionYellow",
             _ => "SpikyExplosionGreen"
         };
 

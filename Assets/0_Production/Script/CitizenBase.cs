@@ -418,9 +418,17 @@ public abstract class CitizenBase: MonoBehaviour
                 ? "Mutant"
                 : NPCManager.Instance.greenZombiePool;
         }
-        else
+        else if (faction == Faction.Purple)
         {
             key = NPCManager.Instance.purpleZombiePool;
+        }
+        else if (faction == Faction.Yellow)
+        {
+            key = NPCManager.Instance.yellowZombiePool;
+        }
+        else
+        {
+            key = NPCManager.Instance.greenZombiePool; // 기본값
         }
 
         GameObject zombieObj = PoolManager.Instance.Spawn(key, transform.position, Quaternion.identity);

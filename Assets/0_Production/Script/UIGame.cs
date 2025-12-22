@@ -24,7 +24,7 @@ public class UIGame : MonoBehaviour
     public TMP_Text pieCenterText;
     public float pieSmoothSpeed = 6f;
 
-    private float[] pieValues = new float[3]; // purple, citizen, green
+    private float[] pieValues = new float[4]; // purple, yellow, citizen, green
     void Awake()
     {
         if (btnCompleteOK != null)
@@ -84,42 +84,54 @@ public class UIGame : MonoBehaviour
         float blue = NPCManager.Instance.Citizens.Count;
         float green = NPCManager.Instance.GreenZombies.Count;
         float purple = NPCManager.Instance.PurpleZombies.Count;
+        float yellow = NPCManager.Instance.YellowZombies.Count;
 
         pieValues[0] = purple;
-        pieValues[1] = blue;
-        pieValues[2] = green;
+        pieValues[1] = yellow;
+        pieValues[2] = blue;
+        pieValues[3] = green;
 
         // 2) UI 적용
         SetPieValues(pieValues);
         UpdatePieText(pieValues);
     }
 
-    private void SetPieValues(float[] values)
+   private void SetPieValues(float[] values)
+{
+    float total = values[0] + values[1] + values[2] + values[3];
+    if (total <= 0) total = 1;
+
+    float accumulated = 0f;
+
+    for (int i = 0; i < imagesPieChart.Length && i < values.Length; i++)
     {
-        float total = values[0] + values[1] + values[2];
-        if (total <= 0) total = 1;
+        float percent = values[i] / total;
+        accumulated += percent;
 
-        float accumulated = 0f;
+        // ⭐ 누적 fillAmount 사용
+        imagesPieChart[i].fillAmount = Mathf.Lerp(
+            imagesPieChart[i].fillAmount,
+            accumulated,
+            Time.deltaTime * pieSmoothSpeed
+        );
 
-        for (int i = 0; i < imagesPieChart.Length; i++)
-        {
-            float percent = values[i] / total;
-            accumulated += percent;
-
-            imagesPieChart[i].fillAmount =
-                Mathf.Lerp(imagesPieChart[i].fillAmount, accumulated, Time.deltaTime * pieSmoothSpeed);
-        }
+        // ⭐ 회전 필요 없음
+        imagesPieChart[i].rectTransform.localRotation = Quaternion.identity;
+        imagesPieChart[i].fillOrigin = 0;
     }
+}
+
     private void UpdatePieText(float[] values)
     {
-        float total = values[0] + values[1] + values[2];
+        // total = purple + yellow + citizen + green
+        float total = values[0] + values[1] + values[2] + values[3];
         if (total <= 0)
         {
             pieCenterText.text = "0%";
             return;
         }
 
-        float greenRatio = values[2] / total;
+        float greenRatio = values[3] / total; // values[3] = green
         int pct = Mathf.RoundToInt(greenRatio * 100f);
 
         pieCenterText.text = pct + "%";

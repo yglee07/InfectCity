@@ -114,10 +114,12 @@ public class Game : MonoBehaviour
             npcManager.combatMode = true;
         }
 
-        // 승리 조건: 시민 0 + 보라 0
+        // 승리 조건: 시민 0 + 보라 0 + 노랑 0 + 초록색이 1개 이상
         if (!stageClearStarted &&
             npcManager.Citizens.Count == 0 &&
-            npcManager.PurpleZombies.Count == 0)
+            npcManager.PurpleZombies.Count == 0 &&
+            npcManager.YellowZombies.Count == 0 &&
+            npcManager.GreenZombies.Count > 0)
         {
         
             stageClearStarted = true;
@@ -150,6 +152,7 @@ private void StageClear()
 
         bool noGreenZombies = npcManager.GreenZombies.Count == 0;
         bool hasPurpleZombies = npcManager.PurpleZombies.Count > 0;
+        bool hasYellowZombies = npcManager.YellowZombies.Count > 0;
 
         bool noCharges = dragInfector.currentCharges <= 0;
 
@@ -159,7 +162,7 @@ private void StageClear()
             noCharges;
 
         bool case2_NoFighterLeft =
-            hasPurpleZombies &&
+            (hasPurpleZombies || hasYellowZombies) &&
             noCitizens &&
             noGreenZombies;
 
