@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9091771d4e333224393a355745b3769e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetRenderer: {fileID: 6541247887875944606}
+  targetRenderer: {fileID: 0}
   outlineMat: {fileID: 0}
   normalColor: {r: 0, g: 0, b: 0, a: 0}
   highlightColor: {r: 1, g: 0, b: 0, a: 1}
@@ -180,10 +180,5 @@ PrefabInstance:
 --- !u!4 &1800964860620319696 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8821457969671039220, guid: 03df7d68e77b4a247af87f9462a9dba0, type: 3}
-  m_PrefabInstance: {fileID: 7102830507066114852}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &6541247887875944606 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 4059288055312643002, guid: 03df7d68e77b4a247af87f9462a9dba0, type: 3}
   m_PrefabInstance: {fileID: 7102830507066114852}
   m_PrefabAsset: {fileID: 0}

@@ -341,7 +341,7 @@ MonoBehaviour:
   - key: ZombiePurple
     prefab: {fileID: 8265895907174677282, guid: ec1d3da2e9e3fd348b4e6e39cf0dd0bc, type: 3}
     preloadCount: 20
-  - key: ZombiePurple
+  - key: ZombieYellow
     prefab: {fileID: 8265895907174677282, guid: f8ffbbaf12d883845930e4985f32148a, type: 3}
     preloadCount: 20
   - key: Mutant
@@ -354,7 +354,7 @@ MonoBehaviour:
     prefab: {fileID: 160118, guid: 73a3a14a35c722943ad82f0150bfeb69, type: 3}
     preloadCount: 100
   - key: SpikyExplosionPurple
-    prefab: {fileID: 160118, guid: cae57573362b4944294737c169a2eacb, type: 3}
+    prefab: {fileID: 160118, guid: 03feceae0f581f84daa727501c78f8b8, type: 3}
     preloadCount: 100
 --- !u!1 &490376208
 GameObject:
@@ -1431,12 +1431,12 @@ PrefabInstance:
       objectReference: {fileID: 1540442432}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: levelPrefabs.Array.size
-      value: 15
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[0]'
       value: 
-      objectReference: {fileID: 1261747436639895672, guid: 01a0e2cd593e7de42a52d7f47c305294, type: 3}
+      objectReference: {fileID: 1261747436639895672, guid: 42b0abec515b4274da33833243fddd1c, type: 3}
     - target: {fileID: 1876647446038359377, guid: 7868b3edb02a41e4aa8bf9e725ad0bca, type: 3}
       propertyPath: 'levelPrefabs.Array.data[1]'
       value: 
