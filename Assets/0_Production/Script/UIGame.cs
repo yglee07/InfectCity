@@ -96,30 +96,42 @@ public class UIGame : MonoBehaviour
         UpdatePieText(pieValues);
     }
 
-   private void SetPieValues(float[] values)
-{
-    float total = values[0] + values[1] + values[2] + values[3];
-    if (total <= 0) total = 1;
-
-    float accumulated = 0f;
-
-    for (int i = 0; i < imagesPieChart.Length && i < values.Length; i++)
+    private void SetPieValues(float[] values)
     {
-        float percent = values[i] / total;
-        accumulated += percent;
+        float total = values[0] + values[1] + values[2] + values[3];
+        if (total <= 0) total = 1;
 
-        // ⭐ 누적 fillAmount 사용
-        imagesPieChart[i].fillAmount = Mathf.Lerp(
-            imagesPieChart[i].fillAmount,
-            accumulated,
-            Time.deltaTime * pieSmoothSpeed
-        );
+        float startAngle = 0f; // 시작 각도 (누적, 0~1 범위)
 
-        // ⭐ 회전 필요 없음
-        imagesPieChart[i].rectTransform.localRotation = Quaternion.identity;
-        imagesPieChart[i].fillOrigin = 0;
+        for (int i = 0; i < imagesPieChart.Length && i < values.Length; i++)
+        {
+            float percent = values[i] / total;
+            
+            // 각 슬라이스의 fillAmount는 해당 슬라이스의 비율만큼만 설정
+            float targetFillAmount = percent;
+            
+            imagesPieChart[i].fillAmount = Mathf.Lerp(
+                imagesPieChart[i].fillAmount,
+                targetFillAmount,
+                Time.deltaTime * pieSmoothSpeed
+            );
+            
+            // 각 슬라이스 Image를 올바른 시작 각도로 부드럽게 회전
+            RectTransform rectTransform = imagesPieChart[i].rectTransform;
+            float targetRotation = startAngle * 360f;
+            float currentRotation = rectTransform.localEulerAngles.z;
+            
+            // 각도 보간 (360도 경계 처리)
+            float smoothRotation = Mathf.LerpAngle(currentRotation, -targetRotation, Time.deltaTime * pieSmoothSpeed);
+            rectTransform.localRotation = Quaternion.Euler(0, 0, smoothRotation);
+            
+            // fillOrigin은 0 (Bottom)으로 설정 (회전으로 각도 조정)
+            imagesPieChart[i].fillOrigin = 0;
+            
+            // 다음 슬라이스의 시작 각도 업데이트
+            startAngle += percent;
+        }
     }
-}
 
     private void UpdatePieText(float[] values)
     {
