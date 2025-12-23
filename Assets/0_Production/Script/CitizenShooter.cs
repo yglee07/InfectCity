@@ -1,4 +1,4 @@
-﻿using UnityEditor;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -24,6 +24,17 @@ public class CitizenShooter : CitizenBase
     private ZombieNavMesh currentTarget;
     private ZombieNavMesh lastTarget;
     private bool isShooting = false;
+    private FieldOfView fieldOfView;
+    protected override void Awake()
+    {
+        base.Awake();
+
+        fieldOfView = GetComponentInChildren<FieldOfView>();
+        if (fieldOfView != null)
+        {
+            fieldOfView.BuildMesh(shootRange, viewAngle);
+        }
+    }
 
     protected override void Start()
     {
@@ -35,6 +46,7 @@ public class CitizenShooter : CitizenBase
 
         agent.isStopped = true; // Wander 제거
         PlayAnim("StickMan_Idle");
+       
         if (debugLog) Debug.Log("[Shooter] Start()");
     }
     protected override void OnEnable()
@@ -60,11 +72,12 @@ public class CitizenShooter : CitizenBase
         currentTarget = FindShootableTarget();
 
         if (currentTarget == null)
-        {
+        {  
+            fieldOfView?.SetAlert(false);
             if (debugLog) Debug.Log("[Shooter] HandleCombat: 타겟 없음");
             return false;
         }
-
+fieldOfView?.SetAlert(true);
         if (debugLog) Debug.Log($"[Shooter] HandleCombat: 타겟 = {currentTarget.name}");
 
         agent.isStopped = true;
