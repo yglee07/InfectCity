@@ -12,7 +12,7 @@ public class NPCManager : MonoBehaviour
     public List<ZombieNavMesh> GreenZombies = new List<ZombieNavMesh>();
     public List<ZombieNavMesh> PurpleZombies = new List<ZombieNavMesh>();
     public List<ZombieNavMesh> YellowZombies = new List<ZombieNavMesh>();
-
+    public List<Door> Doors = new();
     // ★ 초록/보라/노랑 감염 수 카운트
     public int greenInfectCount = 0;
     public int purpleInfectCount = 0;
@@ -37,6 +37,16 @@ public class NPCManager : MonoBehaviour
     // ======================
     //   REGISTER / UNREGISTER
     // ======================
+     public void RegisterDoor(Door door)
+    {
+        if (!Doors.Contains(door))
+            Doors.Add(door);
+    }
+
+    public void UnregisterDoor(Door door)
+    {
+        Doors.Remove(door);
+    }
     public void RegisterCitizen(CitizenBase citizen)
     {
         if (!Citizens.Contains(citizen))

@@ -27,9 +27,10 @@ public abstract class CitizenBase: MonoBehaviour
     public float fleeExitRadius = 6f;
     public float fleeDistance = 7f;
  
-
     [SerializeField]
     protected NavMeshAgent agent;
+    public NavMeshAgent Agent => agent;
+ 
     protected State state;
     protected float timer;
     protected Vector3 wanderTarget;
@@ -51,6 +52,18 @@ public abstract class CitizenBase: MonoBehaviour
 
     [Header("Debug")]
     public bool debugLog = false;
+
+    // ===== Door Flee =====
+    protected Door fleeDoor;
+    protected bool fleeingToDoor = false;
+    enum FleeStrategy
+{
+    None,
+    Door,
+    Direction
+}
+
+FleeStrategy fleeStrategy = FleeStrategy.None;
 
     protected virtual void OnEnable()
     {
@@ -184,10 +197,32 @@ public abstract class CitizenBase: MonoBehaviour
                 agent.isStopped = false;
                 agent.speed = fleeSpeed;
                 PlayMoveAnim("StickMan_Run");
+                 // 🔥 문 우선 시도
+                 SelectFleeStrategy();
+                
                 TrySetNewFleeTarget();
                 break;
         }
     }
+    void SelectFleeStrategy()
+{
+    // 1️⃣ 문 전략 시도
+    if (TrySelectDoorFlee())
+    {
+        fleeStrategy = FleeStrategy.Door;
+        return;
+    }
+
+    // 2️⃣ 방향 전략
+    if (TrySetNewFleeTarget())
+    {
+        fleeStrategy = FleeStrategy.Direction;
+        return;
+    }
+
+    fleeStrategy = FleeStrategy.None;
+}
+
     bool CheckSwimming()
     {
         if (!agent.isOnNavMesh) return false;
@@ -308,15 +343,67 @@ public abstract class CitizenBase: MonoBehaviour
     private Vector3 debugFleeDir; // Gizmo용
     protected void UpdateFlee()
     {
+      
         // 1️⃣ 좀비 없으면 그때만 종료
         if (!DetectZombie())
         {
             ChangeState(State.Wander);
             return;
         }
+    switch (fleeStrategy)
+        {
+            case FleeStrategy.Door:
+                UpdateDoorFlee();
+                break;
 
+            case FleeStrategy.Direction:
+                UpdateDirectionFlee();
+                break;
+
+            default:
+                SelectFleeStrategy();
+                break;
+        }
         // 2️⃣ 목적지 거의 도착했으면 즉시 다음 도망
-        if (!agent.pathPending && agent.remainingDistance <= 0.6f)
+      
+    }
+ bool passingDoor = false;
+void UpdateDoorFlee()
+{
+    if (fleeDoor == null)
+    {
+        SelectFleeStrategy();
+        return;
+    }
+
+    // 1️⃣ 문 앞 도착
+    if (!passingDoor && !agent.pathPending && agent.remainingDistance <= 0.4f)
+    {
+        Vector3 pass = fleeDoor.GetPassThroughPoint(transform.position);
+
+        if (NavMesh.SamplePosition(pass, out var hit, 2f, NavMesh.AllAreas))
+        {
+            passingDoor = true;
+            agent.SetDestination(hit.position);
+        }
+        return;
+    }
+
+    // 2️⃣ 문 완전 통과
+    if (passingDoor && !agent.pathPending && agent.remainingDistance <= 0.4f)
+    {
+        // 🔥 이제 진짜 공간 전환 완료
+        fleeDoor = null;
+        passingDoor = false;
+
+        // 새 공간 기준으로 다시 도망 판단
+        SelectFleeStrategy();
+    }
+}
+
+void UpdateDirectionFlee()
+{
+     if (!agent.pathPending && agent.remainingDistance <= 0.6f)
         {
             TrySetNewFleeTarget();
             fleeRetargetTimer = 0f;   // ⭐ 타이머 리셋
@@ -338,9 +425,7 @@ public abstract class CitizenBase: MonoBehaviour
             fleeRetargetTimer = 0f;
             TrySetNewFleeTarget();
         }
-    }
- 
-
+}
     protected bool TrySetNewFleeTarget()
     {
         var zombies = NPCManager.Instance.Zombies;
@@ -636,6 +721,52 @@ void DebugNavMeshArea_UI()
             anim.Update(0f);
         }
     }
+
+   protected bool TrySelectDoorFlee()
+{
+    var doors = NPCManager.Instance.Doors;
+    if (doors == null || doors.Count == 0)
+        return false;
+
+    Vector3 myPos = transform.position;
+
+    Door best = null;
+    float bestDist = float.MaxValue;
+
+    foreach (var door in doors)
+    {
+        if (door == null) continue;
+
+        Vector3 ap = door.GetApproachPoint();
+        float dist = Vector3.Distance(myPos, ap);
+
+        if (dist > fleeDistance * 1.5f)
+            continue;
+
+        // 경로 가능 여부만 체크
+        NavMeshPath path = new NavMeshPath();
+        if (!agent.CalculatePath(ap, path))
+            continue;
+        if (path.status != NavMeshPathStatus.PathComplete)
+            continue;
+
+        if (dist < bestDist)
+        {
+            bestDist = dist;
+            best = door;
+        }
+    }
+
+    if (best == null)
+        return false;
+
+    fleeDoor = best;
+    agent.SetDestination(best.GetApproachPoint());
+    return true;
+}
+
+
+    
     // ---------------- DEBUG LOG ----------------
     private void Log(string msg)
     {
@@ -644,4 +775,5 @@ void DebugNavMeshArea_UI()
     }
     
 
+   
 }
