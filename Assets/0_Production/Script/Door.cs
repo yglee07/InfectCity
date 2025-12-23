@@ -37,7 +37,7 @@ using UnityEngine.AI;
         // Auto Close
         // =========================
         [Header("Auto Close")]
-        public float openHoldTime = 2.0f;    // 마지막 시민 이후 유지 시간
+        public float openHoldTime = 1.0f;    // 마지막 시민 이후 유지 시간
 
         // =========================
         // Internal
