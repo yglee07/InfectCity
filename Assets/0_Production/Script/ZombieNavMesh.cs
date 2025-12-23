@@ -67,7 +67,11 @@ public class ZombieNavMesh : MonoBehaviour
            waterAreaMask = 1 << NavMesh.GetAreaFromName("Water");
     }
   
-
+    public Vector3 GetHitPoint()
+    {
+        // 머리/몸 중앙쯤
+        return transform.position + Vector3.up * 0.8f;
+    }
     public void ApplyStats()
     {
         if (stats == null) return;

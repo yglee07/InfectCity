@@ -17,14 +17,17 @@ public class CitizenShooter : CitizenBase
     [Header("Vision")]
     public float viewAngle = 90f;
 
-    [Header("FX")]
-    public GameObject muzzleFlashPrefab;
-    public GameObject impactFxPrefab;
 
     private ZombieNavMesh currentTarget;
     private ZombieNavMesh lastTarget;
     private bool isShooting = false;
     private FieldOfView fieldOfView;
+
+    [Header("Muzzle")]
+    public Transform muzzlePoint;
+    [Header("Hit FX")]
+    public string hitFxPoolKey = "RoundHitYellow";
+    public string muzzlePoolKey = "BulletFatMuzzleFire";
     protected override void Awake()
     {
         base.Awake();
@@ -34,6 +37,8 @@ public class CitizenShooter : CitizenBase
         {
             fieldOfView.BuildMesh(shootRange, viewAngle);
         }
+        if (muzzlePoint == null)
+             Debug.LogError("[CitizenShooter] MuzzlePoint not assigned!");
     }
 
     protected override void Start()
@@ -205,29 +210,49 @@ fieldOfView?.SetAlert(true);
             Debug.Log("[Shooter] OnShootEvent 실패: 타겟 null / inactive");
             return;
         }
+         SpawnMuzzleFX();
 
         PerformShot(currentTarget);
         shootTimer = shootInterval;
         isShooting = false;
         PlayAnim("StickMan_Idle");
     }
-
-    protected void PerformShot(ZombieNavMesh target)
+    void SpawnMuzzleFX()
     {
-        Debug.Log("[Shooter] PerformShot → " + target.name);
+        if (muzzlePoint == null)
+            return;
 
-        if (muzzleFlashPrefab)
-            Instantiate(muzzleFlashPrefab,
-                transform.position + transform.forward * 0.4f,
-                transform.rotation);
+        GameObject fx = PoolManager.Instance.Spawn(
+            muzzlePoolKey,
+            muzzlePoint.position,
+            muzzlePoint.rotation
+        );
 
-        if (impactFxPrefab)
-            Instantiate(impactFxPrefab,
-                target.transform.position + Vector3.up * 0.7f,
-                Quaternion.identity);
-
-        target.TakeDamage(damage);
+        // 필요하면 약간 회전 보정
+        // fx.transform.Rotate(0f, 180f, 0f);
     }
+
+  protected void PerformShot(ZombieNavMesh target)
+{
+    Debug.Log("[Shooter] PerformShot → " + target.name);
+
+    // 🔥 피격 이펙트 (풀링)
+    Vector3 hitPos = target.GetHitPoint();
+
+    PoolManager.Instance.Spawn(
+        hitFxPoolKey,
+        hitPos,
+        Quaternion.LookRotation(transform.forward)
+    );
+
+    // 데미지 적용
+    target.TakeDamage(damage);
+}
+public Vector3 GetHitPoint()
+{
+    // 머리/몸 중앙쯤
+    return transform.position + Vector3.up * 0.8f;
+}
 
     private void OnDrawGizmosSelected()
     {

@@ -103,6 +103,37 @@ MonoBehaviour:
   meshRenderer: {fileID: 5853582768020400575}
   normalColor: {r: 0, g: 0, b: 0, a: 0.5019608}
   alertColor: {r: 1, g: 0, b: 0, a: 0.35}
+--- !u!1 &4977978654371755526
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5840165745554140030}
+  m_Layer: 0
+  m_Name: MuzzlePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5840165745554140030
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4977978654371755526}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1477}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2087878357601419898}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!1 &7809207238147872883
 GameObject:
   m_ObjectHideFlags: 0
@@ -194,8 +225,9 @@ MonoBehaviour:
   damage: 1
   shootTimer: 0
   viewAngle: 60
-  muzzleFlashPrefab: {fileID: 0}
   impactFxPrefab: {fileID: 0}
+  muzzlePoint: {fileID: 5840165745554140030}
+  muzzlePoolKey: BulletFatMuzzleFire
 --- !u!114 &5620326103552762710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -277,8 +309,12 @@ PrefabInstance:
       value: -104.511
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1620780442430432, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 4952727429218122, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5840165745554140030}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6f1a7354265853f44b0ed5e2e43676ad, type: 3}
 --- !u!4 &2087878357601419898 stripped

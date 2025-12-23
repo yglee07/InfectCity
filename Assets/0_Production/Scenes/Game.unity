@@ -359,6 +359,12 @@ MonoBehaviour:
   - key: SpikyExplosionYellow
     prefab: {fileID: 160118, guid: 03feceae0f581f84daa727501c78f8b8, type: 3}
     preloadCount: 100
+  - key: BulletFatMuzzleFire
+    prefab: {fileID: 160118, guid: 03feceae0f581f84daa727501c78f8b8, type: 3}
+    preloadCount: 20
+  - key: RoundHitYellow
+    prefab: {fileID: 102696, guid: 185035e4680c4b344b62bf5ace4674b8, type: 3}
+    preloadCount: 20
 --- !u!1 &490376208
 GameObject:
   m_ObjectHideFlags: 0
@@ -959,6 +965,7 @@ MonoBehaviour:
   GreenZombies: []
   PurpleZombies: []
   YellowZombies: []
+  Doors: []
   greenInfectCount: 0
   purpleInfectCount: 0
   yellowInfectCount: 0
