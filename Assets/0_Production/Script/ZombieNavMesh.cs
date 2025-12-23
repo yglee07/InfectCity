@@ -116,7 +116,7 @@ public class ZombieNavMesh : MonoBehaviour
     float thinkTimer;
     void Update()
     {
-        Debug.Log("isSwimming: "+isSwimming);
+   
         float dt = Time.deltaTime;
 
         // ⏱️ 타이머들은 매 프레임 누적 (애니/공격 타이밍용)
@@ -331,6 +331,7 @@ public class ZombieNavMesh : MonoBehaviour
         if (nowSwimming == isSwimming) return;
 
         isSwimming = nowSwimming;
+        RefreshMoveAnimation();
     }
 bool CheckSwimming()
 {
@@ -359,7 +360,22 @@ bool CheckSwimming()
     Debug.Log("[NavMesh Check] SamplePosition 실패");
     return false;
 }
+void RefreshMoveAnimation()
+{
+    // 멈춰있으면 Idle
+    if (agent.isStopped || !agent.hasPath || agent.velocity.sqrMagnitude < 0.01f)
+    {
+        PlayMoveAnim("Zombie_Idle");
+        return;
+    }
 
+    // 속도 기준 Run/Walk (1.3배 런도 포함해서 판단)
+    float runThreshold = (runSpeed * 0.5f) * (runSpeed * 0.5f);
+    if (agent.velocity.sqrMagnitude >= runThreshold)
+        PlayMoveAnim("Zombie_Run");
+    else
+        PlayMoveAnim("Zombie_Walk");
+}
   
 
 

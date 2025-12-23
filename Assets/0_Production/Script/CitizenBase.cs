@@ -208,6 +208,24 @@ public abstract class CitizenBase: MonoBehaviour
         if (nowSwimming == isSwimming) return;
 
         isSwimming = nowSwimming;
+         RefreshMoveAnimation();
+    }
+    void RefreshMoveAnimation()
+    {
+        switch (state)
+        {
+            case State.Idle:
+                PlayMoveAnim("StickMan_Idle");
+                break;
+
+            case State.Wander:
+                PlayMoveAnim("StickMan_Walk");
+                break;
+
+            case State.Flee:
+                PlayMoveAnim("StickMan_Run");
+                break;
+        }
     }
 
     // ---------------- WANDER ----------------
