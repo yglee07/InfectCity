@@ -30,7 +30,7 @@ using UnityEngine.AI;
         // Citizen Detect
         // =========================
         [Header("Citizen Detect")]
-        public float openDistance = 1.3f;    // 시민 목적지가 이 거리 이내면 열림
+        public float openDistance = 0.6f;    // 시민 목적지가 이 거리 이내면 열림
         public float checkInterval = 0.25f;  // 검사 주기
 
         // =========================
@@ -45,6 +45,7 @@ using UnityEngine.AI;
         bool navOpenApplied = false;
         float checkTimer = 0f;
         float openTimer = 0f;
+        
 
         // =========================
         // Life Cycle
@@ -101,40 +102,37 @@ using UnityEngine.AI;
         // Citizen → Door Open
         // =========================
         void CheckCitizenIntent()
+{
+    Debug.Log("[Door] CheckCitizenIntent called");
+
+    var citizens = NPCManager.Instance.Citizens;
+    Vector3 doorPos = transform.position;
+
+    for (int i = 0; i < citizens.Count; i++)
+    {
+        var c = citizens[i];
+        if (c == null || !c.gameObject.activeInHierarchy) continue;
+
+        float dist = Vector3.Distance(c.transform.position, doorPos);
+
+        if (dist <= openDistance)
         {
-            var citizens = NPCManager.Instance.Citizens;
-            Vector3 doorPos = transform.position;
+            Debug.Log($"[Door] Citizen nearby: {c.name}, dist={dist:F2}");
 
-            bool someoneApproaching = false;
-
-            for (int i = 0; i < citizens.Count; i++)
-            {
-                var c = citizens[i];
-                if (c == null || !c.gameObject.activeInHierarchy) continue;
-
-                var agent = c.Agent;
-                if (agent == null || !agent.hasPath) continue;
-
-                // 시민 목적지가 문 근처면
-                if (Vector3.Distance(agent.destination, doorPos) <= openDistance)
-                {
-                    someoneApproaching = true;
-                    break;
-                }
-            }
-
-            if (someoneApproaching)
-            {
-                open = true;
-                openTimer = openHoldTime; // 🔥 열림 유지 연장
-            }
+            open = true;
+            openTimer = openHoldTime;
+            return;
         }
+    }
+}
+
 
         // =========================
         // Rotation
         // =========================
         void UpdateRotation()
         {
+            Debug.Log($"[Door] open={open} pivotY={doorPivot.localEulerAngles.y}");
             if (doorPivot == null) return;
 
             float targetAngle = open ? doorOpenAngle : doorCloseAngle;
@@ -176,6 +174,21 @@ using UnityEngine.AI;
             if (angle > 180f) angle -= 360f;
             return angle;
         }
+
+        // 🔥 시민이 문을 통과할 수 있는지 확인
+        public bool IsPassable()
+        {
+            if (obstacle == null) return true; // obstacle이 없으면 항상 통과 가능
+            
+            // obstacle이 비활성화되어 있으면 통과 가능
+            return !obstacle.enabled;
+        }
+
+        // 🔥 문이 열리는 중인지 확인 (open 상태이지만 아직 완전히 열리지 않음)
+        public bool IsOpening()
+        {
+            return open && obstacle != null && obstacle.enabled;
+        }
         public Vector3 GetApproachPoint()
         {
             // 문 앞 1.2m 지점 (NavMesh 위)
@@ -187,6 +200,44 @@ using UnityEngine.AI;
             // 실패하면 문 위치 반환 (fallback)
             return transform.position;
         }
+
+     #if UNITY_EDITOR
+void OnDrawGizmos()
+{
+    Vector3 doorPos = transform.position;
+
+    bool hasCitizenNearby = false;
+
+    if (NPCManager.Instance != null)
+    {
+        var citizens = NPCManager.Instance.Citizens;
+
+        for (int i = 0; i < citizens.Count; i++)
+        {
+            var c = citizens[i];
+            if (c == null || !c.gameObject.activeInHierarchy) continue;
+
+            float dist = Vector3.Distance(c.transform.position, doorPos);
+            if (dist <= openDistance)
+            {
+                hasCitizenNearby = true;
+                break;
+            }
+        }
+    }
+
+    // 🔵 1단계: 거리 감지
+    Gizmos.color = hasCitizenNearby ? Color.green : Color.cyan;
+    Gizmos.DrawWireSphere(doorPos, openDistance);
+
+    // 🔴 2단계: 실제 문 상태
+    Gizmos.color = open ? Color.red : Color.gray;
+    Gizmos.DrawSphere(doorPos, 0.15f);
+}
+#endif
+
+
+
 public Vector3 GetPassThroughPoint(Vector3 fromPos, float dist = 2.5f)
 {
     // 내가 문 앞에 어느 쪽에 있느냐로 방향 결정

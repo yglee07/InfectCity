@@ -17,7 +17,10 @@ public class CitizenShooter : CitizenBase
     [Header("Vision")]
     public float viewAngle = 90f;
 
-
+#if UNITY_EDITOR
+[SerializeField, TextArea(2, 6)]
+private string debugReason = "";
+#endif
     private ZombieNavMesh currentTarget;
     private ZombieNavMesh lastTarget;
     private bool isShooting = false;
@@ -74,12 +77,22 @@ public class CitizenShooter : CitizenBase
     // ================= Combat =================
     protected bool HandleCombat()
     {
+        if (isShooting &&
+    (currentTarget == null || !currentTarget.gameObject.activeInHierarchy))
+{
+    isShooting = false;
+}
+        #if UNITY_EDITOR
+debugReason = "";
+#endif
         currentTarget = FindShootableTarget();
 
         if (currentTarget == null)
         {  
             fieldOfView?.SetAlert(false);
-            if (debugLog) Debug.Log("[Shooter] HandleCombat: 타겟 없음");
+            #if UNITY_EDITOR
+    debugReason = "No target (range/vision/none)";
+#endif
             return false;
         }
 fieldOfView?.SetAlert(true);
@@ -98,10 +111,18 @@ fieldOfView?.SetAlert(true);
             if (debugLog) Debug.Log("[Shooter] 새 타겟 → shootTimer 리셋");
          
             lastTarget = currentTarget;
+          
         }
 
         shootTimer -= Time.deltaTime;
-        if (debugLog) Debug.Log($"[Shooter] shootTimer = {shootTimer}");
+      #if UNITY_EDITOR
+if (isShooting)
+    debugReason = $"Aiming/Shooting (waiting anim event)\nshootTimer={shootTimer:F2}";
+else if (shootTimer > 0f)
+    debugReason = $"Cooldown\nshootTimer={shootTimer:F2}";
+else
+    debugReason = "Ready to shoot";
+#endif
 
         if (shootTimer <= 0f && !isShooting)
         {
@@ -201,22 +222,34 @@ fieldOfView?.SetAlert(true);
     }
 
     // ================= Animation Event =================
-    public void OnShootEvent()
+   public void OnShootEvent()
+{
+    ZombieNavMesh target = currentTarget;
+
+    // 1️⃣ 원래 타겟이 죽었으면 즉시 대체 타겟 탐색
+    if (target == null || !target.gameObject.activeInHierarchy)
     {
-        Debug.Log("[Shooter] OnShootEvent() 호출");
-
-        if (currentTarget == null || !currentTarget.gameObject.activeInHierarchy)
-        {
-            Debug.Log("[Shooter] OnShootEvent 실패: 타겟 null / inactive");
-            return;
-        }
-         SpawnMuzzleFX();
-
-        PerformShot(currentTarget);
-        shootTimer = shootInterval;
-        isShooting = false;
-        PlayAnim("StickMan_Idle");
+        target = FindShootableTarget();
     }
+
+    // 2️⃣ 그래도 없으면 공포 (진짜 실패)
+    if (target == null)
+    {
+        isShooting = false;
+        shootTimer = shootInterval;
+        PlayAnim("StickMan_Idle");
+        return;
+    }
+
+    // 3️⃣ 무조건 1발은 나감
+    SpawnMuzzleFX();
+    PerformShot(target);
+
+    shootTimer = shootInterval;
+    isShooting = false;
+    PlayAnim("StickMan_Idle");
+}
+
     void SpawnMuzzleFX()
     {
         if (muzzlePoint == null)
@@ -248,27 +281,46 @@ fieldOfView?.SetAlert(true);
     // 데미지 적용
     target.TakeDamage(damage);
 }
-public Vector3 GetHitPoint()
+
+
+   #if UNITY_EDITOR
+private void OnDrawGizmosSelected()
 {
-    // 머리/몸 중앙쯤
-    return transform.position + Vector3.up * 0.8f;
-}
+    // 사거리/시야각은 기존 유지
+    Gizmos.color = Color.red;
+    Gizmos.DrawWireSphere(transform.position, shootRange);
 
-    private void OnDrawGizmosSelected()
+    Gizmos.color = Color.yellow;
+    Vector3 leftDir = Quaternion.Euler(0, -viewAngle * 0.5f, 0) * transform.forward;
+    Vector3 rightDir = Quaternion.Euler(0, viewAngle * 0.5f, 0) * transform.forward;
+
+    Gizmos.DrawLine(transform.position, transform.position + leftDir * shootRange);
+    Gizmos.DrawLine(transform.position, transform.position + rightDir * shootRange);
+
+    Gizmos.color = Color.green;
+    Gizmos.DrawLine(transform.position, transform.position + transform.forward * shootRange);
+
+    // 현재 타겟 라인
+    if (currentTarget != null)
     {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, shootRange);
-
-        Gizmos.color = Color.yellow;
-        Vector3 leftDir = Quaternion.Euler(0, -viewAngle * 0.5f, 0) * transform.forward;
-        Vector3 rightDir = Quaternion.Euler(0, viewAngle * 0.5f, 0) * transform.forward;
-
-        Gizmos.DrawLine(transform.position, transform.position + leftDir * shootRange);
-        Gizmos.DrawLine(transform.position, transform.position + rightDir * shootRange);
-
-        Gizmos.color = Color.green;
-        Gizmos.DrawLine(transform.position, transform.position + transform.forward * shootRange);
+        Gizmos.color = Color.magenta;
+        Gizmos.DrawLine(transform.position + Vector3.up * 1.2f, currentTarget.transform.position + Vector3.up * 1.2f);
+        Gizmos.DrawSphere(currentTarget.transform.position + Vector3.up * 1.2f, 0.25f);
     }
+
+    // 상태 라벨
+    Handles.Label(
+        transform.position + Vector3.up * 2.4f,
+        $"[Shooter]\n" +
+        $"current={((currentTarget != null) ? currentTarget.name : "null")}\n" +
+        $"last={((lastTarget != null) ? lastTarget.name : "null")}\n" +
+        $"isShooting={isShooting}\n" +
+        $"shootTimer={shootTimer:F2}\n" +
+        $"{debugReason}"
+    );
+}
+#endif
+
     protected override void DespawnSelf()
     {
         PoolManager.Instance.Despawn("Citizen_Shooter", gameObject);

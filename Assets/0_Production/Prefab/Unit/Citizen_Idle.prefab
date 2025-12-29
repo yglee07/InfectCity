@@ -75,9 +75,9 @@ MonoBehaviour:
   fleeSpeed: 4
   wanderRadius: 6
   changeWanderInterval: 3
-  fleeEnterRadius: 4
-  fleeExitRadius: 6
-  fleeDistance: 7
+  fleeEnterRadius: 5
+  fleeExitRadius: 7
+  fleeDistance: 8
   agent: {fileID: 0}
   anim: {fileID: 0}
   animatedMesh: {fileID: 0}

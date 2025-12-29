@@ -68,7 +68,11 @@ public class CameraController : MonoBehaviour
             Game.Instance.dragInfector.IsDraggingBomb)
             return;
 
+       #if UNITY_EDITOR || UNITY_STANDALONE
+        HandleMouseInput();
+        #else
         HandleTouchInput();
+        #endif
         // ===== 실제 적용 =====
         transform.position = Vector3.SmoothDamp(
             transform.position,
@@ -86,8 +90,45 @@ public class CameraController : MonoBehaviour
 
     }
 
+    void HandleMouseInput()
+    {
+        // =====================
+        // 줌 (마우스 휠)
+        // =====================
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (Mathf.Abs(scroll) > 0.001f)
+        {
+            targetZoom -= scroll * zoomSpeed * 10f;
+            targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
+        }
 
-    void HandleTouchInput()
+        // =====================
+        // 드래그 (마우스 좌클릭)
+        // =====================
+        if (Input.GetMouseButtonDown(0))
+        {
+            inputState = InputState.Drag;
+            lastDragWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
+            dragVelocity = Vector3.zero;
+        }
+
+        if (Input.GetMouseButton(0) && inputState == InputState.Drag)
+        {
+            Vector3 newPos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector3 diff = lastDragWorldPos - newPos;
+            diff.y = 0;
+
+            float zoomFactor = cam.orthographicSize * dragMultiplier;
+            targetPos += diff * zoomFactor;
+
+            lastDragWorldPos = newPos;
+        }
+
+        if (Input.GetMouseButtonUp(0))
+        {
+            inputState = InputState.None;
+        }
+    }    void HandleTouchInput()
     {
         int touchCount = Input.touchCount;
 
