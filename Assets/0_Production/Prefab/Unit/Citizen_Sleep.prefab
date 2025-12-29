@@ -119,6 +119,10 @@ PrefabInstance:
       propertyPath: animationSO
       value: 
       objectReference: {fileID: 11400000, guid: c849c36877e1c1b49ae9522942606257, type: 2}
+    - target: {fileID: 3995937370020919682, guid: 8698befb775c215439e7703a2a745fae, type: 3}
+      propertyPath: defaultAnimation
+      value: StickMan_Sleep
+      objectReference: {fileID: 0}
     - target: {fileID: 7448890999504012184, guid: 8698befb775c215439e7703a2a745fae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

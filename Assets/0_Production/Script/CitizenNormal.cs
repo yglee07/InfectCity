@@ -65,6 +65,9 @@ public class CitizenNormal : CitizenBase
 
     protected override void Tick()
     {
+         if (mode == CitizenMode.Sleep)
+            return;
+            
          if (isInitialIdleActive)
         {
             // 🔥 연출 중이라도 좀비는 본다
@@ -77,8 +80,7 @@ public class CitizenNormal : CitizenBase
 
             return;
         }
-        if (mode == CitizenMode.Sleep)
-            return;
+       
 
         bool detected = DetectZombie();
 
