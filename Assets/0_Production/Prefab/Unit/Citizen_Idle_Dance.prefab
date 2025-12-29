@@ -75,9 +75,9 @@ MonoBehaviour:
   fleeSpeed: 4
   wanderRadius: 6
   changeWanderInterval: 3
-  fleeEnterRadius: 0
-  fleeExitRadius: 0
-  fleeDistance: 0
+  fleeEnterRadius: 5
+  fleeExitRadius: 7
+  fleeDistance: 8
   agent: {fileID: 0}
   anim: {fileID: 0}
   animatedMesh: {fileID: 0}
@@ -85,6 +85,7 @@ MonoBehaviour:
   thinkInterval: 0.2
   fleeRetargetInterval: 0.4
   mode: 1
+  initialIdleAnim: StickMan_Dance
 --- !u!114 &5620326103552762710
 MonoBehaviour:
   m_ObjectHideFlags: 0
