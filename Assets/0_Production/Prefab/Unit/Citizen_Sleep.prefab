@@ -51,7 +51,7 @@ NavMeshAgent:
   avoidancePriority: 50
   m_AngularSpeed: 360
   m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 2
@@ -86,6 +86,7 @@ MonoBehaviour:
   thinkInterval: 0.2
   fleeRetargetInterval: 0.4
   mode: 2
+  initialIdleAnim: 
 --- !u!114 &5620326103552762710
 MonoBehaviour:
   m_ObjectHideFlags: 0
