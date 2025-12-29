@@ -569,23 +569,28 @@ void UpdateDoorFlee()
         }
     }
 
-    // 2️⃣ 문 완전 통과
-    if (passingDoor)
-    {
-        float distToPassPoint = Vector3.Distance(transform.position, fleeDoor.GetPassThroughPoint(transform.position));
-        
-        // 통과 지점에 충분히 가까웠거나, 경로가 완료되었고 거리가 충분히 가까울 때
-        if (distToPassPoint <= 0.8f || (!agent.pathPending && agent.remainingDistance <= 0.5f && distToPassPoint <= 1.2f))
-        {
-            // 🔥 이제 진짜 공간 전환 완료
-            fleeDoor = null;
-            passingDoor = false;
-            doorStuckTimer = 0f;
+    
+   // 2️⃣ 문 완전 통과 → 즉시 방향 도망
+if (passingDoor)
+{
+    float distToPassPoint = Vector3.Distance(
+        transform.position,
+        fleeDoor.GetPassThroughPoint(transform.position));
 
-            // 새 공간 기준으로 다시 도망 판단
-            SelectFleeStrategy();
-        }
+    if (distToPassPoint <= 0.8f ||
+        (!agent.pathPending && agent.remainingDistance <= 0.5f))
+    {
+        // 🔥 문은 탈출 트리거로 끝
+        fleeDoor = null;
+        passingDoor = false;
+        doorStuckTimer = 0f;
+
+        fleeStrategy = FleeStrategy.Direction;
+        TrySetNewFleeTarget();   // 🔥 바로 도망
+        return;
     }
+}
+
 }
 
 void UpdateDirectionFlee()
@@ -808,7 +813,12 @@ protected virtual void OnDrawGizmos()
 {
     if (!Application.isPlaying) return;
     if (agent == null) return;
-
+if (agent.hasPath)
+{
+    Gizmos.color = Color.red;
+    foreach (var c in agent.path.corners)
+        Gizmos.DrawWireSphere(c, 0.3f);
+}
     // =============================
     // 1️⃣ 상태 텍스트
     // =============================
@@ -1138,6 +1148,9 @@ void DebugNavMeshArea_UI()
         Vector3 ap = door.GetApproachPoint();
         float dist = Vector3.Distance(myPos, ap);
 
+ // 🔥 추가 1: 문 앞에 좀비 있으면 스킵 (자살 방지)
+    if (IsZombieNearPoint(ap, 1.8f))
+        continue;
         // 🔥 거리 조건을 매우 관대하게 (문이 멀어도 선택 가능, 최대 30m)
         float maxDist = Mathf.Max(fleeDistance * 4f, 30f);
         if (dist > maxDist)
@@ -1151,7 +1164,12 @@ void DebugNavMeshArea_UI()
         // 🔥 PathComplete 또는 PathPartial 허용 (PathPartial도 허용 - obstacle 때문에 우회 가능)
         if (path.status == NavMeshPathStatus.PathInvalid)
             continue;
-
+    // 🔥 경로 중간에 좀비 있으면 이 문은 버린다
+    if (!IsPathSafeFromZombies(path, 1.5f))
+    {
+        doorSelectFailReason = "Zombie on path";
+        continue;
+    }
         // 🔥 경로 길이 체크를 매우 관대하게 (우회 경로도 허용)
         float pathLength = 0f;
         if (path.corners.Length > 1)
@@ -1271,7 +1289,60 @@ void DebugNavMeshArea_UI()
     doorSelectFailReason = $"Cannot calculate path to {best.name}";
     return false;
 }
+bool IsPathSafeFromZombies(NavMeshPath path, float dangerRadius)
+{
+    var zombies = NPCManager.Instance.Zombies;
+    if (zombies == null || zombies.Count == 0)
+        return true;
 
+    float r2 = dangerRadius * dangerRadius;
+
+    for (int i = 0; i < path.corners.Length - 1; i++)
+    {
+        Vector3 a = path.corners[i];
+        Vector3 b = path.corners[i + 1];
+
+        foreach (var z in zombies)
+        {
+            if (z == null || !z.gameObject.activeInHierarchy)
+                continue;
+
+            // 🔥 선분-점 거리
+            Vector3 p = z.transform.position;
+            float d2 = DistancePointToSegmentSqr(p, a, b);
+
+            if (d2 <= r2)
+                return false; // ❌ 경로 중간에 좀비 있음
+        }
+    }
+    return true;
+}
+
+float DistancePointToSegmentSqr(Vector3 p, Vector3 a, Vector3 b)
+{
+    Vector3 ab = b - a;
+    float t = Vector3.Dot(p - a, ab) / ab.sqrMagnitude;
+    t = Mathf.Clamp01(t);
+    Vector3 closest = a + ab * t;
+    return (p - closest).sqrMagnitude;
+}
+bool IsZombieNearPoint(Vector3 point, float radius)
+{
+    float r2 = radius * radius;
+    var zombies = NPCManager.Instance.Zombies;
+    if (zombies == null) return false;
+
+    foreach (var z in zombies)
+    {
+        if (z == null || !z.gameObject.activeInHierarchy)
+            continue;
+
+        float d2 = (z.transform.position - point).sqrMagnitude;
+        if (d2 <= r2)
+            return true;
+    }
+    return false;
+}
 
     
     // ---------------- DEBUG LOG ----------------

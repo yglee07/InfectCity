@@ -138,6 +138,9 @@ public class ZombieNavMesh : MonoBehaviour
     }
     void Tick()
     {
+        
+  
+
         UpdateSwimmingState();
         // =======================
         // COMBAT MODE (좀비 vs 좀비)
@@ -174,6 +177,18 @@ public class ZombieNavMesh : MonoBehaviour
         if (targetBarricade != null)
             TryBreakBarricade();
     }
+    void RecoverPath()
+{
+    agent.ResetPath();
+
+    // 랜덤 소폭 이동으로 NavMesh 안정화
+    Vector3 rnd = transform.position + Random.insideUnitSphere * 1.5f;
+    if (NavMesh.SamplePosition(rnd, out var hit, 2f, NavMesh.AllAreas))
+    {
+        agent.isStopped = false;
+        agent.SetDestination(hit.position);
+    }
+}
     //void Update()
     //{
     //    float dt = Time.deltaTime;
@@ -304,7 +319,11 @@ public class ZombieNavMesh : MonoBehaviour
         // ⭐ Case 1: 시민까지 경로가 막혀 있다
         if (path.status != NavMeshPathStatus.PathComplete)
         {
-            
+            if (path.corners == null || path.corners.Length == 0)
+    {
+        RecoverPath();
+        return;
+    }
 
             // 막힌 지점
             Vector3 blockedPoint = path.corners[path.corners.Length - 1];
@@ -328,6 +347,11 @@ public class ZombieNavMesh : MonoBehaviour
             FindNearestBarricade();
             return;
         }
+        // 타겟은 있는데 경로가 없는 상태 보정
+if (targetCitizen != null && !agent.hasPath && !agent.pathPending)
+{
+    agent.SetDestination(targetCitizen.transform.position);
+}
     }
     void UpdateSwimmingState()
     {
@@ -384,102 +408,117 @@ void RefreshMoveAnimation()
 
 
     void FindEnemyZombie()
+{
+    // =========================
+    // 1️⃣ 적 리스트 구성
+    // =========================
+    List<ZombieNavMesh> enemies = new();
+
+    if (faction == Faction.Green)
     {
-        // 적 진영 리스트 가져오기 (Green은 Purple+Yellow, Purple은 Green+Yellow, Yellow는 Green+Purple)
-        List<ZombieNavMesh> enemies = new List<ZombieNavMesh>();
-        
-        if (faction == Faction.Green)
+        enemies.AddRange(NPCManager.Instance.PurpleZombies);
+        enemies.AddRange(NPCManager.Instance.YellowZombies);
+    }
+    else if (faction == Faction.Purple)
+    {
+        enemies.AddRange(NPCManager.Instance.GreenZombies);
+        enemies.AddRange(NPCManager.Instance.YellowZombies);
+    }
+    else if (faction == Faction.Yellow)
+    {
+        enemies.AddRange(NPCManager.Instance.GreenZombies);
+        enemies.AddRange(NPCManager.Instance.PurpleZombies);
+    }
+
+    // =========================
+    // 2️⃣ 적 없음 → 종료
+    // =========================
+    if (enemies.Count == 0)
+    {
+        targetZombie = null;
+        isMerging = false;
+
+        agent.isStopped = true;
+        agent.ResetPath();
+        PlayMoveAnim("Zombie_Idle");
+        return;
+    }
+
+    // =========================
+    // 3️⃣ 가장 가까운 적 선택
+    // =========================
+    ZombieNavMesh nearest = null;
+    float minSqr = float.MaxValue;
+
+    foreach (var e in enemies)
+    {
+        if (e == null || !e.gameObject.activeInHierarchy) continue;
+
+        float sqr = (e.transform.position - transform.position).sqrMagnitude;
+        if (sqr < minSqr)
         {
-            enemies.AddRange(NPCManager.Instance.PurpleZombies);
-            enemies.AddRange(NPCManager.Instance.YellowZombies);
+            minSqr = sqr;
+            nearest = e;
         }
-        else if (faction == Faction.Purple)
-        {
-            enemies.AddRange(NPCManager.Instance.GreenZombies);
-            enemies.AddRange(NPCManager.Instance.YellowZombies);
-        }
-        else if (faction == Faction.Yellow)
-        {
-            enemies.AddRange(NPCManager.Instance.GreenZombies);
-            enemies.AddRange(NPCManager.Instance.PurpleZombies);
-        }
-        
-        // 🔥 적이 없다 → 싸움 끝
-        if (enemies.Count == 0)
+    }
+
+    if (nearest == null)
+        return;
+
+    // =========================
+    // 4️⃣ 경로 계산
+    // =========================
+    NavMeshPath path = new NavMeshPath();
+    agent.CalculatePath(nearest.transform.position, path);
+
+    // =========================
+    // 5️⃣ NavMesh 깨진 상태 → 복구
+    // =========================
+    if (path.status == NavMeshPathStatus.PathInvalid &&
+        (path.corners == null || path.corners.Length == 0))
+    {
+        RecoverPath();
+        return;
+    }
+
+    // =========================
+    // 6️⃣ 경로 부분 막힘 → 바리케이드 처리
+    // =========================
+    if (path.status != NavMeshPathStatus.PathComplete)
+    {
+        Vector3 blockedPoint = path.corners[path.corners.Length - 1];
+        Breakable blocker = FindBreakableBlockingPath(blockedPoint, 3f);
+
+        if (blocker != null)
         {
             targetZombie = null;
             isMerging = false;
+            targetBarricade = blocker;
 
-            agent.isStopped = true;
-            agent.ResetPath();   // ★ 목적지 초기화 필수
-            PlayMoveAnim("Zombie_Idle");
+            agent.isStopped = false;
+            agent.ResetPath();
+            agent.SetDestination(GetClosestPointOnBreakable(blocker));
 
+            PlayMoveAnim("Zombie_Run");
             return;
         }
 
-
-        ZombieNavMesh nearest = null;
-        float minSqr = float.MaxValue;
-
-        foreach (var e in enemies)
-        {
-            if (e == null || !e.gameObject.activeInHierarchy) continue;
-
-            float sqr = (e.transform.position - transform.position).sqrMagnitude;
-            if (sqr < minSqr)
-            {
-                minSqr = sqr;
-                nearest = e;
-            }
-        }
-
-        //if (nearest != null)
-        //{
-        //    agent.isStopped = false;
-        //    agent.speed = runSpeed * 1.3f; // 조금 빠르게
-        //    agent.SetDestination(nearest.transform.position);
-        //    targetZombie = nearest;
-        //    isMerging = true;
-        //    PlayAnim("Run");
-        //}
-        if (nearest == null) return;
-
-        // ⭐ 경로 계산
-        NavMeshPath path = new NavMeshPath();
-        agent.CalculatePath(nearest.transform.position, path);
-
-        // ⭐ 경로가 막혀 있으면 → 장애물 처리
-        if (path.status != NavMeshPathStatus.PathComplete)
-        {
-            Vector3 blockedPoint = path.corners[path.corners.Length - 1];
-            Breakable blocker = FindBreakableBlockingPath(blockedPoint, 3f);
-
-            if (blocker != null)
-            {
-                Debug.Log("경로막혀있습니다 내 색: "+faction);
-                targetZombie = null;
-                isMerging = false;
-                
-                // ⭐ 핵심
-                targetBarricade = blocker;
-
-                agent.isStopped = false;
-                agent.ResetPath(); // 이전 좀비 목적지 제거
-                agent.SetDestination(GetClosestPointOnBreakable(blocker));
-
-                PlayMoveAnim("Zombie_Run");
-                return; // ← 반드시 끊어야 함
-            }
-        }
-
-        // ⭐ 정상 경로면 적 좀비 추적
-        agent.isStopped = false;
-        agent.speed = runSpeed * 1.3f;
-        agent.SetDestination(nearest.transform.position);
-        targetZombie = nearest;
-        isMerging = true;
-        PlayMoveAnim("Zombie_Run");
+        // 바리케이드도 없으면 → 그냥 대기
+        return;
     }
+
+    // =========================
+    // 7️⃣ 정상 경로 → 적 좀비 추적
+    // =========================
+    agent.isStopped = false;
+    agent.speed = runSpeed * 1.3f;
+    agent.SetDestination(nearest.transform.position);
+
+    targetZombie = nearest;
+    isMerging = true;
+    PlayMoveAnim("Zombie_Run");
+}
+
     void TryMergeEnemy()
     {
         if (!isMerging) return;
@@ -676,7 +715,15 @@ void RefreshMoveAnimation()
 
     void TryBreakBarricade()
     {
-        if (targetBarricade == null) return;
+        if (targetBarricade == null)
+{
+    // 🔥 문을 향한 기존 경로 완전 제거
+    agent.ResetPath();
+
+    // 🔥 명시적으로 다음 타겟 재선정
+    FindNearestCitizen();
+    return;
+}
 
         // ⭐ 쿨타임 체크
         if (barricadeAttackTimer < barricadeAttackInterval)
@@ -744,47 +791,73 @@ void RefreshMoveAnimation()
         );
     }
 #if UNITY_EDITOR
+
 void OnDrawGizmos()
 {
     if (!Application.isPlaying) return;
     if (agent == null) return;
+    if (!agent.enabled) return;
+    if (!agent.isOnNavMesh) return;
 
-    // ===== NavMesh Area Debug =====
-    if (agent.isOnNavMesh &&
-        NavMesh.SamplePosition(
-            transform.position,
-            out var hit,
-            0.3f,
-            NavMesh.AllAreas))
+    Vector3 basePos = transform.position + Vector3.up * 3.0f;
+
+    // =========================
+    // 상태 텍스트
+    // =========================
+    string text =
+        $"hasPath: {agent.hasPath}\n" +
+        $"pathPending: {agent.pathPending}\n" +
+        $"isStopped: {agent.isStopped}\n" +
+        $"velocity: {agent.velocity.magnitude:F2}\n" +
+        $"speed: {agent.speed:F2}\n" +
+        $"accel: {agent.acceleration:F2}\n" +
+        $"targetCitizen: {(targetCitizen ? targetCitizen.name : "None")}";
+
+    Handles.Label(basePos, text);
+
+    // =========================
+    // 1️⃣ destination (최종 목표)
+    // =========================
+    if (agent.hasPath)
     {
-        int waterMask = 1 << NavMesh.GetAreaFromName("Water");
-        bool isWater = (hit.mask & waterMask) != 0;
-
-        // 🔵 Water / 🟢 Walkable
-        Gizmos.color = isWater ? Color.blue : Color.green;
-
-        // 발밑 히트 지점
-        Gizmos.DrawSphere(hit.position, 0.25f);
-
-        // 캐릭터 → 히트 지점
-        Gizmos.DrawLine(transform.position, hit.position);
-
-        // 상태 텍스트
-        Handles.Label(
-            hit.position + Vector3.up * 0.5f,
-            isWater ? "WATER" : "LAND"
-        );
+        Gizmos.color = Color.green;
+        Gizmos.DrawSphere(agent.destination, 0.25f);
+        Gizmos.DrawLine(transform.position, agent.destination);
     }
 
-    // ===== 기존 타겟 디버그 =====
-    Handles.Label(
-        transform.position + Vector3.up * 2f,
-        $"Faction: {faction}\n" +
-        $"Citizen: {(targetCitizen ? targetCitizen.name : "None")}\n" +
-        $"Zombie: {(targetZombie ? targetZombie.name : "None")}\n" +
-        $"Barricade: {(targetBarricade ? targetBarricade.name : "None")}"
-    );
+    // =========================
+    // 2️⃣ steeringTarget (현재 코너 목표)
+    // =========================
+    Gizmos.color = Color.yellow;
+    Gizmos.DrawSphere(agent.steeringTarget, 0.2f);
+    Gizmos.DrawLine(transform.position, agent.steeringTarget);
+
+    // =========================
+    // 3️⃣ desiredVelocity (실제 이동 벡터)
+    // =========================
+    Gizmos.color = Color.cyan;
+    Vector3 dv = agent.desiredVelocity;
+    if (dv.sqrMagnitude > 0.001f)
+    {
+        Gizmos.DrawRay(transform.position, dv.normalized * 1.5f);
+    }
+
+    // =========================
+    // 4️⃣ Path Corners
+    // =========================
+    var path = agent.path;
+    if (path != null && path.corners != null && path.corners.Length > 0)
+    {
+        Gizmos.color = Color.magenta;
+        for (int i = 0; i < path.corners.Length; i++)
+        {
+            Gizmos.DrawSphere(path.corners[i], 0.15f);
+            if (i > 0)
+                Gizmos.DrawLine(path.corners[i - 1], path.corners[i]);
+        }
+    }
 }
 #endif
+
 
 }

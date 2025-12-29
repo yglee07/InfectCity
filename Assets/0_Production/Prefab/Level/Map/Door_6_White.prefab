@@ -260,7 +260,7 @@ MonoBehaviour:
   obstacle: {fileID: 6087027920635335436}
   openThreshold: 80
   openDistance: 0.9
-  checkInterval: 0.25
+  checkInterval: 0.1
   openHoldTime: 2
 --- !u!208 &6087027920635335436
 NavMeshObstacle:

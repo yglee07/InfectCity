@@ -2,7 +2,7 @@
 
 public class CitizenNormal : CitizenBase
 {
-    public enum CitizenMode { Normal, Idle, Sleep }
+       public enum CitizenMode { Normal, Idle, Sleep }
     
     [Header("Citizen Mode")]
     public CitizenMode mode = CitizenMode.Normal;
