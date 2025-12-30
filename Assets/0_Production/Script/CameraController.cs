@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class CameraController : MonoBehaviour
 {
     [Header("Move")]
@@ -45,7 +45,21 @@ public class CameraController : MonoBehaviour
     private Vector3 targetPos;
     private float targetZoom;
     private float zoomVelocity;
+private bool blockCameraThisInput = false;
+bool IsPointerOverUI()
+{
+#if UNITY_EDITOR || UNITY_STANDALONE
+    return EventSystem.current != null &&
+           EventSystem.current.IsPointerOverGameObject();
+#else
+    if (EventSystem.current == null) return false;
+    if (Input.touchCount == 0) return false;
 
+    return EventSystem.current.IsPointerOverGameObject(
+        Input.GetTouch(0).fingerId
+    );
+#endif
+}
     void Awake()
     {
         
@@ -92,6 +106,28 @@ public class CameraController : MonoBehaviour
 
     void HandleMouseInput()
     {
+         // =====================
+    // 마우스 다운
+    // =====================
+    if (Input.GetMouseButtonDown(0))
+    {
+        // ⭐ UI에서 시작됐으면 카메라 입력 차단
+        blockCameraThisInput = IsPointerOverUI();
+        if (blockCameraThisInput)
+            return;
+
+        inputState = InputState.Drag;
+        lastDragWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
+        dragVelocity = Vector3.zero;
+    }
+
+    if (blockCameraThisInput)
+    {
+        if (Input.GetMouseButtonUp(0))
+            blockCameraThisInput = false;
+
+        return;
+    }
         // =====================
         // 줌 (마우스 휠)
         // =====================
@@ -128,91 +164,106 @@ public class CameraController : MonoBehaviour
         {
             inputState = InputState.None;
         }
-    }    void HandleTouchInput()
+    }   void HandleTouchInput()
+{
+    if (Input.touchCount == 0)
     {
-        int touchCount = Input.touchCount;
+        inputState = InputState.None;
+        blockCameraThisInput = false;
+        return;
+    }
 
-        // 아무 터치 없으면 상태 초기화
-        if (touchCount == 0)
+    // =====================
+    // 2손가락 → 줌
+    // =====================
+    if (Input.touchCount == 2)
+    {
+        Touch t0 = Input.GetTouch(0);
+        Touch t1 = Input.GetTouch(1);
+
+        // ⭐ 핀치 시작 시점에서 UI 체크
+        if (inputState != InputState.Zoom)
         {
-            inputState = InputState.None;
+            blockCameraThisInput =
+                IsPointerOverUI() ||
+                EventSystem.current.IsPointerOverGameObject(t0.fingerId) ||
+                EventSystem.current.IsPointerOverGameObject(t1.fingerId);
+
+            if (blockCameraThisInput)
+                return;
+
+            inputState = InputState.Zoom;
+            prevPinchDistance = (t0.position - t1.position).magnitude;
             return;
         }
 
-        // ------------------
-        // 2손가락 → 줌 모드
-        // ------------------
-        if (touchCount == 2)
-        {
-            Touch t0 = Input.GetTouch(0);
-            Touch t1 = Input.GetTouch(1);
+        if (blockCameraThisInput)
+            return;
 
-            Vector2 pos0 = t0.position;
-            Vector2 pos1 = t1.position;
+        // ---- 이하 기존 줌 로직 ----
+        Vector2 p0 = t0.position;
+        Vector2 p1 = t1.position;
+        float dist = (p0 - p1).magnitude;
 
-            float currDist = (pos0 - pos1).magnitude;
+        Vector2 mid = (p0 + p1) * 0.5f;
+        Vector3 before = cam.ScreenToWorldPoint(mid);
 
-            // 핀치 시작
-            if (inputState != InputState.Zoom)
-            {
-                inputState = InputState.Zoom;
-                prevPinchDistance = currDist;
-                return;
-            }
+        float delta = dist - prevPinchDistance;
+        prevPinchDistance = dist;
 
-            // 중간 지점 = 줌 앵커
-            Vector2 mid = (pos0 + pos1) * 0.5f;
-            Vector3 before = cam.ScreenToWorldPoint(mid);
+        targetZoom -= delta * zoomSpeed * 0.03f;
+        targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
 
-            float diff = currDist - prevPinchDistance;
-            prevPinchDistance = currDist;
+        Vector3 after = cam.ScreenToWorldPoint(mid);
+        Vector3 shift = before - after;
+        shift.y = 0;
 
-            targetZoom -= diff * zoomSpeed * 0.03f;
-            targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
-
-            Vector3 after = cam.ScreenToWorldPoint(mid);
-
-            // 줌으로 인해 밀린 만큼 보정
-            Vector3 shift = before - after;
-            shift.y = 0;   // ★ 필수
-
-            targetPos += shift;
-
-
-            return; // 줌 중에는 드래그 안 함
-        }
-
-        // ------------------
-        // 1손가락 → 드래그 모드
-        // ------------------
-        if (touchCount == 1)
-        {
-            Touch t = Input.GetTouch(0);
-
-            if (t.phase == TouchPhase.Began)
-            {
-                inputState = InputState.Drag;
-                lastDragWorldPos = cam.ScreenToWorldPoint(t.position);
-                dragVelocity = Vector3.zero; // 관성 초기화
-            }
-            else if (t.phase == TouchPhase.Moved && inputState == InputState.Drag)
-            {
-                Vector3 newPos = cam.ScreenToWorldPoint(t.position);
-                Vector3 diff = lastDragWorldPos - newPos;
-
-                diff.y = 0;
-
-                // zoom 감도 반영
-                float zoomFactor = cam.orthographicSize * dragMultiplier;
-
-                // 목표 이동 위치 계산
-                targetPos += diff * zoomFactor;
-                lastDragWorldPos = newPos;
-
-                lastDragWorldPos = newPos;
-            }
-        }
+        targetPos += shift;
+        return;
     }
+
+    // =====================
+    // 1손가락 → 드래그
+    // =====================
+    Touch t = Input.GetTouch(0);
+
+    if (t.phase == TouchPhase.Began)
+    {
+        blockCameraThisInput = IsPointerOverUI();
+        if (blockCameraThisInput)
+            return;
+
+        inputState = InputState.Drag;
+        lastDragWorldPos = cam.ScreenToWorldPoint(t.position);
+        dragVelocity = Vector3.zero;
+    }
+
+    if (blockCameraThisInput)
+    {
+        if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
+            blockCameraThisInput = false;
+
+        return;
+    }
+
+    if (t.phase == TouchPhase.Moved && inputState == InputState.Drag)
+    {
+        Vector3 newPos = cam.ScreenToWorldPoint(t.position);
+        Vector3 diff = lastDragWorldPos - newPos;
+        diff.y = 0;
+
+        float zoomFactor = cam.orthographicSize * dragMultiplier;
+        targetPos += diff * zoomFactor;
+
+        lastDragWorldPos = newPos;
+    }
+
+    if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
+    {
+        inputState = InputState.None;
+        blockCameraThisInput = false;
+    }
+}
     private Vector3 dragVelocity = Vector3.zero;
 
     // 드래그 감도

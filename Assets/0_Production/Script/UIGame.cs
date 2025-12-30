@@ -28,6 +28,20 @@ public class UIGame : MonoBehaviour
 
     [SerializeField] Button speedToggleButton;
     [SerializeField] TMP_Text speedText;
+
+     public Button bombButton;
+    public Button unitButton;
+     public void RefreshActionButtons(
+        int bombCharges,
+        int unitCharges
+    )
+    {
+        if (bombButton != null)
+            bombButton.interactable = bombCharges > 0;
+
+        if (unitButton != null)
+            unitButton.interactable = unitCharges > 0;
+    }
     void Awake()
     {
         if (btnCompleteOK != null)

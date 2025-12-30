@@ -3,14 +3,39 @@ using UnityEngine.AI;
 
 public class DragUnitController : MonoBehaviour
 {
+    [Header("Spawn Settings")]
     public string unitPoolKey = "GreenZombie";
     public LayerMask groundMask;
 
-    private GameObject previewUnit;
-    private bool uiDragging;
+    [Header("Charges")]
+    public int maxCharges = 1;
+    public int currentCharges;
 
+    // 드래그 상태
+    private bool uiDragging = false;
+    private GameObject previewUnit;
+
+    void Start()
+    {
+        // 한 판 시작 시 리셋
+        currentCharges = maxCharges;
+    }
+
+    // =========================
+    // UI Drag 시작
+    // =========================
     public void BeginUIDrag()
     {
+        // 언락 조건
+        if (!UnlockManager.IsUnlocked(UnlockType.DragUnit))
+            return;
+
+        // 사용 횟수 체크
+        if (currentCharges <= 0)
+            return;
+
+        uiDragging = true;
+
         if (previewUnit == null)
         {
             previewUnit = PoolManager.Instance.Spawn(
@@ -22,13 +47,16 @@ public class DragUnitController : MonoBehaviour
             SetPreviewMode(previewUnit, true);
         }
 
-        uiDragging = true;
         previewUnit.SetActive(true);
     }
 
+    // =========================
+    // 드래그 중 위치 업데이트
+    // =========================
     public void UpdatePreviewByScreenPos(Vector2 screenPos)
     {
-        if (!uiDragging || previewUnit == null) return;
+        if (!uiDragging || previewUnit == null)
+            return;
 
         Ray ray = Camera.main.ScreenPointToRay(screenPos);
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, groundMask))
@@ -37,17 +65,31 @@ public class DragUnitController : MonoBehaviour
         }
     }
 
+    // =========================
+    // 드래그 종료 (소환 확정)
+    // =========================
     public void EndUIDrag(Vector2 screenPos)
     {
+        if (!uiDragging || previewUnit == null)
+            return;
+
         uiDragging = false;
 
-        if (previewUnit == null) return;
-
-        // 프리뷰 → 실제 유닛으로 전환
+        // 프리뷰 → 실제 유닛 전환
         SetPreviewMode(previewUnit, false);
+
         previewUnit = null;
+        currentCharges--;
+
+       Game.Instance.uiGame.RefreshActionButtons(
+    Game.Instance.dragInfector.currentCharges,
+    currentCharges
+);
     }
 
+    // =========================
+    // 드래그 취소
+    // =========================
     public void CancelUIDrag()
     {
         uiDragging = false;
@@ -59,28 +101,26 @@ public class DragUnitController : MonoBehaviour
         }
     }
 
+    // =========================
+    // Preview / Real 전환
+    // =========================
     void SetPreviewMode(GameObject unit, bool preview)
-{
-    // 1️⃣ NavMeshAgent OFF
-    if (unit.TryGetComponent<NavMeshAgent>(out var agent))
     {
-        agent.enabled = !preview;
+        // NavMeshAgent
+        if (unit.TryGetComponent<NavMeshAgent>(out var agent))
+            agent.enabled = !preview;
+
+        // AI 로직
+        if (unit.TryGetComponent<ZombieNavMesh>(out var zombie))
+            zombie.enabled = !preview;
+
+        // Rigidbody 있다면
+        if (unit.TryGetComponent<Rigidbody>(out var rb))
+            rb.isKinematic = preview;
+
+        // 시각적 처리 (선택)
+        SetGhostVisual(unit, preview);
     }
-
-    // 2️⃣ AI / 로직 스크립트 OFF
-    if (unit.TryGetComponent<ZombieNavMesh>(out var zombie))
-    {
-        zombie.enabled = !preview;
-    }
-
-
-
-    // 4️⃣ Rigidbody 있으면 Kinematic
-    
-    // 5️⃣ 시각적 처리
-    //SetGhostVisual(unit, preview);
-}
-
 
     void SetGhostVisual(GameObject unit, bool ghost)
     {
@@ -88,10 +128,21 @@ public class DragUnitController : MonoBehaviour
         {
             foreach (var mat in r.materials)
             {
+                if (!mat.HasProperty("_Color")) continue;
+
                 Color c = mat.color;
                 c.a = ghost ? 0.4f : 1f;
                 mat.color = c;
             }
         }
+    }
+
+    // =========================
+    // 외부 조회용
+    // =========================
+    public bool CanUse()
+    {
+        return UnlockManager.IsUnlocked(UnlockType.DragUnit)
+               && currentCharges > 0;
     }
 }

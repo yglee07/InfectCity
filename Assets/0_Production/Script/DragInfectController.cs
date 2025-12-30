@@ -270,6 +270,10 @@ public class DragInfectController : MonoBehaviour
         InfectArea(infectPos, FinalRadius);
         currentCharges--;
         Game.Instance.uiGame.UpdateCharges(currentCharges, maxCharges);
+            Game.Instance.uiGame.RefreshActionButtons(
+        currentCharges,
+        Game.Instance.dragUnit.currentCharges
+    );
 
         Deactivate();
     }

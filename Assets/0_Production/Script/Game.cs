@@ -81,6 +81,22 @@ public class Game : MonoBehaviour
 
         //dragInfector.ResetCharges();
         dragInfector.currentCharges = dragInfector.maxCharges; // ← 추가
+        // =========================
+        // 유닛 (언락 시에만)
+        // =========================
+        if (UnlockManager.IsUnlocked(UnlockType.DragUnit))
+        {
+            dragUnit.currentCharges = dragUnit.maxCharges;
+        }
+        else
+        {
+            dragUnit.currentCharges = 0;
+        }
+
+         uiGame.RefreshActionButtons(
+        dragInfector.currentCharges,
+        dragUnit.currentCharges
+    );
 
         uiGame.SetStage(stage);
         uiGame.UpdateCharges(dragInfector.currentCharges, dragInfector.maxCharges);
@@ -169,7 +185,7 @@ private void StageClear()
         bool hasPurpleZombies = npcManager.PurpleZombies.Count > 0;
         bool hasYellowZombies = npcManager.YellowZombies.Count > 0;
 
-        bool noCharges = dragInfector.currentCharges <= 0;
+        bool noCharges = dragInfector.currentCharges <= 0 && dragUnit.currentCharges <= 0;
 
         bool case1_Blockaded =
             citizensRemain &&

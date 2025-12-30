@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelPrefabs:
-  - {fileID: 6497089844581745962, guid: daf7289be6489064ea7c7355a33367a5, type: 3}
+  - {fileID: 6497089844581745962, guid: 4bf13581dec6a93428830e1808541691, type: 3}
   lobbyView: {fileID: 2047525693}
   gameView: {fileID: 299420117}
   uiLobby: {fileID: 2094395832}
@@ -631,7 +631,7 @@ MonoBehaviour:
   dragSpeed: 0.1
   zoomSpeed: 1
   minZoom: 5
-  maxZoom: 25
+  maxZoom: 40
   isCameraLocked: 0
   cameraPos: {fileID: 892461535}
   startPos: {fileID: 0}
@@ -650,6 +650,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1159246148 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4058749363881441123, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
+  m_PrefabInstance: {fileID: 1745739257840936619}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1202978951
@@ -828,6 +839,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1484508259 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4797807080933731977, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
+  m_PrefabInstance: {fileID: 1745739257840936619}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1512191436
@@ -1404,6 +1426,18 @@ PrefabInstance:
       propertyPath: speedText
       value: 
       objectReference: {fileID: 1434760475}
+    - target: {fileID: 3423392387425914313, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
+      propertyPath: bombButton
+      value: 
+      objectReference: {fileID: 1159246148}
+    - target: {fileID: 3423392387425914313, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
+      propertyPath: unitButton
+      value: 
+      objectReference: {fileID: 1484508259}
+    - target: {fileID: 4058749363881441123, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
+      propertyPath: m_Interactable
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4842854323658360298, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
