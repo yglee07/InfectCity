@@ -283,43 +283,7 @@ else
 }
 
 
-   #if UNITY_EDITOR
-private void OnDrawGizmosSelected()
-{
-    // 사거리/시야각은 기존 유지
-    Gizmos.color = Color.red;
-    Gizmos.DrawWireSphere(transform.position, shootRange);
 
-    Gizmos.color = Color.yellow;
-    Vector3 leftDir = Quaternion.Euler(0, -viewAngle * 0.5f, 0) * transform.forward;
-    Vector3 rightDir = Quaternion.Euler(0, viewAngle * 0.5f, 0) * transform.forward;
-
-    Gizmos.DrawLine(transform.position, transform.position + leftDir * shootRange);
-    Gizmos.DrawLine(transform.position, transform.position + rightDir * shootRange);
-
-    Gizmos.color = Color.green;
-    Gizmos.DrawLine(transform.position, transform.position + transform.forward * shootRange);
-
-    // 현재 타겟 라인
-    if (currentTarget != null)
-    {
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawLine(transform.position + Vector3.up * 1.2f, currentTarget.transform.position + Vector3.up * 1.2f);
-        Gizmos.DrawSphere(currentTarget.transform.position + Vector3.up * 1.2f, 0.25f);
-    }
-
-    // 상태 라벨
-    Handles.Label(
-        transform.position + Vector3.up * 2.4f,
-        $"[Shooter]\n" +
-        $"current={((currentTarget != null) ? currentTarget.name : "null")}\n" +
-        $"last={((lastTarget != null) ? lastTarget.name : "null")}\n" +
-        $"isShooting={isShooting}\n" +
-        $"shootTimer={shootTimer:F2}\n" +
-        $"{debugReason}"
-    );
-}
-#endif
 
     protected override void DespawnSelf()
     {
@@ -342,28 +306,6 @@ private void OnDrawGizmosSelected()
                 break;
         }
     }
-
-#if UNITY_EDITOR
-    protected override void OnDrawGizmos()
-    {
-        base.OnDrawGizmos();
-
-        if (currentTarget == null) return;
-
-        // 🔴 타겟 라인/구체는 그대로
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, currentTarget.transform.position);
-        Gizmos.DrawSphere(currentTarget.transform.position, 0.5f);
-
-        // ✅ 텍스트를 "나 자신 머리 위"에 표시
-        Handles.Label(
-            transform.position + Vector3.up * 2.4f,
-            $"State: {state}\n" +
-           
-            $"CmdLock: {isCommandLocked}\n" +
-            $"Target: {currentTarget.name}"
-        );
-    }
-#endif
 }
+
 

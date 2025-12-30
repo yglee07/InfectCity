@@ -3,15 +3,13 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
-public abstract class CitizenBase: MonoBehaviour
+public abstract class CitizenBase : MonoBehaviour
 {
     public enum State { Idle, Wander, Flee }
 
     [Header("Idle Settings")]
     public float idleMin = 0.5f;
     public float idleMax = 2.0f;
-
-  
     protected float idleTimer = 0f;
 
     [Header("Speed")]
@@ -26,48 +24,46 @@ public abstract class CitizenBase: MonoBehaviour
     public float fleeEnterRadius = 5f;
     public float fleeExitRadius = 7f;
     public float fleeDistance = 8f;
- 
-    [SerializeField]
-    protected NavMeshAgent agent;
+
+    [SerializeField] protected NavMeshAgent agent;
     public NavMeshAgent Agent => agent;
- 
+
     protected State state;
     protected float timer;
     protected Vector3 wanderTarget;
     protected Vector3 fleeTarget;
-    [SerializeField]
-    protected Animator anim;
 
+    [SerializeField] protected Animator anim;
     protected string currentAnim = "";
 
     protected bool isCommandLocked;
 
-    [SerializeField]
-    protected AnimatedMesh animatedMesh;
-        
-        
-        // ===== Swim =====
+    [SerializeField] protected AnimatedMesh animatedMesh;
+
+    // ===== Swim =====
     protected bool isSwimming = false;
     int waterAreaMask;
 
     [Header("Debug")]
     public bool debugLog = false;
 
-    // ===== Door Flee =====
-    protected Door fleeDoor;
-    protected bool fleeingToDoor = false;
-    enum FleeStrategy
-{
-    None,
-    Door,
-    Direction
-}
+    // =========================================================
+    // Door Assist (보너스 옵션: 방향 도망 중 "문이 안전하면" 문 너머로 보정)
+    // - Door를 '목표'로 쓰지 않는다.
+    // - Door 때문에 멈추거나 판단이 고정되는 상태가 절대 나오지 않는다.
+    // - NavMeshPath 계산 / 코너 샘플링 전부 제거
+    // =========================================================
+    [Header("Door Assist (Flee Bonus)")]
+    [SerializeField] private bool useDoorAssist = true;
+    [SerializeField] private float doorAssistCheckInterval = 0.6f; // 문 후보 스캔 주기(시민당)
+    [SerializeField] private float doorAssistMaxDist = 7.0f;       // "가까운 문"만 본다
+    [SerializeField, Range(-1f, 1f)] private float doorAssistForwardDot = 0.35f; // 도망 방향 앞쪽(코사인)
+    [SerializeField] private float doorApproachDangerRadius = 1.8f; // 문 앞 위험 반경
+    [SerializeField] private float doorInsideDangerRadius = 2.2f;   // 문 안쪽(통과 지점) 위험 반경
+    [SerializeField] private float doorPassPushDistance = 2.0f;     // 문 통과 후 추가로 밀어줄 거리
 
-FleeStrategy fleeStrategy = FleeStrategy.None;
-    
-    // 🔥 디버그용: 문 선택 실패 이유
-    [System.NonSerialized]
-    public string doorSelectFailReason = "";
+    private float nextDoorAssistTime = 0f;
+    private Door lastAssistDoor = null; // 선택을 고정하지 않되, 디버그/안정감 용(선호 정도만)
 
     protected virtual void OnEnable()
     {
@@ -75,13 +71,8 @@ FleeStrategy fleeStrategy = FleeStrategy.None;
 
         NPCManager.Instance?.RegisterCitizen(this);
 
-        if (agent == null)
-            agent=GetComponent<NavMeshAgent>();
-
-
-
-        if (anim == null)
-            anim = GetComponentInChildren<Animator>();
+        if (agent == null) agent = GetComponent<NavMeshAgent>();
+        if (anim == null) anim = GetComponentInChildren<Animator>();
     }
 
     private void OnDisable()
@@ -91,34 +82,26 @@ FleeStrategy fleeStrategy = FleeStrategy.None;
 
     protected virtual void Awake()
     {
-        // 🔹 캐싱만 한다
-        if (agent == null)
-            agent = GetComponent<NavMeshAgent>();
-        if (anim == null)
-            anim = GetComponentInChildren<Animator>();
-        if(animatedMesh == null)
-            animatedMesh = GetComponentInChildren<AnimatedMesh>();
+        if (agent == null) agent = GetComponent<NavMeshAgent>();
+        if (anim == null) anim = GetComponentInChildren<Animator>();
+        if (animatedMesh == null) animatedMesh = GetComponentInChildren<AnimatedMesh>();
 
         waterAreaMask = 1 << NavMesh.GetAreaFromName("Water");
     }
 
     protected virtual void Start()
     {
-        // 🔹 "행동 시작"은 Start에서
         if (!agent.enabled)
             agent.enabled = true;
-
-        //ChangeState(State.Wander);
-        //SetNewWanderTarget();
     }
-   
-    [SerializeField] protected float thinkInterval = 0.2f; // 초당 5회
+
+    [SerializeField] protected float thinkInterval = 0.2f;
     protected float thinkTimer = 0f;
 
     protected virtual void Update()
     {
-         UpdateSwimmingState();
-         
+        UpdateSwimmingState();
+
         if (isCommandLocked)
             return;
 
@@ -144,39 +127,55 @@ FleeStrategy fleeStrategy = FleeStrategy.None;
                 return;
             }
         }
-        // Shoot 같은 1회성도 포함해서, 같으면 재생 안 하게
+
         if (currentAnim == animName)
             return;
 
         currentAnim = animName;
         animatedMesh.Play(animName);
     }
+
     protected void PlayMoveAnim(string landAnim)
     {
-        if (isSwimming)
-            PlayAnim("StickMan_Swim");
-        else
-            PlayAnim(landAnim);
+        if (isSwimming) PlayAnim("StickMan_Swim");
+        else PlayAnim(landAnim);
     }
-    bool IsOnWater()
+
+    bool CheckSwimming()
     {
         if (!agent.isOnNavMesh) return false;
 
-        NavMeshHit hit;
-        if (NavMesh.SamplePosition(transform.position, out hit, 0.2f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(transform.position, out var hit, 0.3f, NavMesh.AllAreas))
         {
-            int area = hit.mask;
-            return (area & (1 << NavMesh.GetAreaFromName("Water"))) != 0;
+            return (hit.mask & waterAreaMask) != 0;
         }
         return false;
+    }
+
+    void UpdateSwimmingState()
+    {
+        bool nowSwimming = CheckSwimming();
+        if (nowSwimming == isSwimming) return;
+
+        isSwimming = nowSwimming;
+        RefreshMoveAnimation();
+    }
+
+    void RefreshMoveAnimation()
+    {
+        switch (state)
+        {
+            case State.Idle: PlayMoveAnim("StickMan_Idle"); break;
+            case State.Wander: PlayMoveAnim("StickMan_Walk"); break;
+            case State.Flee: PlayMoveAnim("StickMan_Run"); break;
+        }
     }
 
     // ---------------- STATE CHANGE ----------------
     protected void ChangeState(State newState)
     {
         if (isCommandLocked)
-            return;   // ⭐ 이거 없으면 구조적으로 절대 해결 안 됨
-   
+            return;
 
         state = newState;
 
@@ -186,24 +185,23 @@ FleeStrategy fleeStrategy = FleeStrategy.None;
                 agent.isStopped = true;
                 agent.velocity = Vector3.zero;
                 agent.ResetPath();
-                idleTimer = Random.Range(idleMin, idleMax); // ⭐ 여기서 세팅
-                // 🔥 Flee 상태에서 벗어날 때 Door Flee 관련 변수 리셋
-                passingDoor = false;
-                doorStuckTimer = 0f;
-                fleeDoor = null;
-                fleeStrategy = FleeStrategy.None;
+                idleTimer = Random.Range(idleMin, idleMax);
                 PlayMoveAnim("StickMan_Idle");
+
+                // Door Assist state reset
+                lastAssistDoor = null;
+                nextDoorAssistTime = 0f;
                 break;
 
             case State.Wander:
                 agent.isStopped = false;
                 agent.speed = wanderSpeed;
                 PlayMoveAnim("StickMan_Walk");
-                // 🔥 Flee 상태에서 벗어날 때 Door Flee 관련 변수 리셋
-                passingDoor = false;
-                doorStuckTimer = 0f;
-                fleeDoor = null;
-                fleeStrategy = FleeStrategy.None;
+
+                // Door Assist state reset
+                lastAssistDoor = null;
+                nextDoorAssistTime = 0f;
+
                 SetNewWanderTarget();
                 break;
 
@@ -211,71 +209,13 @@ FleeStrategy fleeStrategy = FleeStrategy.None;
                 agent.isStopped = false;
                 agent.speed = fleeSpeed;
                 PlayMoveAnim("StickMan_Run");
-                // 🔥 Door Flee 관련 변수 리셋
-                passingDoor = false;
-                doorStuckTimer = 0f;
-                // 🔥 문 우선 시도
-                SelectFleeStrategy();
-                
+
+                // Door Assist state reset
+                lastAssistDoor = null;
+                nextDoorAssistTime = 0f;
+
+                // 방향 도망만 사용
                 TrySetNewFleeTarget();
-                break;
-        }
-    }
-    void SelectFleeStrategy()
-{
-    // 1️⃣ 문 전략 시도
-    if (TrySelectDoorFlee())
-    {
-        fleeStrategy = FleeStrategy.Door;
-        return;
-    }
-
-    // 2️⃣ 방향 전략
-    if (TrySetNewFleeTarget())
-    {
-        fleeStrategy = FleeStrategy.Direction;
-        return;
-    }
-
-    fleeStrategy = FleeStrategy.None;
-}
-
-    bool CheckSwimming()
-    {
-        if (!agent.isOnNavMesh) return false;
-
-        if (NavMesh.SamplePosition(
-            transform.position,
-            out var hit,
-            0.3f,
-            NavMesh.AllAreas))
-        {
-            return (hit.mask & waterAreaMask) != 0;
-        }
-        return false;
-    }
-    void UpdateSwimmingState()
-    {
-        bool nowSwimming = CheckSwimming();
-        if (nowSwimming == isSwimming) return;
-
-        isSwimming = nowSwimming;
-         RefreshMoveAnimation();
-    }
-    void RefreshMoveAnimation()
-    {
-        switch (state)
-        {
-            case State.Idle:
-                PlayMoveAnim("StickMan_Idle");
-                break;
-
-            case State.Wander:
-                PlayMoveAnim("StickMan_Walk");
-                break;
-
-            case State.Flee:
-                PlayMoveAnim("StickMan_Run");
                 break;
         }
     }
@@ -283,34 +223,23 @@ FleeStrategy fleeStrategy = FleeStrategy.None;
     // ---------------- WANDER ----------------
     protected void UpdateWander()
     {
-        // Idle 상태일 때
-        
-           
-        
-
         timer += Time.deltaTime;
 
-        // ⭐ Wander 도중 목적지 도착 체크
         if (agent.remainingDistance <= 0.4f)
         {
-            Log("Reached wander target → Set new wander target");
-
             timer = 0f;
             SetNewWanderTarget();
             return;
         }
 
-        // ⭐ 정기적으로 Idle 상태 진입
         if (timer >= changeWanderInterval)
         {
             timer = 0f;
 
             if (Random.value < 0.3f)
             {
-              
                 idleTimer = Random.Range(idleMin, idleMax);
-                ChangeState(State.Idle);   // ⭐ 핵심
-                Log($"Idle → Enter ({idleTimer:F2} sec)");
+                ChangeState(State.Idle);
                 return;
             }
 
@@ -321,10 +250,7 @@ FleeStrategy fleeStrategy = FleeStrategy.None;
         agent.isStopped = false;
 
         if (agent.velocity.sqrMagnitude > 0.01f)
-        {
             PlayMoveAnim("StickMan_Walk");
-        }
-
     }
 
     private void SetNewWanderTarget()
@@ -336,7 +262,6 @@ FleeStrategy fleeStrategy = FleeStrategy.None;
         {
             wanderTarget = hit.position;
             agent.SetDestination(wanderTarget);
-            Log($"WanderTarget = {wanderTarget}");
         }
     }
 
@@ -349,285 +274,46 @@ FleeStrategy fleeStrategy = FleeStrategy.None;
 
         idleTimer -= Time.deltaTime;
         if (idleTimer <= 0f)
-        {
             ChangeState(State.Wander);
-        }
     }
+
     // ---------------- FLEE ----------------
     [SerializeField] private float fleeRetargetInterval = 0.4f;
     private float fleeRetargetTimer = 0f;
 
-    private Vector3 debugFleeDir; // Gizmo용
     protected void UpdateFlee()
     {
-      
-        // 1️⃣ 좀비 없으면 그때만 종료
         if (!DetectZombie())
         {
             ChangeState(State.Wander);
             return;
         }
-        
-        // 🔥 방향 전략일 때도 주기적으로 문 전략을 다시 시도
-        if (fleeStrategy == FleeStrategy.Direction)
+
+        // 목적지 갱신(기존 구조 유지)
+        fleeRetargetTimer += Time.deltaTime;
+        if (fleeRetargetTimer >= fleeRetargetInterval)
         {
-            // 문 전략 재평가 (더 나은 문이 있을 수 있음)
-            if (TrySelectDoorFlee())
-            {
-                fleeStrategy = FleeStrategy.Door;
-            }
+            fleeRetargetTimer = 0f;
+            TrySetNewFleeTarget();
+            return;
         }
-        
-    switch (fleeStrategy)
+
+        // 도착/경로 없음 보정
+        if (!agent.pathPending && agent.remainingDistance <= 0.6f)
         {
-            case FleeStrategy.Door:
-                UpdateDoorFlee();
-                break;
-
-            case FleeStrategy.Direction:
-                UpdateDirectionFlee();
-                break;
-
-            default:
-                SelectFleeStrategy();
-                break;
+            TrySetNewFleeTarget();
+            fleeRetargetTimer = 0f;
+            return;
         }
-        // 2️⃣ 목적지 거의 도착했으면 즉시 다음 도망
-      
-    }
- bool passingDoor = false;
-float doorStuckTimer = 0f;
-const float doorStuckTimeout = 2f; // 2초 동안 움직이지 않으면 재시도
 
-void UpdateDoorFlee()
-{
-    if (fleeDoor == null)
-    {
-        passingDoor = false;
-        doorStuckTimer = 0f;
-        SelectFleeStrategy();
-        return;
-    }
-
-    // 🔥 접근점까지의 경로가 제대로 설정되어 있는지 확인
-    Vector3 approachPoint = fleeDoor.GetApproachPoint();
-    float distToApproach = Vector3.Distance(transform.position, approachPoint);
-    
-    // 🔥 경로가 없거나 목적지가 접근점이 아니면 재설정
-    if (!agent.hasPath || Vector3.Distance(agent.destination, approachPoint) > 0.5f)
-    {
-        NavMeshPath testPath = new NavMeshPath();
-        if (agent.CalculatePath(approachPoint, testPath))
+        if (!agent.hasPath)
         {
-            // PathComplete 또는 PathPartial 허용
-            if (testPath.status != NavMeshPathStatus.PathInvalid)
-            {
-                agent.SetDestination(approachPoint);
-                agent.isStopped = false;
-                doorStuckTimer = 0f;
-            }
-        }
-    }
-
-    // 🔥 경로 상태 체크
-    bool pathBlocked = !agent.hasPath || 
-                       agent.pathStatus == NavMeshPathStatus.PathInvalid;
-
-    // 🔥 제자리 걸음 감지 (속도가 거의 없고 remainingDistance가 일정 시간 동안 변하지 않음)
-    bool isStuck = agent.velocity.sqrMagnitude < 0.01f && agent.remainingDistance > 0.5f && distToApproach > 0.5f;
-    
-    if (pathBlocked || isStuck)
-    {
-        doorStuckTimer += Time.deltaTime;
-        
-        // 🔥 경로가 막혀있거나 제자리 걸음이면 재시도
-        float timeout = pathBlocked ? 0.5f : doorStuckTimeout;
-        
-        if (doorStuckTimer >= timeout)
-        {
-            // 🔥 접근점으로 경로 재설정 시도
-            NavMeshPath retryPath = new NavMeshPath();
-            if (agent.CalculatePath(approachPoint, retryPath))
-            {
-                // PathComplete 또는 PathPartial 허용
-                if (retryPath.status != NavMeshPathStatus.PathInvalid)
-                {
-                    agent.SetDestination(approachPoint);
-                    agent.isStopped = false;
-                    doorStuckTimer = 0f;
-                }
-                else
-                {
-                    // 경로를 찾을 수 없으면 방향 전략으로 전환
-                    passingDoor = false;
-                    doorStuckTimer = 0f;
-                    fleeDoor = null;
-                    fleeStrategy = FleeStrategy.None;
-                    SelectFleeStrategy();
-                    return;
-                }
-            }
-            else
-            {
-                // 경로 계산 실패 시 방향 전략으로 전환
-                passingDoor = false;
-                doorStuckTimer = 0f;
-                fleeDoor = null;
-                fleeStrategy = FleeStrategy.None;
-                SelectFleeStrategy();
-                return;
-            }
-        }
-    }
-    else
-    {
-        doorStuckTimer = 0f; // 움직이고 있으면 타이머 리셋
-    }
-
-    // 🔥 에이전트가 멈춰있으면 강제로 재개
-    if (agent.isStopped && !passingDoor)
-    {
-        agent.isStopped = false;
-    }
-
-    // 1️⃣ 문 앞 도착 (더 가까운 거리로 체크하고, 실제로 도착했는지 확인)
-    if (!passingDoor)
-    {
-        float distToDoor = Vector3.Distance(transform.position, fleeDoor.GetApproachPoint());
-        float distToDoorPos = Vector3.Distance(transform.position, fleeDoor.transform.position);
-        
-        // 🔥 문 접근점에 충분히 가까웠거나, 경로가 완료되었고 거리가 충분히 가까울 때
-        bool reachedApproachPoint = distToDoor <= 0.6f || (!agent.pathPending && agent.remainingDistance <= 0.5f && distToDoor <= 1.0f);
-        
-        // 🔥 문에 가까이 가면 문이 열리도록 함 (Door의 CheckCitizenIntent가 처리)
-        // 문이 열릴 때까지 기다림
-        if (reachedApproachPoint || distToDoorPos <= 1.0f)
-        {
-            // 🔥 문이 통과 가능한지 확인
-            if (fleeDoor.IsPassable())
-            {
-                // 문이 열려있으면 통과 지점으로 이동
-                Vector3 pass = fleeDoor.GetPassThroughPoint(transform.position);
-                NavMeshPath passPath = new NavMeshPath();
-                
-                // 통과 지점까지 경로 계산
-                if (agent.CalculatePath(pass, passPath) && 
-                    passPath.status == NavMeshPathStatus.PathComplete)
-                {
-                    if (NavMesh.SamplePosition(pass, out var hit, 2f, NavMesh.AllAreas))
-                    {
-                        passingDoor = true;
-                        doorStuckTimer = 0f;
-                        agent.SetDestination(hit.position);
-                        agent.isStopped = false;
-                    }
-                    else
-                    {
-                        // 통과 지점을 찾을 수 없으면 방향 전략으로 전환
-                        passingDoor = false;
-                        doorStuckTimer = 0f;
-                        fleeDoor = null;
-                        SelectFleeStrategy();
-                    }
-                }
-                else
-                {
-                    // 통과 경로를 찾을 수 없으면 잠시 대기 (문이 더 열릴 수 있음)
-                    // 또는 방향 전략으로 전환
-                    if (distToDoorPos > 0.8f)
-                    {
-                        // 문에서 너무 멀리 떨어져 있으면 방향 전략으로 전환
-                        passingDoor = false;
-                        doorStuckTimer = 0f;
-                        fleeDoor = null;
-                        SelectFleeStrategy();
-                    }
-                    else
-                    {
-                        // 문 앞에서 대기 (문이 더 열릴 때까지)
-                        agent.isStopped = true;
-                    }
-                }
-            }
-            else
-            {
-                // 🔥 문이 아직 닫혀있으면 문 앞에서 대기
-                // Door의 CheckCitizenIntent가 문을 열어줄 것임
-                if (distToDoorPos <= 1.0f)
-                {
-                    // 문 앞에서 대기
-                    agent.isStopped = true;
-                    // 접근점으로 계속 이동 시도 (문이 열릴 수 있도록)
-                    if (distToDoor > 0.3f)
-                    {
-                        agent.isStopped = false;
-                        agent.SetDestination(fleeDoor.GetApproachPoint());
-                    }
-                }
-            }
+            TrySetNewFleeTarget();
+            fleeRetargetTimer = 0f;
             return;
         }
     }
 
-    
-   // 2️⃣ 문 완전 통과 → 즉시 방향 도망
-if (passingDoor)
-{
-    float distToPassPoint = Vector3.Distance(
-        transform.position,
-        fleeDoor.GetPassThroughPoint(transform.position));
-
-    if (distToPassPoint <= 0.8f ||
-        (!agent.pathPending && agent.remainingDistance <= 0.5f))
-    {
-        // 🔥 문은 탈출 트리거로 끝
-        fleeDoor = null;
-        passingDoor = false;
-        doorStuckTimer = 0f;
-
-        fleeStrategy = FleeStrategy.Direction;
-        TrySetNewFleeTarget();   // 🔥 바로 도망
-        return;
-    }
-}
-
-}
-
-void UpdateDirectionFlee()
-{
-    // 🔥 매 프레임마다 문 전략을 먼저 확인 (문이 있으면 무조건 문으로!)
-    if (TrySelectDoorFlee())
-    {
-        fleeStrategy = FleeStrategy.Door;
-        fleeRetargetTimer = 0f;
-        return;
-    }
-    
-    // 문 전략 실패 시에만 방향 전략
-    fleeRetargetTimer += Time.deltaTime;
-    if (fleeRetargetTimer >= fleeRetargetInterval)
-    {
-        fleeRetargetTimer = 0f;
-        TrySetNewFleeTarget();
-        return;
-    }
-
-    // 목적지 도착 체크
-    if (!agent.pathPending && agent.remainingDistance <= 0.6f)
-    {
-        TrySetNewFleeTarget();
-        fleeRetargetTimer = 0f;
-        return;
-    }
-
-    // 혹시 경로가 없으면 강제 재설정
-    if (!agent.hasPath)
-    {
-        TrySetNewFleeTarget();
-        fleeRetargetTimer = 0f;
-        return;
-    }
-}
     protected bool TrySetNewFleeTarget()
     {
         var zombies = NPCManager.Instance.Zombies;
@@ -636,11 +322,17 @@ void UpdateDirectionFlee()
 
         Vector3 myPos = transform.position;
 
+        // 1) 주변 좀비만 모아 fleeDir 계산 (기존 방식 유지)
         List<ZombieNavMesh> nearby = new();
-        foreach (var z in zombies)
+        float exitR2 = fleeExitRadius * fleeExitRadius;
+
+        for (int i = 0; i < zombies.Count; i++)
         {
+            var z = zombies[i];
             if (z == null || !z.gameObject.activeInHierarchy) continue;
-            if (Vector3.Distance(myPos, z.transform.position) <= fleeExitRadius)
+
+            float d2 = (z.transform.position - myPos).sqrMagnitude;
+            if (d2 <= exitR2)
                 nearby.Add(z);
         }
 
@@ -648,10 +340,11 @@ void UpdateDirectionFlee()
             return false;
 
         Vector3 fleeDir = Vector3.zero;
-        foreach (var z in nearby)
+        for (int i = 0; i < nearby.Count; i++)
         {
-            Vector3 dir = myPos - z.transform.position;
-            fleeDir += dir.normalized;
+            Vector3 dir = myPos - nearby[i].transform.position;
+            if (dir.sqrMagnitude > 0.0001f)
+                fleeDir += dir.normalized;
         }
 
         if (fleeDir.sqrMagnitude < 0.001f)
@@ -659,21 +352,26 @@ void UpdateDirectionFlee()
 
         fleeDir.Normalize();
 
-        return
-            TrySetFleeTarget(myPos, fleeDir, nearby, 0) ||
+        // 2) 후보 방향(기존 구조 유지)
+        if (TrySetFleeTarget(myPos, fleeDir, nearby, 0) ||
             TrySetFleeTarget(myPos, fleeDir, nearby, 45) ||
             TrySetFleeTarget(myPos, fleeDir, nearby, -45) ||
             TrySetFleeTarget(myPos, fleeDir, nearby, 90) ||
-            TrySetFleeTarget(myPos, fleeDir, nearby, -90);
+            TrySetFleeTarget(myPos, fleeDir, nearby, -90))
+        {
+            // 3) Door Assist: "도망 목표"가 아니라 fleeTarget을 '살짝 보정'
+            if (useDoorAssist)
+                TryApplyDoorAssist(ref fleeTarget, fleeDir, nearby);
+
+            agent.SetDestination(fleeTarget);
+            agent.isStopped = false;
+            return true;
+        }
+
+        return false;
     }
 
-
-    private bool TrySetFleeTarget(
-    Vector3 myPos,
-    Vector3 baseDir,
-    List<ZombieNavMesh> nearby,
-    float angleDeg
-)
+    private bool TrySetFleeTarget(Vector3 myPos, Vector3 baseDir, List<ZombieNavMesh> nearby, float angleDeg)
     {
         Vector3 dir = Quaternion.Euler(0, angleDeg, 0) * baseDir;
         dir.Normalize();
@@ -689,7 +387,10 @@ void UpdateDirectionFlee()
         if (Vector3.Dot(dir, toSample) < 0.5f)
             return false;
 
-        // 경로 계산
+        // (중요) 여기서는 기존처럼 path.CalculatePath + corner 검사까지 다 하면 비싸짐.
+        // 500좀비 환경에서 시민 수가 많으면 여기서 폭발하니까,
+        // "PathComplete만" 확인하거나, 아예 생략하는 쪽이 모바일에서 더 안전함.
+        // 최소 유지 버전: PathComplete만 확인.
         NavMeshPath path = new NavMeshPath();
         if (!agent.CalculatePath(hit.position, path))
             return false;
@@ -697,39 +398,107 @@ void UpdateDirectionFlee()
         if (path.status != NavMeshPathStatus.PathComplete)
             return false;
 
-        // ===============================
-        // 경로 안전성 검사 (좀비 쪽으로 휘는지)
-        // ===============================
-        // ===============================
-        // 경로 위험도 검사 (중간 경로가 좀비에 가까워지는지)
-        // ===============================
-        foreach (var corner in path.corners)
-        {
-            foreach (var z in nearby)
-            {
-                float startDist = Vector3.Distance(myPos, z.transform.position);
-                float cornerDist = Vector3.Distance(corner, z.transform.position);
-
-                // ⚠️ 경로 중간에서 좀비에게 더 가까워지면 폐기
-                if (cornerDist < startDist - 0.2f)
-                {
-                    // 이 목적지는 "좀비를 피해 도망"이 아니라
-                    // "좀비를 스쳐서 도망"이 됨 → 부자연
-                    return false;
-                }
-            }
-        }
-
-
-        // ===============================
-        // 최종 적용
-        // ===============================
         fleeTarget = hit.position;
-        agent.SetDestination(fleeTarget);
         return true;
     }
 
+    // =========================================================
+    // Door Assist (핵심 변경)
+    // - Door를 목표로 삼지 않음
+    // - agent.isStopped 절대 안 건드림 (멈춤/멍때림 방지)
+    // - NavMeshPath / corner 샘플링 제거
+    // - "가까운 문" + "도망 방향 앞쪽" + "문이 현재 통과 가능" + "문 앞/안쪽 좀비 없을 때"만 적용
+    // =========================================================
+    private void TryApplyDoorAssist(ref Vector3 currentFleeTarget, Vector3 fleeDir, List<ZombieNavMesh> nearbyZombies)
+    {
+        if (Time.time < nextDoorAssistTime)
+            return;
 
+        nextDoorAssistTime = Time.time + doorAssistCheckInterval;
+
+        var doors = NPCManager.Instance.Doors; // 프로젝트에 존재한다고 가정(기존 CitizenBase가 참조 중)
+        if (doors == null || doors.Count == 0)
+            return;
+
+        Vector3 myPos = transform.position;
+
+        Door best = null;
+        float bestScore = float.MinValue;
+
+        float maxDist2 = doorAssistMaxDist * doorAssistMaxDist;
+
+        for (int i = 0; i < doors.Count; i++)
+        {
+            var door = doors[i];
+            if (door == null) continue;
+
+            // 문 접근점(문 앞)을 쓰되, "목표"로는 쓰지 않는다.
+            Vector3 ap = door.GetApproachPoint();
+
+            Vector3 toDoor = ap - myPos;
+            float d2 = toDoor.sqrMagnitude;
+            if (d2 > maxDist2)
+                continue;
+
+            // 도망 방향 앞쪽만
+            float dot = Vector3.Dot(fleeDir, toDoor.normalized);
+            if (dot < doorAssistForwardDot)
+                continue;
+
+            // 문이 지금 통과 가능한 상태가 아니면 보너스 옵션 적용 X
+            if (!door.IsPassable())
+                continue;
+
+            // 문 앞/문 안쪽 즉시 위험 체크: "주변 좀비"만으로 O(k) 처리
+            if (IsZombieNearPoint(nearbyZombies, ap, doorApproachDangerRadius))
+                continue;
+
+            Vector3 passPoint = door.GetPassThroughPoint(myPos);
+            if (IsZombieNearPoint(nearbyZombies, passPoint, doorInsideDangerRadius))
+                continue;
+
+            // 점수: 가까울수록 + 도망 방향 정렬될수록 + 이전에 쓰던 문이면 약간 가중
+            float dist = Mathf.Sqrt(d2);
+            float score = (dot * 2.0f) - (dist * 0.15f);
+            if (door == lastAssistDoor)
+                score += 0.25f;
+
+            if (score > bestScore)
+            {
+                bestScore = score;
+                best = door;
+            }
+        }
+
+        if (best == null)
+            return;
+
+        // 문 너머로 살짝 밀어준 목표를 샘플링해서 fleeTarget을 "보정"만 한다.
+        Vector3 pass = best.GetPassThroughPoint(myPos);
+        Vector3 pushed = pass + (fleeDir * doorPassPushDistance);
+
+        if (NavMesh.SamplePosition(pushed, out var hit, 2.5f, NavMesh.AllAreas))
+        {
+            currentFleeTarget = hit.position;
+            lastAssistDoor = best;
+        }
+    }
+
+    private bool IsZombieNearPoint(List<ZombieNavMesh> nearbyZombies, Vector3 point, float radius)
+    {
+        float r2 = radius * radius;
+
+        for (int i = 0; i < nearbyZombies.Count; i++)
+        {
+            var z = nearbyZombies[i];
+            if (z == null || !z.gameObject.activeInHierarchy) continue;
+
+            float d2 = (z.transform.position - point).sqrMagnitude;
+            if (d2 <= r2)
+                return true;
+        }
+        return false;
+    }
 
     // ---------------- DETECT ZOMBIE ----------------
     protected bool DetectZombie()
@@ -740,17 +509,14 @@ void UpdateDirectionFlee()
         var zombies = NPCManager.Instance.Zombies;
         Vector3 myPos = transform.position;
 
-        foreach (var z in zombies)
+        for (int i = 0; i < zombies.Count; i++)
         {
+            var z = zombies[i];
             if (z == null || !z.gameObject.activeInHierarchy) continue;
 
             float dist2 = (z.transform.position - myPos).sqrMagnitude;
-
             if (dist2 <= r2)
-            {
-                Log($"DetectZombie → {z.name}, dist={Mathf.Sqrt(dist2):F2}");
                 return true;
-            }
         }
 
         return false;
@@ -759,12 +525,9 @@ void UpdateDirectionFlee()
     // ---------------- INFECT ----------------
     public virtual void Infect(Faction faction)
     {
-        Log($"INFECTED → Turns into {faction} zombie");
-
-       
         DespawnSelf();
-        string key;
 
+        string key;
         if (faction == Faction.Green)
         {
             key = (Random.value < NPCManager.Instance.mutantChance)
@@ -781,7 +544,7 @@ void UpdateDirectionFlee()
         }
         else
         {
-            key = NPCManager.Instance.greenZombiePool; // 기본값
+            key = NPCManager.Instance.greenZombiePool;
         }
 
         GameObject zombieObj = PoolManager.Instance.Spawn(key, transform.position, Quaternion.identity);
@@ -790,291 +553,21 @@ void UpdateDirectionFlee()
 
         NPCManager.Instance.AddInfectCount(faction);
     }
+
     protected virtual void DespawnSelf()
     {
-        // 기본 구현은 막아두거나 경고
         Debug.LogError("DespawnSelf() not overridden!");
     }
 
-
-    private void OnDrawGizmosSelected()
-    {
-        if (agent == null) return;
-
-        // 현재 목적지
-        Gizmos.color = (state == State.Flee) ? Color.red : Color.green;
-        Gizmos.DrawSphere(agent.destination, 1.0f);
-
-        // 현재 위치 → 목적지 선
-        Gizmos.DrawLine(transform.position, agent.destination);
-    }
-  #if UNITY_EDITOR
-protected virtual void OnDrawGizmos()
-{
-    if (!Application.isPlaying) return;
-    if (agent == null) return;
-if (agent.hasPath)
-{
-    Gizmos.color = Color.red;
-    foreach (var c in agent.path.corners)
-        Gizmos.DrawWireSphere(c, 0.3f);
-}
-    // =============================
-    // 1️⃣ 상태 텍스트
-    // =============================
-    Vector3 pos = transform.position + Vector3.up * 2.0f;
-
-    string text = $"State: {state}\n";
-    text += $"CmdLock: {isCommandLocked}\n";
-    
-    // 🔥 Flee 상태일 때 전략 정보 표시
-    if (state == State.Flee)
-    {
-        text += $"Strategy: {fleeStrategy}\n";
-        
-        if (fleeStrategy == FleeStrategy.Door)
-        {
-            if (fleeDoor != null)
-            {
-                float distToDoor = Vector3.Distance(transform.position, fleeDoor.GetApproachPoint());
-                text += $"Door: {fleeDoor.name}\n";
-                text += $"Dist: {distToDoor:F1}m\n";
-                text += $"Passing: {passingDoor}\n";
-                
-                // 🔥 경로 상태 표시
-                if (agent.hasPath)
-                {
-                    text += $"Path: {agent.pathStatus}\n";
-                    text += $"Remaining: {agent.remainingDistance:F1}m\n";
-                    text += $"Velocity: {agent.velocity.magnitude:F2}\n";
-                }
-                else
-                {
-                    text += "Path: NO PATH!\n";
-                }
-                
-                // 목적지와 접근점 거리 확인
-                Vector3 approachPoint = fleeDoor.GetApproachPoint();
-                float destDist = Vector3.Distance(agent.destination, approachPoint);
-                if (destDist > 0.5f)
-                {
-                    text += $"Dest mismatch: {destDist:F1}m\n";
-                }
-            }
-            else
-            {
-                text += "Door: NULL!\n";
-            }
-        }
-        else if (fleeStrategy == FleeStrategy.Direction)
-        {
-            text += $"Reason: {doorSelectFailReason}\n";
-            
-            // 문 선택 실패 이유 상세 표시
-            var doors = NPCManager.Instance?.Doors;
-            if (doors != null && doors.Count > 0)
-            {
-                int doorCount = 0;
-                int tooFar = 0;
-                int noPath = 0;
-                int pathInvalid = 0;
-                int pathTooLong = 0;
-                
-                Vector3 myPos = transform.position;
-                float maxDist = Mathf.Max(fleeDistance * 4f, 30f);
-                
-                foreach (var door in doors)
-                {
-                    if (door == null) continue;
-                    doorCount++;
-                    
-                    Vector3 ap = door.GetApproachPoint();
-                    float dist = Vector3.Distance(myPos, ap);
-                    
-                    if (dist > maxDist)
-                    {
-                        tooFar++;
-                        continue;
-                    }
-                    
-                    NavMeshPath path = new NavMeshPath();
-                    if (!agent.CalculatePath(ap, path))
-                    {
-                        noPath++;
-                        continue;
-                    }
-                    
-                    if (path.status == NavMeshPathStatus.PathInvalid)
-                    {
-                        pathInvalid++;
-                        continue;
-                    }
-                    
-                    float pathLength = 0f;
-                    if (path.corners.Length > 1)
-                    {
-                        for (int i = 0; i < path.corners.Length - 1; i++)
-                        {
-                            pathLength += Vector3.Distance(path.corners[i], path.corners[i + 1]);
-                        }
-                        if (pathLength > dist * 5f)
-                        {
-                            pathTooLong++;
-                        }
-                    }
-                }
-                
-                text += $"Doors: {doorCount}\n";
-                if (tooFar > 0) text += $"TooFar: {tooFar}\n";
-                if (noPath > 0) text += $"NoPath: {noPath}\n";
-                if (pathInvalid > 0) text += $"Invalid: {pathInvalid}\n";
-                if (pathTooLong > 0) text += $"TooLong: {pathTooLong}\n";
-            }
-            else
-            {
-                text += "Doors: 0\n";
-            }
-        }
-        else
-        {
-            text += "Strategy: None\n";
-        }
-    }
-
-    Handles.Label(pos, text);
-
-    // =============================
-    // 2️⃣ NavMesh Area 디버그 (UI 패키지 방식)
-    // =============================
-    if (agent.isOnNavMesh &&
-        NavMesh.SamplePosition(
-            transform.position,
-            out var hit,
-            0.3f,
-            NavMesh.AllAreas))
-    {
-        int waterMask = 1 << NavMesh.GetAreaFromName("Water");
-        bool isWater = (hit.mask & waterMask) != 0;
-
-        // 색상
-        Gizmos.color = isWater ? Color.blue : Color.green;
-
-        // 발밑 포인트
-        Gizmos.DrawSphere(hit.position, 0.25f);
-        Gizmos.DrawLine(transform.position, hit.position);
-
-        // 텍스트
-        Handles.Label(
-            hit.position + Vector3.up * 0.4f,
-            isWater ? "AREA: WATER" : "AREA: LAND"
-        );
-    }
-
-    // =============================
-    // 3️⃣ 경로 시각화
-    // =============================
-    if (agent.hasPath && agent.path.corners.Length > 0)
-    {
-        // 상태에 따라 색상 변경
-        Color pathColor = state == State.Flee ? Color.red : 
-                         state == State.Wander ? Color.green : 
-                         Color.yellow;
-        
-        // 경로 선 그리기
-        Gizmos.color = pathColor;
-        Vector3[] corners = agent.path.corners;
-        
-        // 현재 위치에서 첫 번째 코너까지
-        Gizmos.DrawLine(transform.position, corners[0]);
-        
-        // 코너들 사이 선 그리기
-        for (int i = 0; i < corners.Length - 1; i++)
-        {
-            Gizmos.DrawLine(corners[i], corners[i + 1]);
-        }
-        
-        // 목적지 표시
-        Gizmos.color = pathColor;
-        Gizmos.DrawSphere(agent.destination, 0.3f);
-        
-        // 각 코너에 작은 구체 표시
-        Gizmos.color = pathColor * 0.7f;
-        for (int i = 0; i < corners.Length; i++)
-        {
-            Gizmos.DrawSphere(corners[i], 0.15f);
-        }
-        
-        // 문 전략일 때 문 위치 표시
-        if (fleeStrategy == FleeStrategy.Door && fleeDoor != null)
-        {
-            Gizmos.color = Color.magenta;
-            Vector3 doorPos = fleeDoor.transform.position;
-            Gizmos.DrawWireSphere(doorPos, 0.5f);
-            Gizmos.DrawLine(transform.position, doorPos);
-            
-            // 접근점 표시
-            Vector3 approachPoint = fleeDoor.GetApproachPoint();
-            Gizmos.color = Color.cyan;
-            Gizmos.DrawSphere(approachPoint, 0.25f);
-        }
-    }
-    else if (agent.destination != Vector3.zero)
-    {
-        // 경로가 없지만 목적지가 있을 때 (경로 계산 중이거나 막혀있을 때)
-        Gizmos.color = Color.gray;
-        Gizmos.DrawLine(transform.position, agent.destination);
-        Gizmos.DrawWireSphere(agent.destination, 0.3f);
-    }
-}
-#endif
-
-bool IsOnWater(NavMeshHit hit)
-{
-    int waterMask = 1 << NavMesh.GetAreaFromName("Water");
-    return (hit.mask & waterMask) != 0;
-}
-void DebugNavMeshArea_UI()
-{
-    if (!agent.isOnNavMesh)
-    {
-        Debug.Log("[NavMesh] Agent not on NavMesh");
-        return;
-    }
-
-    if (NavMesh.SamplePosition(
-        transform.position,
-        out var hit,
-        0.3f,
-        NavMesh.AllAreas))
-    {
-        int waterMask = 1 << NavMesh.GetAreaFromName("Water");
-
-        bool isWater = (hit.mask & waterMask) != 0;
-
-        Debug.Log(
-            $"[NavMesh UI] " +
-            $"IsWater={isWater}, " +
-            $"HitMask={hit.mask}, " +
-            $"WaterMask={waterMask}"
-        );
-    }
-}
-
     public virtual void RunTo(Vector3 target)
     {
-        Debug.Log($"[RunTo] {name} → target={target}");
-
         isCommandLocked = true;
-        agent.speed = fleeSpeed; // 임시 가속
-
+        agent.speed = fleeSpeed;
         agent.isStopped = false;
         agent.SetDestination(target);
-
-        Debug.Log($"[RunTo] locked={isCommandLocked}, dest={agent.destination}");
-
         PlayMoveAnim("StickMan_Run");
     }
- 
+
     public virtual void ResetForReuse()
     {
         isCommandLocked = false;
@@ -1082,15 +575,13 @@ void DebugNavMeshArea_UI()
         idleTimer = 0f;
         timer = 0f;
 
-        state = State.Idle; // 기본값
+        state = State.Idle;
         currentAnim = "";
-        
-        // Door Flee 관련 변수 리셋
-        fleeDoor = null;
-        passingDoor = false;
-        doorStuckTimer = 0f;
-        fleeStrategy = FleeStrategy.None;
-        
+
+        // Door Assist reset
+        lastAssistDoor = null;
+        nextDoorAssistTime = 0f;
+
         if (agent != null && agent.isOnNavMesh)
         {
             agent.isStopped = false;
@@ -1100,258 +591,15 @@ void DebugNavMeshArea_UI()
 
         if (anim != null)
         {
-            anim.Rebind();     // 🔥 핵심
+            anim.Rebind();
             anim.Update(0f);
         }
     }
 
-   protected bool TrySelectDoorFlee()
-{
-    var doors = NPCManager.Instance.Doors;
-    if (doors == null || doors.Count == 0)
-    {
-        doorSelectFailReason = "No doors in manager";
-        return false;
-    }
-
-    Vector3 myPos = transform.position;
-
-    // 🔥 좀비 위치 계산 (도망 방향 결정용)
-    var zombies = NPCManager.Instance.Zombies;
-    Vector3 fleeDir = Vector3.zero;
-    int zombieCount = 0;
-    if (zombies != null && zombies.Count > 0)
-    {
-        foreach (var z in zombies)
-        {
-            if (z == null || !z.gameObject.activeInHierarchy) continue;
-            float distToZombie = Vector3.Distance(myPos, z.transform.position);
-            if (distToZombie <= fleeExitRadius)
-            {
-                Vector3 dir = (myPos - z.transform.position).normalized;
-                fleeDir += dir;
-                zombieCount++;
-            }
-        }
-        if (zombieCount > 0)
-            fleeDir /= zombieCount;
-        fleeDir.Normalize();
-    }
-
-    Door best = null;
-    float bestDist = float.MaxValue; // 🔥 거리 기반으로 먼저 선택 (가까운 문 우선)
-
-    foreach (var door in doors)
-    {
-        if (door == null) continue;
-
-        Vector3 ap = door.GetApproachPoint();
-        float dist = Vector3.Distance(myPos, ap);
-
- // 🔥 추가 1: 문 앞에 좀비 있으면 스킵 (자살 방지)
-    if (IsZombieNearPoint(ap, 1.8f))
-        continue;
-        // 🔥 거리 조건을 매우 관대하게 (문이 멀어도 선택 가능, 최대 30m)
-        float maxDist = Mathf.Max(fleeDistance * 4f, 30f);
-        if (dist > maxDist)
-            continue;
-
-        // 🔥 접근점까지의 경로 계산 (접근점은 문 앞이므로 obstacle 밖에 있어야 함)
-        NavMeshPath path = new NavMeshPath();
-        if (!agent.CalculatePath(ap, path))
-            continue;
-        
-        // 🔥 PathComplete 또는 PathPartial 허용 (PathPartial도 허용 - obstacle 때문에 우회 가능)
-        if (path.status == NavMeshPathStatus.PathInvalid)
-            continue;
-    // 🔥 경로 중간에 좀비 있으면 이 문은 버린다
-    if (!IsPathSafeFromZombies(path, 1.5f))
-    {
-        doorSelectFailReason = "Zombie on path";
-        continue;
-    }
-        // 🔥 경로 길이 체크를 매우 관대하게 (우회 경로도 허용)
-        float pathLength = 0f;
-        if (path.corners.Length > 1)
-        {
-            for (int i = 0; i < path.corners.Length - 1; i++)
-            {
-                pathLength += Vector3.Distance(path.corners[i], path.corners[i + 1]);
-            }
-            // 경로 길이 체크를 매우 관대하게 (5배까지 허용)
-            float maxPathLength = dist * 5f;
-            if (pathLength > maxPathLength)
-                continue;
-        }
-
-        // 🔥 거리 기반으로 선택 (가까운 문 우선)
-        // 거리가 같거나 비슷하면 방향과 효율성을 고려
-        if (dist < bestDist - 0.5f) // 0.5m 이상 가까우면 무조건 선택
-        {
-            bestDist = dist;
-            best = door;
-        }
-        else if (Mathf.Abs(dist - bestDist) <= 0.5f && best != null) // 거리가 비슷하면 (0.5m 이내)
-        {
-            // 방향과 효율성을 고려하여 선택
-            float currentScore = 0f;
-            float bestDoorScore = 0f;
-            
-            // 방향 점수
-            if (zombieCount > 0 && fleeDir.sqrMagnitude > 0.1f)
-            {
-                Vector3 toDoor = (ap - myPos).normalized;
-                float dot = Vector3.Dot(fleeDir, toDoor);
-                currentScore += (dot + 1f) * 0.5f * 100f;
-                
-                Vector3 bestDoorAp = best.GetApproachPoint();
-                Vector3 toBestDoor = (bestDoorAp - myPos).normalized;
-                float bestDot = Vector3.Dot(fleeDir, toBestDoor);
-                bestDoorScore += (bestDot + 1f) * 0.5f * 100f;
-            }
-            
-            // 효율성 점수
-            if (pathLength > 0)
-            {
-                float efficiency = dist / pathLength;
-                currentScore += efficiency * 50f;
-            }
-            
-            if (currentScore > bestDoorScore)
-            {
-                bestDist = dist;
-                best = door;
-            }
-        }
-    }
-
-    if (best == null)
-    {
-        // 🔥 문을 찾지 못했지만, 문이 존재한다면 가장 가까운 문이라도 선택 시도
-        Door closestDoor = null;
-        float closestDist = float.MaxValue;
-        int checkedDoors = 0;
-        
-        foreach (var door in doors)
-        {
-            if (door == null) continue;
-            checkedDoors++;
-            float dist = Vector3.Distance(myPos, door.transform.position);
-            if (dist < closestDist)
-            {
-                closestDist = dist;
-                closestDoor = door;
-            }
-        }
-        
-        // 가장 가까운 문이 50m 이내면 강제로 선택
-        if (closestDoor != null && closestDist <= 50f)
-        {
-            best = closestDoor;
-            doorSelectFailReason = $"Fallback: {closestDoor.name} ({closestDist:F1}m)";
-        }
-        else
-        {
-            doorSelectFailReason = $"All {checkedDoors} doors rejected (closest: {closestDist:F1}m)";
-            return false;
-        }
-    }
-    else
-    {
-        doorSelectFailReason = $"Selected: {best.name} (dist: {bestDist:F1}m)";
-    }
-
-    // 🔥 실제로 경로를 설정하고 유효성 재확인
-    Vector3 bestAp = best.GetApproachPoint();
-    
-    // 🔥 경로 재계산 및 설정
-    NavMeshPath finalPath = new NavMeshPath();
-    if (agent.CalculatePath(bestAp, finalPath))
-    {
-        // PathComplete 또는 PathPartial 허용
-        if (finalPath.status != NavMeshPathStatus.PathInvalid)
-        {
-            agent.SetDestination(bestAp);
-            agent.isStopped = false; // 🔥 확실히 이동 시작
-            fleeDoor = best;
-            doorStuckTimer = 0f;
-            doorSelectFailReason = $"Selected: {best.name}";
-            return true;
-        }
-        else
-        {
-            doorSelectFailReason = $"Path invalid to {best.name}";
-            return false;
-        }
-    }
-    
-    // 경로 계산 실패
-    doorSelectFailReason = $"Cannot calculate path to {best.name}";
-    return false;
-}
-bool IsPathSafeFromZombies(NavMeshPath path, float dangerRadius)
-{
-    var zombies = NPCManager.Instance.Zombies;
-    if (zombies == null || zombies.Count == 0)
-        return true;
-
-    float r2 = dangerRadius * dangerRadius;
-
-    for (int i = 0; i < path.corners.Length - 1; i++)
-    {
-        Vector3 a = path.corners[i];
-        Vector3 b = path.corners[i + 1];
-
-        foreach (var z in zombies)
-        {
-            if (z == null || !z.gameObject.activeInHierarchy)
-                continue;
-
-            // 🔥 선분-점 거리
-            Vector3 p = z.transform.position;
-            float d2 = DistancePointToSegmentSqr(p, a, b);
-
-            if (d2 <= r2)
-                return false; // ❌ 경로 중간에 좀비 있음
-        }
-    }
-    return true;
-}
-
-float DistancePointToSegmentSqr(Vector3 p, Vector3 a, Vector3 b)
-{
-    Vector3 ab = b - a;
-    float t = Vector3.Dot(p - a, ab) / ab.sqrMagnitude;
-    t = Mathf.Clamp01(t);
-    Vector3 closest = a + ab * t;
-    return (p - closest).sqrMagnitude;
-}
-bool IsZombieNearPoint(Vector3 point, float radius)
-{
-    float r2 = radius * radius;
-    var zombies = NPCManager.Instance.Zombies;
-    if (zombies == null) return false;
-
-    foreach (var z in zombies)
-    {
-        if (z == null || !z.gameObject.activeInHierarchy)
-            continue;
-
-        float d2 = (z.transform.position - point).sqrMagnitude;
-        if (d2 <= r2)
-            return true;
-    }
-    return false;
-}
-
-    
     // ---------------- DEBUG LOG ----------------
     private void Log(string msg)
     {
         if (!debugLog) return;
         Debug.Log($"[Citizen {name}] {msg}");
     }
-    
-
-   
 }
