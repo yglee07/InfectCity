@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153a209a45101274ab3f6c8ac8cb9428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: 0
   startCameraPoint: {fileID: 9024846239476755357}
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 5
@@ -306,9 +307,9 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.1
   m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 23800000, guid: 41192077a6104894f9fcd30d9ee47be1, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 7768c2d1c89843941b10b3444a6066e5, type: 2}
   m_BuildHeightMesh: 0
 --- !u!114 &7701810175405465426
 MonoBehaviour:

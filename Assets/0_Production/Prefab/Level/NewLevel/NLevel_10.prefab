@@ -170,8 +170,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 8631063680469976571}
   - {fileID: 933683316846553383}
+  - {fileID: 8631063680469976571}
   - {fileID: 9024846239476755357}
   - {fileID: 8490257635079841451}
   - {fileID: 6319164776581511782}
@@ -189,6 +189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153a209a45101274ab3f6c8ac8cb9428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: 0
   startCameraPoint: {fileID: 9024846239476755357}
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 5
@@ -570,10 +571,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7111755280227385367}
     m_Modifications:
-    - target: {fileID: 96211873026613952, guid: 4434d989aaf52bc4991f238eac814393, type: 3}
-      propertyPath: m_NavMeshData
-      value: 
-      objectReference: {fileID: 23800000, guid: a843d032d7dcfff4493cba618627656f, type: 2}
     - target: {fileID: 5638798613744493100, guid: 4434d989aaf52bc4991f238eac814393, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
