@@ -142,11 +142,12 @@ namespace RapidIcon_1_7_4
 				{ /*Not a prefab - don't need to do anything just catch the error*/ }
 
 				//---If prefab has Animator component, then try to get first animation clip---//
-				if (animator != null)
+				if (animator != null && animator.runtimeAnimatorController != null)
 				{
-					AnimatorController animatorController = animator.runtimeAnimatorController as AnimatorController;
-					if (animatorController != null && animatorController.animationClips != null && animatorController.animationClips.Length > 0)
-						icon.iconSettings.animationClip = animatorController.animationClips[0];
+					RuntimeAnimatorController runtimeController = animator.runtimeAnimatorController;
+					AnimationClip[] clips = runtimeController.animationClips;
+					if (clips != null && clips.Length > 0)
+						icon.iconSettings.animationClip = clips[0];
 				}
 
 				//---Unload the prefab---//

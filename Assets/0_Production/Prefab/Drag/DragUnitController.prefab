@@ -44,11 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5214b4f253be2b4fa23f71a4c189907, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unitPrefab: {fileID: 0}
-  previewPrefab: {fileID: 0}
+  unitPoolKey: GreenZombie
   groundMask:
     serializedVersion: 2
     m_Bits: 128
-  heightOffset: 0.02
-  maxCharges: 1
-  currentCharges: 1

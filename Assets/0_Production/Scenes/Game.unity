@@ -819,21 +819,15 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1484508256 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 8146426277173774152, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
+--- !u!114 &1434760475 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 408176324659795771, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
   m_PrefabInstance: {fileID: 1745739257840936619}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1484508262
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1484508256}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 37195c072fa4d1841beb52026191c46f, type: 3}
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &1512191436
@@ -1406,14 +1400,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 276295320}
     m_Modifications:
-    - target: {fileID: 4713750534423258476, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_text
-      value: 'UnLock
-
-        Level26
-
-'
-      objectReference: {fileID: 0}
+    - target: {fileID: 3423392387425914313, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
+      propertyPath: speedText
+      value: 
+      objectReference: {fileID: 1434760475}
     - target: {fileID: 4842854323658360298, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1494,10 +1484,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8146426277173774152, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      propertyPath: m_Name
-      value: Btn_Unit
-      objectReference: {fileID: 0}
     - target: {fileID: 8909585198885326194, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_Name
       value: UI_Game
@@ -1505,10 +1491,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 8146426277173774152, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1484508262}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
 --- !u!1001 &2072466994001463533
 PrefabInstance:
