@@ -12,6 +12,7 @@ public class NPCManagerEditor : Editor
     private bool foldGreen = true;
     private bool foldPurple = true;
     private bool foldYellow = true;
+    private bool foldDoors = true;
 
     private string searchFilter = "";
 
@@ -64,6 +65,12 @@ public class NPCManagerEditor : Editor
 
         // Yellow Zombies
         DrawNPCList("Yellow Zombies", mgr.YellowZombies, ref foldYellow);
+
+        EditorGUILayout.Space();
+
+        // Doors
+        DrawNPCList("Doors", mgr.Doors, ref foldDoors);
+
 
         serializedObject.ApplyModifiedProperties();
     }
