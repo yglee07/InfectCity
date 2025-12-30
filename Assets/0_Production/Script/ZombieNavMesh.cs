@@ -375,12 +375,7 @@ bool CheckSwimming()
 
         bool isWater = (hit.mask & waterMask) != 0;
 
-        Debug.Log(
-            $"[NavMesh Check] " +
-            $"IsWater: {isWater}, " +
-            $"HitMask: {hit.mask}, " +
-            $"WaterMask: {waterMask}"
-        );
+       
 
         return isWater;
     }

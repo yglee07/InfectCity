@@ -178,6 +178,14 @@ private void StageClear()
     // =============================
     private void CheckStageFail()
     {
+        bool allZero =
+    npcManager.Citizens.Count == 0 &&
+    npcManager.GreenZombies.Count == 0 &&
+    npcManager.PurpleZombies.Count == 0 &&
+    npcManager.YellowZombies.Count == 0;
+
+
+
         bool citizensRemain = npcManager.CurrentCitizenCount > 0;
         bool noCitizens = npcManager.CurrentCitizenCount == 0;
 
@@ -197,7 +205,7 @@ private void StageClear()
             noCitizens &&
             noGreenZombies;
 
-        if (case1_Blockaded || case2_NoFighterLeft)
+        if (case1_Blockaded || case2_NoFighterLeft || allZero)
         {
             StageFail();
         }
