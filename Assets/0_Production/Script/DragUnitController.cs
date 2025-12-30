@@ -10,7 +10,7 @@ public class DragUnitController : MonoBehaviour
     [Header("Charges")]
     public int maxCharges = 1;
     public int currentCharges;
-
+    public bool IsDraggingUnit => uiDragging;
     // 드래그 상태
     private bool uiDragging = false;
     private GameObject previewUnit;

@@ -81,6 +81,10 @@ bool IsPointerOverUI()
         if (Game.Instance.dragInfector != null &&
             Game.Instance.dragInfector.IsDraggingBomb)
             return;
+        if (Game.Instance.dragUnit != null &&
+            Game.Instance.dragUnit.IsDraggingUnit)
+            return;
+
 
        #if UNITY_EDITOR || UNITY_STANDALONE
         HandleMouseInput();
