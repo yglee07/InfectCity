@@ -1,0 +1,4541 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &392568238069913975
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 9024846239476755357}
+  m_Layer: 0
+  m_Name: StartCameraPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &9024846239476755357
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 392568238069913975}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.5, y: 0, z: 0, w: 0.8660254}
+  m_LocalPosition: {x: 0, y: 25, z: -15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7111755280227385367}
+  m_LocalEulerAnglesHint: {x: 60, y: 0, z: 0}
+--- !u!1 &681667657612934324
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6319164776581511782}
+  - component: {fileID: 7941908196404085635}
+  - component: {fileID: 8353683569319650531}
+  - component: {fileID: 515725790965564258}
+  m_Layer: 7
+  m_Name: Quad
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6319164776581511782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681667657612934324}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 100, y: 100, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7111755280227385367}
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!33 &7941908196404085635
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681667657612934324}
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &8353683569319650531
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681667657612934324}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!64 &515725790965564258
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 681667657612934324}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1261747436639895672
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7111755280227385367}
+  - component: {fileID: 6497089844581745962}
+  m_Layer: 0
+  m_Name: NLevel_29
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7111755280227385367
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261747436639895672}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1545651189391450907}
+  - {fileID: 3339958456297264515}
+  - {fileID: 9024846239476755357}
+  - {fileID: 8490257635079841451}
+  - {fileID: 6319164776581511782}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6497089844581745962
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261747436639895672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 153a209a45101274ab3f6c8ac8cb9428, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  difficulty: 1
+  startCameraPoint: {fileID: 9024846239476755357}
+  endCameraPoint: {fileID: 8490257635079841451}
+  startZoom: 16
+  endZoom: 26
+--- !u!1 &5800050567432561391
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8490257635079841451}
+  m_Layer: 0
+  m_Name: EndCameraPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8490257635079841451
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5800050567432561391}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 15, z: -15}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7111755280227385367}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
+--- !u!1 &6673908422196654553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3339958456297264515}
+  m_Layer: 0
+  m_Name: Unit
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3339958456297264515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6673908422196654553}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 7016312581768359319}
+  - {fileID: 2046677151639738763}
+  - {fileID: 6805234413677602640}
+  - {fileID: 9003283549925861112}
+  - {fileID: 1142923702370678798}
+  - {fileID: 3707172350292713058}
+  - {fileID: 1922105938630779305}
+  - {fileID: 743475904325275457}
+  - {fileID: 4472269628837529669}
+  - {fileID: 2863539900866261670}
+  - {fileID: 4896050627455946041}
+  - {fileID: 3049987466957147695}
+  - {fileID: 5973070416518483109}
+  - {fileID: 2740304771933127728}
+  - {fileID: 7012383851935101461}
+  - {fileID: 9041160816705040615}
+  - {fileID: 5884580744132546516}
+  - {fileID: 2932865620770845517}
+  - {fileID: 1643270476871570872}
+  - {fileID: 6689246044190329217}
+  - {fileID: 454386497109503312}
+  - {fileID: 1943187429774070068}
+  - {fileID: 6172357248912228695}
+  - {fileID: 7160257300314846772}
+  - {fileID: 7804369126143879509}
+  - {fileID: 9118783423423962572}
+  - {fileID: 438857747547871896}
+  - {fileID: 8539510749852798524}
+  - {fileID: 5703033010396750231}
+  - {fileID: 3191204507810186611}
+  - {fileID: 1088454392006255025}
+  - {fileID: 6483002330209406789}
+  - {fileID: 3195482412391568830}
+  - {fileID: 2904927218266143405}
+  - {fileID: 7222963923036581214}
+  - {fileID: 2030425324668374596}
+  - {fileID: 5520823555093339111}
+  - {fileID: 4269183643744120180}
+  - {fileID: 8007628342989641195}
+  - {fileID: 8470570820211727412}
+  - {fileID: 7155037296250635843}
+  - {fileID: 1220691333702370821}
+  - {fileID: 388604210540400073}
+  - {fileID: 2913695790118542450}
+  - {fileID: 3243829988950547481}
+  - {fileID: 402657016764944116}
+  - {fileID: 8191457570665000567}
+  - {fileID: 4432202375712268034}
+  - {fileID: 4709911383718219878}
+  - {fileID: 6603662379638817937}
+  - {fileID: 7147102238064585933}
+  - {fileID: 4388734426008360416}
+  - {fileID: 1718226374056608850}
+  - {fileID: 96313725029398241}
+  - {fileID: 7206748771215116888}
+  - {fileID: 7092588913922149620}
+  - {fileID: 6901416331955436686}
+  - {fileID: 2561119429640556405}
+  - {fileID: 1654485167189707138}
+  - {fileID: 1421100937728677174}
+  - {fileID: 8842615736903761663}
+  - {fileID: 5858514480339893057}
+  - {fileID: 1836331171513841447}
+  - {fileID: 5077140146488096741}
+  - {fileID: 868243380077335747}
+  - {fileID: 5518851898441111720}
+  - {fileID: 7921549988228769582}
+  m_Father: {fileID: 7111755280227385367}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &57776994966543461
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (5)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &3707172350292713058 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 57776994966543461}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &612746445261762419
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (58)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &4269183643744120180 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 612746445261762419}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &986138556639627842
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (8)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &4472269628837529669 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 986138556639627842}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1026150912366451973
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (35)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &4432202375712268034 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 1026150912366451973}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1105683150617630695
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (39)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &4388734426008360416 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 1105683150617630695}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1167886750649994610
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (13)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &2561119429640556405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 1167886750649994610}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1441873283434229921
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (9)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &2863539900866261670 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 1441873283434229921}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1565074440114570807
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (23)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &2740304771933127728 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 1565074440114570807}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1868005605733338152
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (11)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &3049987466957147695 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 1868005605733338152}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &1949047073549791562
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (27)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &2932865620770845517 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 1949047073549791562}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2004172892818005621
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (64)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &2913695790118542450 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2004172892818005621}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2012996519894890666
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (53)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &2904927218266143405 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2012996519894890666}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2214540055993343518
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (65)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &3243829988950547481 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2214540055993343518}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2298916155851069369
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (52)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &3195482412391568830 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2298916155851069369}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2303214991955036020
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (49)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &3191204507810186611 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2303214991955036020}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2307819401199064881
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (15)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &1421100937728677174 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2307819401199064881}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2544254575599748098
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (62)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &1220691333702370821 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2544254575599748098}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2623236325044209237
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (40)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &1718226374056608850 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2623236325044209237}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2687012066669988741
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (14)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &1654485167189707138 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2687012066669988741}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2698174632139315135
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (28)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &1643270476871570872 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2698174632139315135}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2959840669842203566
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (6)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &1922105938630779305 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2959840669842203566}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2974716539607143219
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (31)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &1943187429774070068 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 2974716539607143219}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3081644370193839392
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (18)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &1836331171513841447 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 3081644370193839392}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3427876284282408003
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (56)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &2030425324668374596 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 3427876284282408003}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3447650942480440204
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (1)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &2046677151639738763 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 3447650942480440204}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3668721275903964390
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (41)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &96313725029398241 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 3668721275903964390}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3866591558450518175
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (46)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &438857747547871896 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 3866591558450518175}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3887037890965892951
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (30)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &454386497109503312 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 3887037890965892951}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3902721122631978227
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (54)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &402657016764944116 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 3902721122631978227}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &3952857804653989838
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (63)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &388604210540400073 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 3952857804653989838}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4174446698689301830
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (7)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &743475904325275457 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 4174446698689301830}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4351529815667309065
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (4)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &1142923702370678798 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 4351529815667309065}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4369953723612160950
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (50)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &1088454392006255025 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 4369953723612160950}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4590109767324358340
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (20)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &868243380077335747 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 4590109767324358340}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4760904040996973680
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (34)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &8191457570665000567 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 4760904040996973680}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4989330376559709243
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (47)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &8539510749852798524 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 4989330376559709243}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5058181243811733043
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (60)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &8470570820211727412 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5058181243811733043}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5262612754830605560
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (16)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &8842615736903761663 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5262612754830605560}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5562978493556629451
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (45)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &9118783423423962572 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5562978493556629451}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5676613190005371616
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (25)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &9041160816705040615 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5676613190005371616}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5714453220475118847
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (3)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &9003283549925861112 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5714453220475118847}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5742948540012014867
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 7111755280227385367}
+    m_Modifications:
+    - target: {fileID: 1594962395709282256, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_Name
+      value: Square_24x24_1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+--- !u!4 &1545651189391450907 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6539311133442297352, guid: 44f1a900b2d5ec644b4ba4a8f9d09a4c, type: 3}
+  m_PrefabInstance: {fileID: 5742948540012014867}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5805243122381123274
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (38)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &7147102238064585933 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5805243122381123274}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5828113465349944371
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (33)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &7160257300314846772 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5828113465349944371}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5833299243892442180
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (61)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &7155037296250635843 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5833299243892442180}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5895834547618533107
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (43)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &7092588913922149620 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5895834547618533107}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5972113253950254992
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &7016312581768359319 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5972113253950254992}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5976060889088241682
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (24)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &7012383851935101461 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 5976060889088241682}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6305841201937248089
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (55)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &7222963923036581214 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 6305841201937248089}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6322004468488587359
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (42)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &7206748771215116888 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 6322004468488587359}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6674063960205694956
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (59)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &8007628342989641195 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 6674063960205694956}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6796277071058527529
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_Dance
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+--- !u!4 &7921549988228769582 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: 38d3da951b3da104297fe250b6458297, type: 3}
+  m_PrefabInstance: {fileID: 6796277071058527529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &6913436767410957138
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (44)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &7804369126143879509 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 6913436767410957138}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7015303817265270434
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (22)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &5973070416518483109 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 7015303817265270434}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7067833645094702547
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (26)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &5884580744132546516 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 7067833645094702547}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7129859720073410886
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (17)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &5858514480339893057 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 7129859720073410886}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7356445778976162640
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (32)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &6172357248912228695 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 7356445778976162640}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7501639841667925654
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (37)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &6603662379638817937 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 7501639841667925654}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7658237059267169602
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (51)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &6483002330209406789 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 7658237059267169602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7816287236067638921
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (12)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &6901416331955436686 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 7816287236067638921}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7912484686037198167
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (2)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &6805234413677602640 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 7912484686037198167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8028580668262157190
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (29)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &6689246044190329217 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 8028580668262157190}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8092267421712535358
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (10)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &4896050627455946041 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 8092267421712535358}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8278514629234430561
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (36)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &4709911383718219878 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 8278514629234430561}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8487708952845317602
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (19)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &5077140146488096741 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 8487708952845317602}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8978761537782358928
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -8
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (48)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &5703033010396750231 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 8978761537782358928}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9160921457029667296
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (57)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &5520823555093339111 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 9160921457029667296}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &9162890982371482287
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3339958456297264515}
+    m_Modifications:
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7809207238147872883, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+      propertyPath: m_Name
+      value: Citizen_Idle_SitClap (21)
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+--- !u!4 &5518851898441111720 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c53c0c56bb091ed4b93dfe1faffc586e, type: 3}
+  m_PrefabInstance: {fileID: 9162890982371482287}
+  m_PrefabAsset: {fileID: 0}
