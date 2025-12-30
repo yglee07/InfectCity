@@ -62,6 +62,7 @@ Transform:
   - {fileID: 6654849562172366237}
   - {fileID: 734793208122099266}
   - {fileID: 1766427318073049920}
+  - {fileID: 8676780748687874902}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4706275319675543112
@@ -92,7 +93,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.1
   m_MinRegionArea: 2
   m_NavMeshData: {fileID: 23800000, guid: ab43573969e7f1346a72392877f67b52, type: 2}
   m_BuildHeightMesh: 0
@@ -963,6 +964,72 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2669882446171640320, guid: c2e877f53d133524599a98a92bfc5796, type: 3}
   m_PrefabInstance: {fileID: 3643346015119700673}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5267406610745883620
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 12785231365905418}
+    m_Modifications:
+    - target: {fileID: 3559063363621249498, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_Name
+      value: PowerboxPickupColQuestion
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3720204642682218624, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+      propertyPath: looping
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+--- !u!4 &8676780748687874902 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3563341783963295922, guid: e9f7f3240a9a71c43a1b4a5dc056ddc7, type: 3}
+  m_PrefabInstance: {fileID: 5267406610745883620}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5413763997791177702
 PrefabInstance:

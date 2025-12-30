@@ -54,6 +54,7 @@ public class SpawnWave : MonoBehaviour
         }
 
         Debug.Log("[SpawnWave] All groups spawned.");
+        gameObject.SetActive(false);
     }
 
     IEnumerator SpawnGroup(int count)
