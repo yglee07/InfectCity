@@ -3,8 +3,12 @@ using UnityEngine;
 
 public class Level : MonoBehaviour
 {
+    
+    [Header("Difficulty")]
+    public LevelDifficulty difficulty = LevelDifficulty.Normal;
     public List<Breakable> Breakables { get; private set; }
 
+    
     [Header("Camera")]
     public Transform startCameraPoint;   // ⭐ 여기만 사용
     public Transform endCameraPoint;
@@ -44,4 +48,11 @@ public class Level : MonoBehaviour
 
         return best;
     }
+}
+
+public enum LevelDifficulty
+{
+    Normal,
+    Hard,
+    VeryHard
 }

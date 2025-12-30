@@ -49,8 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   npcManager: {fileID: 0}
   dragInfector: {fileID: 446684627178197284}
-  levelPrefabs:
-  - {fileID: 1261747436639895672, guid: 585c049a4b74f1a489cb0a2b5f029cd6, type: 3}
+  dragUnit: {fileID: 1805551933156214003}
   currentLevel: {fileID: 0}
   levelContainer: {fileID: 7977078548636471046}
   uiGame: {fileID: 0}
@@ -212,11 +211,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8644855857511871176, guid: b781ea8614470e9499cc82b9a1b0411c, type: 3}
+      propertyPath: unitPoolKey
+      value: Mutant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8644855857511871176, guid: b781ea8614470e9499cc82b9a1b0411c, type: 3}
+      propertyPath: previewPrefab
+      value: 
+      objectReference: {fileID: 8265895907174677282, guid: 2b6670fa9fce97c44bccc9c084912bbe, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b781ea8614470e9499cc82b9a1b0411c, type: 3}
+--- !u!114 &1805551933156214003 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8644855857511871176, guid: b781ea8614470e9499cc82b9a1b0411c, type: 3}
+  m_PrefabInstance: {fileID: 7995623762982139451}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5214b4f253be2b4fa23f71a4c189907, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4321091725773546089 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6125374282934801490, guid: b781ea8614470e9499cc82b9a1b0411c, type: 3}

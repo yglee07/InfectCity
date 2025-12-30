@@ -3,7 +3,8 @@
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
+    [Header("Level Prefabs")]
+    public Level[] levelPrefabs;
     [Header("View Groups")]
     public GameObject lobbyView;
     public GameObject gameView;

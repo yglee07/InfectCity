@@ -8,9 +8,8 @@ public class Game : MonoBehaviour
     [Header("Managers")]
     public NPCManager npcManager;
     public DragInfectController dragInfector;
-
-    [Header("Level Prefabs")]
-    public GameObject[] levelPrefabs;
+    public DragUnitController dragUnit;
+    
 
   
     [SerializeField] private Level currentLevel;
@@ -94,12 +93,12 @@ public class Game : MonoBehaviour
     // ========================================================
     private void LoadLevel(int stage)
     {
-        int index = (stage - 1) % levelPrefabs.Length;
+        int index = (stage - 1) % GameManager.Instance.levelPrefabs.Length;
 
         if (currentLevel != null)
             Destroy(currentLevel.gameObject);
 
-        GameObject inst = Instantiate(levelPrefabs[index], levelContainer);
+        Level inst = Instantiate(GameManager.Instance.levelPrefabs[index], levelContainer);
         inst.name = $"Level_{stage}";
 
         currentLevel = inst.GetComponent<Level>();

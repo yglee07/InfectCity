@@ -3,7 +3,10 @@ using UnityEngine.UI;
 using TMPro;
 
 public class UILobby : MonoBehaviour
-{
+    {[Header("Difficulty")]
+    public GameObject difficultyBar;   // 전체 바 오브젝트
+    public TMP_Text difficultyText;
+
     [Header("Texts")]
     public TMP_Text countryNameText;   // 국가명
     public Image countryImage;
@@ -154,4 +157,37 @@ public class UILobby : MonoBehaviour
     //    if (UpgradeManager.Instance.TryUpgradeMutate())
     //        RefreshLobbyUI();
     //}
+    public void UpdateDifficulty(LevelDifficulty diff)
+{
+    switch (diff)
+    {
+        case LevelDifficulty.Normal:
+            difficultyText.text = "NORMAL";
+            difficultyText.color = Color.white;
+
+            // ⭐ Normal → Bar 끔
+            if (difficultyBar != null)
+                difficultyBar.SetActive(false);
+            break;
+
+        case LevelDifficulty.Hard:
+            difficultyText.text = "HARD";
+            difficultyText.color = new Color(0.6f, 0.3f, 1f); // 보라
+
+            // ⭐ Hard → Bar 켬
+            if (difficultyBar != null)
+                difficultyBar.SetActive(true);
+            break;
+
+        case LevelDifficulty.VeryHard:
+            difficultyText.text = "VERY HARD";
+            difficultyText.color = Color.red;
+
+            // ⭐ VeryHard → Bar 켬
+            if (difficultyBar != null)
+                difficultyBar.SetActive(true);
+            break;
+    }
+}
+
 }

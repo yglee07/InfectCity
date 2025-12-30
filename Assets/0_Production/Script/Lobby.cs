@@ -44,7 +44,78 @@ public class Lobby : MonoBehaviour
 
         // UI 갱신
         ui.UpdateCountryUI(info.displayName, progress,info.countryImage);
+
+          UpdateStageDifficulty(stage);
     }
+
+   void UpdateStageDifficulty(int stage)
+{
+    Debug.Log($"[Diff] UpdateStageDifficulty START | stage = {stage}");
+
+
+
+    // 2️⃣ levelPrefabs 체크
+    if (GameManager.Instance.levelPrefabs == null)
+    {
+        Debug.LogError("[Diff] game.levelPrefabs is NULL");
+        return;
+    }
+
+    if (GameManager.Instance.levelPrefabs.Length == 0)
+    {
+        Debug.LogError("[Diff] game.levelPrefabs.Length == 0");
+        return;
+    }
+
+    Debug.Log($"[Diff] levelPrefabs.Length = {GameManager.Instance.levelPrefabs.Length}");
+
+    // 3️⃣ index 계산
+    int index = (stage - 1) % GameManager.Instance.levelPrefabs.Length;
+    Debug.Log($"[Diff] calculated index = {index}");
+
+    if (index < 0 || index >= GameManager.Instance.levelPrefabs.Length)
+    {
+        Debug.LogError($"[Diff] index OUT OF RANGE: {index}");
+        return;
+    }
+
+    // 4️⃣ levelPrefab 체크
+    Level levelPrefab = GameManager.Instance.levelPrefabs[index];
+    if (levelPrefab == null)
+    {
+        Debug.LogError($"[Diff] levelPrefab is NULL at index {index}");
+        return;
+    }
+
+    Debug.Log($"[Diff] levelPrefab name = {levelPrefab.name}");
+
+    // 5️⃣ Level 컴포넌트 체크
+    Level level = levelPrefab.GetComponent<Level>();
+    if (level == null)
+    {
+        Debug.LogError($"[Diff] Level component MISSING on prefab: {levelPrefab.name}");
+        return;
+    }
+
+    Debug.Log($"[Diff] Level.difficulty = {level.difficulty}");
+
+    // 6️⃣ UI 체크
+    if (ui == null)
+    {
+        Debug.LogError("[Diff] UILobby ui reference is NULL");
+        return;
+    }
+
+    if (ui.difficultyText == null)
+    {
+        Debug.LogError("[Diff] ui.difficultyText is NULL");
+        return;
+    }
+
+    // 7️⃣ 최종 적용
+    ui.UpdateDifficulty(level.difficulty);
+    Debug.Log("[Diff] UpdateDifficulty CALLED SUCCESSFULLY");
+}
 
   
 }
