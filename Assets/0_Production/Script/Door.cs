@@ -117,7 +117,7 @@ using UnityEngine.AI;
 
         if (dist <= openDistance)
         {
-            Debug.Log($"[Door] Citizen nearby: {c.name}, dist={dist:F2}");
+           
 
             open = true;
             openTimer = openHoldTime;
@@ -132,7 +132,7 @@ using UnityEngine.AI;
         // =========================
         void UpdateRotation()
         {
-            Debug.Log($"[Door] open={open} pivotY={doorPivot.localEulerAngles.y}");
+            
             if (doorPivot == null) return;
 
             float targetAngle = open ? doorOpenAngle : doorCloseAngle;
