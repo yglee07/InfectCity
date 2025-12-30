@@ -65,6 +65,9 @@ public abstract class CitizenBase : MonoBehaviour
     private float nextDoorAssistTime = 0f;
     private Door lastAssistDoor = null; // 선택을 고정하지 않되, 디버그/안정감 용(선호 정도만)
 
+    [SerializeField] private float fleeNoPathTimeout = 0.6f;
+private float fleeNoPathTimer = 0f;
+
     protected virtual void OnEnable()
     {
         ResetForReuse();
@@ -312,6 +315,32 @@ public abstract class CitizenBase : MonoBehaviour
             fleeRetargetTimer = 0f;
             return;
         }
+
+        // === NavMesh 탈출 불가능 상태 감지 ===
+bool noPath = !agent.hasPath && !agent.pathPending;
+bool frozen = agent.velocity.sqrMagnitude < 0.001f;
+
+if (noPath && frozen)
+{
+    fleeNoPathTimer += Time.deltaTime;
+
+    if (fleeNoPathTimer >= fleeNoPathTimeout)
+    {
+        // 더 이상 도망칠 수 없음 → 상태 전환
+        fleeNoPathTimer = 0f;
+
+        // 선택 1: 그냥 Wander (추천)
+        ChangeState(State.Wander);
+        return;
+
+        // 선택 2: Idle
+        // ChangeState(State.Idle);
+    }
+}
+else
+{
+    fleeNoPathTimer = 0f;
+}
     }
 
     protected bool TrySetNewFleeTarget()
@@ -367,7 +396,14 @@ public abstract class CitizenBase : MonoBehaviour
             agent.isStopped = false;
             return true;
         }
-
+Vector3 fallback = myPos + fleeDir * 2.5f;
+if (NavMesh.SamplePosition(fallback, out var hit2, 2.5f, NavMesh.AllAreas))
+{
+    fleeTarget = hit2.position;
+    agent.SetDestination(fleeTarget);
+    agent.isStopped = false;
+    return true;
+}
         return false;
     }
 
@@ -409,80 +445,61 @@ public abstract class CitizenBase : MonoBehaviour
     // - NavMeshPath / corner 샘플링 제거
     // - "가까운 문" + "도망 방향 앞쪽" + "문이 현재 통과 가능" + "문 앞/안쪽 좀비 없을 때"만 적용
     // =========================================================
-    private void TryApplyDoorAssist(ref Vector3 currentFleeTarget, Vector3 fleeDir, List<ZombieNavMesh> nearbyZombies)
+    private void TryApplyDoorAssist(
+    ref Vector3 fleeDir,
+    Vector3 myPos,
+    List<ZombieNavMesh> nearbyZombies)
+{
+    if (Time.time < nextDoorAssistTime)
+        return;
+
+    nextDoorAssistTime = Time.time + doorAssistCheckInterval;
+
+    var doors = NPCManager.Instance.Doors;
+    if (doors == null || doors.Count == 0)
+        return;
+
+    Door closestDoor = null;
+    float minDist2 = float.MaxValue;
+
+    // 1) 가장 가까운 문 하나만 찾음
+    for (int i = 0; i < doors.Count; i++)
     {
-        if (Time.time < nextDoorAssistTime)
-            return;
+        var d = doors[i];
+        if (d == null || !d.IsPassable()) continue;
 
-        nextDoorAssistTime = Time.time + doorAssistCheckInterval;
-
-        var doors = NPCManager.Instance.Doors; // 프로젝트에 존재한다고 가정(기존 CitizenBase가 참조 중)
-        if (doors == null || doors.Count == 0)
-            return;
-
-        Vector3 myPos = transform.position;
-
-        Door best = null;
-        float bestScore = float.MinValue;
-
-        float maxDist2 = doorAssistMaxDist * doorAssistMaxDist;
-
-        for (int i = 0; i < doors.Count; i++)
+        float d2 = (d.transform.position - myPos).sqrMagnitude;
+        if (d2 < minDist2)
         {
-            var door = doors[i];
-            if (door == null) continue;
-
-            // 문 접근점(문 앞)을 쓰되, "목표"로는 쓰지 않는다.
-            Vector3 ap = door.GetApproachPoint();
-
-            Vector3 toDoor = ap - myPos;
-            float d2 = toDoor.sqrMagnitude;
-            if (d2 > maxDist2)
-                continue;
-
-            // 도망 방향 앞쪽만
-            float dot = Vector3.Dot(fleeDir, toDoor.normalized);
-            if (dot < doorAssistForwardDot)
-                continue;
-
-            // 문이 지금 통과 가능한 상태가 아니면 보너스 옵션 적용 X
-            if (!door.IsPassable())
-                continue;
-
-            // 문 앞/문 안쪽 즉시 위험 체크: "주변 좀비"만으로 O(k) 처리
-            if (IsZombieNearPoint(nearbyZombies, ap, doorApproachDangerRadius))
-                continue;
-
-            Vector3 passPoint = door.GetPassThroughPoint(myPos);
-            if (IsZombieNearPoint(nearbyZombies, passPoint, doorInsideDangerRadius))
-                continue;
-
-            // 점수: 가까울수록 + 도망 방향 정렬될수록 + 이전에 쓰던 문이면 약간 가중
-            float dist = Mathf.Sqrt(d2);
-            float score = (dot * 2.0f) - (dist * 0.15f);
-            if (door == lastAssistDoor)
-                score += 0.25f;
-
-            if (score > bestScore)
-            {
-                bestScore = score;
-                best = door;
-            }
-        }
-
-        if (best == null)
-            return;
-
-        // 문 너머로 살짝 밀어준 목표를 샘플링해서 fleeTarget을 "보정"만 한다.
-        Vector3 pass = best.GetPassThroughPoint(myPos);
-        Vector3 pushed = pass + (fleeDir * doorPassPushDistance);
-
-        if (NavMesh.SamplePosition(pushed, out var hit, 2.5f, NavMesh.AllAreas))
-        {
-            currentFleeTarget = hit.position;
-            lastAssistDoor = best;
+            minDist2 = d2;
+            closestDoor = d;
         }
     }
+
+    if (closestDoor == null)
+        return;
+
+    // 2) 문 방향
+    Vector3 ap = closestDoor.GetApproachPoint();
+    Vector3 doorDir = (ap - myPos).normalized;
+
+    // 도망 방향 앞쪽만
+    if (Vector3.Dot(fleeDir, doorDir) < doorAssistForwardDot)
+        return;
+
+    // 3) 문 앞 위험하면 포기
+    if (IsZombieNearPoint(nearbyZombies, ap, doorApproachDangerRadius))
+        return;
+
+    // 4) ⭐ NavMesh 연결성 검사 (중요)
+    NavMeshPath path = new NavMeshPath();
+    if (!agent.CalculatePath(ap, path) || path.status != NavMeshPathStatus.PathComplete)
+        return;
+
+    // 5) 방향만 보정 (절대 타겟 좌표를 바꾸지 않는다)
+    fleeDir = (fleeDir + doorDir * 0.6f).normalized;
+}
+
 
     private bool IsZombieNearPoint(List<ZombieNavMesh> nearbyZombies, Vector3 point, float radius)
     {
