@@ -169,6 +169,28 @@ public class Game : MonoBehaviour
 private void StageClear()
 {
     isPlaying = false;
+    int stage = SaveSystem.Data.stage;
+
+        // 🔹 현재 국가 계산 (2 스테이지 = 1 국가)
+        Lobby lobby = GameManager.Instance.lobbyView.GetComponent<Lobby>();
+        if (lobby == null)
+        {
+            Debug.LogError("[StageClear] Lobby not found on lobbyView");
+            return;
+        }
+
+        string countryId = lobby.GetCurrentCountryId(stage);
+
+    // 🔹 국가 진행도 +1
+    SaveSystem.Data.AddClearedStage(countryId);
+
+    // 🔹 전체 스테이지 +1
+    SaveSystem.Data.stage++;
+
+    // 🔹 보상
+    SaveSystem.Data.coin += 10;
+
+    SaveSystem.Save();
     uiGame.ShowCompletePopup();
 }
 

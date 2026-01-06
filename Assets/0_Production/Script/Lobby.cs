@@ -1,54 +1,138 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using static CountryNode;
 
 public class Lobby : MonoBehaviour
 {
-    public CountryDatabase countryDB;   // ← ScriptableObject 연결
+    //public CountryDatabase countryDB;   // ← ScriptableObject 연결
     public Transform countryContainer;
-    public Transform playerCube;
+    public Material normalMat;
+    public Material selectedMat;
+    public Material conqueredMat;
+    Dictionary<string, CountryNode> countryMap;
+    List<string> countryOrder;
+    CountryNode currentCountry;
+
     public UILobby ui;
 
     private GameObject currentCountryInstance;
+    [Header("Camera")]
+    [SerializeField]
+    Vector3 cameraOffset = new Vector3(0f, 0f, -10f);
+    void Awake()
+    {
+        countryMap = new Dictionary<string, CountryNode>();
+        countryOrder = new List<string>();
 
+        foreach (Transform child in countryContainer)
+        {
+            CountryNode node = child.GetComponent<CountryNode>();
+            if (node == null) continue;
+
+            countryMap[node.countryId] = node;
+            countryOrder.Add(node.countryId);
+        }
+
+        Debug.Log($"[Lobby] Countries loaded: {countryOrder.Count}");
+    }
     public void RefreshLobby()
     {
         int stage = SaveSystem.Data.stage;
-        CountryData info = countryDB.GetCountryByStage(stage);
-
-        if (info == null)
+        Debug.Log("========== [Lobby] RefreshLobby START ==========");
+        Debug.Log($"[Lobby] current stage = {stage}");
+        // 1️⃣ 현재 국가 계산
+        int countryIndex = stage / 2;
+        countryIndex = Mathf.Clamp(countryIndex, 0, countryOrder.Count - 1);
+        string countryId = countryOrder[countryIndex];
+        currentCountry = countryMap[countryId];
+        Debug.Log($"[Lobby] currentCountry = {countryId}");
+        // 2️⃣ 모든 국가 상태 초기화
+        foreach (var kv in countryMap)
         {
-            Debug.LogError("해당 스테이지에 맞는 국가 없음: " + stage);
-            return;
+            CountryNode node = kv.Value;
+            int cleared = GetClearedStageCount(node.countryId);
+            Debug.Log($"[Lobby] countryId={node.countryId}, cleared={cleared}");
+            if (cleared >= 2)
+            {
+                Debug.Log($"[Lobby] {node.countryId} -> CONQUERED");
+                node.SetState(
+                    CountryState.Conquered,
+                    normalMat,
+                    selectedMat,
+                    conqueredMat
+                );
+            }
+            else
+            {
+                node.SetState(
+                    CountryState.Normal,
+                    normalMat,
+                    selectedMat,
+                    conqueredMat
+                );
+            }
         }
 
-        // 기존 국가 제거
-        if (currentCountryInstance != null)
-            Destroy(currentCountryInstance);
-
-        // 새 국가 생성
-        currentCountryInstance = Instantiate(info.prefab, countryContainer);
-
-        // Center 찾기
-        Transform center = currentCountryInstance.transform.Find("Center");
-        if (center == null)
+        // 3️⃣ 현재 국가 → Selected (단, 이미 정복이면 제외)
+        int currentCleared = GetClearedStageCount(currentCountry.countryId);
+        Debug.Log($"[Lobby] currentCountry cleared = {currentCleared}");
+        if (currentCleared < 2)
         {
-            Debug.LogError($"{info.displayName} 프리팹에 Center 없음!");
-            return;
+            Debug.Log($"[Lobby] {currentCountry.countryId} -> SELECTED");
+            currentCountry.SetState(
+                CountryState.Selected,
+                normalMat,
+                selectedMat,
+                conqueredMat
+            );
         }
 
-        // Cube 위치 이동
-        playerCube.position = center.position + Vector3.up * 0.3f;
+        // 4️⃣ 카메라
+        FocusCamera(currentCountry.center);
 
-        // 진행률 계산
-        int cleared = stage - info.startStage;  // 첫판 = 0%
-        float progress = (float)cleared / info.TotalStages;
+        // 5️⃣ UI
+        float progress = currentCleared / 2f;
+        ui.UpdateCountryUI(
+            currentCountry.countryId,
+            progress,
+            null
+        );
 
-        // UI 갱신
-        ui.UpdateCountryUI(info.displayName, progress,info.countryImage);
+        UpdateStageDifficulty(stage);
 
-          UpdateStageDifficulty(stage);
+        Debug.Log("========== [Lobby] RefreshLobby END ==========");
     }
 
-   void UpdateStageDifficulty(int stage)
+    public string GetCurrentCountryId(int stage)
+    {
+        int countryIndex = stage / 2;
+        countryIndex = Mathf.Clamp(countryIndex, 0, countryOrder.Count - 1);
+        return countryOrder[countryIndex];
+    }
+    void ApplyCountryColor(CountryNode node)
+    {
+        int cleared = GetClearedStageCount(node.countryId);
+
+        node.countryMesh.material =
+            (cleared >= 2) ? conqueredMat : normalMat;
+    }
+
+    int GetClearedStageCount(string countryId)
+    {
+        if (SaveSystem.Data.countryStageCount.TryGetValue(countryId, out int v))
+            return v;
+        return 0;
+    }
+
+    void FocusCamera(Transform center)
+    {
+        CameraController cam = Camera.main.GetComponent<CameraController>();
+        float zoom = currentCountry.GetSuggestedZoom(1.15f);
+        // 또는 기본값이 보통 1.2f
+        cam.FocusOn(currentCountry.center, cameraOffset, zoom); 
+    }
+
+        void UpdateStageDifficulty(int stage)
 {
     Debug.Log($"[Diff] UpdateStageDifficulty START | stage = {stage}");
 

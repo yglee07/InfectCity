@@ -16,18 +16,13 @@ public class Level : MonoBehaviour
     public float startZoom = 15f;
     public float endZoom = 15f;
 
-#if UNITY_EDITOR
-    private void OnValidate()
-    {
-        Debug.Log($"[Level OnValidate] {name} startZoom={startZoom}, endZoom={endZoom}");
-    }
-#endif
+
 
   
     void Awake()
     {
 
-        Debug.Log($"[Level Awake] {name} startZoom={startZoom}, endZoom={endZoom}");
+      
         Breakables = new List<Breakable>(GetComponentsInChildren<Breakable>());
     }
 

@@ -371,5 +371,38 @@ bool IsPointerOverUI()
         targetZoom = cam.orthographicSize;
     }
 
+    public void FocusOn(Transform center, Vector3 offset, float zoom)
+    {
+        StopAllCoroutines();
+
+        Vector3 targetPos = center.position + offset;
+        StartCoroutine(FocusLobbyRoutine(targetPos, zoom));
+    }
+
+    IEnumerator FocusLobbyRoutine(Vector3 targetPos, float zoom)
+    {
+        Vector3 startPos = transform.position;
+        float startZoom = cam.orthographicSize;
+
+        Quaternion fixedRot = Quaternion.identity; // (0,0,0)
+
+        float t = 0f;
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 1.2f;
+
+            transform.position = Vector3.Lerp(startPos, targetPos, t);
+
+            // 🔒 로비 카메라는 항상 고정
+            transform.rotation = fixedRot;
+            cam.orthographicSize = Mathf.Lerp(startZoom, zoom, t);
+
+            yield return null;
+        }
+
+        // 🔒 최종 강제 고정
+        transform.rotation = fixedRot;
+        cam.orthographicSize = zoom;
+    }
 
 }

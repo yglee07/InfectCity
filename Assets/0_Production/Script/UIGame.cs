@@ -72,9 +72,7 @@ public class UIGame : MonoBehaviour
 
     public void OnClickCompleteOK()
     {
-        SaveSystem.Data.stage++;
-        SaveSystem.Data.coin += 10;
-        SaveSystem.Save();
+        
 
         popupComplete.SetActive(false);
 
