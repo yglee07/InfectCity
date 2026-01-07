@@ -166,33 +166,35 @@ public class Game : MonoBehaviour
     StageClear();
 }
 
-private void StageClear()
-{
-    isPlaying = false;
-    int stage = SaveSystem.Data.stage;
+    private void StageClear()
+    {
+        isPlaying = false;
 
-        // 🔹 현재 국가 계산 (2 스테이지 = 1 국가)
+        // ⭐ 현재 로비가 판단한 "현재 국가"
         Lobby lobby = GameManager.Instance.lobbyView.GetComponent<Lobby>();
-        if (lobby == null)
+        CountryNode currentCountry = lobby.currentCountry;
+
+        if (currentCountry == null)
         {
-            Debug.LogError("[StageClear] Lobby not found on lobbyView");
+            Debug.LogError("[StageClear] currentCountry is NULL");
             return;
         }
 
-        string countryId = lobby.GetCurrentCountryId(stage);
+        string countryId = currentCountry.countryId;
 
-    // 🔹 국가 진행도 +1
-    SaveSystem.Data.AddClearedStage(countryId);
+        SaveSystem.Data.AddClearedStage(countryId);
 
-    // 🔹 전체 스테이지 +1
-    SaveSystem.Data.stage++;
+        Debug.Log(
+        $"[StageClear] {countryId} clearedCount = " +
+        SaveSystem.Data.GetClearedStageCount(countryId)
+    );
 
-    // 🔹 보상
-    SaveSystem.Data.coin += 10;
+        SaveSystem.Data.stage++;
+        SaveSystem.Save();
 
-    SaveSystem.Save();
-    uiGame.ShowCompletePopup();
-}
+        uiGame.ShowCompletePopup();
+    }
+
 
 
     // =============================

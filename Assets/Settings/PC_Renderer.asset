@@ -74,7 +74,8 @@ MonoBehaviour:
   - {fileID: -4183305387725020936}
   - {fileID: 610480198761245117}
   - {fileID: -4915351025211986032}
-  m_RendererFeatureMap: ad6b866f10d7b46cf820acf9e9e9f1c5bde9929d81dc7808
+  - {fileID: 4504212681616578798}
+  m_RendererFeatureMap: ad6b866f10d7b46cf820acf9e9e9f1c5bde9929d81dc7808eed890d0912d823e
   m_UseNativeRenderPass: 1
   xrSystemData: {fileID: 0}
   postProcessData: {fileID: 11400000, guid: 41439944d30ece34e96484bdb6645b55, type: 2}
@@ -123,6 +124,50 @@ MonoBehaviour:
     kawaseBlur: {fileID: 4800000, guid: ead7e4745cd94d22beaeeea69ae381a7, type: 3}
     dilate: {fileID: 4800000, guid: a987f6629a694e19a74290edccde4040, type: 3}
     outline: {fileID: 4800000, guid: b0cf66d628f541279229be85e2c31db3, type: 3}
+--- !u!114 &4504212681616578798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b3d386ba5cd94485973aee1479b272e, type: 3}
+  m_Name: RenderEffects
+  m_EditorClassIdentifier: 
+  m_Active: 1
+  settings:
+    passTag: RenderEffects
+    Event: 300
+    filterSettings:
+      RenderQueueType: 0
+      LayerMask:
+        serializedVersion: 2
+        m_Bits: 4294967295
+      PassNames:
+      - Outline
+      - Silhouette
+    overrideMaterial: {fileID: 0}
+    overrideMaterialPassIndex: 0
+    overrideShader: {fileID: 0}
+    overrideShaderPassIndex: 0
+    overrideMode: 1
+    overrideDepthState: 0
+    depthCompareFunction: 4
+    enableWrite: 1
+    stencilSettings:
+      overrideStencilState: 0
+      stencilReference: 0
+      stencilCompareFunction: 8
+      passOperation: 0
+      failOperation: 0
+      zFailOperation: 0
+    cameraSettings:
+      overrideCamera: 0
+      restoreCamera: 1
+      offset: {x: 0, y: 0, z: 0, w: 0}
+      cameraFieldOfView: 60
 --- !u!114 &7833122117494664109
 MonoBehaviour:
   m_ObjectHideFlags: 0

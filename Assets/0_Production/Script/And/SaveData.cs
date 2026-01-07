@@ -4,8 +4,6 @@
 public class SaveData
 {
     public int stage = 1;
-       public Dictionary<string, int> countryStageCount
-        = new Dictionary<string, int>();
     public int coin = 0;
     public int gem = 0;
 
@@ -13,25 +11,36 @@ public class SaveData
     public int radiusLevel = 1;
     public int mutateChanceLevel = 1;
 
+    // ⭐ Dictionary → List
+    public List<CountryStageEntry> countryStages = new();
+
     public int GetClearedStageCount(string countryId)
     {
-        if (countryStageCount == null)
-            countryStageCount = new Dictionary<string, int>();
-
-        if (countryStageCount.TryGetValue(countryId, out int v))
-            return v;
-
-        return 0;
+        var entry = countryStages.Find(e => e.countryId == countryId);
+        return entry != null ? entry.cleared : 0;
     }
 
     public void AddClearedStage(string countryId)
     {
-        if (countryStageCount == null)
-            countryStageCount = new Dictionary<string, int>();
+        var entry = countryStages.Find(e => e.countryId == countryId);
 
-        if (!countryStageCount.ContainsKey(countryId))
-            countryStageCount[countryId] = 0;
-
-        countryStageCount[countryId]++;
+        if (entry != null)
+        {
+            entry.cleared++;
+        }
+        else
+        {
+            countryStages.Add(new CountryStageEntry
+            {
+                countryId = countryId,
+                cleared = 1
+            });
+        }
     }
+}
+[System.Serializable]
+public class CountryStageEntry
+{
+    public string countryId;
+    public int cleared;
 }

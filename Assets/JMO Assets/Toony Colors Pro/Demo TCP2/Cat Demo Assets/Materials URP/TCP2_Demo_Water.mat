@@ -26,8 +26,8 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: 3eda0c4754885564f9df920405499055, type: 3}
-        m_Scale: {x: 1.4, y: 1.4}
+        m_Texture: {fileID: 2800000, guid: cc6d287b7ea51c346a937141a55e504f, type: 3}
+        m_Scale: {x: 50, y: 50}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
         m_Texture: {fileID: 0}
@@ -50,7 +50,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _FoamTex:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: b5b8c6d24448dc14bbd82ebf3d0fe234, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
@@ -77,14 +77,14 @@ Material:
     m_Floats:
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DepthColorDistance: 1.5
+    - _DepthColorDistance: 0.85
     - _DepthDistance: 0.87
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
     - _FoamSmooth: 0.02
-    - _FoamSmoothness: 0.008
-    - _FoamSpread: 2.55
-    - _FoamStrength: 0.775
+    - _FoamSmoothness: 0.119
+    - _FoamSpread: 1.8
+    - _FoamStrength: 0.8
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -93,11 +93,11 @@ Material:
     - _OcclusionStrength: 1
     - _Parallax: 0.02
     - _RampSmooth: 0.77
-    - _RampSmoothing: 1
-    - _RampThreshold: 0.808
+    - _RampSmoothing: 0.1
+    - _RampThreshold: 0.5
     - _ReceiveShadowsOff: 0
-    - _RimMax: 0.768
-    - _RimMin: 0.35
+    - _RimMax: 1
+    - _RimMin: 0.4
     - _SineCount2: 2
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
@@ -109,8 +109,8 @@ Material:
     - _WaveFrequency: 2
     - _WaveHeight: 0.03
     - _WaveSpeed: 1
-    - _WavesFrequency: 0
-    - _WavesHeight: 0
+    - _WavesFrequency: 10
+    - _WavesHeight: 1
     - _WavesSpeed: 1
     - _ZWrite: 1
     - __dummy__: 0
@@ -121,7 +121,7 @@ Material:
     - _DepthColor: {r: 0, g: 0.44313726, b: 0.7647059, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 0.9019608, g: 0.9019608, b: 0.9019608, a: 1}
-    - _FoamSpeed: {r: -0.1, g: 0, b: 0, a: 0}
+    - _FoamSpeed: {r: -0.33, g: -0.25, b: 0.5, a: 0.5}
     - _HColor: {r: 0.9490196, g: 0.9490196, b: 0.9490196, a: 1}
     - _RimColor: {r: 0.09019608, g: 0.36078432, b: 0.4156863, a: 0.078431375}
     - _SColor: {r: 0, g: 0.32941177, b: 0.69803923, a: 1}

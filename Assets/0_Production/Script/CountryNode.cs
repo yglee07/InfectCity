@@ -5,6 +5,8 @@ public class CountryNode : MonoBehaviour
     public string countryId;
     public Transform center;
     public MeshRenderer countryMesh;
+    [Header("Conquer Settings")]
+    public int stagesToConquer = 3;
     public enum CountryState
     {
         Normal,
@@ -94,5 +96,16 @@ public class CountryNode : MonoBehaviour
                     break;
             }
         }
+
+    RenderTexture CreateMaskRT()
+    {
+        var rt = new RenderTexture(128, 128, 0, RenderTextureFormat.R8);
+        rt.wrapMode = TextureWrapMode.Clamp;
+        rt.filterMode = FilterMode.Bilinear;
+        rt.useMipMap = false;
+        rt.Create();
+        return rt;
+    }
+
 
 }

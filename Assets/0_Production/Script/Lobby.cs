@@ -11,7 +11,7 @@ public class Lobby : MonoBehaviour
     public Material conqueredMat;
     Dictionary<string, CountryNode> countryMap;
     List<string> countryOrder;
-    CountryNode currentCountry;
+    public CountryNode currentCountry;
 
     public UILobby ui;
 
@@ -37,24 +37,46 @@ public class Lobby : MonoBehaviour
     }
     public void RefreshLobby()
     {
-        int stage = SaveSystem.Data.stage;
         Debug.Log("========== [Lobby] RefreshLobby START ==========");
-        Debug.Log($"[Lobby] current stage = {stage}");
-        // 1️⃣ 현재 국가 계산
-        int countryIndex = stage / 2;
-        countryIndex = Mathf.Clamp(countryIndex, 0, countryOrder.Count - 1);
-        string countryId = countryOrder[countryIndex];
-        currentCountry = countryMap[countryId];
-        Debug.Log($"[Lobby] currentCountry = {countryId}");
+
+        // 1️⃣ 현재 국가 계산 (CountryNode 기준)
+        CountryNode nextCountry = null;
+
+        foreach (var id in countryOrder)
+        {
+            CountryNode node = countryMap[id];
+            int cleared = GetClearedStageCount(node.countryId);
+
+            Debug.Log(
+                $"[Lobby] {node.countryId} : {cleared}/{node.stagesToConquer}"
+            );
+
+            if (cleared < node.stagesToConquer)
+            {
+                nextCountry = node;
+                break;
+            }
+        }
+
+        // 전부 정복한 경우 fallback
+        if (nextCountry == null)
+        {
+            nextCountry = countryMap[countryOrder[countryOrder.Count - 1]];
+            Debug.Log("[Lobby] ALL COUNTRIES CONQUERED");
+        }
+
+        currentCountry = nextCountry;
+
+        Debug.Log($"[Lobby] currentCountry = {currentCountry.countryId}");
+
         // 2️⃣ 모든 국가 상태 초기화
         foreach (var kv in countryMap)
         {
             CountryNode node = kv.Value;
             int cleared = GetClearedStageCount(node.countryId);
-            Debug.Log($"[Lobby] countryId={node.countryId}, cleared={cleared}");
-            if (cleared >= 2)
+
+            if (cleared >= node.stagesToConquer)
             {
-                Debug.Log($"[Lobby] {node.countryId} -> CONQUERED");
                 node.SetState(
                     CountryState.Conquered,
                     normalMat,
@@ -73,12 +95,10 @@ public class Lobby : MonoBehaviour
             }
         }
 
-        // 3️⃣ 현재 국가 → Selected (단, 이미 정복이면 제외)
+        // 3️⃣ 현재 국가 → Selected (아직 정복 안 된 경우만)
         int currentCleared = GetClearedStageCount(currentCountry.countryId);
-        Debug.Log($"[Lobby] currentCountry cleared = {currentCleared}");
-        if (currentCleared < 2)
+        if (currentCleared < currentCountry.stagesToConquer)
         {
-            Debug.Log($"[Lobby] {currentCountry.countryId} -> SELECTED");
             currentCountry.SetState(
                 CountryState.Selected,
                 normalMat,
@@ -91,17 +111,20 @@ public class Lobby : MonoBehaviour
         FocusCamera(currentCountry.center);
 
         // 5️⃣ UI
-        float progress = currentCleared / 2f;
+        float progress =
+            (float)currentCleared / currentCountry.stagesToConquer;
+
         ui.UpdateCountryUI(
             currentCountry.countryId,
             progress,
             null
         );
 
-        UpdateStageDifficulty(stage);
+        UpdateStageDifficulty(SaveSystem.Data.stage);
 
         Debug.Log("========== [Lobby] RefreshLobby END ==========");
     }
+
 
     public string GetCurrentCountryId(int stage)
     {
@@ -119,9 +142,7 @@ public class Lobby : MonoBehaviour
 
     int GetClearedStageCount(string countryId)
     {
-        if (SaveSystem.Data.countryStageCount.TryGetValue(countryId, out int v))
-            return v;
-        return 0;
+        return SaveSystem.Data.GetClearedStageCount(countryId);
     }
 
     void FocusCamera(Transform center)
