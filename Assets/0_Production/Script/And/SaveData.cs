@@ -13,7 +13,11 @@ public class SaveData
 
     // ⭐ Dictionary → List
     public List<CountryStageEntry> countryStages = new();
-
+    public bool hasPendingConquerAnim;
+    public string pendingCountryId;
+    public int pendingBeforeCleared;
+    public int pendingAfterCleared;
+    public int pendingGreenZombieCount;
     public int GetClearedStageCount(string countryId)
     {
         var entry = countryStages.Find(e => e.countryId == countryId);

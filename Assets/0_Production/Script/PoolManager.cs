@@ -91,7 +91,7 @@ public class PoolManager : MonoBehaviour
         // NavMeshAgent 처리
         if (obj.TryGetComponent<NavMeshAgent>(out var agent))
         {
-            Debug.Log("Enabling NavMeshAgent on spawned object.");
+            
             agent.enabled = true;
         }
 

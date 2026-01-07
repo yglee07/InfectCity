@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using static CountryNode;
 
@@ -6,9 +7,7 @@ public class Lobby : MonoBehaviour
 {
     //public CountryDatabase countryDB;   // ← ScriptableObject 연결
     public Transform countryContainer;
-    public Material normalMat;
-    public Material selectedMat;
-    public Material conqueredMat;
+  
     Dictionary<string, CountryNode> countryMap;
     List<string> countryOrder;
     public CountryNode currentCountry;
@@ -19,6 +18,8 @@ public class Lobby : MonoBehaviour
     [Header("Camera")]
     [SerializeField]
     Vector3 cameraOffset = new Vector3(0f, 0f, -10f);
+    CountryNode floatingNode;
+    Coroutine floatRoutine;
     void Awake()
     {
         countryMap = new Dictionary<string, CountryNode>();
@@ -39,17 +40,39 @@ public class Lobby : MonoBehaviour
     {
         Debug.Log("========== [Lobby] RefreshLobby START ==========");
 
-        // 1️⃣ 현재 국가 계산 (CountryNode 기준)
+        // 🔥 0️⃣ 로비 진입 즉시 스냅 (연출 없을 때만)
+        if (!SaveSystem.Data.hasPendingConquerAnim)
+        {
+            // 아직 currentCountry 없으니, 임시로 계산 먼저
+            CountryNode snapTarget = null;
+
+            foreach (var id in countryOrder)
+            {
+                CountryNode node = countryMap[id];
+                int cleared = GetClearedStageCount(node.countryId);
+
+                if (cleared < node.stagesToConquer)
+                {
+                    snapTarget = node;
+                    break;
+                }
+            }
+
+            if (snapTarget == null)
+                snapTarget = countryMap[countryOrder[countryOrder.Count - 1]];
+
+            CameraController cam = Camera.main.GetComponent<CameraController>();
+            float zoom = snapTarget.GetSuggestedZoom(2f);
+            cam.SnapTo(snapTarget.center, cameraOffset, zoom);
+        }
+
+        // 1️⃣ 현재 국가 계산 (로직 그대로)
         CountryNode nextCountry = null;
 
         foreach (var id in countryOrder)
         {
             CountryNode node = countryMap[id];
             int cleared = GetClearedStageCount(node.countryId);
-
-            Debug.Log(
-                $"[Lobby] {node.countryId} : {cleared}/{node.stagesToConquer}"
-            );
 
             if (cleared < node.stagesToConquer)
             {
@@ -58,61 +81,22 @@ public class Lobby : MonoBehaviour
             }
         }
 
-        // 전부 정복한 경우 fallback
         if (nextCountry == null)
-        {
             nextCountry = countryMap[countryOrder[countryOrder.Count - 1]];
-            Debug.Log("[Lobby] ALL COUNTRIES CONQUERED");
-        }
 
         currentCountry = nextCountry;
-
-        Debug.Log($"[Lobby] currentCountry = {currentCountry.countryId}");
-
-        // 2️⃣ 모든 국가 상태 초기화
+        SetCurrentCountry(currentCountry);
+        // 2️⃣ 모든 국가 즉시 반영
         foreach (var kv in countryMap)
         {
             CountryNode node = kv.Value;
             int cleared = GetClearedStageCount(node.countryId);
-
-            if (cleared >= node.stagesToConquer)
-            {
-                node.SetState(
-                    CountryState.Conquered,
-                    normalMat,
-                    selectedMat,
-                    conqueredMat
-                );
-            }
-            else
-            {
-                node.SetState(
-                    CountryState.Normal,
-                    normalMat,
-                    selectedMat,
-                    conqueredMat
-                );
-            }
+            node.ApplyInstantProgress(cleared);
         }
 
-        // 3️⃣ 현재 국가 → Selected (아직 정복 안 된 경우만)
+        // 3️⃣ UI
         int currentCleared = GetClearedStageCount(currentCountry.countryId);
-        if (currentCleared < currentCountry.stagesToConquer)
-        {
-            currentCountry.SetState(
-                CountryState.Selected,
-                normalMat,
-                selectedMat,
-                conqueredMat
-            );
-        }
-
-        // 4️⃣ 카메라
-        FocusCamera(currentCountry.center);
-
-        // 5️⃣ UI
-        float progress =
-            (float)currentCleared / currentCountry.stagesToConquer;
+        float progress = (float)currentCleared / currentCountry.stagesToConquer;
 
         ui.UpdateCountryUI(
             currentCountry.countryId,
@@ -122,23 +106,167 @@ public class Lobby : MonoBehaviour
 
         UpdateStageDifficulty(SaveSystem.Data.stage);
 
+        // 4️⃣ 연출은 맨 마지막
+        TryPlayPendingConquerAnimation();
+
         Debug.Log("========== [Lobby] RefreshLobby END ==========");
     }
+
+    void TryPlayPendingConquerAnimation()
+    {
+        if (!SaveSystem.Data.hasPendingConquerAnim)
+        {
+            Debug.Log("[Lobby] No pending conquer animation.");
+            return;
+        }
+    
+
+        string countryId = SaveSystem.Data.pendingCountryId;
+
+        if (!countryMap.TryGetValue(countryId, out CountryNode node))
+        {
+            Debug.Log("[Lobby] Pending country not found: " + countryId);
+            return;
+        }
+        Debug.Log(
+ $"[Conquer DEBUG] country={node.countryId} " +
+ $"before={SaveSystem.Data.pendingBeforeCleared} " +
+ $"after={SaveSystem.Data.pendingAfterCleared} " +
+ $"stagesToConquer={node.stagesToConquer}"
+);
+
+        int steps = Mathf.Clamp(
+     SaveSystem.Data.pendingGreenZombieCount,
+     1,    // 최소 연출 보장
+     60    // 최대 연출 제한
+ );
+        CameraController cam = Camera.main.GetComponent<CameraController>();
+
+        // 🔥 1️⃣ 연출 시작 기준점으로 즉시 스냅
+        float zoom = node.GetSuggestedZoom(2f);
+        cam.SnapTo(node.center, cameraOffset, zoom);
+
+        // 🔥 2️⃣ 연출 준비
+        node.PrepareConquerStepAnimation(
+            SaveSystem.Data.pendingBeforeCleared,
+            SaveSystem.Data.pendingAfterCleared,
+            steps
+        );
+
+        // 🔥 3️⃣ 연출 종료 후 카메라 이동
+        node.OnConquerAnimationFinished = () =>
+        {
+            MoveCameraToNextCountry();
+        };
+
+        // 4️⃣ 좀비 생성
+        SpawnConquerZombies(node, steps);
+
+        SaveSystem.Data.hasPendingConquerAnim = false;
+        SaveSystem.Save();
+    }
+
+    void MoveCameraToNextCountry()
+    {
+        // 다음 국가 계산
+        CountryNode next = null;
+
+        foreach (var id in countryOrder)
+        {
+            CountryNode node = countryMap[id];
+            int cleared = GetClearedStageCount(node.countryId);
+
+            if (cleared < node.stagesToConquer)
+            {
+                next = node;
+                break;
+            }
+        }
+
+        if (next == null)
+            return;
+
+        currentCountry = next;
+
+        Debug.Log($"[Lobby] Camera moving to {currentCountry.countryId}");
+
+        FocusCamera(currentCountry.center);
+
+        // UI 갱신도 여기서
+        float progress =
+            (float)GetClearedStageCount(currentCountry.countryId)
+            / currentCountry.stagesToConquer;
+
+        ui.UpdateCountryUI(
+            currentCountry.countryId,
+            progress,
+            null
+        );
+    }
+
+
+    [SerializeField] GameObject greenZombiePrefab;
+    void SpawnConquerZombies(CountryNode node, int count)
+    {
+        Debug.Log("Spawning " + count + " conquer zombies for " + node.countryId);
+
+        const float WAIT_TIME = 1.0f;          // 👈 먼저 보여주는 시간
+        const float EXPLODE_DURATION = 1.0f;   // 👈 폭발 연출 시간
+
+        Transform center = node.center;
+        float delayPerZombie = EXPLODE_DURATION / count;
+
+        Bounds b = node.countryMesh.bounds;
+        float radius = Mathf.Max(b.size.x, b.size.z) * 0.4f;
+
+        for (int i = 0; i < count; i++)
+        {
+            Vector2 r = Random.insideUnitCircle * radius;
+
+            Vector3 pos =
+                center.position +
+                center.right * r.x +
+                center.forward * r.y +
+                center.up * 0.5f;
+
+            Quaternion rot = Quaternion.Euler(270f, 0f, 0f);
+
+            GameObject z = Instantiate(
+                greenZombiePrefab,
+                pos,
+                rot,
+                center
+            );
+
+            float delay = WAIT_TIME + i * delayPerZombie;
+            z.GetComponent<ConquerZombie>().Init(node, delay);
+        }
+    }
+
+
+
+
+
+
 
 
     public string GetCurrentCountryId(int stage)
     {
-        int countryIndex = stage / 2;
-        countryIndex = Mathf.Clamp(countryIndex, 0, countryOrder.Count - 1);
-        return countryOrder[countryIndex];
-    }
-    void ApplyCountryColor(CountryNode node)
-    {
-        int cleared = GetClearedStageCount(node.countryId);
+        int accumulated = 0;
 
-        node.countryMesh.material =
-            (cleared >= 2) ? conqueredMat : normalMat;
+        foreach (var id in countryOrder)
+        {
+            CountryNode node = countryMap[id];
+            accumulated += node.stagesToConquer;
+
+            if (stage <= accumulated)
+                return id;
+        }
+
+        // fallback
+        return countryOrder[countryOrder.Count - 1];
     }
+
 
     int GetClearedStageCount(string countryId)
     {
@@ -148,12 +276,11 @@ public class Lobby : MonoBehaviour
     void FocusCamera(Transform center)
     {
         CameraController cam = Camera.main.GetComponent<CameraController>();
-        float zoom = currentCountry.GetSuggestedZoom(1.15f);
-        // 또는 기본값이 보통 1.2f
-        cam.FocusOn(currentCountry.center, cameraOffset, zoom); 
+        float zoom = currentCountry.GetSuggestedZoom(2f);
+        cam.FocusOn(center, cameraOffset, zoom);
     }
 
-        void UpdateStageDifficulty(int stage)
+    void UpdateStageDifficulty(int stage)
 {
     Debug.Log($"[Diff] UpdateStageDifficulty START | stage = {stage}");
 
@@ -221,6 +348,50 @@ public class Lobby : MonoBehaviour
     ui.UpdateDifficulty(level.difficulty);
     Debug.Log("[Diff] UpdateDifficulty CALLED SUCCESSFULLY");
 }
+    public void PlayConquerAnimationAfterStageClear(
+    string countryId,
+    int beforeCleared,
+    int afterCleared
+)
+    {
+        if (!countryMap.TryGetValue(countryId, out CountryNode node))
+        {
+            Debug.LogWarning($"[Lobby] Country not found: {countryId}");
+            return;
+        }
 
-  
+        node.PlayConquerStepAnimation(beforeCleared, afterCleared);
+    }
+    void SetCurrentCountry(CountryNode node)
+    {
+        // 이전 선택 해제
+        if (floatingNode != null && floatRoutine != null)
+        {
+            StopCoroutine(floatRoutine);
+            floatingNode.transform.localPosition =
+                floatingNode.baseLocalPos;
+        }
+
+        floatingNode = node;
+        floatRoutine = StartCoroutine(FloatCurrentCountry(node));
+    }
+    IEnumerator FloatCurrentCountry(CountryNode node)
+    {
+        float amplitude = 0.2f;
+        float speed = 1.5f;
+
+        Vector3 basePos = node.baseLocalPos;
+
+        while (true)
+        {
+            float y =
+                Mathf.Sin(Time.time * speed) * amplitude;
+
+            node.transform.localPosition =
+                basePos + Vector3.up * y;
+
+            yield return null;
+        }
+    }
+
 }

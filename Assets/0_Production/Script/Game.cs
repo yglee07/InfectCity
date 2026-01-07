@@ -170,30 +170,41 @@ public class Game : MonoBehaviour
     {
         isPlaying = false;
 
-        // ⭐ 현재 로비가 판단한 "현재 국가"
         Lobby lobby = GameManager.Instance.lobbyView.GetComponent<Lobby>();
-        CountryNode currentCountry = lobby.currentCountry;
 
-        if (currentCountry == null)
-        {
-            Debug.LogError("[StageClear] currentCountry is NULL");
-            return;
-        }
+        int clearedStage = SaveSystem.Data.stage;
+        string countryId = lobby.GetCurrentCountryId(clearedStage);
 
-        string countryId = currentCountry.countryId;
-
+        int beforeCleared = SaveSystem.Data.GetClearedStageCount(countryId);
         SaveSystem.Data.AddClearedStage(countryId);
+        int afterCleared = SaveSystem.Data.GetClearedStageCount(countryId);
+
+        // 🔥 실제 남은 그린 좀비 수
+        int remainGreen =
+            NPCManager.Instance.GreenZombies.Count;
+
+        // 최소 1은 보장 (연출 안 비게)
+        remainGreen = Mathf.Max(1, remainGreen);
+
+        SaveSystem.Data.hasPendingConquerAnim = true;
+        SaveSystem.Data.pendingCountryId = countryId;
+        SaveSystem.Data.pendingBeforeCleared = beforeCleared;
+        SaveSystem.Data.pendingAfterCleared = afterCleared;
+        SaveSystem.Data.pendingGreenZombieCount = remainGreen;
 
         Debug.Log(
-        $"[StageClear] {countryId} clearedCount = " +
-        SaveSystem.Data.GetClearedStageCount(countryId)
-    );
+            $"[StageClear] {countryId} {beforeCleared}->{afterCleared} " +
+            $"greenRemain={remainGreen}"
+        );
 
         SaveSystem.Data.stage++;
         SaveSystem.Save();
 
         uiGame.ShowCompletePopup();
     }
+
+
+
 
 
 

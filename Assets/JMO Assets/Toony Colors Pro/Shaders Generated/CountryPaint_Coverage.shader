@@ -1,11 +1,11 @@
-﻿Shader "Hidden/CountryPaint"
+﻿Shader "Hidden/CountryPaint_Coverage"
 {
     SubShader
     {
         Pass
         {
-            ZWrite Off
             ZTest Always
+            ZWrite Off
             Cull Off
 
             HLSLPROGRAM
@@ -13,20 +13,25 @@
             #pragma fragment frag
             #include "UnityCG.cginc"
 
-            sampler2D _MainTex;   // 기존 마스크
+            sampler2D _MainTex;   // 기존 coverage
             sampler2D _BrushTex;  // 브러시
+
             float2 _BrushUV;
             float _BrushSize;
 
             fixed4 frag(v2f_img i) : SV_Target
             {
-                float baseMask = tex2D(_MainTex, i.uv).r;
+                float current = tex2D(_MainTex, i.uv).r;
 
                 float2 d = i.uv - _BrushUV;
-                float brush = tex2D(_BrushTex, d / _BrushSize + 0.5).r;
+                float2 brushUV = d / _BrushSize + 0.5;
 
-                float result = max(baseMask, brush);
-                return result;
+                float brush = tex2D(_BrushTex, brushUV).r;
+
+                // 🔥 핵심: 누적 coverage
+                float result = max(current, brush);
+
+                return fixed4(result, result, result, 1);
             }
             ENDHLSL
         }

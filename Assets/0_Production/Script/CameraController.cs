@@ -404,5 +404,17 @@ bool IsPointerOverUI()
         transform.rotation = fixedRot;
         cam.orthographicSize = zoom;
     }
+    public void SnapTo(Transform center, Vector3 offset, float zoom)
+    {
+        StopAllCoroutines();
+
+        transform.position = center.position + offset;
+        transform.rotation = Quaternion.identity;
+
+        cam.orthographicSize = zoom;
+
+        targetPos = transform.position;
+        targetZoom = zoom;
+    }
 
 }
