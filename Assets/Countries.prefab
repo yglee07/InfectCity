@@ -220,6 +220,12 @@ MonoBehaviour:
   countryId: Zimbabwe
   center: {fileID: 4864648026279862292}
   countryMesh: {fileID: 8264975695013739331}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &68341641420845596
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,6 +524,12 @@ MonoBehaviour:
   countryId: Czech Republic
   center: {fileID: 7697764874185403447}
   countryMesh: {fileID: 6205685471235858646}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &113113048560668007
 GameObject:
   m_ObjectHideFlags: 0
@@ -567,6 +579,12 @@ MonoBehaviour:
   countryId: Tunisia
   center: {fileID: 7051399446798770209}
   countryMesh: {fileID: 3236338682994834252}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &137330696834813326
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,6 +1132,12 @@ MonoBehaviour:
   countryId: Somalia
   center: {fileID: 2958341209852183423}
   countryMesh: {fileID: 1028260887013067993}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &215321663955266820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1427,6 +1451,12 @@ MonoBehaviour:
   countryId: Ethiopia
   center: {fileID: 4770816353957231952}
   countryMesh: {fileID: 4899787232254042105}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &356721201739417965
 GameObject:
   m_ObjectHideFlags: 0
@@ -1476,6 +1506,12 @@ MonoBehaviour:
   countryId: Belgium
   center: {fileID: 7358604834358582642}
   countryMesh: {fileID: 767187875132793070}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &361074115555504465
 GameObject:
   m_ObjectHideFlags: 0
@@ -1525,6 +1561,12 @@ MonoBehaviour:
   countryId: Mozambique
   center: {fileID: 567946667075220578}
   countryMesh: {fileID: 1128919858530476788}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &371884699336293334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1745,6 +1787,12 @@ MonoBehaviour:
   countryId: Laos
   center: {fileID: 6612015865966305202}
   countryMesh: {fileID: 4264368726816136239}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &415215130047097874
 GameObject:
   m_ObjectHideFlags: 0
@@ -1934,6 +1982,12 @@ MonoBehaviour:
   countryId: Austria
   center: {fileID: 848337467536946722}
   countryMesh: {fileID: 2751287381853303760}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &488914300202042300
 GameObject:
   m_ObjectHideFlags: 0
@@ -1983,6 +2037,12 @@ MonoBehaviour:
   countryId: Portugal
   center: {fileID: 7938495048970498216}
   countryMesh: {fileID: 4202122854268312273}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &494311578265585296
 GameObject:
   m_ObjectHideFlags: 0
@@ -2032,6 +2092,12 @@ MonoBehaviour:
   countryId: France
   center: {fileID: 316251065707632600}
   countryMesh: {fileID: 1971309535918449090}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &537917610182190810
 GameObject:
   m_ObjectHideFlags: 0
@@ -2081,6 +2147,12 @@ MonoBehaviour:
   countryId: Italy
   center: {fileID: 5587824483753756173}
   countryMesh: {fileID: 1529732156307517595}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &543253541902892482
 GameObject:
   m_ObjectHideFlags: 0
@@ -2130,6 +2202,12 @@ MonoBehaviour:
   countryId: India
   center: {fileID: 3162776380112413367}
   countryMesh: {fileID: 5513455689188775905}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &551395838043320608
 GameObject:
   m_ObjectHideFlags: 0
@@ -2179,6 +2257,12 @@ MonoBehaviour:
   countryId: Syria
   center: {fileID: 3511010309299880774}
   countryMesh: {fileID: 9173168391853002088}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &565964090644293269
 GameObject:
   m_ObjectHideFlags: 0
@@ -2228,6 +2312,12 @@ MonoBehaviour:
   countryId: Central African Republic
   center: {fileID: 4618776310665660292}
   countryMesh: {fileID: 5255119331988543830}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &571282118337591506
 GameObject:
   m_ObjectHideFlags: 0
@@ -2277,6 +2367,12 @@ MonoBehaviour:
   countryId: Cambodia
   center: {fileID: 7958901179552434781}
   countryMesh: {fileID: 6894342734694932709}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &601741364593127214
 GameObject:
   m_ObjectHideFlags: 0
@@ -2304,7 +2400,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 85.41719, y: 0.2499989, z: -9.442353}
-  m_LocalScale: {x: 1, y: 1.0000001, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3061636199653122758}
@@ -2326,6 +2422,12 @@ MonoBehaviour:
   countryId: United States of America
   center: {fileID: 382188616474277789}
   countryMesh: {fileID: 409567886259182259}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &603061250232750501
 GameObject:
   m_ObjectHideFlags: 0
@@ -2811,6 +2913,12 @@ MonoBehaviour:
   countryId: Ukraine
   center: {fileID: 4148889285447975152}
   countryMesh: {fileID: 4029761629323642720}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &884075088240639108
 GameObject:
   m_ObjectHideFlags: 0
@@ -2969,6 +3077,12 @@ MonoBehaviour:
   countryId: Lebanon
   center: {fileID: 5286614629513657258}
   countryMesh: {fileID: 6231573873184235179}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &889170192289477139
 GameObject:
   m_ObjectHideFlags: 0
@@ -3127,6 +3241,12 @@ MonoBehaviour:
   countryId: Russia
   center: {fileID: 1502167641561464423}
   countryMesh: {fileID: 8902919068764132770}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &908431701973124906
 GameObject:
   m_ObjectHideFlags: 0
@@ -3285,6 +3405,12 @@ MonoBehaviour:
   countryId: Benin
   center: {fileID: 4440906087443535653}
   countryMesh: {fileID: 8894838376819341823}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &940374181689755762
 GameObject:
   m_ObjectHideFlags: 0
@@ -3396,6 +3522,12 @@ MonoBehaviour:
   countryId: Guinea
   center: {fileID: 2930908042647508384}
   countryMesh: {fileID: 6197221805402416156}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1067395380561269048
 GameObject:
   m_ObjectHideFlags: 0
@@ -3663,6 +3795,12 @@ MonoBehaviour:
   countryId: Armenia
   center: {fileID: 4306820466071533036}
   countryMesh: {fileID: 5761656668407346433}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1124791855205576919
 GameObject:
   m_ObjectHideFlags: 0
@@ -3721,7 +3859,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 24.232388, y: 0.24999517, z: -42.501854}
-  m_LocalScale: {x: 1, y: 1.0000001, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1811082120464758645}
@@ -3743,6 +3881,12 @@ MonoBehaviour:
   countryId: Greenland
   center: {fileID: 3317705860158805041}
   countryMesh: {fileID: 7586442856720089238}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1134741079373531285
 GameObject:
   m_ObjectHideFlags: 0
@@ -3792,6 +3936,12 @@ MonoBehaviour:
   countryId: Ivory Coast
   center: {fileID: 5232914038290503272}
   countryMesh: {fileID: 8625957435960723586}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1156748434552487766
 GameObject:
   m_ObjectHideFlags: 0
@@ -4099,7 +4249,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 45.90346, y: 0.25000262, z: 23.276943}
-  m_LocalScale: {x: 1, y: 1.0000001, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6245297048073004362}
@@ -4121,6 +4271,12 @@ MonoBehaviour:
   countryId: Venezuela
   center: {fileID: 4060872226559960895}
   countryMesh: {fileID: 8305116172491693503}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1233967753345608589
 GameObject:
   m_ObjectHideFlags: 0
@@ -4559,6 +4715,12 @@ MonoBehaviour:
   countryId: Mexico
   center: {fileID: 3015814793549397921}
   countryMesh: {fileID: 190906262419025394}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1324845133108429642
 GameObject:
   m_ObjectHideFlags: 0
@@ -4717,6 +4879,12 @@ MonoBehaviour:
   countryId: Nepal
   center: {fileID: 7949979687488461202}
   countryMesh: {fileID: 6436438160795362015}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1342229678961615282
 GameObject:
   m_ObjectHideFlags: 0
@@ -5186,6 +5354,12 @@ MonoBehaviour:
   countryId: Malaysia
   center: {fileID: 3336446597187622325}
   countryMesh: {fileID: 7840425552686882719}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1531248291971069217
 GameObject:
   m_ObjectHideFlags: 0
@@ -5920,6 +6094,12 @@ MonoBehaviour:
   countryId: Argentina
   center: {fileID: 1949334057656646339}
   countryMesh: {fileID: 8372157517924669662}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1737016379225683056
 GameObject:
   m_ObjectHideFlags: 0
@@ -6187,6 +6367,12 @@ MonoBehaviour:
   countryId: Peru
   center: {fileID: 8188180890260382508}
   countryMesh: {fileID: 7820022622131960777}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1871893823255944214
 GameObject:
   m_ObjectHideFlags: 0
@@ -6376,6 +6562,12 @@ MonoBehaviour:
   countryId: Tanzania
   center: {fileID: 296915585087697281}
   countryMesh: {fileID: 1981285073141432195}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &1958268276447556109
 GameObject:
   m_ObjectHideFlags: 0
@@ -6425,6 +6617,12 @@ MonoBehaviour:
   countryId: North Korea
   center: {fileID: 4787446204308861499}
   countryMesh: {fileID: 4510811528376317488}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2033839543468409190
 GameObject:
   m_ObjectHideFlags: 0
@@ -6583,6 +6781,12 @@ MonoBehaviour:
   countryId: Nicaragua
   center: {fileID: 1501285487843547204}
   countryMesh: {fileID: 6792092574810245094}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2127384536727891624
 GameObject:
   m_ObjectHideFlags: 0
@@ -6632,6 +6836,12 @@ MonoBehaviour:
   countryId: Cuba
   center: {fileID: 3521128063797479619}
   countryMesh: {fileID: 3963716366183266703}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2147494379044284995
 GameObject:
   m_ObjectHideFlags: 0
@@ -6681,6 +6891,12 @@ MonoBehaviour:
   countryId: Alaska
   center: {fileID: 5211219127645748850}
   countryMesh: {fileID: 2502025332390108196}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2160727710351216149
 GameObject:
   m_ObjectHideFlags: 0
@@ -6730,6 +6946,12 @@ MonoBehaviour:
   countryId: Botswana
   center: {fileID: 7269667306637534546}
   countryMesh: {fileID: 239215351641095695}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2178240392653143858
 GameObject:
   m_ObjectHideFlags: 0
@@ -6779,6 +7001,12 @@ MonoBehaviour:
   countryId: Israel
   center: {fileID: 3636931237731042326}
   countryMesh: {fileID: 5842424614344279470}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2198079693698979556
 GameObject:
   m_ObjectHideFlags: 0
@@ -7108,6 +7336,12 @@ MonoBehaviour:
   countryId: Iceland
   center: {fileID: 636266136172008726}
   countryMesh: {fileID: 1050985840745997699}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2309993685299881145
 GameObject:
   m_ObjectHideFlags: 0
@@ -7328,6 +7562,12 @@ MonoBehaviour:
   countryId: United Arab Emirates
   center: {fileID: 6275402575066067832}
   countryMesh: {fileID: 5779576129959185083}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2390221771489594689
 GameObject:
   m_ObjectHideFlags: 0
@@ -7377,6 +7617,12 @@ MonoBehaviour:
   countryId: Mauritania
   center: {fileID: 4186450616237404596}
   countryMesh: {fileID: 6023746169956571122}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2437396244783496477
 GameObject:
   m_ObjectHideFlags: 0
@@ -7426,6 +7672,12 @@ MonoBehaviour:
   countryId: Ecuador
   center: {fileID: 7029116036604739866}
   countryMesh: {fileID: 1695400254817845533}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2454941361743749418
 GameObject:
   m_ObjectHideFlags: 0
@@ -7584,6 +7836,12 @@ MonoBehaviour:
   countryId: Turkmenistan
   center: {fileID: 9189473040578271025}
   countryMesh: {fileID: 595282786625374838}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2487154313851766804
 GameObject:
   m_ObjectHideFlags: 0
@@ -7664,6 +7922,12 @@ MonoBehaviour:
   countryId: Niger
   center: {fileID: 7333664233239600016}
   countryMesh: {fileID: 2414070459307567015}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2491465757295514699
 GameObject:
   m_ObjectHideFlags: 0
@@ -7713,6 +7977,12 @@ MonoBehaviour:
   countryId: United Kingdom
   center: {fileID: 3002099415465823566}
   countryMesh: {fileID: 5675268892887730850}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2538746104962239986
 GameObject:
   m_ObjectHideFlags: 0
@@ -7871,6 +8141,12 @@ MonoBehaviour:
   countryId: Philippines
   center: {fileID: 2194966006080809384}
   countryMesh: {fileID: 5814297013619044682}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2568996334084176162
 GameObject:
   m_ObjectHideFlags: 0
@@ -7920,6 +8196,12 @@ MonoBehaviour:
   countryId: Norway
   center: {fileID: 5112567438561980494}
   countryMesh: {fileID: 7952761190760584338}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2587452003537041913
 GameObject:
   m_ObjectHideFlags: 0
@@ -8000,6 +8282,12 @@ MonoBehaviour:
   countryId: Congo
   center: {fileID: 8332253719456856642}
   countryMesh: {fileID: 6510206850742397170}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2626994766315955288
 GameObject:
   m_ObjectHideFlags: 0
@@ -8080,6 +8368,12 @@ MonoBehaviour:
   countryId: North Macedonia
   center: {fileID: 945382184462109333}
   countryMesh: {fileID: 6846299189851583308}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2655139472549587432
 GameObject:
   m_ObjectHideFlags: 0
@@ -8580,6 +8874,12 @@ MonoBehaviour:
   countryId: Suriname
   center: {fileID: 4371945457793080168}
   countryMesh: {fileID: 2507600143834649853}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2811542868708089044
 GameObject:
   m_ObjectHideFlags: 0
@@ -8800,6 +9100,12 @@ MonoBehaviour:
   countryId: Cameroon
   center: {fileID: 7122645892080296510}
   countryMesh: {fileID: 8738739900724907028}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2953348136133821190
 GameObject:
   m_ObjectHideFlags: 0
@@ -8849,6 +9155,12 @@ MonoBehaviour:
   countryId: Oman
   center: {fileID: 8056443436828723791}
   countryMesh: {fileID: 8164864478103613871}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &2967960627134407876
 GameObject:
   m_ObjectHideFlags: 0
@@ -9567,6 +9879,12 @@ MonoBehaviour:
   countryId: South Sudan
   center: {fileID: 590999252027170973}
   countryMesh: {fileID: 4162877191071273903}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3162582454372423738
 GameObject:
   m_ObjectHideFlags: 0
@@ -10861,6 +11179,12 @@ MonoBehaviour:
   countryId: Afghanistan
   center: {fileID: 7667742409684454788}
   countryMesh: {fileID: 6073574751830843483}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3502075383738155199
 GameObject:
   m_ObjectHideFlags: 0
@@ -10910,6 +11234,12 @@ MonoBehaviour:
   countryId: Gabon
   center: {fileID: 4347682505154561606}
   countryMesh: {fileID: 2727068589569821737}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3551040872791886236
 GameObject:
   m_ObjectHideFlags: 0
@@ -11068,6 +11398,12 @@ MonoBehaviour:
   countryId: New Zealand
   center: {fileID: 8925944919494517231}
   countryMesh: {fileID: 778683589246784948}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3586952440356391723
 GameObject:
   m_ObjectHideFlags: 0
@@ -11117,6 +11453,12 @@ MonoBehaviour:
   countryId: Bhutan
   center: {fileID: 3628165328459310276}
   countryMesh: {fileID: 3057908378821013198}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3679452767706134894
 GameObject:
   m_ObjectHideFlags: 0
@@ -11166,6 +11508,12 @@ MonoBehaviour:
   countryId: Costa Rica
   center: {fileID: 5108405960569023938}
   countryMesh: {fileID: 509234316933050910}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3692741569789013225
 GameObject:
   m_ObjectHideFlags: 0
@@ -11386,6 +11734,12 @@ MonoBehaviour:
   countryId: Estonia
   center: {fileID: 1045710381444585247}
   countryMesh: {fileID: 7306910402442127511}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3736569294124726653
 GameObject:
   m_ObjectHideFlags: 0
@@ -11435,6 +11789,12 @@ MonoBehaviour:
   countryId: Georgia
   center: {fileID: 7765805850960202806}
   countryMesh: {fileID: 6710764980054324204}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3793366810467944078
 GameObject:
   m_ObjectHideFlags: 0
@@ -11733,6 +12093,12 @@ MonoBehaviour:
   countryId: Bulgaria
   center: {fileID: 3529675789241467348}
   countryMesh: {fileID: 6059123226322551790}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3956697227657387493
 GameObject:
   m_ObjectHideFlags: 0
@@ -11782,6 +12148,12 @@ MonoBehaviour:
   countryId: Canada
   center: {fileID: 2812715806748253655}
   countryMesh: {fileID: 5004685621421113851}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &3964461690700469573
 GameObject:
   m_ObjectHideFlags: 0
@@ -12029,6 +12401,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 7312966721721457106}
+  - {fileID: 6826203914315317039}
+  - {fileID: 2894358371837342532}
+  - {fileID: 1710345228801324829}
   - {fileID: 2830201977913356888}
   - {fileID: 3127399221175713833}
   - {fileID: 3164180895378142402}
@@ -12055,7 +12431,6 @@ Transform:
   - {fileID: 7179847191928630525}
   - {fileID: 293291827353524029}
   - {fileID: 7397372977583109799}
-  - {fileID: 7312966721721457106}
   - {fileID: 8331389549538461273}
   - {fileID: 2403760193776500534}
   - {fileID: 6415712514002656276}
@@ -12076,7 +12451,6 @@ Transform:
   - {fileID: 5293380273195662324}
   - {fileID: 685346379223052365}
   - {fileID: 6619435754286552701}
-  - {fileID: 2894358371837342532}
   - {fileID: 5890298104380723760}
   - {fileID: 790046569671888207}
   - {fileID: 2831258004606111099}
@@ -12168,11 +12542,9 @@ Transform:
   - {fileID: 6159276964045481383}
   - {fileID: 7960958515687829718}
   - {fileID: 5626224011247705951}
-  - {fileID: 6826203914315317039}
   - {fileID: 8054658946027302552}
   - {fileID: 5344975577956672993}
   - {fileID: 3773572018599839400}
-  - {fileID: 1710345228801324829}
   - {fileID: 3807895289141786604}
   - {fileID: 1746460737621350206}
   - {fileID: 8945707880563469696}
@@ -13022,6 +13394,12 @@ MonoBehaviour:
   countryId: Kazakhstan
   center: {fileID: 8478136654654286132}
   countryMesh: {fileID: 6490456832000269705}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4148456227976883730
 GameObject:
   m_ObjectHideFlags: 0
@@ -13071,6 +13449,12 @@ MonoBehaviour:
   countryId: Libya
   center: {fileID: 7548374742821256262}
   countryMesh: {fileID: 8971081563665679050}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4155255816342645296
 GameObject:
   m_ObjectHideFlags: 0
@@ -13151,6 +13535,12 @@ MonoBehaviour:
   countryId: Iraq
   center: {fileID: 4318307141526295537}
   countryMesh: {fileID: 8149941210384362757}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4220947310364698461
 GameObject:
   m_ObjectHideFlags: 0
@@ -13371,6 +13761,12 @@ MonoBehaviour:
   countryId: Uganda
   center: {fileID: 4195186487091072969}
   countryMesh: {fileID: 3733065114661842307}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4250528143460541252
 GameObject:
   m_ObjectHideFlags: 0
@@ -13522,7 +13918,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -57.00972, y: 0.2500006, z: 4.6609426}
-  m_LocalScale: {x: 1, y: 1.0000001, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7036936079613884701}
@@ -13544,6 +13940,12 @@ MonoBehaviour:
   countryId: China
   center: {fileID: 6012869334421971934}
   countryMesh: {fileID: 239234174559564880}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4295499462219994701
 GameObject:
   m_ObjectHideFlags: 0
@@ -13624,6 +14026,12 @@ MonoBehaviour:
   countryId: Colombia
   center: {fileID: 1828825673299652836}
   countryMesh: {fileID: 7370793537522461692}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4361182863133937612
 GameObject:
   m_ObjectHideFlags: 0
@@ -13782,6 +14190,12 @@ MonoBehaviour:
   countryId: Saudi Arabia
   center: {fileID: 7410084614819170236}
   countryMesh: {fileID: 6408918434181096465}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4370590838498850443
 GameObject:
   m_ObjectHideFlags: 0
@@ -14049,6 +14463,12 @@ MonoBehaviour:
   countryId: Jordan
   center: {fileID: 2780163683593022250}
   countryMesh: {fileID: 1565316982760590583}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4416631870627948431
 GameObject:
   m_ObjectHideFlags: 0
@@ -14456,6 +14876,12 @@ MonoBehaviour:
   countryId: Moldova
   center: {fileID: 5194122961671137242}
   countryMesh: {fileID: 4717331099538193428}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4610667022882290562
 GameObject:
   m_ObjectHideFlags: 0
@@ -14505,6 +14931,12 @@ MonoBehaviour:
   countryId: Mongolia
   center: {fileID: 9186651331859475401}
   countryMesh: {fileID: 5873231034479044072}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4632435415009596638
 GameObject:
   m_ObjectHideFlags: 0
@@ -15083,6 +15515,12 @@ MonoBehaviour:
   countryId: Indonesia
   center: {fileID: 955631708853254037}
   countryMesh: {fileID: 3163648530996641291}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4808292102884369084
 GameObject:
   m_ObjectHideFlags: 0
@@ -15381,6 +15819,12 @@ MonoBehaviour:
   countryId: Kyrgyzstan
   center: {fileID: 437819669617112884}
   countryMesh: {fileID: 2834903692998782479}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4952475743207962791
 GameObject:
   m_ObjectHideFlags: 0
@@ -15430,6 +15874,12 @@ MonoBehaviour:
   countryId: Japan
   center: {fileID: 775407836119116454}
   countryMesh: {fileID: 6248283852749503737}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &4968500830897092373
 GameObject:
   m_ObjectHideFlags: 0
@@ -15619,6 +16069,12 @@ MonoBehaviour:
   countryId: Albania
   center: {fileID: 2243058496503999398}
   countryMesh: {fileID: 5097443126625747067}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5200490496239946655
 GameObject:
   m_ObjectHideFlags: 0
@@ -15699,6 +16155,12 @@ MonoBehaviour:
   countryId: Germany
   center: {fileID: 1973501753165620686}
   countryMesh: {fileID: 7684406662606045829}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5264069034545648270
 GameObject:
   m_ObjectHideFlags: 0
@@ -15857,6 +16319,12 @@ MonoBehaviour:
   countryId: Latvia
   center: {fileID: 8177928858374657504}
   countryMesh: {fileID: 3152034938784795942}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5289228745252688888
 GameObject:
   m_ObjectHideFlags: 0
@@ -15906,6 +16374,12 @@ MonoBehaviour:
   countryId: Mali
   center: {fileID: 3539656998636704765}
   countryMesh: {fileID: 7412884143105329908}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5296110649015358738
 GameObject:
   m_ObjectHideFlags: 0
@@ -16064,6 +16538,12 @@ MonoBehaviour:
   countryId: Croatia
   center: {fileID: 3373019151215788418}
   countryMesh: {fileID: 1754999392587477732}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5343981442572482466
 GameObject:
   m_ObjectHideFlags: 0
@@ -16315,6 +16795,12 @@ MonoBehaviour:
   countryId: Paraguay
   center: {fileID: 1735990728885965738}
   countryMesh: {fileID: 2694161566061916836}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5442370479608395678
 GameObject:
   m_ObjectHideFlags: 0
@@ -16395,6 +16881,12 @@ MonoBehaviour:
   countryId: Brazil
   center: {fileID: 8498709385842736489}
   countryMesh: {fileID: 1666224299428596874}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5492997841298799180
 GameObject:
   m_ObjectHideFlags: 0
@@ -16475,6 +16967,12 @@ MonoBehaviour:
   countryId: Guyana
   center: {fileID: 3147304298134473198}
   countryMesh: {fileID: 2847348465377240048}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5531511718025785730
 GameObject:
   m_ObjectHideFlags: 0
@@ -16633,6 +17131,12 @@ MonoBehaviour:
   countryId: Bosnia and Herzogovina
   center: {fileID: 5193222674473391648}
   countryMesh: {fileID: 7157195931878097571}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5551858907709918479
 GameObject:
   m_ObjectHideFlags: 0
@@ -17024,6 +17528,12 @@ MonoBehaviour:
   countryId: Ireland
   center: {fileID: 815450201633602185}
   countryMesh: {fileID: 6350949764915678533}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5635048389129861346
 GameObject:
   m_ObjectHideFlags: 0
@@ -17166,6 +17676,12 @@ MonoBehaviour:
   countryId: Democratic Republic of the Congo
   center: {fileID: 1960515565327383997}
   countryMesh: {fileID: 5740854341879630580}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5652979508439743685
 GameObject:
   m_ObjectHideFlags: 0
@@ -17604,6 +18120,12 @@ MonoBehaviour:
   countryId: Burkina Faso
   center: {fileID: 4707275110930081595}
   countryMesh: {fileID: 5263146036485887635}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5728633804296950471
 GameObject:
   m_ObjectHideFlags: 0
@@ -17808,6 +18330,12 @@ MonoBehaviour:
   countryId: Netherlands
   center: {fileID: 8397038261462196102}
   countryMesh: {fileID: 7806200625496630835}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5820210948523025321
 GameObject:
   m_ObjectHideFlags: 0
@@ -17966,6 +18494,12 @@ MonoBehaviour:
   countryId: Honduras
   center: {fileID: 5819843509019355605}
   countryMesh: {fileID: 9121597268001044762}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5860816731405826799
 GameObject:
   m_ObjectHideFlags: 0
@@ -18295,6 +18829,12 @@ MonoBehaviour:
   countryId: Liberia
   center: {fileID: 1123403474270687796}
   countryMesh: {fileID: 4229977927035190509}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5967093954366607570
 GameObject:
   m_ObjectHideFlags: 0
@@ -18499,6 +19039,12 @@ MonoBehaviour:
   countryId: Sweden
   center: {fileID: 243854605645904967}
   countryMesh: {fileID: 3543833409727261901}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6074701890234812412
 GameObject:
   m_ObjectHideFlags: 0
@@ -18828,6 +19374,12 @@ MonoBehaviour:
   countryId: Togo
   center: {fileID: 4839468060560025151}
   countryMesh: {fileID: 9216639848160383004}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6171629563359734529
 GameObject:
   m_ObjectHideFlags: 0
@@ -18877,6 +19429,12 @@ MonoBehaviour:
   countryId: Sierra Leone
   center: {fileID: 4450299913128437984}
   countryMesh: {fileID: 8288985676261690745}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6187068938840227414
 GameObject:
   m_ObjectHideFlags: 0
@@ -18926,6 +19484,12 @@ MonoBehaviour:
   countryId: Lithuania
   center: {fileID: 478536501690702908}
   countryMesh: {fileID: 4523748465166379340}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6193901790157044472
 GameObject:
   m_ObjectHideFlags: 0
@@ -19006,6 +19570,12 @@ MonoBehaviour:
   countryId: Morocco
   center: {fileID: 3118326549153807819}
   countryMesh: {fileID: 6843563950728993075}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6240475764878044683
 GameObject:
   m_ObjectHideFlags: 0
@@ -19055,6 +19625,12 @@ MonoBehaviour:
   countryId: Kenya
   center: {fileID: 5311311953218593070}
   countryMesh: {fileID: 4654760676874545984}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6268843331976191381
 GameObject:
   m_ObjectHideFlags: 0
@@ -19104,6 +19680,12 @@ MonoBehaviour:
   countryId: Panama
   center: {fileID: 937813325909580558}
   countryMesh: {fileID: 762077721077226726}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6276935210895906083
 GameObject:
   m_ObjectHideFlags: 0
@@ -19542,6 +20124,12 @@ MonoBehaviour:
   countryId: Chile
   center: {fileID: 4309990105978175374}
   countryMesh: {fileID: 1795782429897762488}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6408874549215384290
 GameObject:
   m_ObjectHideFlags: 0
@@ -19591,6 +20179,12 @@ MonoBehaviour:
   countryId: Switzerland
   center: {fileID: 7734934155597113789}
   countryMesh: {fileID: 3653915169559012378}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6413128385821074815
 GameObject:
   m_ObjectHideFlags: 0
@@ -19780,6 +20374,12 @@ MonoBehaviour:
   countryId: Spain
   center: {fileID: 49937843144127339}
   countryMesh: {fileID: 2841467369641690121}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6447769698743883095
 GameObject:
   m_ObjectHideFlags: 0
@@ -19829,6 +20429,12 @@ MonoBehaviour:
   countryId: Hungary
   center: {fileID: 884573219564009397}
   countryMesh: {fileID: 6532246138399253237}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6453427390218718800
 GameObject:
   m_ObjectHideFlags: 0
@@ -20329,6 +20935,12 @@ MonoBehaviour:
   countryId: Zambia
   center: {fileID: 7434892769797976812}
   countryMesh: {fileID: 5679091152767561951}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6748049155052059532
 GameObject:
   m_ObjectHideFlags: 0
@@ -20378,6 +20990,12 @@ MonoBehaviour:
   countryId: Finland
   center: {fileID: 6755991995714264611}
   countryMesh: {fileID: 2252887395623423885}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6775444367252814146
 GameObject:
   m_ObjectHideFlags: 0
@@ -20707,6 +21325,12 @@ MonoBehaviour:
   countryId: Tajikistan
   center: {fileID: 6459942342082458785}
   countryMesh: {fileID: 6865849778598383508}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6923495176445377461
 GameObject:
   m_ObjectHideFlags: 0
@@ -20756,6 +21380,12 @@ MonoBehaviour:
   countryId: Turkey
   center: {fileID: 5234845241325067864}
   countryMesh: {fileID: 6232588963686176079}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &6930301866972580746
 GameObject:
   m_ObjectHideFlags: 0
@@ -21178,6 +21808,12 @@ MonoBehaviour:
   countryId: Bolivia
   center: {fileID: 8273583381285789067}
   countryMesh: {fileID: 6066199539379769094}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7119839148465907614
 GameObject:
   m_ObjectHideFlags: 0
@@ -21227,6 +21863,12 @@ MonoBehaviour:
   countryId: Namibia
   center: {fileID: 1016025747617183885}
   countryMesh: {fileID: 6264844389036734801}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7133700844172257422
 GameObject:
   m_ObjectHideFlags: 0
@@ -21276,6 +21918,12 @@ MonoBehaviour:
   countryId: Sudan
   center: {fileID: 3077032842652585187}
   countryMesh: {fileID: 5043380857765072641}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7139617077527420921
 GameObject:
   m_ObjectHideFlags: 0
@@ -21325,6 +21973,12 @@ MonoBehaviour:
   countryId: Kosovo
   center: {fileID: 3251910890468458844}
   countryMesh: {fileID: 9114218995578035123}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7214544429722885682
 GameObject:
   m_ObjectHideFlags: 0
@@ -22090,6 +22744,12 @@ MonoBehaviour:
   countryId: Angola
   center: {fileID: 2250093570717269222}
   countryMesh: {fileID: 545508382843904822}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7311243288230306589
 GameObject:
   m_ObjectHideFlags: 0
@@ -22279,6 +22939,12 @@ MonoBehaviour:
   countryId: Papua New Guinea
   center: {fileID: 2137230904572717841}
   countryMesh: {fileID: 8467776278517794245}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7400912698567126397
 GameObject:
   m_ObjectHideFlags: 0
@@ -22499,6 +23165,12 @@ MonoBehaviour:
   countryId: South Africa
   center: {fileID: 1719879394405039057}
   countryMesh: {fileID: 1324032029588992388}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7427203376005202258
 GameObject:
   m_ObjectHideFlags: 0
@@ -22548,6 +23220,12 @@ MonoBehaviour:
   countryId: Australia
   center: {fileID: 3775753530901797130}
   countryMesh: {fileID: 7878689579672791714}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7442260594876637718
 GameObject:
   m_ObjectHideFlags: 0
@@ -22628,6 +23306,12 @@ MonoBehaviour:
   countryId: Bangladesh
   center: {fileID: 6404779662900054984}
   countryMesh: {fileID: 2625321176223666453}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7500157231526002842
 GameObject:
   m_ObjectHideFlags: 0
@@ -22895,6 +23579,12 @@ MonoBehaviour:
   countryId: Denmark
   center: {fileID: 3830069957992853573}
   countryMesh: {fileID: 1556982358435735460}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7558841970535517918
 GameObject:
   m_ObjectHideFlags: 0
@@ -23053,6 +23743,12 @@ MonoBehaviour:
   countryId: Thailand
   center: {fileID: 2657911680110860924}
   countryMesh: {fileID: 1105258466556199053}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7620076582255394567
 GameObject:
   m_ObjectHideFlags: 0
@@ -23242,6 +23938,12 @@ MonoBehaviour:
   countryId: Romania
   center: {fileID: 5209309742817747516}
   countryMesh: {fileID: 5242661135818200422}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7658284381982344649
 GameObject:
   m_ObjectHideFlags: 0
@@ -23384,6 +24086,12 @@ MonoBehaviour:
   countryId: South Korea
   center: {fileID: 554589958918844824}
   countryMesh: {fileID: 3273488482778711369}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7680393068976855343
 GameObject:
   m_ObjectHideFlags: 0
@@ -23542,6 +24250,12 @@ MonoBehaviour:
   countryId: Guinea Bissau
   center: {fileID: 4329268350852894646}
   countryMesh: {fileID: 2068383976091968513}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7694917245535500652
 GameObject:
   m_ObjectHideFlags: 0
@@ -23591,6 +24305,12 @@ MonoBehaviour:
   countryId: Republic of Serbia
   center: {fileID: 6459618217896170475}
   countryMesh: {fileID: 4696211540899631322}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7706716404741839770
 GameObject:
   m_ObjectHideFlags: 0
@@ -23702,6 +24422,12 @@ MonoBehaviour:
   countryId: Azerbaijan
   center: {fileID: 6999888709438148417}
   countryMesh: {fileID: 7169476487230389165}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7830693214928986135
 GameObject:
   m_ObjectHideFlags: 0
@@ -23782,6 +24508,12 @@ MonoBehaviour:
   countryId: Slovakia
   center: {fileID: 460276632647157436}
   countryMesh: {fileID: 8057216165403561014}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7865474420886335525
 GameObject:
   m_ObjectHideFlags: 0
@@ -24329,6 +25061,12 @@ MonoBehaviour:
   countryId: Senegal
   center: {fileID: 6375868713667965557}
   countryMesh: {fileID: 5269762687955111458}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &7923482578379222077
 GameObject:
   m_ObjectHideFlags: 0
@@ -24549,6 +25287,12 @@ MonoBehaviour:
   countryId: Malawi
   center: {fileID: 1992710893721290346}
   countryMesh: {fileID: 6645693414783764010}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8033383474943451867
 GameObject:
   m_ObjectHideFlags: 0
@@ -24722,6 +25466,12 @@ MonoBehaviour:
   countryId: Uzbekistan
   center: {fileID: 1989711169056207444}
   countryMesh: {fileID: 392920898925841099}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8107155040984519656
 GameObject:
   m_ObjectHideFlags: 0
@@ -24942,6 +25692,12 @@ MonoBehaviour:
   countryId: Pakistan
   center: {fileID: 6666615920557186835}
   countryMesh: {fileID: 5485310848276936685}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8225542392009965249
 GameObject:
   m_ObjectHideFlags: 0
@@ -24991,6 +25747,12 @@ MonoBehaviour:
   countryId: Ghana
   center: {fileID: 7594772938432655816}
   countryMesh: {fileID: 4304523686225499934}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8240939118346033942
 GameObject:
   m_ObjectHideFlags: 0
@@ -25398,6 +26160,12 @@ MonoBehaviour:
   countryId: Myanmar
   center: {fileID: 2515510914662730862}
   countryMesh: {fileID: 1800951924940687058}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8294669555836487321
 GameObject:
   m_ObjectHideFlags: 0
@@ -25556,6 +26324,12 @@ MonoBehaviour:
   countryId: Uruguay
   center: {fileID: 6233386712104568890}
   countryMesh: {fileID: 4543181062812540745}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8320080911073225463
 GameObject:
   m_ObjectHideFlags: 0
@@ -25636,6 +26410,12 @@ MonoBehaviour:
   countryId: Slovenia
   center: {fileID: 4069311047700108662}
   countryMesh: {fileID: 7495283704523333633}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8330145116765965647
 GameObject:
   m_ObjectHideFlags: 0
@@ -25716,6 +26496,12 @@ MonoBehaviour:
   countryId: Belarus
   center: {fileID: 1014879169431940395}
   countryMesh: {fileID: 5980273487314519169}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8379248595751443872
 GameObject:
   m_ObjectHideFlags: 0
@@ -25765,6 +26551,12 @@ MonoBehaviour:
   countryId: Sri Lanka
   center: {fileID: 2850079584396613259}
   countryMesh: {fileID: 5402159218834716439}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8429816953358543746
 GameObject:
   m_ObjectHideFlags: 0
@@ -25907,6 +26699,12 @@ MonoBehaviour:
   countryId: Guatemala
   center: {fileID: 5565311742584479007}
   countryMesh: {fileID: 3116750581938901583}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8503885071706123320
 GameObject:
   m_ObjectHideFlags: 0
@@ -26376,6 +27174,12 @@ MonoBehaviour:
   countryId: Vietnam
   center: {fileID: 4673535503428674050}
   countryMesh: {fileID: 6195669396565848986}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8669510982755968704
 GameObject:
   m_ObjectHideFlags: 0
@@ -26425,6 +27229,12 @@ MonoBehaviour:
   countryId: Montenegro
   center: {fileID: 4603327220879579373}
   countryMesh: {fileID: 8185612778394878566}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8670318500126419418
 GameObject:
   m_ObjectHideFlags: 0
@@ -26614,6 +27424,12 @@ MonoBehaviour:
   countryId: Egypt
   center: {fileID: 6235077105893402703}
   countryMesh: {fileID: 7041301825843620429}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8688697492444653774
 GameObject:
   m_ObjectHideFlags: 0
@@ -26772,6 +27588,12 @@ MonoBehaviour:
   countryId: Svalbard
   center: {fileID: 307089092563563117}
   countryMesh: {fileID: 6699572856572522328}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8698460135099858913
 GameObject:
   m_ObjectHideFlags: 0
@@ -26821,6 +27643,12 @@ MonoBehaviour:
   countryId: Chad
   center: {fileID: 6546198103591227107}
   countryMesh: {fileID: 6380423820317705948}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8703472629805946719
 GameObject:
   m_ObjectHideFlags: 0
@@ -26901,6 +27729,12 @@ MonoBehaviour:
   countryId: State of Palestine
   center: {fileID: 7125062516356250547}
   countryMesh: {fileID: 3151799830861911974}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8743148933674977601
 GameObject:
   m_ObjectHideFlags: 0
@@ -26950,6 +27784,12 @@ MonoBehaviour:
   countryId: Eritrea
   center: {fileID: 1926044465915544510}
   countryMesh: {fileID: 2609489052856189601}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8745791464843520569
 GameObject:
   m_ObjectHideFlags: 0
@@ -26999,6 +27839,12 @@ MonoBehaviour:
   countryId: Yemen
   center: {fileID: 5433403208601856749}
   countryMesh: {fileID: 8860728139457100127}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8771460862536224767
 GameObject:
   m_ObjectHideFlags: 0
@@ -27437,6 +28283,12 @@ MonoBehaviour:
   countryId: Nigeria
   center: {fileID: 1166910189914532154}
   countryMesh: {fileID: 7686554893002302508}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8896828846215798580
 GameObject:
   m_ObjectHideFlags: 0
@@ -27486,6 +28338,12 @@ MonoBehaviour:
   countryId: Madagascar
   center: {fileID: 3048673843567211089}
   countryMesh: {fileID: 3801077104630999067}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &8986663001907329376
 GameObject:
   m_ObjectHideFlags: 0
@@ -27535,6 +28393,12 @@ MonoBehaviour:
   countryId: Poland
   center: {fileID: 2326694203079952338}
   countryMesh: {fileID: 8055782207838822106}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &9063359511787445345
 GameObject:
   m_ObjectHideFlags: 0
@@ -27833,6 +28697,12 @@ MonoBehaviour:
   countryId: Algeria
   center: {fileID: 3281307365952760309}
   countryMesh: {fileID: 2340504614607950501}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &9184862112327925754
 GameObject:
   m_ObjectHideFlags: 0
@@ -27944,6 +28814,12 @@ MonoBehaviour:
   countryId: Iran
   center: {fileID: 3069049171762734046}
   countryMesh: {fileID: 4874273433282200363}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &9202056668717488077
 GameObject:
   m_ObjectHideFlags: 0
@@ -28102,6 +28978,12 @@ MonoBehaviour:
   countryId: French Guiana
   center: {fileID: 6300584737431693548}
   countryMesh: {fileID: 2082137806101367962}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}
 --- !u!1 &9211777358217747364
 GameObject:
   m_ObjectHideFlags: 0
@@ -28151,3 +29033,9 @@ MonoBehaviour:
   countryId: Greece
   center: {fileID: 1539432188858876760}
   countryMesh: {fileID: 6104623074771076000}
+  stagesToConquer: 3
+  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
+  conquerStepCount: 5
+  stepLerpDuration: 0.15
+  baseLocalPos: {x: 0, y: 0, z: 0}

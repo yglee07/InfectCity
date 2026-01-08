@@ -20,6 +20,9 @@ public class Lobby : MonoBehaviour
     Vector3 cameraOffset = new Vector3(0f, 0f, -10f);
     CountryNode floatingNode;
     Coroutine floatRoutine;
+
+    public NewsManager newsManager;
+    bool newsPlayedThisEntry;
     void Awake()
     {
         countryMap = new Dictionary<string, CountryNode>();
@@ -38,6 +41,7 @@ public class Lobby : MonoBehaviour
     }
     public void RefreshLobby()
     {
+        newsPlayedThisEntry = false;
         Debug.Log("========== [Lobby] RefreshLobby START ==========");
 
         // 🔥 0️⃣ 로비 진입 즉시 스냅 (연출 없을 때만)
@@ -109,9 +113,40 @@ public class Lobby : MonoBehaviour
         // 4️⃣ 연출은 맨 마지막
         TryPlayPendingConquerAnimation();
 
+
+        TryShowNamePopupOnce();
+
+        OnReturnedFromGame();
+
         Debug.Log("========== [Lobby] RefreshLobby END ==========");
     }
+    void OnReturnedFromGame()
+    {
+        if (newsPlayedThisEntry) return;
 
+        newsPlayedThisEntry = true;
+
+        int cleared = SaveSystem.Data.GetClearedStageCount(currentCountry.countryId);
+        int percent = Mathf.RoundToInt(
+            (float)cleared / currentCountry.stagesToConquer * 100f
+        );
+
+        newsManager.PlayNews(
+            SaveSystem.Data.stage,
+            SaveSystem.Data.infectorName,
+            currentCountry.countryId,
+            percent
+        );
+    }
+    void TryShowNamePopupOnce()
+    {
+        if (!string.IsNullOrEmpty(SaveSystem.Data.infectorName))
+            return;
+
+        ui.namePopup.SetActive(true);
+
+        Debug.Log("[Lobby] First lobby entry → show name popup");
+    }
     void TryPlayPendingConquerAnimation()
     {
         if (!SaveSystem.Data.hasPendingConquerAnim)
@@ -128,12 +163,6 @@ public class Lobby : MonoBehaviour
             Debug.Log("[Lobby] Pending country not found: " + countryId);
             return;
         }
-        Debug.Log(
- $"[Conquer DEBUG] country={node.countryId} " +
- $"before={SaveSystem.Data.pendingBeforeCleared} " +
- $"after={SaveSystem.Data.pendingAfterCleared} " +
- $"stagesToConquer={node.stagesToConquer}"
-);
 
         int steps = Mathf.Clamp(
      SaveSystem.Data.pendingGreenZombieCount,
@@ -156,7 +185,7 @@ public class Lobby : MonoBehaviour
         // 🔥 3️⃣ 연출 종료 후 카메라 이동
         node.OnConquerAnimationFinished = () =>
         {
-            MoveCameraToNextCountry();
+            StartCoroutine(MoveCameraToNextCountryDelayed(1f));
         };
 
         // 4️⃣ 좀비 생성
@@ -165,7 +194,13 @@ public class Lobby : MonoBehaviour
         SaveSystem.Data.hasPendingConquerAnim = false;
         SaveSystem.Save();
     }
+    IEnumerator MoveCameraToNextCountryDelayed(float delay)
+    {
+        // ⏸ 여운 시간
+        yield return new WaitForSeconds(delay);
 
+        MoveCameraToNextCountry();
+    }
     void MoveCameraToNextCountry()
     {
         // 다음 국가 계산
@@ -393,5 +428,38 @@ public class Lobby : MonoBehaviour
             yield return null;
         }
     }
+    public void SkipConquerAnimation()
+    {
+        Debug.Log("🔥 SkipConquerAnimation FORCE CLEANUP");
+
+        // 🔥 연출용 ConquerZombie 무조건 제거
+        ConquerZombie[] zombies =
+            GetComponentsInChildren<ConquerZombie>(true);
+
+        Debug.Log($"[Skip] Found {zombies.Length} ConquerZombies");
+
+        foreach (var z in zombies)
+        {
+            Debug.Log($"[Skip] Destroy {z.name}");
+            Destroy(z.gameObject);
+        }
+
+        // 🔥 색상은 결과 기준으로 확정
+        if (!string.IsNullOrEmpty(SaveSystem.Data.pendingCountryId) &&
+            countryMap.TryGetValue(
+                SaveSystem.Data.pendingCountryId,
+                out CountryNode node
+            ))
+        {
+            node.ApplyInstantProgress(
+                SaveSystem.Data.pendingAfterCleared
+            );
+        }
+
+        // 🔥 flag는 그냥 정리 차원에서 false
+        SaveSystem.Data.hasPendingConquerAnim = false;
+        SaveSystem.Save();
+    }
+
 
 }

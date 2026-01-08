@@ -31,7 +31,8 @@ public class UILobby : MonoBehaviour
     public TMP_Text mutateChanceText;
 
 
-
+    [Header("Name Popup")]
+    public GameObject namePopup;
     void Start()
     {
         // 버튼 클릭 시 StartGame 호출
