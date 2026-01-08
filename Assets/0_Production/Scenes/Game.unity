@@ -1643,6 +1643,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lobby
       objectReference: {fileID: 0}
+    - target: {fileID: 5903659971530614821, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: stagesToConquer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7011794928404797770, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

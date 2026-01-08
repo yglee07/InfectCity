@@ -1337,6 +1337,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8340416574795804388, guid: dce273b8e5ddce14096cb7cc202c3b8d, type: 3}
+      propertyPath: stagesToConquer
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 8348075389928710886, guid: dce273b8e5ddce14096cb7cc202c3b8d, type: 3}
       propertyPath: m_LocalScale.y
       value: 1
