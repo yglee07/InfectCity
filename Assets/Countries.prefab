@@ -2422,7 +2422,7 @@ MonoBehaviour:
   countryId: United States of America
   center: {fileID: 382188616474277789}
   countryMesh: {fileID: 409567886259182259}
-  stagesToConquer: 3
+  stagesToConquer: 30
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
   conquerStepCount: 5
@@ -3881,7 +3881,7 @@ MonoBehaviour:
   countryId: Greenland
   center: {fileID: 3317705860158805041}
   countryMesh: {fileID: 7586442856720089238}
-  stagesToConquer: 3
+  stagesToConquer: 7
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
   conquerStepCount: 5
@@ -4271,7 +4271,7 @@ MonoBehaviour:
   countryId: Venezuela
   center: {fileID: 4060872226559960895}
   countryMesh: {fileID: 8305116172491693503}
-  stagesToConquer: 3
+  stagesToConquer: 5
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
   conquerStepCount: 5
@@ -12401,10 +12401,10 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 1710345228801324829}
+  - {fileID: 2894358371837342532}
   - {fileID: 7312966721721457106}
   - {fileID: 6826203914315317039}
-  - {fileID: 2894358371837342532}
-  - {fileID: 1710345228801324829}
   - {fileID: 2830201977913356888}
   - {fileID: 3127399221175713833}
   - {fileID: 3164180895378142402}
@@ -13940,7 +13940,7 @@ MonoBehaviour:
   countryId: China
   center: {fileID: 6012869334421971934}
   countryMesh: {fileID: 239234174559564880}
-  stagesToConquer: 3
+  stagesToConquer: 20
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   conqueredColor: {r: 0.3, g: 0.8, b: 0.3, a: 1}
   conquerStepCount: 5
