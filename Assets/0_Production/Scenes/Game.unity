@@ -1095,6 +1095,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ticker: {fileID: 12724286}
+  virusColor: {r: 0, g: 0, b: 1, a: 1}
+  boldVirus: 1
+  bracketVirus: 1
 --- !u!1 &1711083307
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,10 +1645,6 @@ PrefabInstance:
     - target: {fileID: 5796871749153313750, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
       propertyPath: m_Name
       value: Lobby
-      objectReference: {fileID: 0}
-    - target: {fileID: 5903659971530614821, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
-      propertyPath: stagesToConquer
-      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7011794928404797770, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
       propertyPath: m_LocalPosition.x

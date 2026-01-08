@@ -4,6 +4,11 @@ public class NewsManager : MonoBehaviour
 {
     public UINewsTicker ticker;
 
+    [Header("Virus Highlight Options")]
+    public Color virusColor = Color.red;
+    public bool boldVirus = true;          // 굵게
+    public bool bracketVirus = true;       // [바이러스명]
+
     // Stage 1~5 고정 뉴스
     readonly string[] earlyNews =
 {
@@ -104,19 +109,42 @@ public class NewsManager : MonoBehaviour
 };
 
 
+    string ColorToHex(Color c)
+    {
+        return ColorUtility.ToHtmlStringRGB(c);
+    }
+    string FormatVirus(string virus)
+    {
+        // 혹시 모를 태그 깨짐 방지
+        virus = virus.Replace("<", "").Replace(">", "");
+
+        if (bracketVirus)
+            virus = $"[{virus}]";
+
+        if (boldVirus)
+            virus = $"<b>{virus}</b>";
+
+        string hex = ColorToHex(virusColor);
+        virus = $"<color=#{hex}>{virus}</color>";
+
+        return virus;
+    }
 
     string ApplyContext(string msg, string virus, string country)
     {
+        string formattedVirus = FormatVirus(virus);
+
         return msg
-            .Replace("{VIRUS}", virus)
+            .Replace("{VIRUS}", formattedVirus)
             .Replace("{COUNTRY}", country);
     }
+
     public void PlayNews(int stage, string virus, string country, int percent)
     {
         string msg;
 
         // 🔹 Stage 1~5 : 고정 스토리 뉴스
-        if (stage <= 5)
+        if (stage <= 30)
         {
             msg = earlyNews[stage - 1];
         }

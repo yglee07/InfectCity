@@ -1086,6 +1086,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Act_Slider
       objectReference: {fileID: 0}
+    - target: {fileID: 3706443758182753479, guid: efa60d84dd69d224f920cc397792d6be, type: 3}
+      propertyPath: m_Value
+      value: 0.203
+      objectReference: {fileID: 0}
+    - target: {fileID: 3706443758182753479, guid: efa60d84dd69d224f920cc397792d6be, type: 3}
+      propertyPath: m_Interactable
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8095625488104482445, guid: efa60d84dd69d224f920cc397792d6be, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
