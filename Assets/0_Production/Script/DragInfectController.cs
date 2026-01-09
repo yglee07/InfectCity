@@ -277,6 +277,12 @@ public class DragInfectController : MonoBehaviour
     );
 
         Deactivate();
+
+        CameraController cam = FindObjectOfType<CameraController>();
+        if (cam != null)
+        {
+            cam.ResetIdleTimer();
+        }
     }
 
     // =========================================

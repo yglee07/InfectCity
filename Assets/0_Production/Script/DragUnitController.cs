@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public class DragUnitController : MonoBehaviour
@@ -85,6 +85,11 @@ public class DragUnitController : MonoBehaviour
     Game.Instance.dragInfector.currentCharges,
     currentCharges
 );
+        CameraController cam = FindObjectOfType<CameraController>();
+        if (cam != null)
+        {
+            cam.ResetIdleTimer();
+        }
     }
 
     // =========================

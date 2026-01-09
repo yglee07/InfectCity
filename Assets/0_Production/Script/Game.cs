@@ -102,6 +102,8 @@ public class Game : MonoBehaviour
         uiGame.UpdateCharges(dragInfector.currentCharges, dragInfector.maxCharges);
 
         isPlaying = true;
+
+   
     }
 
     // ========================================================
