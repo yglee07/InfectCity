@@ -262,7 +262,7 @@ public class Lobby : MonoBehaviour
                 center.position +
                 center.right * r.x +
                 center.forward * r.y +
-                center.up * 0.5f;
+                center.up * 0.25f;
 
             Quaternion rot = Quaternion.Euler(270f, 0f, 0f);
 
