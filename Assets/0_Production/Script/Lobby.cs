@@ -105,7 +105,7 @@ public class Lobby : MonoBehaviour
         ui.UpdateCountryUI(
             currentCountry.countryId,
             progress,
-            null
+               currentCountry.countrySprite
         );
 
         UpdateStageDifficulty(SaveSystem.Data.stage);
@@ -235,7 +235,7 @@ public class Lobby : MonoBehaviour
         ui.UpdateCountryUI(
             currentCountry.countryId,
             progress,
-            null
+               currentCountry.countrySprite
         );
     }
 

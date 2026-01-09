@@ -1352,6 +1352,8 @@ MonoBehaviour:
   maleScream: {fileID: 8300000, guid: 208288e97900f0b42a81b4ca1a2a12c7, type: 3}
   screamVolume: 0.1
   maxSimultaneousScreams: 10
+  minDistance: 40
+  maxDistance: 300
 --- !u!1001 &689258985759218427
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1363,10 +1365,6 @@ PrefabInstance:
     - target: {fileID: 4272073155346714097, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
       propertyPath: m_Name
       value: UI_Lobby
-      objectReference: {fileID: 0}
-    - target: {fileID: 4638076854001061342, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8222355609254120230, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
       propertyPath: m_Pivot.x
@@ -1683,6 +1681,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1980482280}
     m_Modifications:
+    - target: {fileID: 1718359390220165102, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: countrySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 477df3ed9df6e7047abc202b3c43d1f1, type: 3}
     - target: {fileID: 5002137785211668783, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
       propertyPath: ui
       value: 
@@ -1695,6 +1697,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Lobby
       objectReference: {fileID: 0}
+    - target: {fileID: 5903659971530614821, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: countrySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8d6daac71aff32648964c344b31953b9, type: 3}
+    - target: {fileID: 6626169827326789656, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: countrySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: a18b3a7407140704bb065b4bafe5a8bd, type: 3}
     - target: {fileID: 7011794928404797770, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1735,6 +1745,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9069798140544077500, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: countrySprite
+      value: 
+      objectReference: {fileID: 21300000, guid: d9f451b5d3961854bacc5e00c4321c36, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
