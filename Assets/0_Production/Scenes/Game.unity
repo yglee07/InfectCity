@@ -1348,10 +1348,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c820b3bce2fdb9e468b211be013d0e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  femaleScream: {fileID: 8300000, guid: 1865c3a1d5004f3468df4e6f0c147a29, type: 3}
-  maleScream: {fileID: 8300000, guid: 208288e97900f0b42a81b4ca1a2a12c7, type: 3}
+  femaleScreams:
+  - clip: {fileID: 8300000, guid: 1865c3a1d5004f3468df4e6f0c147a29, type: 3}
+    volumeMultiplier: 0.2
+  maleScreams:
+  - clip: {fileID: 8300000, guid: 208288e97900f0b42a81b4ca1a2a12c7, type: 3}
+    volumeMultiplier: 1
   screamVolume: 0.1
   maxSimultaneousScreams: 10
+  screamCooldown: 0.15
+  pitchRange: {x: 0.9, y: 1.1}
   minDistance: 40
   maxDistance: 300
 --- !u!1001 &689258985759218427
@@ -1365,6 +1371,10 @@ PrefabInstance:
     - target: {fileID: 4272073155346714097, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
       propertyPath: m_Name
       value: UI_Lobby
+      objectReference: {fileID: 0}
+    - target: {fileID: 4638076854001061342, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8222355609254120230, guid: 758c6d434dc889b45855c124b0b46d4a, type: 3}
       propertyPath: m_Pivot.x
