@@ -1402,6 +1402,16 @@ MonoBehaviour:
     is3D: 1
     minDistance: 10
     maxDistance: 100
+  - key: Door_Open
+    clips:
+    - clip: {fileID: 8300000, guid: 44b63b0db16ce624b97e45ebde0a0971, type: 3}
+      volumeMultiplier: 0.5
+    maxSimultaneous: 3
+    cooldown: 0
+    pitchRange: {x: 1, y: 1}
+    is3D: 1
+    minDistance: 10
+    maxDistance: 100
 --- !u!1001 &689258985759218427
 PrefabInstance:
   m_ObjectHideFlags: 0
