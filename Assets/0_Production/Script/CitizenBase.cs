@@ -219,13 +219,15 @@ private float fleeNoPathTimer = 0f;
                 if (!hasPlayedFleeScream)
                 {
                     hasPlayedFleeScream = true;
-                    Debug.Log("SoundManager: Citizen Flee Scream");
+                  
                     //if (Random.value < 0.35f) // 확률
-                   // {
-                       
-                        SoundManager.Instance?
-                            .PlayCitizenScream(transform.position);
-                  //  } 
+                    // {
+
+                    SoundManager.Instance?.PlaySFX(
+"CitizenScream",
+transform.position
+);
+                    //  } 
                 }
 
                 // Door Assist state reset

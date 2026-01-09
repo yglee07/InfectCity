@@ -1,61 +1,20 @@
 ﻿using UnityEngine;
+using System.Collections.Generic;
 
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
 
-    // ============================
-    // 데이터 구조
-    // ============================
-    [System.Serializable]
-    public class ScreamClip
-    {
-        public AudioClip clip;
-
-        [Range(0f, 1.5f)]
-        public float volumeMultiplier = 1f;
-    }
-
-    // ============================
-    // Scream Clips
-    // ============================
-    [Header("Female Screams")]
-    public ScreamClip[] femaleScreams;
-
-    [Header("Male Screams")]
-    public ScreamClip[] maleScreams;
-
-    // ============================
-    // Global Settings
-    // ============================
     [Header("Global Volume")]
     [Range(0f, 1f)]
-    public float screamVolume = 0.15f;
+    public float masterVolume = 1f;
 
-    [Header("Pooling")]
-    public int maxSimultaneousScreams = 5;
+    [Header("SFX Entries")]
+    public SFXEntry[] sfxEntries;
 
-    [Header("Cooldown")]
-    public float screamCooldown = 0.15f;
+    Dictionary<string, SFXEntry> entryMap;
+    Dictionary<string, SFXRuntime> runtimeMap;
 
-    [Header("Pitch Random")]
-    public Vector2 pitchRange = new Vector2(0.9f, 1.1f);
-
-    [Header("3D Sound")]
-    public float minDistance = 40f;
-    public float maxDistance = 300f;
-
-    // ============================
-    // Internal
-    // ============================
-    AudioSource[] screamSources;
-    int screamIndex = 0;
-    float lastScreamTime = -999f;
-    int lastPlayedFrame = -1;
-
-    // ============================
-    // Init
-    // ============================
     void Awake()
     {
         if (Instance != null)
@@ -67,89 +26,141 @@ public class SoundManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        screamSources = new AudioSource[maxSimultaneousScreams];
+        entryMap = new Dictionary<string, SFXEntry>();
+        runtimeMap = new Dictionary<string, SFXRuntime>();
 
-        for (int i = 0; i < screamSources.Length; i++)
+        foreach (var entry in sfxEntries)
         {
-            AudioSource src = gameObject.AddComponent<AudioSource>();
-            src.playOnAwake = false;
+            if (string.IsNullOrEmpty(entry.key))
+                continue;
 
-            // 🔥 실전 3D 세팅
-            src.spatialBlend = 1f;
-            src.rolloffMode = AudioRolloffMode.Linear;
-            src.minDistance = minDistance;
-            src.maxDistance = maxDistance;
-            src.dopplerLevel = 0f;
+            int poolSize = Mathf.Max(1, entry.maxSimultaneous);
+            entryMap[entry.key] = entry;
 
-            screamSources[i] = src;
+            SFXRuntime rt = new SFXRuntime
+            {
+                sources = new AudioSource[poolSize],
+                index = 0,
+                lastPlayTime = -999f,
+                lastPlayedFrame = -1
+            };
+
+            for (int i = 0; i < rt.sources.Length; i++)
+            {
+                AudioSource src = gameObject.AddComponent<AudioSource>();
+                src.playOnAwake = false;
+
+                if (entry.is3D)
+                {
+                    src.spatialBlend = 1f;
+                    src.rolloffMode = AudioRolloffMode.Linear;
+                    src.minDistance = entry.minDistance;
+                    src.maxDistance = entry.maxDistance;
+                    src.dopplerLevel = 0f;
+                }
+                else
+                {
+                    src.spatialBlend = 0f;
+                }
+
+                rt.sources[i] = src;
+            }
+
+            runtimeMap[entry.key] = rt;
         }
     }
 
     // ============================
     // Public API
     // ============================
-    public void PlayCitizenScream(Vector3 worldPos)
+    public void PlaySFX(string key, Vector3? worldPos = null)
     {
-        // 1️⃣ 프레임 중복 방지
-        if (Time.frameCount == lastPlayedFrame)
+        if (!entryMap.TryGetValue(key, out var entry))
             return;
 
-        // 2️⃣ 쿨타임
-        if (Time.time - lastScreamTime < screamCooldown)
+        SFXRuntime rt = runtimeMap[key];
+
+        // 프레임 중복 방지
+        if (Time.frameCount == rt.lastPlayedFrame)
             return;
 
-        lastPlayedFrame = Time.frameCount;
-        lastScreamTime = Time.time;
-
-        // 3️⃣ 클립 선택
-        ScreamClip data = PickRandomScream();
-        if (data == null || data.clip == null)
+        // 쿨타임
+        if (Time.time - rt.lastPlayTime < entry.cooldown)
             return;
 
-        // 4️⃣ 오디오 소스 선택
-        AudioSource src = screamSources[screamIndex];
+        rt.lastPlayedFrame = Time.frameCount;
+        rt.lastPlayTime = Time.time;
+
+        // 클립 선택
+        if (entry.clips == null || entry.clips.Length == 0)
+            return;
+
+        SFXClip clipData =
+            entry.clips[Random.Range(0, entry.clips.Length)];
+
+        if (clipData.clip == null)
+            return;
+
+        // AudioSource 선택
+        AudioSource src = rt.sources[rt.index];
 
         if (src.isPlaying)
         {
-            screamIndex = (screamIndex + 1) % screamSources.Length;
-            src = screamSources[screamIndex];
+            rt.index = (rt.index + 1) % rt.sources.Length;
+            src = rt.sources[rt.index];
         }
 
-        screamIndex = (screamIndex + 1) % screamSources.Length;
+        rt.index = (rt.index + 1) % rt.sources.Length;
 
-        // 5️⃣ 거리 기반 볼륨 (선택적이지만 안정감 ↑)
-        float dist = Vector3.Distance(
-            Camera.main.transform.position,
-            worldPos
-        );
+        // 세팅
+        if (entry.is3D && worldPos.HasValue)
+        {
+            src.transform.position = worldPos.Value;
 
-        float distanceFactor = Mathf.InverseLerp(
-            maxDistance,
-            minDistance,
-            dist
-        );
+        }
+        src.clip = clipData.clip;
+        src.pitch = Random.Range(entry.pitchRange.x, entry.pitchRange.y);
+        src.volume = masterVolume * clipData.volumeMultiplier;
 
-        // 6️⃣ 세팅
-        src.transform.position = worldPos;
-        src.clip = data.clip;
-        src.pitch = Random.Range(pitchRange.x, pitchRange.y);
-        src.volume = screamVolume * data.volumeMultiplier * distanceFactor;
-
-        // 7️⃣ 재생
         src.Play();
     }
+}
+class SFXRuntime
+{
+    public AudioSource[] sources;
+    public int index;
+    public float lastPlayTime;
+    public int lastPlayedFrame;
+}
 
-    // ============================
-    // Helpers
-    // ============================
-    ScreamClip PickRandomScream()
-    {
-        bool female = Random.value < 0.5f;
+[System.Serializable]
+public class SFXClip
+{
+    public AudioClip clip;
 
-        ScreamClip[] pool = female ? femaleScreams : maleScreams;
-        if (pool == null || pool.Length == 0)
-            return null;
+    [Range(0f, 2f)]
+    public float volumeMultiplier = 1f;
+}
 
-        return pool[Random.Range(0, pool.Length)];
-    }
+[System.Serializable]
+public class SFXEntry
+{
+    public string key;
+
+    [Header("Clips")]
+    public SFXClip[] clips;
+
+    [Header("Pooling")]
+    public int maxSimultaneous = 3;
+
+    [Header("Cooldown")]
+    public float cooldown = 0f;
+
+    [Header("Pitch Random")]
+    public Vector2 pitchRange = new Vector2(0.95f, 1.05f);
+
+    [Header("3D Sound")]
+    public bool is3D = false;
+    public float minDistance = 40f;
+    public float maxDistance = 300f;
 }

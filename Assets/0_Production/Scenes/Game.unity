@@ -1348,18 +1348,60 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c820b3bce2fdb9e468b211be013d0e8c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  femaleScreams:
-  - clip: {fileID: 8300000, guid: 1865c3a1d5004f3468df4e6f0c147a29, type: 3}
-    volumeMultiplier: 0.2
-  maleScreams:
-  - clip: {fileID: 8300000, guid: 208288e97900f0b42a81b4ca1a2a12c7, type: 3}
-    volumeMultiplier: 1
-  screamVolume: 0.1
-  maxSimultaneousScreams: 10
-  screamCooldown: 0.15
-  pitchRange: {x: 0.9, y: 1.1}
-  minDistance: 40
-  maxDistance: 300
+  masterVolume: 1
+  sfxEntries:
+  - key: CitizenScream
+    clips:
+    - clip: {fileID: 8300000, guid: 1865c3a1d5004f3468df4e6f0c147a29, type: 3}
+      volumeMultiplier: 0.01
+    - clip: {fileID: 8300000, guid: 208288e97900f0b42a81b4ca1a2a12c7, type: 3}
+      volumeMultiplier: 0.1
+    maxSimultaneous: 5
+    cooldown: 0
+    pitchRange: {x: 0.9, y: 1.1}
+    is3D: 1
+    minDistance: 10
+    maxDistance: 100
+  - key: GameClear
+    clips:
+    - clip: {fileID: 8300000, guid: eb18725b57a1cf143a83ef90c215bdb6, type: 3}
+      volumeMultiplier: 1
+    maxSimultaneous: 1
+    cooldown: 0
+    pitchRange: {x: 1, y: 1}
+    is3D: 0
+    minDistance: 0
+    maxDistance: 0
+  - key: GameOver
+    clips:
+    - clip: {fileID: 8300000, guid: c7b43bce1370cb7449c4866b9a363050, type: 3}
+      volumeMultiplier: 1
+    maxSimultaneous: 1
+    cooldown: 0
+    pitchRange: {x: 1, y: 1}
+    is3D: 0
+    minDistance: 0
+    maxDistance: 0
+  - key: DragExplode
+    clips:
+    - clip: {fileID: 8300000, guid: 92d3259b6a9732e4ba3fb95331b2c95d, type: 3}
+      volumeMultiplier: 0.5
+    maxSimultaneous: 1
+    cooldown: 0
+    pitchRange: {x: 1, y: 1}
+    is3D: 1
+    minDistance: 10
+    maxDistance: 100
+  - key: InfectExplode
+    clips:
+    - clip: {fileID: 8300000, guid: 8dfcae34791b3a447b81d6653208f596, type: 3}
+      volumeMultiplier: 0.5
+    maxSimultaneous: 5
+    cooldown: 0
+    pitchRange: {x: 1, y: 1}
+    is3D: 1
+    minDistance: 10
+    maxDistance: 100
 --- !u!1001 &689258985759218427
 PrefabInstance:
   m_ObjectHideFlags: 0

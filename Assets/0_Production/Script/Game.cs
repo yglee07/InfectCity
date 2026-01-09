@@ -170,6 +170,8 @@ public class Game : MonoBehaviour
     {
         isPlaying = false;
 
+        SoundManager.Instance?.PlaySFX("GameClear");
+
         Lobby lobby = GameManager.Instance.lobbyView.GetComponent<Lobby>();
 
         int clearedStage = SaveSystem.Data.stage;
@@ -249,6 +251,9 @@ public class Game : MonoBehaviour
     public void StageFail()
     {
         isPlaying = false;
+
+        SoundManager.Instance?.PlaySFX("GameOver");
+
         uiGame.ShowFailedPopup();    // ← 실패 팝업
         //GameManager.Instance.ReturnToLobby();
            // 카메라 원위치 이동
