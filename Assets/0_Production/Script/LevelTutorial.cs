@@ -11,8 +11,9 @@ public class LevelTutorial : MonoBehaviour
                                              // public GameObject touchCirclePrefab;
 
     [Header("New Unit Tutorial")]
-    [SerializeField] Transform newUnitTarget;     // 소개할 유닛
-    [SerializeField] TMPro.TMP_Text unitNameText; // 유닛 이름
+    [SerializeField] Transform newUnitTarget;
+    [SerializeField] string unitDisplayName;
+    [SerializeField, TextArea] string unitDescription;
 
     GameObject fingerInstance;
     RectTransform fingerRT;
@@ -531,49 +532,154 @@ public class LevelTutorial : MonoBehaviour
     {
         Debug.Log("[Tutorial] NEW UNIT");
 
-        if (newUnitTarget == null || unitNameText == null)
+        if (newUnitTarget == null || Game.Instance == null || Game.Instance.uiGame == null)
             yield break;
 
         Camera cam = Camera.main;
         CameraController camCtrl = cam.GetComponent<CameraController>();
 
-        // 1️⃣ 카메라 입력 잠금
+        // 0️⃣ 인트로 종료 대기
+        yield return new WaitUntil(() => camCtrl == null || camCtrl.isCameraLocked == false);
+
+        // 1️⃣ 카메라 잠금
         if (camCtrl != null)
             camCtrl.isCameraLocked = true;
 
-        Time.timeScale = 0f;
+        //Time.timeScale = 0f;
 
         // 2️⃣ 원래 카메라 상태 저장
         Vector3 originPos = cam.transform.position;
         float originZoom = cam.orthographicSize;
 
-        // 3️⃣ 유닛 기준으로 살짝 줌인
-        Vector3 focus = newUnitTarget.position;
-        cam.transform.position = new Vector3(
-            focus.x,
-            originPos.y,
-            focus.z - 1.5f
+        // 3️⃣ 유닛 Renderer 확보
+        Renderer unitRenderer = newUnitTarget.GetComponentInChildren<Renderer>();
+        if (unitRenderer == null)
+            yield break;
+
+        // 🔒 중심 고정
+        Vector3 targetPos = GetUnitFocusPosition(unitRenderer, cam);
+        float targetZoom = CalculateZoomToFitUnit(unitRenderer, cam, 0.5f);
+
+        // 🔥 부드러운 확대
+        yield return StartCoroutine(
+            SmoothFocusCamera(
+                cam,
+                originPos,
+                originZoom,
+                targetPos,
+                targetZoom,
+                0.45f
+            )
         );
-        cam.orthographicSize = originZoom * 0.65f;
 
-        // 4️⃣ 유닛 이름 표시
-        unitNameText.text = "MELEE FIGHTER"; // 여기만 유닛별로 바꾸면 됨
-        unitNameText.gameObject.SetActive(true);
 
-        // 5️⃣ 탭 대기
-        yield return new WaitUntil(() => Input.GetMouseButtonDown(0));
+        // 6️⃣ 유닛 이름 표시 (null-safe)
+        Game.Instance.uiTutorial.ShowUnitIntro(
+    unitDisplayName,
+    unitDescription
+);
 
-        // 6️⃣ 복구
-        unitNameText.gameObject.SetActive(false);
+        // 7️⃣ 입력 대기
+        yield return new WaitForSecondsRealtime(3f);
 
-        cam.transform.position = originPos;
-        cam.orthographicSize = originZoom;
+        // 8️⃣ UI 숨김
+        Game.Instance.uiTutorial.HideUnitIntro();
 
-        Time.timeScale = 1f;
+        // 9️⃣ 🔥 원래 상태로 부드럽게 복귀
+        yield return StartCoroutine(
+            SmoothFocusCamera(
+                cam,
+                cam.transform.position,
+                cam.orthographicSize,
+                originPos,
+                originZoom,
+                0.35f
+            )
+        );
+
+        //Time.timeScale = 1f;
+
         if (camCtrl != null)
             camCtrl.isCameraLocked = false;
 
         Debug.Log("[Tutorial] NEW UNIT COMPLETE");
+    }
+    Vector3 GetUnitFocusPosition(Renderer r, Camera cam)
+    {
+        // 카메라가 보는 평면 (카메라 forward 기준)
+        Plane cameraPlane = new Plane(
+            cam.transform.forward,
+            cam.transform.position
+        );
+
+        // 유닛 중심에서 카메라 방향으로 Ray 생성
+        Ray ray = new Ray(
+            r.bounds.center,
+            -cam.transform.forward
+        );
+
+        // Ray가 카메라 평면과 만나는 지점
+        if (cameraPlane.Raycast(ray, out float enter))
+        {
+            return ray.GetPoint(enter);
+        }
+
+        // fallback (이론상 여기 안 옴)
+        return cam.transform.position;
+    }
+
+
+
+    float CalculateZoomToFitUnit(Renderer r, Camera cam, float padding = 0.9f)
+    {
+        Bounds b = r.bounds;
+
+        Vector3 right = cam.transform.right;
+        Vector3 up = cam.transform.up;
+
+        // 카메라 기준 가로/세로 크기
+        float sizeRight =
+            Mathf.Abs(Vector3.Dot(b.extents, right)) * 2f;
+        float sizeUp =
+            Mathf.Abs(Vector3.Dot(b.extents, up)) * 2f;
+
+        float screenRatio = (float)Screen.width / Screen.height;
+
+        float size;
+
+        if (sizeRight / sizeUp > screenRatio)
+            size = sizeRight / screenRatio;
+        else
+            size = sizeUp;
+
+        return (size * 0.5f) / padding;
+    }
+
+
+    IEnumerator SmoothFocusCamera(
+    Camera cam,
+    Vector3 fromPos,
+    float fromZoom,
+    Vector3 toPos,
+    float toZoom,
+    float duration = 0.4f
+)
+    {
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.unscaledDeltaTime / duration; // TimeScale=0 대응
+            float eased = Mathf.SmoothStep(0f, 1f, t);
+
+            cam.transform.position = Vector3.Lerp(fromPos, toPos, eased);
+            cam.orthographicSize = Mathf.Lerp(fromZoom, toZoom, eased);
+
+            yield return null;
+        }
+
+        cam.transform.position = toPos;
+        cam.orthographicSize = toZoom;
     }
 
 }
