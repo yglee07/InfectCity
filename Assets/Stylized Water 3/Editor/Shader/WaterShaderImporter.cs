@@ -222,7 +222,11 @@ namespace StylizedWater3
         
         //Handles correct behaviour when double-clicking a .watershader asset. Should open in the IDE
         [UnityEditor.Callbacks.OnOpenAsset]
+#if UNITY_6000_4_OR_NEWER
+        public static bool OnOpenAsset(EntityId instanceID, int line)
+#else
         public static bool OnOpenAsset(int instanceID, int line)
+#endif
         {
             #if UNITY_6000_3_OR_NEWER
             Object target = EditorUtility.EntityIdToObject(instanceID);

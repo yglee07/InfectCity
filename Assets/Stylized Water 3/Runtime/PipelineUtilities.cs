@@ -31,11 +31,11 @@ namespace StylizedWater3
 	//Stay awesome Unity, locking everything behind internal UI code just makes things convoluted.
     public static class PipelineUtilities
     {
+#if URP
         private const string renderDataListFieldName = "m_RendererDataList";
         private const string renderFeaturesListFieldName = "m_RendererFeatures";
         private const string defaultRendererIndexFieldName = "m_DefaultRendererIndex";
 
-#if URP
         public static ScriptableRendererData[] GetRenderDataList(UniversalRenderPipelineAsset asset)
         {
             FieldInfo renderDataListField = typeof(UniversalRenderPipelineAsset).GetField(renderDataListFieldName, BindingFlags.NonPublic | BindingFlags.Instance);
@@ -866,7 +866,6 @@ namespace StylizedWater3
             settings.enableRenderCompatibilityMode = false;
             #endif
         }
-    }
 #endif
-        
+    }
 }

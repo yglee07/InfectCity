@@ -1,4 +1,10 @@
-3.2.3 (October 22th 2025)
+3.2.4 (January 5th 2026)
+
+Fixed:
+- Pre-emptive fix for obsolete code warnings in Unity 6.4+ (EntityId.implicit)
+- Pre-emptive fix for Unity 6.5+ due to non-Render Graph functions being obsolete.
+
+3.2.3 (October 22nd 2025)
 Minimum required version is now Unity 6000.0.60f1 to include a bug fix.
 
 Fixed:

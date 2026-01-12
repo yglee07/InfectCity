@@ -30,7 +30,11 @@ namespace StylizedWater3
         //Handles correct behaviour when double-clicking a .watermesh asset assigned to a field
         //Otherwise the OS prompts to open it
         [UnityEditor.Callbacks.OnOpenAsset]
+#if UNITY_6000_4_OR_NEWER
+        public static bool OnOpenAsset(EntityId instanceID, int line)
+#else
         public static bool OnOpenAsset(int instanceID, int line)
+#endif
         {
             #if UNITY_6000_3_OR_NEWER
             Object target = EditorUtility.EntityIdToObject(instanceID);

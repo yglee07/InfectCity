@@ -81,18 +81,24 @@ namespace StylizedWater3
 
         public void FixedUpdate()
         {
-            if (!particleSystem) return;
+            if (!particleSystem || !enabled) return;
 
             emissionModule = particleSystem.emission;
             if (emissionModule.enabled == false) return;
+
+            float distance = GetDistance();
+
+            //Teleportation safeguard
+            if (distance > 50f) return;
             
-            distanceAccumulation += GetDistance();
+            distanceAccumulation += distance;
 
             var particlesToEmit = Mathf.CeilToInt(distanceAccumulation * spawnRatePerUnit);
 
             if (particlesToEmit > 0)
             {
                 particleSystem.Emit(particlesToEmit);
+
                 distanceAccumulation -= particlesToEmit / spawnRatePerUnit;
             }
         }

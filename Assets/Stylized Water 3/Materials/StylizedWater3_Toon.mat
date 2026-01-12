@@ -181,11 +181,10 @@ Material:
     - _EnvironmentReflectionsOn: 0
     - _FlatShadingOn: 0
     - _FlowSpeed: 1
-    - _FoamBaseAmount: 0.304
+    - _FoamBaseAmount: 1
     - _FoamBubblesSpread: 1
     - _FoamBubblesStrength: 0.217
     - _FoamClipping: 0.5
-    - _FoamClippingDynamic: 0
     - _FoamDistanceOn: 1
     - _FoamDistortion: 0.34
     - _FoamOn: 1
@@ -239,7 +238,6 @@ Material:
     - _PlanarReflectionsParams: 0
     - _PointSpotLightReflectionDistortion: 0.5
     - _PointSpotLightReflectionExp: 64
-    - _PointSpotLightReflectionSharp: 0
     - _PointSpotLightReflectionSize: 0
     - _PointSpotLightReflectionStrength: 10
     - _QueueOffset: 0
@@ -284,7 +282,6 @@ Material:
     - _SrcBlend: 1
     - _SunReflectionDistortion: 0.49
     - _SunReflectionPerturbance: 1
-    - _SunReflectionSharp: 0
     - _SunReflectionSize: 0.122
     - _SunReflectionStrength: 0
     - _Surface: 0
@@ -298,7 +295,6 @@ Material:
     - _TranslucencyReflectionMask: 0
     - _TranslucencyStrength: 1
     - _TranslucencyStrengthDirect: 0.05
-    - _UnderwaterReflectionStrength: 0.5
     - _UnderwaterRefractionOffset: 0.2
     - _UnderwaterSurfaceSmoothness: 0.8
     - _VertexColorFoam: 0

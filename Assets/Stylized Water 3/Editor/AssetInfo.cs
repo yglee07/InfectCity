@@ -27,7 +27,7 @@ namespace StylizedWater3
         public const string ASSET_ID = "287769";
         public const string ASSET_ABRV = "SW3";
 
-        public const string INSTALLED_VERSION = "3.2.3";
+        public const string INSTALLED_VERSION = "3.2.4";
         
         private static readonly Dictionary<string, int> REQUIRED_PATCH_VERSIONS = new Dictionary<string, int>()
         {

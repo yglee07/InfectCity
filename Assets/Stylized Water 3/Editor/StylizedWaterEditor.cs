@@ -153,7 +153,12 @@ namespace StylizedWater3
         [MenuItem("Assets/Create/Water/Mesh")]
         private static void CreateWaterPlaneAsset()
         {
-            ProjectWindowUtil.CreateAssetWithContent("New Watermesh.watermesh", "");
+            var fileName = "New Watermesh.watermesh";
+#if UNITY_6000_4_OR_NEWER
+            ProjectWindowUtil.CreateAssetWithTextContent(fileName, "");
+#else
+            ProjectWindowUtil.CreateAssetWithContent(fileName, "");
+#endif
         }
         
         [MenuItem("CONTEXT/Transform/Align To Water")]
