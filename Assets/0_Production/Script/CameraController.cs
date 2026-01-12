@@ -37,9 +37,9 @@ public class CameraController : MonoBehaviour
 
     private bool isIntroPlaying = false;
     [SerializeField]
-    private float introStartZoom;
+    public float introStartZoom;
     [SerializeField]
-    private float introEndZoom;
+    public float introEndZoom;
 
     // ===== Target 값 =====
     private Vector3 targetPos;
@@ -239,15 +239,7 @@ private bool blockCameraThisInput = false;
 
         return;
     }
-        // =====================
-        // 줌 (마우스 휠)
-        // =====================
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        if (Mathf.Abs(scroll) > 0.001f)
-        {
-            targetZoom -= scroll * zoomSpeed * 10f;
-            targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
-        }
+      
 
         // =====================
         // 드래그 (마우스 좌클릭)
@@ -291,55 +283,6 @@ private bool blockCameraThisInput = false;
     {
         inputState = InputState.None;
         blockCameraThisInput = false;
-        return;
-    }
-
-    // =====================
-    // 2손가락 → 줌
-    // =====================
-    if (Input.touchCount == 2)
-    {
-        Touch t0 = Input.GetTouch(0);
-        Touch t1 = Input.GetTouch(1);
-
-        // ⭐ 핀치 시작 시점에서 UI 체크
-        if (inputState != InputState.Zoom)
-        {
-            blockCameraThisInput =
-                IsPointerOverUI() ||
-                EventSystem.current.IsPointerOverGameObject(t0.fingerId) ||
-                EventSystem.current.IsPointerOverGameObject(t1.fingerId);
-
-            if (blockCameraThisInput)
-                return;
-
-            inputState = InputState.Zoom;
-            prevPinchDistance = (t0.position - t1.position).magnitude;
-            return;
-        }
-
-        if (blockCameraThisInput)
-            return;
-
-        // ---- 이하 기존 줌 로직 ----
-        Vector2 p0 = t0.position;
-        Vector2 p1 = t1.position;
-        float dist = (p0 - p1).magnitude;
-
-        Vector2 mid = (p0 + p1) * 0.5f;
-        Vector3 before = cam.ScreenToWorldPoint(mid);
-
-        float delta = dist - prevPinchDistance;
-        prevPinchDistance = dist;
-
-        targetZoom -= delta * zoomSpeed * 0.03f;
-        targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
-
-        Vector3 after = cam.ScreenToWorldPoint(mid);
-        Vector3 shift = before - after;
-        shift.y = 0;
-
-        targetPos += shift;
         return;
     }
 
@@ -583,6 +526,22 @@ private bool blockCameraThisInput = false;
 
     public void ResetIdleTimer()
     {
+        lastUserInputTime = Time.time;
+    }
+
+    public void SetZoomNormalized(float t)
+    {
+        t = Mathf.Clamp01(t);
+
+        float z = Mathf.Lerp(minZoom, maxZoom, t);
+        targetZoom = z;
+
+        // 🔥 유저 입력으로 간주 → 자동 카메라 잠시 비활성
+        lastUserInputTime = Time.time;
+    }
+    public void ResetZoom()
+    {
+        targetZoom = introEndZoom > 0 ? introEndZoom : cam.orthographicSize;
         lastUserInputTime = Time.time;
     }
 }

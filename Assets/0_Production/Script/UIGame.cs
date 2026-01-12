@@ -31,7 +31,10 @@ public class UIGame : MonoBehaviour
 
      public Button bombButton;
     public Button unitButton;
-     public void RefreshActionButtons(
+
+    [SerializeField] Slider zoomSlider;
+    [SerializeField] Button zoomResetButton;
+    public void RefreshActionButtons(
         int bombCharges,
         int unitCharges
     )
@@ -53,7 +56,42 @@ public class UIGame : MonoBehaviour
         {
             speedToggleButton.onClick.AddListener(OnClickToggleSpeed);
         }
-      
+        if(zoomSlider!=null)
+        {
+            zoomSlider.onValueChanged.AddListener(OnZoomChanged);
+        }
+        if(zoomResetButton!=null)
+        {
+            zoomResetButton.onClick.AddListener(OnClickResetZoom);
+        }
+
+    }
+    void OnZoomChanged(float value)
+    {
+        Camera.main
+            .GetComponent<CameraController>()
+            .SetZoomNormalized(value);
+
+
+    }
+    void OnClickResetZoom()
+    {
+        var camCtrl = Camera.main.GetComponent<CameraController>();
+
+        camCtrl.ResetZoom();
+
+        // 🔥 여기서 슬라이더 동기화
+        float zoom = camCtrl.introEndZoom > 0
+            ? camCtrl.introEndZoom
+            : Camera.main.orthographicSize;
+
+        zoomSlider.SetValueWithoutNotify(
+            Mathf.InverseLerp(
+                camCtrl.minZoom,
+                camCtrl.maxZoom,
+                zoom
+            )
+        );
     }
 
     private void Update()

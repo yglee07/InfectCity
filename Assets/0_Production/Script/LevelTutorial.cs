@@ -5,8 +5,9 @@ using UnityEngine.UI;
 public class LevelTutorial : MonoBehaviour
 {
     [Header("Tutorial Prefabs (UI)")]
-    public GameObject fingerPrefab;
-    public GameObject touchCirclePrefab;
+    public GameObject fingerDragPrefab;   // 드래그 전용
+    public GameObject fingerTouchPrefab;  // 터치(탭) 전용
+   // public GameObject touchCirclePrefab;
 
     GameObject fingerInstance;
     RectTransform fingerRT;
@@ -63,7 +64,7 @@ public class LevelTutorial : MonoBehaviour
     {
         Debug.Log("[Tutorial] INFECT");
 
-        if (fingerPrefab == null ||
+        if (fingerDragPrefab == null ||
             canvasRT == null ||
             Game.Instance == null ||
             Game.Instance.uiGame == null ||
@@ -88,7 +89,7 @@ public class LevelTutorial : MonoBehaviour
         RectTransform infectButtonRT =
             Game.Instance.uiGame.bombButton.GetComponent<RectTransform>();
 
-        SpawnFingerLike(infectButtonRT);
+        SpawnFingerDrag(infectButtonRT);
 
         // 감염 성공 전까지 반복
         while (NPCManager.Instance.GreenZombies.Count == 0)
@@ -112,8 +113,8 @@ public class LevelTutorial : MonoBehaviour
     {
         Debug.Log("[Tutorial] SPEED");
 
-        if (fingerPrefab == null ||
-            touchCirclePrefab == null ||
+        if (fingerTouchPrefab == null ||
+            //touchCirclePrefab == null ||
             canvasRT == null ||
             Game.Instance == null ||
             Game.Instance.uiGame == null ||
@@ -127,20 +128,20 @@ public class LevelTutorial : MonoBehaviour
         RectTransform speedRT = speedBtn.GetComponent<RectTransform>();
 
         // 원 파티클(UI) 스폰: 버튼과 동일 기준으로
-        GameObject circle = Instantiate(touchCirclePrefab, canvas.transform);
-        RectTransform circleRT = circle.GetComponent<RectTransform>();
-        CopyRectLike(speedRT, circleRT);
-        circleRT.anchoredPosition = speedRT.anchoredPosition;
-        circleRT.localScale = Vector3.one;
+        //GameObject circle = Instantiate(touchCirclePrefab, canvas.transform);
+        //RectTransform circleRT = circle.GetComponent<RectTransform>();
+        //CopyRectLike(speedRT, circleRT);
+        //circleRT.anchoredPosition = speedRT.anchoredPosition;
+        //circleRT.localScale = Vector3.one;
 
         // 손가락도 버튼 위에 고정 스폰
-        SpawnFingerLike(speedRT);
+        SpawnFingerTouch(speedRT);
 
         Game.Instance.SetGameSpeed(1f);
 
         yield return new WaitUntil(() => Game.Instance.GameSpeed > 1f);
 
-        Destroy(circle);
+        //Destroy(circle);
         ClearFinger();
 
         Debug.Log("[Tutorial] SPEED COMPLETE");
@@ -149,19 +150,19 @@ public class LevelTutorial : MonoBehaviour
     // =====================================================
     // UI Helpers
     // =====================================================
-    void SpawnFingerLike(RectTransform targetButtonRT)
-    {
-        ClearFinger();
+    //void SpawnFingerLike(RectTransform targetButtonRT)
+    //{
+    //    ClearFinger();
 
-        fingerInstance = Instantiate(fingerPrefab, canvas.transform);
-        fingerRT = fingerInstance.GetComponent<RectTransform>();
+    //    fingerInstance = Instantiate(fingerPrefab, canvas.transform);
+    //    fingerRT = fingerInstance.GetComponent<RectTransform>();
 
-        CopyRectLike(targetButtonRT, fingerRT);
-        fingerRT.pivot = new Vector2(0.5f, 1f);   // 손끝 기준
-        fingerRT.anchoredPosition = targetButtonRT.anchoredPosition;
-        fingerRT.localScale = Vector3.one;
-        fingerRT.gameObject.SetActive(true);
-    }
+    //    CopyRectLike(targetButtonRT, fingerRT);
+    //    fingerRT.pivot = new Vector2(0.5f, 1f);   // 손끝 기준
+    //    fingerRT.anchoredPosition = targetButtonRT.anchoredPosition;
+    //    fingerRT.localScale = Vector3.one;
+    //    fingerRT.gameObject.SetActive(true);
+    //}
 
     IEnumerator PlayFingerDragAnchored(Vector2 from, Vector2 to)
     {
@@ -238,4 +239,32 @@ public class LevelTutorial : MonoBehaviour
         NPCManager.Instance.mutantChance = 0.1f;
         Destroy(this);
     }
+    void SpawnFingerDrag(RectTransform targetRT)
+    {
+        ClearFinger();
+
+        fingerInstance = Instantiate(fingerDragPrefab, canvas.transform);
+        fingerRT = fingerInstance.GetComponent<RectTransform>();
+
+        CopyRectLike(targetRT, fingerRT);
+        fingerRT.pivot = new Vector2(0.5f, 1f);
+        fingerRT.anchoredPosition = targetRT.anchoredPosition;
+        fingerRT.localScale = Vector3.one;
+        fingerRT.gameObject.SetActive(true);
+    }
+
+    void SpawnFingerTouch(RectTransform targetRT)
+    {
+        ClearFinger();
+
+        fingerInstance = Instantiate(fingerTouchPrefab, canvas.transform);
+        fingerRT = fingerInstance.GetComponent<RectTransform>();
+
+        CopyRectLike(targetRT, fingerRT);
+        fingerRT.pivot = new Vector2(0.5f, 1f);
+        fingerRT.anchoredPosition = targetRT.anchoredPosition;
+        fingerRT.localScale = Vector3.one;
+        fingerRT.gameObject.SetActive(true);
+    }
+
 }
