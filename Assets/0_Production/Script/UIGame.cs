@@ -26,7 +26,7 @@ public class UIGame : MonoBehaviour
 
     private float[] pieValues = new float[4]; // purple, yellow, citizen, green
 
-    [SerializeField] Button speedToggleButton;
+    public Button speedToggleButton;
     [SerializeField] TMP_Text speedText;
 
      public Button bombButton;

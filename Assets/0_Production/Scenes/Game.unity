@@ -668,6 +668,7 @@ MonoBehaviour:
   introDuration: 1.2
   introStartZoom: 0
   introEndZoom: 0
+  idleAutoDelay: 5
   dragMultiplier: 0.1
   smoothTime: 0.05
 --- !u!114 &1159246148 stripped
@@ -1559,15 +1560,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4166143806936751418, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4166143806936751418, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4166143806936751418, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.8
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4166143806936751418, guid: b82d613409df6bb44bb8026aa07d7f55, type: 3}
       propertyPath: m_AnchoredPosition.y
