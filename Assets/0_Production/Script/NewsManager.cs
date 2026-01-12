@@ -12,101 +12,145 @@ public class NewsManager : MonoBehaviour
     // Stage 1~5 고정 뉴스
     readonly string[] earlyNews =
 {
-    // Stage 1
-    // 세계는 평온하고, 아직 아무도 이 병의 존재를 모른다
-    "Global travel continues as usual as {VIRUS} remains undetected",
+    // 1
+    "Global travel and daily life continue normally across the world",
 
-    // Stage 2
-    // 특정 국가에서의 일상
+    // 2
     "{COUNTRY} reports record tourism numbers this season",
 
-    // Stage 3
-    // 미묘한 이상 신호
-    "Health officials in {COUNTRY} note a rise in unexplained flu-like symptoms",
+    // 3
+    "Health officials in {COUNTRY} note a slight rise in seasonal flu cases",
 
-    // Stage 4
-    // 대중의 관심 시작
-    "Unusual illness reports in {COUNTRY} begin to draw public attention",
+    // 4
+    "Local clinics in {COUNTRY} report increased patient visits",
 
-    // Stage 5
-    // 사건화 직전
-    "Experts warn a mysterious disease may be emerging in {COUNTRY}",
+    // 5
+    "Medical professionals in {COUNTRY} begin monitoring unusual symptoms",
 
-    // Stage 6
-    "Doctors in {COUNTRY} observe a steady increase in seasonal flu cases",
+    // 6
+    "Hospitals in {COUNTRY} observe a steady increase in respiratory cases",
 
-    // Stage 7
-    "Hospitals across {COUNTRY} report more patients with respiratory symptoms",
+    // 7
+    "Public health agencies in {COUNTRY} issue precautionary guidelines",
 
-    // Stage 8
-    "Health authorities begin monitoring unusual illness patterns in {COUNTRY}",
+    // 8
+    "Authorities in {COUNTRY} acknowledge growing strain on hospitals",
 
-    // Stage 9
-    "Isolated reports mention unexplained symptoms spreading in {COUNTRY}",
+    // 9
+    "Unusual illness reports in {COUNTRY} begin attracting media attention",
 
-    // Stage 10
-    "Medical experts closely observe emerging cases linked to {COUNTRY}",
+    // 10
+    "Medical experts in {COUNTRY} investigate unexplained infection patterns",
 
-    // Stage 11
-    "Public concern grows as reports of an unidentified illness spread in {COUNTRY}",
+    // 11
+    "Public concern grows as health services in {COUNTRY} face rising demand",
 
-    // Stage 12
-    "Health authorities investigate clusters of unusual infections in {COUNTRY}",
+    // 12
+    "Healthcare systems in {COUNTRY} report operational challenges",
 
-    // Stage 13
-    "Medical facilities in {COUNTRY} report increasing operational strain",
+    // 13
+    "Emergency preparedness measures are discussed within {COUNTRY}",
 
-    // Stage 14
-    "Experts debate whether recent illness cases in {COUNTRY} are connected",
+    // 14
+    "Officials in {COUNTRY} warn the situation may worsen without intervention",
 
-    // Stage 15
-    "Governments urge calm as investigations continue in {COUNTRY}",
+    // 15
+    "Hospitals across {COUNTRY} report critical capacity levels",
 
-    // Stage 16
-    "Hospitals in {COUNTRY} report a sharp rise in patient admissions",
+    // 16
+    "Authorities in {COUNTRY} struggle to contain the spreading illness",
 
-    // Stage 17
-    "Authorities confirm the illness is spreading rapidly across {COUNTRY}",
+    // 17
+    "Reports suggest large portions of {COUNTRY} are affected by the outbreak",
 
-    // Stage 18
-    "International health agencies focus attention on developments in {COUNTRY}",
+    // 18
+    "National response efforts in {COUNTRY} show signs of failure",
 
-    // Stage 19
-    "Travel advisories are issued following escalating cases in {COUNTRY}",
+    // 19
+    "Public services in {COUNTRY} begin experiencing widespread disruptions",
 
-    // Stage 20
-    "Experts warn the situation in {COUNTRY} may worsen without intervention",
+    // 20
+    "Experts warn {COUNTRY} is approaching a point of systemic collapse",
 
-    // Stage 21
-    "Healthcare systems in {COUNTRY} face growing pressure as cases rise",
+    // 21 🇺🇸 미국 멸망
+    "The United States collapses as the {VIRUS} outbreak overwhelms all systems",
 
-    // Stage 22
-    "Emergency response measures are discussed as {COUNTRY} struggles to cope",
+    // 22
+    "Global observers express concern following the collapse of the United States",
 
-    // Stage 23
-    "Infection rates linked to {VIRUS} continue to rise throughout {COUNTRY}",
+    // 23
+    "Neighboring countries brace for impact as instability spreads",
 
-    // Stage 24
-    "Global concern intensifies as the outbreak in {COUNTRY} escalates",
+    // 24
+    "Economic and humanitarian crises deepen in affected regions",
 
-    // Stage 25
-    "Officials acknowledge the outbreak in {COUNTRY} is becoming difficult to control",
+    // 25 🇻🇪 베네수엘라 멸망
+    "Venezuela collapses amid uncontrollable spread of {VIRUS}",
 
-    // Stage 26
-    "Widespread disruptions affect daily life across {COUNTRY}",
+    // 26
+    "International aid efforts struggle to respond to escalating crises",
 
-    // Stage 27
-    "{COUNTRY} reports record levels of infection attributed to {VIRUS}",
+    // 27
+    "Multiple nations report growing unrest linked to the outbreak",
 
-    // Stage 28
-    "Global health leaders call for urgent action as {VIRUS} spreads in {COUNTRY}",
+    // 28
+    "Global supply chains show signs of severe disruption",
 
-    // Stage 29
-    "The outbreak of {VIRUS} in {COUNTRY} reaches unprecedented scale",
+    // 29
+    "Health agencies warn the situation is becoming increasingly unstable",
 
-    // Stage 30
-    "Experts warn {COUNTRY} is entering a critical phase of the {VIRUS} crisis"
+    // 30
+    "Governments worldwide prepare for further national failures",
+
+    // 31
+    "The spread of {VIRUS} begins to destabilize major regions",
+
+    // 32
+    "Authorities warn that containment efforts are failing globally",
+
+    // 33
+    "Widespread panic emerges as multiple systems break down",
+
+    // 34
+    "Medical infrastructure collapses in several heavily affected areas",
+
+    // 35
+    "Experts fear the outbreak is entering an irreversible phase",
+
+    // 36
+    "Large-scale evacuations are reported across multiple regions",
+
+    // 37
+    "Global coordination efforts show signs of breakdown",
+
+    // 38
+    "The international community struggles to respond effectively",
+
+    // 39
+    "Warning signs emerge as major powers face internal collapse",
+
+    // 40 🇨🇳 중국 멸망
+    "China collapses as the {VIRUS} outbreak spirals beyond control",
+
+    // 41
+    "Global stability deteriorates following the collapse of China",
+
+    // 42
+    "Remaining governments face unprecedented pressure",
+
+    // 43
+    "Worldwide emergency measures fail to restore order",
+
+    // 44
+    "Only isolated regions remain functional amid global chaos",
+
+    // 45
+    "Experts warn the final unaffected regions are at imminent risk",
+
+    // 46 🇬🇱 그린란드 멸망
+    "Greenland collapses, marking the final failure to contain {VIRUS}"
 };
+
 
 
     string ColorToHex(Color c)
@@ -144,7 +188,7 @@ public class NewsManager : MonoBehaviour
         string msg;
 
         // 🔹 Stage 1~5 : 고정 스토리 뉴스
-        if (stage <= 30)
+        if (stage <= 46)
         {
             msg = earlyNews[stage - 1];
         }
