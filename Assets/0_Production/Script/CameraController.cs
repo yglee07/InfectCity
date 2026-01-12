@@ -46,7 +46,12 @@ public class CameraController : MonoBehaviour
     private float targetZoom;
     private float zoomVelocity;
 private bool blockCameraThisInput = false;
-bool IsPointerOverUI()
+
+    // CameraController.cs
+    float lastUserInputTime;
+    [SerializeField] float idleAutoDelay = 5f;
+
+    bool IsPointerOverUI()
 {
 #if UNITY_EDITOR || UNITY_STANDALONE
     return EventSystem.current != null &&
@@ -60,6 +65,7 @@ bool IsPointerOverUI()
     );
 #endif
 }
+
     void Awake()
     {
         
@@ -71,27 +77,41 @@ bool IsPointerOverUI()
 
     void LateUpdate()
     {
+   
         if (isCameraLocked || isIntroPlaying)
             return;
 
         if (Game.Instance == null || !Game.Instance.gameObject.activeInHierarchy)
             return;
 
-        // 폭탄 드래그 중이면 카메라 멈춤
         if (Game.Instance.dragInfector != null &&
             Game.Instance.dragInfector.IsDraggingBomb)
             return;
+
         if (Game.Instance.dragUnit != null &&
             Game.Instance.dragUnit.IsDraggingUnit)
             return;
 
-
-       #if UNITY_EDITOR || UNITY_STANDALONE
+#if UNITY_EDITOR || UNITY_STANDALONE
         HandleMouseInput();
-        #else
-        HandleTouchInput();
-        #endif
-        // ===== 실제 적용 =====
+#else
+    HandleTouchInput();
+#endif
+        if (IsAutoCameraAllowed())
+        {
+            AutoAdjustToGreenZombies();
+        }
+        // ===============================
+        // 🔥 자동 카메라 조절 (입력 없을 때)
+        // ===============================
+        bool noRecentInput =
+       Time.time - lastUserInputTime > idleAutoDelay;
+
+       
+
+        // ===============================
+        // 실제 적용
+        // ===============================
         transform.position = Vector3.SmoothDamp(
             transform.position,
             targetPos,
@@ -103,18 +123,105 @@ bool IsPointerOverUI()
             cam.orthographicSize,
             targetZoom,
             ref zoomVelocity,
-            0.12f   // zoomSmoothTime (취향)
+            0.12f
+        );
+    }
+
+    void AutoAdjustToGreenZombies()
+    {
+        var greens = NPCManager.Instance.GreenZombies;
+        if (greens == null || greens.Count == 0)
+            return;
+
+        Camera cam = this.cam;
+
+        Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
+        Vector2 max = new Vector2(float.MinValue, float.MinValue);
+
+        foreach (var z in greens)
+        {
+            if (z == null) continue;
+
+            Vector3 sp = cam.WorldToScreenPoint(z.transform.position);
+            if (sp.z < 0) continue;
+
+            min = Vector2.Min(min, sp);
+            max = Vector2.Max(max, sp);
+        }
+
+        if (min.x == float.MaxValue)
+            return;
+
+        // ===============================
+        // 🔥 1. 화면 여백 추가 (핵심)
+        // ===============================
+        float screenPadding = Mathf.Min(Screen.width, Screen.height) * 0.18f;
+        min -= Vector2.one * screenPadding;
+        max += Vector2.one * screenPadding;
+
+        Vector2 centerScreen = (min + max) * 0.5f;
+        Vector3 centerWorld =
+            cam.ScreenToWorldPoint(
+                new Vector3(centerScreen.x, centerScreen.y, cam.nearClipPlane)
+            );
+
+        float screenWidth = max.x - min.x;
+        float screenHeight = max.y - min.y;
+
+        float sizeByHeight =
+            (screenHeight / Screen.height) * cam.orthographicSize;
+        float sizeByWidth =
+            (screenWidth / Screen.width) * cam.orthographicSize;
+
+        float desiredZoom =
+            Mathf.Max(sizeByHeight, sizeByWidth) * 1.35f;
+
+        // ===============================
+        // 🔥 2. 줌 급변 방지 (중요)
+        // ===============================
+        float maxZoomStepPerFrame = 0.25f;
+        desiredZoom = Mathf.Clamp(
+            desiredZoom,
+            targetZoom - maxZoomStepPerFrame,
+            targetZoom + maxZoomStepPerFrame
         );
 
+        // ===============================
+        // 🔥 3. 위치도 살짝 둔하게
+        // ===============================
+        Vector3 desiredPos = new Vector3(
+            centerWorld.x,
+            targetPos.y,
+            centerWorld.z
+        );
+
+        targetPos = Vector3.Lerp(
+            targetPos,
+            desiredPos,
+            0.12f
+        );
+
+        targetZoom = Mathf.Lerp(
+            targetZoom,
+            Mathf.Clamp(desiredZoom, minZoom, maxZoom),
+            0.15f
+        );
     }
+
+
+
 
     void HandleMouseInput()
     {
-         // =====================
-    // 마우스 다운
-    // =====================
-    if (Input.GetMouseButtonDown(0))
-    {
+        // =====================
+        // 마우스 다운
+        // =====================
+        if (Input.GetMouseButtonDown(0) ||
+           Mathf.Abs(Input.GetAxis("Mouse ScrollWheel")) > 0.001f)
+        {
+            lastUserInputTime = Time.time;
+        
+        
         // ⭐ UI에서 시작됐으면 카메라 입력 차단
         blockCameraThisInput = IsPointerOverUI();
         if (blockCameraThisInput)
@@ -167,10 +274,20 @@ bool IsPointerOverUI()
         if (Input.GetMouseButtonUp(0))
         {
             inputState = InputState.None;
+
+            // 🔥 손 뗀 순간도 Idle 기준 리셋
+            Debug.Log("lastUserInputTime reset on mouse up");
+            lastUserInputTime = Time.time;
         }
-    }   void HandleTouchInput()
+    }  
+    void HandleTouchInput()
 {
-    if (Input.touchCount == 0)
+        if (Input.touchCount > 0)
+        {
+            lastUserInputTime = Time.time;
+        }
+
+        if (Input.touchCount == 0)
     {
         inputState = InputState.None;
         blockCameraThisInput = false;
@@ -262,12 +379,15 @@ bool IsPointerOverUI()
         lastDragWorldPos = newPos;
     }
 
-    if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
-    {
-        inputState = InputState.None;
-        blockCameraThisInput = false;
+        if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
+        {
+            inputState = InputState.None;
+            blockCameraThisInput = false;
+            Debug.Log("lastUserInputTime reset on mouse up");
+            // 🔥 손 뗀 순간도 Idle 기준 리셋
+            lastUserInputTime = Time.time;
+        }
     }
-}
     private Vector3 dragVelocity = Vector3.zero;
 
     // 드래그 감도
@@ -417,4 +537,52 @@ bool IsPointerOverUI()
         targetZoom = zoom;
     }
 
+    bool IsAutoCameraAllowed()
+    {
+        return Time.time - lastUserInputTime > idleAutoDelay;
+    }
+    void OnGUI()
+    {
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        float idleTime = Time.time - lastUserInputTime;
+        bool autoAllowed = IsAutoCameraAllowed();
+
+        GUILayout.BeginArea(
+            new Rect(10, 10, 360, 150),
+            GUI.skin.box
+        );
+
+        GUILayout.Label("<b>=== AUTO CAMERA DEBUG ===</b>",
+            new GUIStyle(GUI.skin.label)
+            {
+                richText = true
+            });
+
+        GUILayout.Space(6);
+
+        GUILayout.Label($"Idle Time : {idleTime:F2}s");
+        GUILayout.Label($"Idle Auto Delay : {idleAutoDelay:F2}s");
+
+        GUILayout.Space(6);
+
+        GUILayout.Label(
+            $"Auto Camera : <b>{(autoAllowed ? "ON" : "OFF")}</b>",
+            new GUIStyle(GUI.skin.label)
+            {
+                richText = true,
+                normal =
+                {
+                textColor = autoAllowed ? Color.green : Color.red
+                }
+            }
+        );
+
+        GUILayout.EndArea();
+#endif
+    }
+
+    public void ResetIdleTimer()
+    {
+        lastUserInputTime = Time.time;
+    }
 }

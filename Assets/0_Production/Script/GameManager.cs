@@ -39,6 +39,10 @@ public class GameManager : MonoBehaviour
     // ============================
     public void StartGame()
     {
+        Lobby lobby = lobbyView.GetComponent<Lobby>();
+        if (lobby != null)
+            lobby.SkipConquerAnimation();
+
         lobbyView.SetActive(false);
         gameView.SetActive(true);
 

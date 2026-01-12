@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 
@@ -45,12 +45,12 @@ using UnityEngine.AI;
         bool navOpenApplied = false;
         float checkTimer = 0f;
         float openTimer = 0f;
-        
 
-        // =========================
-        // Life Cycle
-        // =========================
-        void OnEnable()
+    bool wasOpen = false;
+    // =========================
+    // Life Cycle
+    // =========================
+    void OnEnable()
         {
             NPCManager.Instance?.RegisterDoor(this);
         }
@@ -96,7 +96,17 @@ using UnityEngine.AI;
 
             // 4️⃣ NavMeshObstacle 동기화
             UpdateNavMeshByAngle();
+
+        if (!wasOpen && open)
+        {
+            SoundManager.Instance?.PlaySFX(
+                "Door_Open",
+                transform.position   // 3D면 위치 주는 게 좋음
+            );
         }
+
+        wasOpen = open;
+    }
 
         // =========================
         // Citizen → Door Open
@@ -134,7 +144,7 @@ using UnityEngine.AI;
         {
             
             if (doorPivot == null) return;
-
+        
             float targetAngle = open ? doorOpenAngle : doorCloseAngle;
             Quaternion targetRot = Quaternion.Euler(0f, targetAngle, 0f);
 

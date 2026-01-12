@@ -31,7 +31,8 @@ public class UILobby : MonoBehaviour
     public TMP_Text mutateChanceText;
 
 
-
+    [Header("Name Popup")]
+    public GameObject namePopup;
     void Start()
     {
         // 버튼 클릭 시 StartGame 호출
@@ -75,9 +76,22 @@ public class UILobby : MonoBehaviour
         levelText.text = $"Level {stage}";
         // 🔥 코인 표시 업데이트
 
-        // ★ 국기 이미지 적용
+        // ⭐ 국가 이미지 처리
         if (countryImage != null)
-            countryImage.sprite = countrySprite;
+        {
+            if (countrySprite != null)
+            {
+                Debug.Log("국가 이미지 설정됨");
+                countryImage.gameObject.SetActive(true);
+                countryImage.sprite = countrySprite;
+            }
+            else
+            {
+                Debug.Log("국가 이미지 없음");
+                // 이미지 없으면 공간 자체 제거
+                countryImage.gameObject.SetActive(false);
+            }
+        }
         RefreshLobbyUI();
     }
     public void RefreshLobbyUI()

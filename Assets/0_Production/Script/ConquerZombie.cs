@@ -34,7 +34,7 @@ public class ConquerZombie : MonoBehaviour
     }
     public void Die()
     {
-    
+        SoundManager.Instance.PlaySFX("InfectExplode");
         Destroy(gameObject);
     }
 }

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
@@ -67,6 +67,9 @@ public abstract class CitizenBase : MonoBehaviour
 
     [SerializeField] private float fleeNoPathTimeout = 0.6f;
 private float fleeNoPathTimer = 0f;
+
+    // ===== Sound =====
+    protected bool hasPlayedFleeScream = false;
 
     protected virtual void OnEnable()
     {
@@ -212,6 +215,20 @@ private float fleeNoPathTimer = 0f;
                 agent.isStopped = false;
                 agent.speed = fleeSpeed;
                 PlayMoveAnim("StickMan_Run");
+
+                if (!hasPlayedFleeScream)
+                {
+                    hasPlayedFleeScream = true;
+                  
+                    //if (Random.value < 0.35f) // 확률
+                    // {
+
+                    SoundManager.Instance?.PlaySFX(
+"CitizenScream",
+transform.position
+);
+                    //  } 
+                }
 
                 // Door Assist state reset
                 lastAssistDoor = null;
@@ -594,6 +611,9 @@ if (NavMesh.SamplePosition(fallback, out var hit2, 2.5f, NavMesh.AllAreas))
 
         state = State.Idle;
         currentAnim = "";
+
+        hasPlayedFleeScream = false; // ⭐ 추가
+
 
         // Door Assist reset
         lastAssistDoor = null;

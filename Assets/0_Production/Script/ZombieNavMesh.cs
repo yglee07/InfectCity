@@ -577,6 +577,7 @@ void RefreshMoveAnimation()
             _ => "SpikyExplosionGreen"
         };
 
+        SoundManager.Instance.PlaySFX("InfectExplode");
         PoolManager.Instance.Spawn(effectKey, spawnPos, Quaternion.identity);
       
         //if (infectEffectPrefab != null)
@@ -662,6 +663,8 @@ void RefreshMoveAnimation()
             _ => "SpikyExplosionGreen"
         };
 
+
+        SoundManager.Instance.PlaySFX("InfectExplode");
         PoolManager.Instance.Spawn(effectKey, transform.position, Quaternion.identity);
 
         PoolManager.Instance.Despawn(zombiePoolKey, this.gameObject);

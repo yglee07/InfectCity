@@ -102,6 +102,8 @@ public class Game : MonoBehaviour
         uiGame.UpdateCharges(dragInfector.currentCharges, dragInfector.maxCharges);
 
         isPlaying = true;
+
+   
     }
 
     // ========================================================
@@ -169,6 +171,8 @@ public class Game : MonoBehaviour
     private void StageClear()
     {
         isPlaying = false;
+
+        SoundManager.Instance?.PlaySFX("GameClear");
 
         Lobby lobby = GameManager.Instance.lobbyView.GetComponent<Lobby>();
 
@@ -249,6 +253,9 @@ public class Game : MonoBehaviour
     public void StageFail()
     {
         isPlaying = false;
+
+        SoundManager.Instance?.PlaySFX("GameOver");
+
         uiGame.ShowFailedPopup();    // ← 실패 팝업
         //GameManager.Instance.ReturnToLobby();
            // 카메라 원위치 이동

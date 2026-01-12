@@ -258,6 +258,7 @@ public class DragInfectController : MonoBehaviour
 
  
       
+        SoundManager.Instance.PlaySFX("DragExplode", infectPos);
         GameObject fx = PoolManager.Instance.Spawn("NukeExplosionGreen",transform.position,Quaternion.identity);
         fx.transform.position = infectPos + new Vector3(0, 1f, 0);
 
@@ -276,6 +277,12 @@ public class DragInfectController : MonoBehaviour
     );
 
         Deactivate();
+
+        CameraController cam = FindObjectOfType<CameraController>();
+        if (cam != null)
+        {
+            cam.ResetIdleTimer();
+        }
     }
 
     // =========================================

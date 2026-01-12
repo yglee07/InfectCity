@@ -19,6 +19,9 @@ public class CountryNode : MonoBehaviour
     public int conquerStepCount = 5;
     public float stepLerpDuration = 0.15f;
 
+    [Header("UI")]
+    public Sprite countrySprite; // 국기 or 국가 이미지
+
     Material mat;
     Coroutine stepRoutine;
 
