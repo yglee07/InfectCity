@@ -21,12 +21,15 @@ public class Game : MonoBehaviour
     public Transform levelContainer;
 
     [Header("UI")]
-    public UIGame uiGame;   
+    public UIGame uiGame;
 
     public bool isPlaying = false;
 
- 
-   [SerializeField] float gameSpeed = 1f;
+    [Header("UI")]
+    public UITutorial uiTutorial;
+
+
+    [SerializeField] float gameSpeed = 1f;
     public float GameSpeed => gameSpeed;
 
     const float BASE_FIXED_DT = 0.02f;
@@ -261,57 +264,57 @@ public class Game : MonoBehaviour
            // 카메라 원위치 이동
       
     }
-    void OnGUI()
-    {
-        if (!isPlaying) return;
+    //void OnGUI()
+    //{
+    //    if (!isPlaying) return;
 
-        GUILayout.BeginArea(new Rect(10, 10, 420, 300), GUI.skin.box);
-        GUILayout.Label("<b>=== Stage Fail Debug ===</b>");
+    //    GUILayout.BeginArea(new Rect(10, 10, 420, 300), GUI.skin.box);
+    //    GUILayout.Label("<b>=== Stage Fail Debug ===</b>");
 
-        GUILayout.Label($"Citizens: {npcManager.Citizens.Count}");
-        GUILayout.Label($"Green: {npcManager.GreenZombies.Count}");
-        GUILayout.Label($"Purple: {npcManager.PurpleZombies.Count}");
-        GUILayout.Label($"Yellow: {npcManager.YellowZombies.Count}");
+    //    GUILayout.Label($"Citizens: {npcManager.Citizens.Count}");
+    //    GUILayout.Label($"Green: {npcManager.GreenZombies.Count}");
+    //    GUILayout.Label($"Purple: {npcManager.PurpleZombies.Count}");
+    //    GUILayout.Label($"Yellow: {npcManager.YellowZombies.Count}");
 
-        GUILayout.Space(5);
+    //    GUILayout.Space(5);
 
-        bool citizensRemain = npcManager.CurrentCitizenCount > 0;
-        bool noCitizens = npcManager.CurrentCitizenCount == 0;
-        bool noGreenZombies = npcManager.GreenZombies.Count == 0;
-        bool hasPurpleZombies = npcManager.PurpleZombies.Count > 0;
-        bool hasYellowZombies = npcManager.YellowZombies.Count > 0;
-        bool noCharges = dragInfector.currentCharges <= 0 && dragUnit.currentCharges <= 0;
+    //    bool citizensRemain = npcManager.CurrentCitizenCount > 0;
+    //    bool noCitizens = npcManager.CurrentCitizenCount == 0;
+    //    bool noGreenZombies = npcManager.GreenZombies.Count == 0;
+    //    bool hasPurpleZombies = npcManager.PurpleZombies.Count > 0;
+    //    bool hasYellowZombies = npcManager.YellowZombies.Count > 0;
+    //    bool noCharges = dragInfector.currentCharges <= 0 && dragUnit.currentCharges <= 0;
 
-        bool case1_Blockaded =
-            citizensRemain &&
-            noGreenZombies &&
-            noCharges;
+    //    bool case1_Blockaded =
+    //        citizensRemain &&
+    //        noGreenZombies &&
+    //        noCharges;
 
-        bool case2_NoFighterLeft =
-            (hasPurpleZombies || hasYellowZombies) &&
-            noCitizens &&
-            noGreenZombies;
+    //    bool case2_NoFighterLeft =
+    //        (hasPurpleZombies || hasYellowZombies) &&
+    //        noCitizens &&
+    //        noGreenZombies;
 
-        bool allZero =
-            npcManager.Citizens.Count == 0 &&
-            npcManager.GreenZombies.Count == 0 &&
-            npcManager.PurpleZombies.Count == 0 &&
-            npcManager.YellowZombies.Count == 0;
+    //    bool allZero =
+    //        npcManager.Citizens.Count == 0 &&
+    //        npcManager.GreenZombies.Count == 0 &&
+    //        npcManager.PurpleZombies.Count == 0 &&
+    //        npcManager.YellowZombies.Count == 0;
 
-        GUILayout.Space(8);
-        GUILayout.Label($"citizensRemain: {citizensRemain}");
-        GUILayout.Label($"noCitizens: {noCitizens}");
-        GUILayout.Label($"noGreenZombies: {noGreenZombies}");
-        GUILayout.Label($"hasPurpleZombies: {hasPurpleZombies}");
-        GUILayout.Label($"hasYellowZombies: {hasYellowZombies}");
-        GUILayout.Label($"noCharges: {noCharges}");
+    //    GUILayout.Space(8);
+    //    GUILayout.Label($"citizensRemain: {citizensRemain}");
+    //    GUILayout.Label($"noCitizens: {noCitizens}");
+    //    GUILayout.Label($"noGreenZombies: {noGreenZombies}");
+    //    GUILayout.Label($"hasPurpleZombies: {hasPurpleZombies}");
+    //    GUILayout.Label($"hasYellowZombies: {hasYellowZombies}");
+    //    GUILayout.Label($"noCharges: {noCharges}");
 
-        GUILayout.Space(8);
-        GUILayout.Label($"case1_Blockaded: {case1_Blockaded}");
-        GUILayout.Label($"case2_NoFighterLeft: {case2_NoFighterLeft}");
-        GUILayout.Label($"allZero: {allZero}");
+    //    GUILayout.Space(8);
+    //    GUILayout.Label($"case1_Blockaded: {case1_Blockaded}");
+    //    GUILayout.Label($"case2_NoFighterLeft: {case2_NoFighterLeft}");
+    //    GUILayout.Label($"allZero: {allZero}");
 
-        GUILayout.EndArea();
-    }
+    //    GUILayout.EndArea();
+    //}
 
 }

@@ -32,8 +32,9 @@ public class UIGame : MonoBehaviour
      public Button bombButton;
     public Button unitButton;
 
-    [SerializeField] Slider zoomSlider;
-    [SerializeField] Button zoomResetButton;
+    public Slider zoomSlider;
+    public Button zoomResetButton;
+
     public void RefreshActionButtons(
         int bombCharges,
         int unitCharges
@@ -212,4 +213,7 @@ public class UIGame : MonoBehaviour
 
         pieCenterText.text = pct + "%";
     }
+
+  
+   
 }

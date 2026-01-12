@@ -1543,6 +1543,8 @@ MonoBehaviour:
   bombButton: {fileID: 4058749363881441123}
   unitButton: {fileID: 4797807080933731977}
   zoomSlider: {fileID: 4470265641535302401}
+  zoomResetButton: {fileID: 644805797443335259}
+  unitNameText: {fileID: 0}
 --- !u!1001 &949719219774457862
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2251,6 +2253,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58ae1ff7d6143a54f8edc782488e5d42, type: 3}
+--- !u!114 &644805797443335259 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6530003901594255349, guid: 58ae1ff7d6143a54f8edc782488e5d42, type: 3}
+  m_PrefabInstance: {fileID: 5939672346943572910}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!224 &4927870792882521258 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1589389031307824900, guid: 58ae1ff7d6143a54f8edc782488e5d42, type: 3}

@@ -7,7 +7,13 @@ public class LevelTutorial : MonoBehaviour
     [Header("Tutorial Prefabs (UI)")]
     public GameObject fingerDragPrefab;   // 드래그 전용
     public GameObject fingerTouchPrefab;  // 터치(탭) 전용
-   // public GameObject touchCirclePrefab;
+    public GameObject infiniteCameraPrefab;  // 터치(탭) 전용
+                                             // public GameObject touchCirclePrefab;
+
+    [Header("New Unit Tutorial")]
+    [SerializeField] Transform newUnitTarget;
+    [SerializeField] string unitDisplayName;
+    [SerializeField, TextArea] string unitDescription;
 
     GameObject fingerInstance;
     RectTransform fingerRT;
@@ -21,6 +27,7 @@ public class LevelTutorial : MonoBehaviour
         None,
         Speed,
         Camera,
+        CameraZoom,   // 👈 추가
         Infect,
         SpecialZombie,
         NewUnit
@@ -51,8 +58,14 @@ public class LevelTutorial : MonoBehaviour
     {
         if (tutorialType == TutorialType.Infect)
             yield return InfectTutorial();
+        else if (tutorialType == TutorialType.CameraZoom)
+            yield return CameraZoomTutorial();
         else if (tutorialType == TutorialType.Speed)
             yield return SpeedTutorial();
+        else if (tutorialType == TutorialType.Camera)
+            yield return CameraTutorial();
+        else if (tutorialType == TutorialType.NewUnit)
+            yield return NewUnitTutorial();
 
         EndTutorial();
     }
@@ -65,46 +78,58 @@ public class LevelTutorial : MonoBehaviour
         Debug.Log("[Tutorial] INFECT");
 
         if (fingerDragPrefab == null ||
-            canvasRT == null ||
             Game.Instance == null ||
             Game.Instance.uiGame == null ||
             Game.Instance.uiGame.bombButton == null)
         {
-            Debug.LogWarning("[Tutorial] Infect tutorial setup missing");
             yield break;
         }
 
-        // 감염만 허용
-        Camera.main.GetComponent<CameraController>().isCameraLocked = true;
+        CameraController camCtrl = Camera.main.GetComponent<CameraController>();
+        if (camCtrl != null)
+            camCtrl.isCameraLocked = true;
+
         if (Game.Instance.dragUnit != null)
             Game.Instance.dragUnit.enabled = false;
 
         CitizenBase targetCitizen = FindAnyCitizen();
         if (targetCitizen == null)
-        {
-            Debug.LogWarning("[Tutorial] No citizen found");
             yield break;
-        }
 
         RectTransform infectButtonRT =
             Game.Instance.uiGame.bombButton.GetComponent<RectTransform>();
 
+        Canvas canvas = infectButtonRT.GetComponentInParent<Canvas>();
+        RectTransform canvasRT = canvas.GetComponent<RectTransform>();
+        Camera uiCam = canvas.renderMode == RenderMode.ScreenSpaceOverlay
+            ? null
+            : canvas.worldCamera;
+
         SpawnFingerDrag(infectButtonRT);
 
-        // 감염 성공 전까지 반복
         while (NPCManager.Instance.GreenZombies.Count == 0)
         {
-            Vector2 from = infectButtonRT.anchoredPosition;
-            Vector2 to = WorldToCanvasAnchored(targetCitizen.transform.position);
+            // 🔥 버튼 중심
+            Vector2 from = WorldToCanvas(
+                infectButtonRT.TransformPoint(infectButtonRT.rect.center),
+                canvasRT,
+                uiCam
+            );
+
+            // 🔥 시민 위치
+            Vector2 to = WorldToCanvasFromMainCamera(
+     GetCitizenVisualCenter(targetCitizen),
+     canvasRT
+ );
 
             yield return PlayFingerDragAnchored(from, to);
-
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.3f);
         }
 
         ClearFinger();
         Debug.Log("[Tutorial] INFECT COMPLETE");
     }
+
 
     // =====================================================
     // SPEED
@@ -170,9 +195,9 @@ public class LevelTutorial : MonoBehaviour
             yield break;
 
         fingerRT.gameObject.SetActive(true);
-        fingerRT.anchoredPosition = from;
+        fingerRT.anchoredPosition = from; // 🔥 시작점 고정
 
-        float duration = 0.7f;
+        float duration = 0.6f;
         float t = 0f;
 
         while (t < 1f)
@@ -181,9 +206,6 @@ public class LevelTutorial : MonoBehaviour
             fingerRT.anchoredPosition = Vector2.Lerp(from, to, t);
             yield return null;
         }
-
-        yield return new WaitForSeconds(0.15f);
-        fingerRT.gameObject.SetActive(false);
     }
 
     Vector2 WorldToCanvasAnchored(Vector3 worldPos)
@@ -207,8 +229,8 @@ public class LevelTutorial : MonoBehaviour
     {
         dst.anchorMin = src.anchorMin;
         dst.anchorMax = src.anchorMax;
-        dst.pivot = src.pivot;
-        dst.sizeDelta = src.sizeDelta;
+        //dst.pivot = src.pivot;
+        //dst.sizeDelta = src.sizeDelta;
     }
 
     void ClearFinger()
@@ -239,32 +261,425 @@ public class LevelTutorial : MonoBehaviour
         NPCManager.Instance.mutantChance = 0.1f;
         Destroy(this);
     }
+
+
     void SpawnFingerDrag(RectTransform targetRT)
     {
         ClearFinger();
 
-        fingerInstance = Instantiate(fingerDragPrefab, canvas.transform);
+        Canvas targetCanvas = targetRT.GetComponentInParent<Canvas>();
+
+        fingerInstance = Instantiate(
+            fingerDragPrefab,
+            targetCanvas.transform
+        );
+
         fingerRT = fingerInstance.GetComponent<RectTransform>();
 
-        CopyRectLike(targetRT, fingerRT);
-        fingerRT.pivot = new Vector2(0.5f, 1f);
-        fingerRT.anchoredPosition = targetRT.anchoredPosition;
         fingerRT.localScale = Vector3.one;
-        fingerRT.gameObject.SetActive(true);
+        fingerRT.gameObject.SetActive(false); // 위치 잡기 전까지 숨김
     }
+
 
     void SpawnFingerTouch(RectTransform targetRT)
     {
         ClearFinger();
 
-        fingerInstance = Instantiate(fingerTouchPrefab, canvas.transform);
+        // 버튼이 속한 Canvas
+        Canvas targetCanvas = targetRT.GetComponentInParent<Canvas>();
+        RectTransform canvasRT = targetCanvas.GetComponent<RectTransform>();
+
+        fingerInstance = Instantiate(fingerTouchPrefab, targetCanvas.transform);
         fingerRT = fingerInstance.GetComponent<RectTransform>();
 
-        CopyRectLike(targetRT, fingerRT);
-        fingerRT.pivot = new Vector2(0.5f, 1f);
-        fingerRT.anchoredPosition = targetRT.anchoredPosition;
+        // ❌ anchor / pivot / size 절대 안 건드림
         fingerRT.localScale = Vector3.one;
+
+        // 🔥 버튼 "월드 중앙"을 Canvas 좌표로 변환
+        Vector2 localPos;
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRT,
+            RectTransformUtility.WorldToScreenPoint(
+                targetCanvas.renderMode == RenderMode.ScreenSpaceOverlay
+                    ? null
+                    : targetCanvas.worldCamera,
+                targetRT.TransformPoint(targetRT.rect.center)
+            ),
+            targetCanvas.renderMode == RenderMode.ScreenSpaceOverlay
+                ? null
+                : targetCanvas.worldCamera,
+            out localPos
+        );
+
+        fingerRT.anchoredPosition = localPos;
         fingerRT.gameObject.SetActive(true);
+    }
+
+
+
+    IEnumerator CameraTutorial()
+    {
+        Debug.Log("[Tutorial] CAMERA");
+
+        CameraController cam = Camera.main.GetComponent<CameraController>();
+
+        // 1️⃣ 인트로 종료 대기
+        yield return new WaitUntil(() => cam.isCameraLocked == false);
+
+        // 2️⃣ infinite 힌트 표시
+        GameObject hint = Instantiate(infiniteCameraPrefab, canvas.transform);
+
+        RectTransform rt = hint.GetComponent<RectTransform>();
+        rt.anchoredPosition = Vector2.zero;
+        rt.localScale = Vector3.one;
+
+        // 3️⃣ 기준값 재설정 (중요)
+        Vector3 startPos = Camera.main.transform.position;
+        float startZoom = Camera.main.orthographicSize;
+
+        // 4️⃣ 실제 플레이어 조작 대기
+        yield return new WaitUntil(() =>
+            Vector3.Distance(Camera.main.transform.position, startPos) > 0.25f ||
+            Mathf.Abs(Camera.main.orthographicSize - startZoom) > 0.25f
+        );
+
+        Destroy(hint);
+        Debug.Log("[Tutorial] CAMERA COMPLETE");
+    }
+    IEnumerator CameraZoomTutorial()
+    {
+        Debug.Log("[Tutorial] CAMERA ZOOM");
+
+        CameraController cam = Camera.main.GetComponent<CameraController>();
+
+        // 🔒 인트로 끝날 때까지 대기
+        yield return new WaitUntil(() => cam.isCameraLocked == false);
+
+        // =========================
+        // STEP 1 : 슬라이더 이동
+        // =========================
+        yield return ZoomSliderStep();
+
+        // =========================
+        // STEP 2 : Reset 버튼 클릭
+        // =========================
+        yield return ZoomResetButtonStep();
+
+        Debug.Log("[Tutorial] CAMERA ZOOM COMPLETE");
+    }
+    IEnumerator ZoomSliderStep()
+    {
+        Slider zoomSlider = Game.Instance.uiGame.zoomSlider;
+        RectTransform sliderRT = zoomSlider.GetComponent<RectTransform>();
+
+        float startValue = zoomSlider.value;
+
+        // 손가락 스폰 (위치는 아래에서 잡음)
+        SpawnFingerDrag(sliderRT);
+
+        Canvas targetCanvas = sliderRT.GetComponentInParent<Canvas>();
+        RectTransform canvasRT = targetCanvas.GetComponent<RectTransform>();
+
+        bool isVertical =
+            zoomSlider.direction == Slider.Direction.BottomToTop ||
+            zoomSlider.direction == Slider.Direction.TopToBottom;
+
+        // 🔥 슬라이더 월드 기준점
+        Vector3 sliderWorldCenter = GetSliderWorldCenter(sliderRT);
+
+        Vector2 center = UIWorldToCanvas(
+            sliderWorldCenter,
+            canvasRT,
+            targetCanvas
+        );
+        Vector2 from, to;
+
+        if (isVertical)
+        {
+            from = center + new Vector2(0f, -80f);
+            to = center + new Vector2(0f, 80f);
+        }
+        else
+        {
+            from = center + new Vector2(-80f, 0f);
+            to = center + new Vector2(80f, 0f);
+        }
+
+        while (Mathf.Approximately(zoomSlider.value, startValue))
+        {
+            yield return PlayFingerDragAnchored(from, to);
+            yield return new WaitForSeconds(0.4f);
+        }
+
+        ClearFinger();
+    }
+
+    bool zoomResetClicked = false;
+    IEnumerator ZoomResetButtonStep()
+    {
+        Button resetBtn = Game.Instance.uiGame.zoomResetButton;
+        RectTransform resetRT = resetBtn.GetComponent<RectTransform>();
+
+        bool clicked = false;
+
+        void OnResetClicked()
+        {
+            clicked = true;
+        }
+
+        // 🔥 임시 리스너 등록
+        resetBtn.onClick.AddListener(OnResetClicked);
+
+        SpawnFingerTouch(resetRT);
+
+        yield return new WaitUntil(() => clicked);
+
+        // 🔥 반드시 제거
+        resetBtn.onClick.RemoveListener(OnResetClicked);
+
+        ClearFinger();
+    }
+    Vector2 GetAnchoredPosFromTargetTopLeft(RectTransform targetRT)
+    {
+        Vector3[] corners = new Vector3[4];
+        targetRT.GetWorldCorners(corners);
+
+        // corners[1] = 좌상단
+        Vector3 worldTopLeft = corners[1];
+
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(
+            uiCamera,
+            worldTopLeft
+        );
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRT,
+            screenPos,
+            uiCamera,
+            out Vector2 localPoint
+        );
+
+        return localPoint;
+    }
+
+    Vector2 WorldToCanvas(Vector3 worldPos, RectTransform canvasRT, Camera cam)
+    {
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(cam, worldPos);
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRT,
+            screenPos,
+            cam,
+            out Vector2 localPos
+        );
+
+        return localPos;
+    }
+    Vector2 WorldToCanvasFromMainCamera(
+    Vector3 worldPos,
+    RectTransform canvasRT
+)
+    {
+        // 1️⃣ 3D 월드를 메인 카메라로 스크린 좌표 변환
+        Vector3 screenPos = Camera.main.WorldToScreenPoint(worldPos);
+
+        // 2️⃣ 스크린 → 캔버스 로컬 좌표
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRT,
+            screenPos,
+            null, // ScreenSpaceOverlay 기준
+            out Vector2 localPos
+        );
+
+        return localPos;
+    }
+    Vector3 GetCitizenVisualCenter(CitizenBase citizen)
+    {
+        Renderer r = citizen.GetComponentInChildren<Renderer>();
+        if (r != null)
+            return r.bounds.center;
+
+        return citizen.transform.position;
+    }
+    Vector3 GetSliderWorldCenter(RectTransform sliderRT)
+    {
+        Vector3[] corners = new Vector3[4];
+        sliderRT.GetWorldCorners(corners);
+        return (corners[0] + corners[2]) * 0.5f;
+    }
+    Vector2 UIWorldToCanvas(
+    Vector3 worldPos,
+    RectTransform canvasRT,
+    Canvas canvas
+)
+    {
+        Camera cam = canvas.renderMode == RenderMode.ScreenSpaceOverlay
+            ? null
+            : canvas.worldCamera;
+
+        Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(cam, worldPos);
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            canvasRT,
+            screenPos,
+            cam,
+            out Vector2 localPos
+        );
+
+        return localPos;
+    }
+    IEnumerator NewUnitTutorial()
+    {
+        Debug.Log("[Tutorial] NEW UNIT");
+
+        if (newUnitTarget == null || Game.Instance == null || Game.Instance.uiGame == null)
+            yield break;
+
+        Camera cam = Camera.main;
+        CameraController camCtrl = cam.GetComponent<CameraController>();
+
+        // 0️⃣ 인트로 종료 대기
+        yield return new WaitUntil(() => camCtrl == null || camCtrl.isCameraLocked == false);
+
+        // 1️⃣ 카메라 잠금
+        if (camCtrl != null)
+            camCtrl.isCameraLocked = true;
+
+        //Time.timeScale = 0f;
+
+        // 2️⃣ 원래 카메라 상태 저장
+        Vector3 originPos = cam.transform.position;
+        float originZoom = cam.orthographicSize;
+
+        // 3️⃣ 유닛 Renderer 확보
+        Renderer unitRenderer = newUnitTarget.GetComponentInChildren<Renderer>();
+        if (unitRenderer == null)
+            yield break;
+
+        // 🔒 중심 고정
+        Vector3 targetPos = GetUnitFocusPosition(unitRenderer, cam);
+        float targetZoom = CalculateZoomToFitUnit(unitRenderer, cam, 0.5f);
+
+        // 🔥 부드러운 확대
+        yield return StartCoroutine(
+            SmoothFocusCamera(
+                cam,
+                originPos,
+                originZoom,
+                targetPos,
+                targetZoom,
+                0.45f
+            )
+        );
+
+
+        // 6️⃣ 유닛 이름 표시 (null-safe)
+        Game.Instance.uiTutorial.ShowUnitIntro(
+    unitDisplayName,
+    unitDescription
+);
+
+        // 7️⃣ 입력 대기
+        yield return new WaitForSecondsRealtime(3f);
+
+        // 8️⃣ UI 숨김
+        Game.Instance.uiTutorial.HideUnitIntro();
+
+        // 9️⃣ 🔥 원래 상태로 부드럽게 복귀
+        yield return StartCoroutine(
+            SmoothFocusCamera(
+                cam,
+                cam.transform.position,
+                cam.orthographicSize,
+                originPos,
+                originZoom,
+                0.35f
+            )
+        );
+
+        //Time.timeScale = 1f;
+
+        if (camCtrl != null)
+            camCtrl.isCameraLocked = false;
+
+        Debug.Log("[Tutorial] NEW UNIT COMPLETE");
+    }
+    Vector3 GetUnitFocusPosition(Renderer r, Camera cam)
+    {
+        // 카메라가 보는 평면 (카메라 forward 기준)
+        Plane cameraPlane = new Plane(
+            cam.transform.forward,
+            cam.transform.position
+        );
+
+        // 유닛 중심에서 카메라 방향으로 Ray 생성
+        Ray ray = new Ray(
+            r.bounds.center,
+            -cam.transform.forward
+        );
+
+        // Ray가 카메라 평면과 만나는 지점
+        if (cameraPlane.Raycast(ray, out float enter))
+        {
+            return ray.GetPoint(enter);
+        }
+
+        // fallback (이론상 여기 안 옴)
+        return cam.transform.position;
+    }
+
+
+
+    float CalculateZoomToFitUnit(Renderer r, Camera cam, float padding = 0.9f)
+    {
+        Bounds b = r.bounds;
+
+        Vector3 right = cam.transform.right;
+        Vector3 up = cam.transform.up;
+
+        // 카메라 기준 가로/세로 크기
+        float sizeRight =
+            Mathf.Abs(Vector3.Dot(b.extents, right)) * 2f;
+        float sizeUp =
+            Mathf.Abs(Vector3.Dot(b.extents, up)) * 2f;
+
+        float screenRatio = (float)Screen.width / Screen.height;
+
+        float size;
+
+        if (sizeRight / sizeUp > screenRatio)
+            size = sizeRight / screenRatio;
+        else
+            size = sizeUp;
+
+        return (size * 0.5f) / padding;
+    }
+
+
+    IEnumerator SmoothFocusCamera(
+    Camera cam,
+    Vector3 fromPos,
+    float fromZoom,
+    Vector3 toPos,
+    float toZoom,
+    float duration = 0.4f
+)
+    {
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.unscaledDeltaTime / duration; // TimeScale=0 대응
+            float eased = Mathf.SmoothStep(0f, 1f, t);
+
+            cam.transform.position = Vector3.Lerp(fromPos, toPos, eased);
+            cam.orthographicSize = Mathf.Lerp(fromZoom, toZoom, eased);
+
+            yield return null;
+        }
+
+        cam.transform.position = toPos;
+        cam.orthographicSize = toZoom;
     }
 
 }
