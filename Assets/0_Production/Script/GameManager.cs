@@ -49,7 +49,7 @@ public class GameManager : MonoBehaviour
         uiLobby.SetActive(false);
         uiGameHUD.SetActive(true);
 
- 
+    
     }
 
     // ============================
@@ -74,6 +74,10 @@ public class GameManager : MonoBehaviour
         Lobby lobby = lobbyView.GetComponent<Lobby>();
         if (lobby != null)
             lobby.RefreshLobby();
+
+
+        Game.Instance.SetGameSpeed(1f);
+        Game.Instance.ExitTutorial();
     }
     // ============================
     //     GAME CLEAR EVENT

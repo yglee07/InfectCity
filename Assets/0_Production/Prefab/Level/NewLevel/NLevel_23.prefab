@@ -150,6 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7111755280227385367}
   - component: {fileID: 6497089844581745962}
+  - component: {fileID: 5470976150182792681}
   m_Layer: 0
   m_Name: NLevel_23
   m_TagString: Untagged
@@ -194,6 +195,27 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 5
   endZoom: 15
+  minZoom: 5
+  maxZoom: 25
+--- !u!114 &5470976150182792681
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261747436639895672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060e86e33bee876468128bc8d1d93187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fingerDragPrefab: {fileID: 0}
+  fingerTouchPrefab: {fileID: 0}
+  infiniteCameraPrefab: {fileID: 0}
+  newUnitTarget: {fileID: 4383903473172930262}
+  unitDisplayName: Dancing Civilian
+  unitDescription: Too busy dancing to notice the apocalypse
+  tutorialType: 6
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0

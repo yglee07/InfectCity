@@ -150,6 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7111755280227385367}
   - component: {fileID: 6497089844581745962}
+  - component: {fileID: 6362424998253942628}
   m_Layer: 0
   m_Name: NLevel_3
   m_TagString: Untagged
@@ -189,10 +190,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153a209a45101274ab3f6c8ac8cb9428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: 0
   startCameraPoint: {fileID: 9024846239476755357}
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 15
   endZoom: 12
+  minZoom: 5
+  maxZoom: 25
+--- !u!114 &6362424998253942628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261747436639895672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060e86e33bee876468128bc8d1d93187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fingerDragPrefab: {fileID: 580366791354799346, guid: 0686782d247b68e469d2bbe73d93733d, type: 3}
+  fingerTouchPrefab: {fileID: 4391201975038585818, guid: 7682fa7ef618f1342acdd6d0515ada4e, type: 3}
+  infiniteCameraPrefab: {fileID: 0}
+  newUnitTarget: {fileID: 0}
+  unitDisplayName: 
+  unitDescription: 
+  tutorialType: 3
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0

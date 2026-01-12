@@ -432,6 +432,14 @@ private bool blockCameraThisInput = false;
         isCameraLocked = false;
         targetPos = transform.position;
         targetZoom = cam.orthographicSize;
+
+        if (Game.Instance != null && Game.Instance.uiGame != null)
+        {
+            Game.Instance.uiGame.SetZoomSlider(
+                GetZoomNormalized()
+            );
+        }
+
     }
 
     public void FocusOn(Transform center, Vector3 offset, float zoom)

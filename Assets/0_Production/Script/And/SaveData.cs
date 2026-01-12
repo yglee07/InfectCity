@@ -19,6 +19,10 @@ public class SaveData
     public int pendingBeforeCleared;
     public int pendingAfterCleared;
     public int pendingGreenZombieCount;
+
+    public List<int> tutorialClearedStages = new List<int>();
+
+
     public int GetClearedStageCount(string countryId)
     {
         var entry = countryStages.Find(e => e.countryId == countryId);
@@ -41,6 +45,16 @@ public class SaveData
                 cleared = 1
             });
         }
+    }
+    public bool IsTutorialCleared(int stage)
+    {
+        return tutorialClearedStages.Contains(stage);
+    }
+
+    public void MarkTutorialCleared(int stage)
+    {
+        if (!tutorialClearedStages.Contains(stage))
+            tutorialClearedStages.Add(stage);
     }
 }
 [System.Serializable]

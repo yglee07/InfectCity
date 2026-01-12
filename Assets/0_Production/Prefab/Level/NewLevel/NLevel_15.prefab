@@ -199,6 +199,8 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 30
   endZoom: 15
+  minZoom: 5
+  maxZoom: 25
 --- !u!1 &2387067164591061729
 GameObject:
   m_ObjectHideFlags: 0

@@ -150,6 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7111755280227385367}
   - component: {fileID: 6497089844581745962}
+  - component: {fileID: 5264225031719825553}
   m_Layer: 0
   m_Name: NLevel_7
   m_TagString: Untagged
@@ -194,6 +195,27 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 5
   endZoom: 15
+  minZoom: 5
+  maxZoom: 25
+--- !u!114 &5264225031719825553
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261747436639895672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060e86e33bee876468128bc8d1d93187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fingerDragPrefab: {fileID: 0}
+  fingerTouchPrefab: {fileID: 0}
+  infiniteCameraPrefab: {fileID: 0}
+  newUnitTarget: {fileID: 8472074773819709497}
+  unitDisplayName: Door
+  unitDescription: Only Citizens can open and close this doo
+  tutorialType: 6
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,6 +692,11 @@ PrefabInstance:
 --- !u!4 &6234912119731066706 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6539311133442297352, guid: 24e013badbe289140babfa24d5da2898, type: 3}
+  m_PrefabInstance: {fileID: 884560805579512154}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8472074773819709497 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8778725424749248867, guid: 24e013badbe289140babfa24d5da2898, type: 3}
   m_PrefabInstance: {fileID: 884560805579512154}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &940092809070461931

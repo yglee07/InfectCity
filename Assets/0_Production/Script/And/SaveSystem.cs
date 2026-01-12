@@ -34,4 +34,7 @@ public static class SaveSystem
         Data = new SaveData();
         Save();
     }
+
+ 
+
 }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using static Game;
 
 public class Game : MonoBehaviour
 {
@@ -33,6 +34,12 @@ public class Game : MonoBehaviour
     public float GameSpeed => gameSpeed;
 
     const float BASE_FIXED_DT = 0.02f;
+    TimeMode timeMode = TimeMode.Normal;
+    public enum TimeMode
+    {
+        Normal,
+        Tutorial,
+    }
     void Awake()
     {
         Instance = this;
@@ -52,16 +59,36 @@ public class Game : MonoBehaviour
         CheckStageFail();
 
     }
+    void ApplyTimeScale()
+    {
+        float scale = gameSpeed;
+
+        if (timeMode == TimeMode.Tutorial)
+            scale *= 0.1f;
+
+        Time.timeScale = scale;
+        Time.fixedDeltaTime = BASE_FIXED_DT * scale;
+
+        Debug.Log($"[Time] mode={timeMode}, speed={gameSpeed} → {scale}");
+    }
+
     public void SetGameSpeed(float speed)
     {
         gameSpeed = speed;
-
-        Time.timeScale = gameSpeed;
-        Time.fixedDeltaTime = BASE_FIXED_DT * gameSpeed;
-
-        Debug.Log($"[Game] Speed = {gameSpeed}x");
+        ApplyTimeScale();
     }
 
+    public void EnterTutorial()
+    {
+        timeMode = TimeMode.Tutorial;
+        ApplyTimeScale();
+    }
+
+    public void ExitTutorial()
+    {
+        timeMode = TimeMode.Normal;
+        ApplyTimeScale();
+    }
     public void ToggleSpeed()
     {
         SetGameSpeed(Mathf.Approximately(gameSpeed, 1f) ? 2f : 1f);
@@ -106,7 +133,9 @@ public class Game : MonoBehaviour
 
         isPlaying = true;
 
-   
+
+       SetGameSpeed(GameSpeed);
+
     }
 
     // ========================================================
@@ -139,9 +168,6 @@ public class Game : MonoBehaviour
         // 🔥 줌 제한
        
         // 3️⃣ 슬라이더 동기화
-        uiGame.SetZoomSlider(
-            cam.GetZoomNormalized()
-        );
 
     }
 

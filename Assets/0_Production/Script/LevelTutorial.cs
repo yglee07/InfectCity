@@ -22,6 +22,7 @@ public class LevelTutorial : MonoBehaviour
     RectTransform canvasRT;
     Camera uiCamera;
 
+
     public enum TutorialType
     {
         None,
@@ -30,7 +31,8 @@ public class LevelTutorial : MonoBehaviour
         CameraZoom,   // 👈 추가
         Infect,
         SpecialZombie,
-        NewUnit
+        NewUnit,
+        NewUnitAndInfect   // 👈 추가
     }
 
     [Header("Tutorial")]
@@ -50,24 +52,184 @@ public class LevelTutorial : MonoBehaviour
     {
         if (tutorialType == TutorialType.None)
             return;
+        int stage = SaveSystem.Data.stage;
 
+        // 🔥 이미 이 스테이지 튜토리얼 봤으면 스킵
+        if (SaveSystem.Data.IsTutorialCleared(stage))
+        {
+            Destroy(this);
+            return;
+        }
         StartCoroutine(RunTutorial());
     }
 
     IEnumerator RunTutorial()
     {
-        if (tutorialType == TutorialType.Infect)
-            yield return InfectTutorial();
-        else if (tutorialType == TutorialType.CameraZoom)
-            yield return CameraZoomTutorial();
-        else if (tutorialType == TutorialType.Speed)
-            yield return SpeedTutorial();
-        else if (tutorialType == TutorialType.Camera)
-            yield return CameraTutorial();
-        else if (tutorialType == TutorialType.NewUnit)
-            yield return NewUnitTutorial();
+        switch (tutorialType)
+        {
+            case TutorialType.Infect:
+                yield return InfectTutorial();
+                break;
+
+            case TutorialType.CameraZoom:
+                yield return CameraZoomTutorial();
+                break;
+
+            case TutorialType.Speed:
+                yield return SpeedTutorial();
+                break;
+
+            case TutorialType.Camera:
+                yield return CameraTutorial();
+                break;
+
+            case TutorialType.NewUnit:
+                yield return NewUnitTutorial();
+                break;
+
+            case TutorialType.NewUnitAndInfect:
+                yield return NewUnitAndInfectTutorial();
+                break;
+        }
 
         EndTutorial();
+    }
+
+    IEnumerator NewUnitAndInfectTutorial()
+    {
+        Debug.Log("[Tutorial] NEW UNIT + INFECT");
+
+        CameraController camCtrl = Camera.main.GetComponent<CameraController>();
+
+        // 0️⃣ 인트로 끝날 때까지 대기
+        yield return new WaitUntil(() =>
+            camCtrl == null || camCtrl.isCameraLocked == false
+        );
+
+        // 1️⃣ 유닛 소개
+        yield return NewUnitTutorial_Internal();
+
+        // 살짝 텀 (연출 안정용)
+        yield return new WaitForSeconds(0.2f);
+
+        // 2️⃣ 감염 튜토리얼
+        yield return InfectTutorial_Internal();
+
+        Debug.Log("[Tutorial] NEW UNIT + INFECT COMPLETE");
+    }
+    IEnumerator NewUnitTutorial_Internal()
+    {
+        Debug.Log("[Tutorial] NEW UNIT (Internal)");
+
+        if (newUnitTarget == null || Game.Instance == null)
+            yield break;
+
+        Camera cam = Camera.main;
+        CameraController camCtrl = cam.GetComponent<CameraController>();
+
+        // 인트로 끝 대기
+        yield return new WaitUntil(() => camCtrl == null || !camCtrl.isCameraLocked);
+
+        if (camCtrl != null)
+            camCtrl.isCameraLocked = true;
+
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(false);
+
+        Game.Instance.EnterTutorial();
+        Vector3 originPos = cam.transform.position;
+        float originZoom = cam.orthographicSize;
+
+        Renderer r = newUnitTarget.GetComponentInChildren<Renderer>();
+        if (r == null) yield break;
+
+        Vector3 focusPos = GetUnitFocusPosition(r, cam);
+        float focusZoom = CalculateZoomToFitUnit(r, cam, 0.5f);
+
+        yield return SmoothFocusCamera(
+            cam,
+            originPos,
+            originZoom,
+            focusPos,
+            focusZoom,
+            0.45f
+        );
+        
+        Game.Instance.uiTutorial.ShowUnitIntro(
+            unitDisplayName,
+            unitDescription
+        );
+
+        // 🔥 무조건 3초 감상
+        yield return new WaitForSecondsRealtime(3f);
+
+        Game.Instance.uiTutorial.HideUnitIntro();
+
+        yield return SmoothFocusCamera(
+            cam,
+            cam.transform.position,
+            cam.orthographicSize,
+            originPos,
+            originZoom,
+            0.35f
+        );
+        Game.Instance.ExitTutorial();
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(true);
+        if (camCtrl != null)
+            camCtrl.isCameraLocked = false;
+    }
+    IEnumerator InfectTutorial_Internal()
+    {
+        Debug.Log("[Tutorial] INFECT (Internal)");
+
+        if (fingerDragPrefab == null ||
+            Game.Instance == null ||
+            Game.Instance.uiGame == null ||
+            Game.Instance.uiGame.bombButton == null)
+            yield break;
+
+        CameraController camCtrl = Camera.main.GetComponent<CameraController>();
+        if (camCtrl != null)
+            camCtrl.isCameraLocked = true;
+
+        if (Game.Instance.dragUnit != null)
+            Game.Instance.dragUnit.enabled = false;
+
+        CitizenBase target = FindAnyCitizen();
+        if (target == null)
+            yield break;
+
+        RectTransform buttonRT =
+            Game.Instance.uiGame.bombButton.GetComponent<RectTransform>();
+
+        Canvas c = buttonRT.GetComponentInParent<Canvas>();
+        RectTransform cRT = c.GetComponent<RectTransform>();
+        Camera uiCam = c.renderMode == RenderMode.ScreenSpaceOverlay ? null : c.worldCamera;
+
+        SpawnFingerDrag(buttonRT);
+
+        while (NPCManager.Instance.GreenZombies.Count == 0)
+        {
+            Vector2 from = WorldToCanvas(
+                buttonRT.TransformPoint(buttonRT.rect.center),
+                cRT,
+                uiCam
+            );
+
+            Vector2 to = WorldToCanvasFromMainCamera(
+                GetCitizenVisualCenter(target),
+                cRT
+            );
+
+            yield return PlayFingerDragAnchored(from, to);
+            yield return new WaitForSeconds(0.3f);
+        }
+
+        ClearFinger();
+
+        if (camCtrl != null)
+            camCtrl.isCameraLocked = false;
     }
 
     // =====================================================
@@ -251,6 +413,9 @@ public class LevelTutorial : MonoBehaviour
     void EndTutorial()
     {
         Debug.Log("[Tutorial] END");
+        int stage = SaveSystem.Data.stage;
+        SaveSystem.Data.MarkTutorialCleared(stage);
+        SaveSystem.Save();
 
         if (Camera.main != null)
         {
@@ -258,7 +423,7 @@ public class LevelTutorial : MonoBehaviour
             if (camCtrl != null) camCtrl.isCameraLocked = false;
         }
 
-        NPCManager.Instance.mutantChance = 0.1f;
+        
         Destroy(this);
     }
 
@@ -544,8 +709,9 @@ public class LevelTutorial : MonoBehaviour
         // 1️⃣ 카메라 잠금
         if (camCtrl != null)
             camCtrl.isCameraLocked = true;
-
-        //Time.timeScale = 0f;
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(false);
+        Game.Instance.EnterTutorial();
 
         // 2️⃣ 원래 카메라 상태 저장
         Vector3 originPos = cam.transform.position;
@@ -597,7 +763,9 @@ public class LevelTutorial : MonoBehaviour
             )
         );
 
-        //Time.timeScale = 1f;
+        Game.Instance.ExitTutorial();
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(true);
 
         if (camCtrl != null)
             camCtrl.isCameraLocked = false;
