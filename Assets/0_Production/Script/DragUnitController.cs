@@ -15,11 +15,11 @@ public class DragUnitController : MonoBehaviour
     private bool uiDragging = false;
     private GameObject previewUnit;
 
-    void Start()
-    {
-        // 한 판 시작 시 리셋
-        currentCharges = maxCharges;
-    }
+    //void Start()
+    //{
+    //    // 한 판 시작 시 리셋
+    //    currentCharges = maxCharges;
+    //}
 
     // =========================
     // UI Drag 시작

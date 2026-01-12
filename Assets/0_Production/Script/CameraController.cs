@@ -484,45 +484,45 @@ private bool blockCameraThisInput = false;
     {
         return Time.time - lastUserInputTime > idleAutoDelay;
     }
-    void OnGUI()
-    {
-#if UNITY_EDITOR || DEVELOPMENT_BUILD
-        float idleTime = Time.time - lastUserInputTime;
-        bool autoAllowed = IsAutoCameraAllowed();
+//    void OnGUI()
+//    {
+//#if UNITY_EDITOR || DEVELOPMENT_BUILD
+//        float idleTime = Time.time - lastUserInputTime;
+//        bool autoAllowed = IsAutoCameraAllowed();
 
-        GUILayout.BeginArea(
-            new Rect(10, 10, 360, 150),
-            GUI.skin.box
-        );
+//        GUILayout.BeginArea(
+//            new Rect(10, 10, 360, 150),
+//            GUI.skin.box
+//        );
 
-        GUILayout.Label("<b>=== AUTO CAMERA DEBUG ===</b>",
-            new GUIStyle(GUI.skin.label)
-            {
-                richText = true
-            });
+//        GUILayout.Label("<b>=== AUTO CAMERA DEBUG ===</b>",
+//            new GUIStyle(GUI.skin.label)
+//            {
+//                richText = true
+//            });
 
-        GUILayout.Space(6);
+//        GUILayout.Space(6);
 
-        GUILayout.Label($"Idle Time : {idleTime:F2}s");
-        GUILayout.Label($"Idle Auto Delay : {idleAutoDelay:F2}s");
+//        GUILayout.Label($"Idle Time : {idleTime:F2}s");
+//        GUILayout.Label($"Idle Auto Delay : {idleAutoDelay:F2}s");
 
-        GUILayout.Space(6);
+//        GUILayout.Space(6);
 
-        GUILayout.Label(
-            $"Auto Camera : <b>{(autoAllowed ? "ON" : "OFF")}</b>",
-            new GUIStyle(GUI.skin.label)
-            {
-                richText = true,
-                normal =
-                {
-                textColor = autoAllowed ? Color.green : Color.red
-                }
-            }
-        );
+//        GUILayout.Label(
+//            $"Auto Camera : <b>{(autoAllowed ? "ON" : "OFF")}</b>",
+//            new GUIStyle(GUI.skin.label)
+//            {
+//                richText = true,
+//                normal =
+//                {
+//                textColor = autoAllowed ? Color.green : Color.red
+//                }
+//            }
+//        );
 
-        GUILayout.EndArea();
-#endif
-    }
+//        GUILayout.EndArea();
+//#endif
+//    }
 
     public void ResetIdleTimer()
     {
