@@ -544,4 +544,18 @@ private bool blockCameraThisInput = false;
         targetZoom = introEndZoom > 0 ? introEndZoom : cam.orthographicSize;
         lastUserInputTime = Time.time;
     }
+
+    public void SetZoomLimits(float min, float max)
+    {
+        minZoom = min;
+        maxZoom = max;
+        Debug.Log("[CameraController] SetZoomLimits " +
+            $"minZoom={minZoom}, maxZoom={maxZoom}");
+        // 현재 타겟 줌도 범위 안으로 보정
+        
+    }
+    public float GetZoomNormalized()
+    {
+        return Mathf.InverseLerp(minZoom, maxZoom, targetZoom);
+    }
 }

@@ -12,17 +12,19 @@ public class Level : MonoBehaviour
     [Header("Camera")]
     public Transform startCameraPoint;   // ⭐ 여기만 사용
     public Transform endCameraPoint;
-    [Header("Camera Zoom")]
+    [Header("Camera Intro Zoom")]
     public float startZoom = 15f;
     public float endZoom = 15f;
 
+    [Header("Camera Zoom Limit")]
+    public float minZoom = 5f;
+    public float maxZoom = 25f;
 
 
-  
     void Awake()
     {
 
-      
+
         Breakables = new List<Breakable>(GetComponentsInChildren<Breakable>());
     }
 

@@ -214,6 +214,11 @@ public class UIGame : MonoBehaviour
         pieCenterText.text = pct + "%";
     }
 
-  
-   
+    public void SetZoomSlider(float normalized)
+    {
+        if (zoomSlider == null) return;
+
+        zoomSlider.SetValueWithoutNotify(normalized);
+    }
+
 }

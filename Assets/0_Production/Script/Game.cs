@@ -125,13 +125,24 @@ public class Game : MonoBehaviour
         currentLevel = inst.GetComponent<Level>();
 
         CameraController cam = Camera.main.GetComponent<CameraController>();
-        Debug.Log($"[LoadLevel] level={currentLevel.name}, startZoom={currentLevel.startZoom}, endZoom={currentLevel.endZoom}");
+        
+
+        cam.SetZoomLimits(currentLevel.minZoom, currentLevel.maxZoom);
+
         cam.PlayIntro(
             currentLevel.startCameraPoint,
             currentLevel.endCameraPoint,
             currentLevel.startZoom,
             currentLevel.endZoom
         );
+
+        // 🔥 줌 제한
+       
+        // 3️⃣ 슬라이더 동기화
+        uiGame.SetZoomSlider(
+            cam.GetZoomNormalized()
+        );
+
     }
 
     // =============================
