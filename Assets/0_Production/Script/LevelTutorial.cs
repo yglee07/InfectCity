@@ -54,6 +54,12 @@ public class LevelTutorial : MonoBehaviour
         if (tutorialType == TutorialType.None)
             return;
         int stage = SaveSystem.Data.stage;
+        // 🔥 31 스테이지부터는 튜토리얼 자체를 안 함
+        if (stage >= 31)
+        {
+            Destroy(this);
+            return;
+        }
 
         // 🔥 이미 이 스테이지 튜토리얼 봤으면 스킵
         if (SaveSystem.Data.IsTutorialCleared(stage))
