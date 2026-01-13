@@ -89,7 +89,7 @@ public class Lobby : MonoBehaviour
             nextCountry = countryMap[countryOrder[countryOrder.Count - 1]];
 
         currentCountry = nextCountry;
-        SetCurrentCountry(currentCountry);
+       
         // 2️⃣ 모든 국가 즉시 반영
         foreach (var kv in countryMap)
         {
@@ -407,37 +407,8 @@ public class Lobby : MonoBehaviour
 
         node.PlayConquerStepAnimation(beforeCleared, afterCleared);
     }
-    void SetCurrentCountry(CountryNode node)
-    {
-        // 이전 선택 해제
-        if (floatingNode != null && floatRoutine != null)
-        {
-            StopCoroutine(floatRoutine);
-            floatingNode.transform.localPosition =
-                floatingNode.baseLocalPos;
-        }
-
-        floatingNode = node;
-        floatRoutine = StartCoroutine(FloatCurrentCountry(node));
-    }
-    IEnumerator FloatCurrentCountry(CountryNode node)
-    {
-        float amplitude = 0.2f;
-        float speed = 1.5f;
-
-        Vector3 basePos = node.baseLocalPos;
-
-        while (true)
-        {
-            float y =
-                Mathf.Sin(Time.time * speed) * amplitude;
-
-            node.transform.localPosition =
-                basePos + Vector3.up * y;
-
-            yield return null;
-        }
-    }
+  
+    
     public void SkipConquerAnimation()
     {
         Debug.Log("🔥 SkipConquerAnimation FORCE CLEANUP");
