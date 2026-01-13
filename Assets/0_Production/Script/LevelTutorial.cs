@@ -135,6 +135,9 @@ public class LevelTutorial : MonoBehaviour
         if (newUnitTarget == null || Game.Instance == null)
             yield break;
 
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(false);
+
         Camera cam = Camera.main;
         CameraController camCtrl = cam.GetComponent<CameraController>();
 
@@ -147,7 +150,8 @@ public class LevelTutorial : MonoBehaviour
         if (Game.Instance.uiGame != null)
             Game.Instance.uiGame.gameObject.SetActive(false);
 
-        OnNewUnitTutorialStart();
+        Game.Instance.EnterTutorial();
+       
         Vector3 originPos = cam.transform.position;
         float originZoom = cam.orthographicSize;
 
@@ -716,6 +720,8 @@ public class LevelTutorial : MonoBehaviour
 
         if (newUnitTarget == null || Game.Instance == null || Game.Instance.uiGame == null)
             yield break;
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(false);
 
         Camera cam = Camera.main;
         CameraController camCtrl = cam.GetComponent<CameraController>();
@@ -728,7 +734,7 @@ public class LevelTutorial : MonoBehaviour
             camCtrl.isCameraLocked = true;
         if (Game.Instance.uiGame != null)
             Game.Instance.uiGame.gameObject.SetActive(false);
-        OnNewUnitTutorialStart();
+        Game.Instance.EnterTutorial();
 
         // 2️⃣ 원래 카메라 상태 저장
         Vector3 originPos = cam.transform.position;
