@@ -177,7 +177,7 @@ public class UILobby : MonoBehaviour
     {
         case LevelDifficulty.Normal:
             difficultyText.text = "NORMAL";
-            difficultyText.color = Color.white;
+            //difficultyText.color = Color.white;
 
             // ⭐ Normal → Bar 끔
             if (difficultyBar != null)
@@ -186,7 +186,7 @@ public class UILobby : MonoBehaviour
 
         case LevelDifficulty.Hard:
             difficultyText.text = "HARD";
-            difficultyText.color = new Color(0.6f, 0.3f, 1f); // 보라
+            //difficultyText.color = new Color(0.6f, 0.3f, 1f); // 보라
 
             // ⭐ Hard → Bar 켬
             if (difficultyBar != null)
@@ -195,7 +195,7 @@ public class UILobby : MonoBehaviour
 
         case LevelDifficulty.VeryHard:
             difficultyText.text = "VERY HARD";
-            difficultyText.color = Color.red;
+            //difficultyText.color = Color.red;
 
             // ⭐ VeryHard → Bar 켬
             if (difficultyBar != null)
