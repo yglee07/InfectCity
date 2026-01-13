@@ -11,7 +11,7 @@ public class SaveData
     public int moveSpeedLevel = 1;
     public int radiusLevel = 1;
     public int mutateChanceLevel = 1;
-
+    public float lastGameSpeed = 1f;
     // ⭐ Dictionary → List
     public List<CountryStageEntry> countryStages = new();
     public bool hasPendingConquerAnim;

@@ -335,7 +335,7 @@ public class LevelTutorial : MonoBehaviour
         // 손가락도 버튼 위에 고정 스폰
         SpawnFingerTouch(speedRT);
 
-        Game.Instance.SetGameSpeed(1f);
+       
 
         yield return new WaitUntil(() => Game.Instance.GameSpeed > 1f);
 
@@ -593,6 +593,7 @@ public class LevelTutorial : MonoBehaviour
         }
 
         ClearFinger();
+        yield return null;
     }
 
     bool zoomResetClicked = false;
