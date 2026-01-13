@@ -618,4 +618,9 @@ private bool blockCameraThisInput = false;
         minZ = b.min.z;
         maxZ = b.max.z;
     }
+    public void ForceAutoCameraNow()
+    {
+        // 자동 카메라 즉시 허용 상태로 만듦
+        lastUserInputTime = Time.time - idleAutoDelay - 0.1f;
+    }
 }

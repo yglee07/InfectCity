@@ -546,6 +546,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Square_12x12_1
       objectReference: {fileID: 0}
+    - target: {fileID: 1998802987015244874, guid: e164853a7350a55419a4e22bbdb78b36, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: 74ad3dc4f5a8c334499954fed6ef6aec, type: 2}
+    - target: {fileID: 5747795636558313580, guid: e164853a7350a55419a4e22bbdb78b36, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6539311133442297352, guid: e164853a7350a55419a4e22bbdb78b36, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

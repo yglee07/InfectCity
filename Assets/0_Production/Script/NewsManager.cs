@@ -63,93 +63,85 @@ public class NewsManager : MonoBehaviour
     // 17
     "Reports suggest large portions of {COUNTRY} are affected by the outbreak",
 
-    // 18
-    "National response efforts in {COUNTRY} show signs of failure",
-
-    // 19
-    "Public services in {COUNTRY} begin experiencing widespread disruptions",
-
-    // 20
-    "Experts warn {COUNTRY} is approaching a point of systemic collapse",
-
-    // 21 🇺🇸 미국 멸망
+    // 18 🇺🇸 미국 멸망
     "The United States collapses as the {VIRUS} outbreak overwhelms all systems",
 
-    // 22
-    "Global observers express concern following the collapse of the United States",
+    // 19
+    "Global shock follows the sudden collapse of the United States",
 
-    // 23
-    "Neighboring countries brace for impact as instability spreads",
+    // 20
+    "Global markets and alliances destabilize in the wake of U.S. collapse",
 
-    // 24
-    "Economic and humanitarian crises deepen in affected regions",
+    // 21
+    "Multiple regions experience escalating unrest and system failures",
 
-    // 25 🇻🇪 베네수엘라 멸망
+    // 22 🇻🇪 베네수엘라 멸망
     "Venezuela collapses amid uncontrollable spread of {VIRUS}",
 
+    // 23
+    "International aid efforts falter as crises multiply",
+
+    // 24
+    "Economic and humanitarian conditions worsen across affected nations",
+
+    // 25
+    "Global supply chains begin to fracture under mounting pressure",
+
     // 26
-    "International aid efforts struggle to respond to escalating crises",
+    "Governments worldwide report increasing internal instability",
 
     // 27
-    "Multiple nations report growing unrest linked to the outbreak",
+    "Public services in multiple countries experience severe disruption",
 
     // 28
-    "Global supply chains show signs of severe disruption",
+    "Health agencies warn containment is rapidly failing",
 
     // 29
-    "Health agencies warn the situation is becoming increasingly unstable",
+    "Widespread panic spreads as confidence in governments erodes",
 
     // 30
-    "Governments worldwide prepare for further national failures",
+    "Experts warn the global situation is nearing a breaking point",
 
     // 31
-    "The spread of {VIRUS} begins to destabilize major regions",
+    "Large-scale evacuations are reported across several regions",
 
     // 32
-    "Authorities warn that containment efforts are failing globally",
+    "Medical infrastructure collapses in heavily affected areas",
 
     // 33
-    "Widespread panic emerges as multiple systems break down",
+    "Global coordination efforts begin to break down",
 
     // 34
-    "Medical infrastructure collapses in several heavily affected areas",
+    "Remaining stable regions struggle to maintain order",
 
     // 35
-    "Experts fear the outbreak is entering an irreversible phase",
+    "Analysts warn the outbreak is entering an irreversible phase",
 
     // 36
-    "Large-scale evacuations are reported across multiple regions",
+    "Major powers show signs of internal collapse",
 
-    // 37
-    "Global coordination efforts show signs of breakdown",
-
-    // 38
-    "The international community struggles to respond effectively",
-
-    // 39
-    "Warning signs emerge as major powers face internal collapse",
-
-    // 40 🇨🇳 중국 멸망
+    // 37 🇨🇳 중국 멸망
     "China collapses as the {VIRUS} outbreak spirals beyond control",
 
-    // 41
-    "Global stability deteriorates following the collapse of China",
+    // 38
+    "Global stability deteriorates sharply following the collapse of China",
 
-    // 42
-    "Remaining governments face unprecedented pressure",
-
-    // 43
+    // 39
     "Worldwide emergency measures fail to restore order",
 
-    // 44
-    "Only isolated regions remain functional amid global chaos",
+    // 40
+    "Only a few regions remain functional amid global chaos",
 
-    // 45
-    "Experts warn the final unaffected regions are at imminent risk",
+    // 41
+    "Experts warn the final unaffected areas are under imminent threat",
 
-    // 46 🇬🇱 그린란드 멸망
+    // 42
+    "The international system is described as effectively broken",
+
+    // 43 🇬🇱 그린란드 멸망
     "Greenland collapses, marking the final failure to contain {VIRUS}"
 };
+
 
 
 

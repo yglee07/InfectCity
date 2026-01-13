@@ -897,7 +897,14 @@ public class LevelTutorial : MonoBehaviour
         {
             yield break;
         }
-
+        Game.Instance.dragInfector.Deactivate();
+        Game.Instance.dragInfector.currentCharges = 0;
+     
+        Game.Instance.uiGame.UpdateCharges(Game.Instance.dragInfector.currentCharges, Game.Instance.dragInfector.maxCharges);
+        Game.Instance.uiGame.RefreshActionButtons(
+    Game.Instance.dragInfector.currentCharges,
+    Game.Instance.dragUnit.currentCharges
+);
         CameraController camCtrl = Camera.main.GetComponent<CameraController>();
         if (camCtrl != null)
             camCtrl.isCameraLocked = true;
@@ -947,6 +954,7 @@ public class LevelTutorial : MonoBehaviour
             camCtrl.isCameraLocked = false;
 
         Debug.Log("[Tutorial] DRAG UNIT COMPLETE");
+        //Game.Instance.dragInfector.Activate();
     }
 
 
