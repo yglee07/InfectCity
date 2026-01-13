@@ -19,7 +19,7 @@ Material:
   - _NORMALMAP
   - _REFRACTION
   - _RIVER
-  - _SURFACE_FOAM
+  - _SURFACE_FOAM_SINGLE
   - _TRANSLUCENCY
   - _WAVES
   m_InvalidKeywords:
@@ -27,12 +27,14 @@ Material:
   - _DEPTHEXP_ON
   - _DEPTH_TEX
   - _FOAM
+  - _FOAMON_ON
   - _INTERSECTIONSHARP_ON
   - _RECEIVEDYNAMICEFFECTSFOAM_ON
   - _RECEIVEDYNAMICEFFECTSHEIGHT_ON
   - _RECEIVEDYNAMICEFFECTSNORMAL_ON
   - _RECEIVEDYNAMICEFFECTS_ON
   - _SMOOTH_INTERSECTION
+  - _SURFACE_FOAM
   - _VERTEXCOLORWAVEFLATTENING_ON
   - _WORLDSPACEUV_ON
   - _ZCLIP_ON
@@ -141,6 +143,7 @@ Material:
     - _DepthHorizontal: 0.01
     - _DepthVertical: 8.93
     - _DisableDepthTexture: 0
+    - _DistanceFoamTiling: 0.2
     - _DistanceNormalsOn: 1
     - _DistanceNormalsTiling: 0.25
     - _DstBlend: 0
@@ -153,6 +156,8 @@ Material:
     - _FoamBubblesSpread: 2
     - _FoamBubblesStrength: 0
     - _FoamClipping: 0
+    - _FoamClippingDynamic: 0
+    - _FoamDistanceOn: 0
     - _FoamDistortion: 2.03
     - _FoamOn: 1
     - _FoamSize: 0.045
@@ -199,6 +204,7 @@ Material:
     - _PlanarReflectionsParams: 0
     - _PointSpotLightReflectionDistortion: 0.5
     - _PointSpotLightReflectionExp: 64
+    - _PointSpotLightReflectionSharp: 0
     - _PointSpotLightReflectionSize: 0
     - _PointSpotLightReflectionStrength: 10
     - _QueueOffset: 0
@@ -235,6 +241,7 @@ Material:
     - _Speed: 1
     - _SrcBlend: 1
     - _SunReflectionDistortion: 0.974
+    - _SunReflectionSharp: 0
     - _SunReflectionSize: 0.937
     - _SunReflectionStrength: 10
     - _Surface: 0
@@ -244,6 +251,7 @@ Material:
     - _TranslucencyReflectionMask: 0
     - _TranslucencyStrength: 1
     - _TranslucencyStrengthDirect: 0.026
+    - _UnderwaterReflectionStrength: 0.5
     - _UnderwaterRefractionOffset: 0.2
     - _UnderwaterSurfaceSmoothness: 0.8
     - _VertexColorFoam: 0
@@ -267,6 +275,7 @@ Material:
     - _BaseColor: {r: 0, g: 0.16451614, b: 0.34, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _Direction: {r: 0, g: -1, b: 0, a: 0}
+    - _DistanceFoamFadeDist: {r: 100, g: 350, b: 0, a: 0}
     - _DistanceNormalsFadeDist: {r: 0, g: 114.86487, b: 0, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FoamColor: {r: 1, g: 1, b: 1, a: 1}
