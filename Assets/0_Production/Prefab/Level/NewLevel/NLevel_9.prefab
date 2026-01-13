@@ -226,6 +226,7 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 15
   endZoom: 17
+  cameraBounds: {fileID: 0}
   minZoom: 5
   maxZoom: 25
 --- !u!114 &2015133764607014772
@@ -246,7 +247,7 @@ MonoBehaviour:
   newUnitTarget: {fileID: 4687231530005870951}
   unitDisplayName: Spawn Wave
   unitDescription: Something will emerge from here
-  tutorialType: 6
+  tutorialType: 7
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0

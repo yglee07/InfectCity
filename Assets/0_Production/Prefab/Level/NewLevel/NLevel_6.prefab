@@ -195,6 +195,7 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 5
   endZoom: 15
+  cameraBounds: {fileID: 0}
   minZoom: 5
   maxZoom: 25
 --- !u!114 &6554183696528689264
@@ -215,7 +216,7 @@ MonoBehaviour:
   newUnitTarget: {fileID: 8961839103292899402}
   unitDisplayName: Sleeping Citizen
   unitDescription: Sleeping deeply. Cannot hear anything
-  tutorialType: 6
+  tutorialType: 7
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0

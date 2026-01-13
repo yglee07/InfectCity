@@ -195,6 +195,7 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 5
   endZoom: 22
+  cameraBounds: {fileID: 0}
   minZoom: 5
   maxZoom: 25
 --- !u!114 &758552270976866197
@@ -215,7 +216,7 @@ MonoBehaviour:
   newUnitTarget: {fileID: 4635316790648848592}
   unitDisplayName: Swimming Civilian
   unitDescription: Swims in water
-  tutorialType: 6
+  tutorialType: 7
 --- !u!1 &1840814058311074216
 GameObject:
   m_ObjectHideFlags: 0

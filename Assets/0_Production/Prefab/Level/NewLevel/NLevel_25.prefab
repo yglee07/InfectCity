@@ -195,6 +195,7 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 3
   endZoom: 8
+  cameraBounds: {fileID: 0}
   minZoom: 5
   maxZoom: 25
 --- !u!114 &3401360172584431719
@@ -215,7 +216,7 @@ MonoBehaviour:
   newUnitTarget: {fileID: 2998124032813722420}
   unitDisplayName: Couple Civilian
   unitDescription: Too distracted by each other to notice the danger
-  tutorialType: 6
+  tutorialType: 7
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0

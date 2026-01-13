@@ -1461,11 +1461,11 @@ RectTransform:
   - {fileID: 6402195477644382000}
   - {fileID: 3611216184696059986}
   - {fileID: 5296013516530186242}
-  - {fileID: 8513229734706944984}
-  - {fileID: 4528708506328461966}
   - {fileID: 8965139051323170040}
   - {fileID: 4927870792882521258}
   - {fileID: 8473698351891405111}
+  - {fileID: 8513229734706944984}
+  - {fileID: 4528708506328461966}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1544,7 +1544,6 @@ MonoBehaviour:
   unitButton: {fileID: 4797807080933731977}
   zoomSlider: {fileID: 4470265641535302401}
   zoomResetButton: {fileID: 644805797443335259}
-  unitNameText: {fileID: 0}
 --- !u!1001 &949719219774457862
 PrefabInstance:
   m_ObjectHideFlags: 0
