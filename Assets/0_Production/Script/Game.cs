@@ -226,6 +226,10 @@ public class Game : MonoBehaviour
     {
         isPlaying = false;
 
+        var tutorial = currentLevel.GetComponent<LevelTutorial>();
+        if (tutorial != null)
+            tutorial.EndTutorial();
+
         SoundManager.Instance?.PlaySFX("GameClear");
 
         Lobby lobby = GameManager.Instance.lobbyView.GetComponent<Lobby>();
@@ -307,6 +311,10 @@ public class Game : MonoBehaviour
     public void StageFail()
     {
         isPlaying = false;
+
+        var tutorial = currentLevel.GetComponent<LevelTutorial>();
+        if (tutorial != null)
+            tutorial.CancelTutorial();
 
         SoundManager.Instance?.PlaySFX("GameOver");
 

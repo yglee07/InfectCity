@@ -91,6 +91,8 @@ public class LevelTutorial : MonoBehaviour
                 yield return NewUnitAndInfectTutorial();
                 break;
         }
+        if (tutorialCanceled)
+            yield break;
 
         EndTutorial();
     }
@@ -410,9 +412,15 @@ public class LevelTutorial : MonoBehaviour
         return NPCManager.Instance.Citizens[0];
     }
 
-    void EndTutorial()
+    public void EndTutorial()
     {
-        Debug.Log("[Tutorial] END");
+        if (tutorialCanceled || tutorialFinished)
+            return;
+
+        tutorialFinished = true;
+
+        Debug.Log("[Tutorial] END (CLEARED)");
+
         int stage = SaveSystem.Data.stage;
         SaveSystem.Data.MarkTutorialCleared(stage);
         SaveSystem.Save();
@@ -423,7 +431,6 @@ public class LevelTutorial : MonoBehaviour
             if (camCtrl != null) camCtrl.isCameraLocked = false;
         }
 
-        
         Destroy(this);
     }
 
@@ -848,6 +855,25 @@ public class LevelTutorial : MonoBehaviour
 
         cam.transform.position = toPos;
         cam.orthographicSize = toZoom;
+    }
+    bool tutorialCanceled = false;
+    bool tutorialFinished = false;
+    public void CancelTutorial()
+    {
+        if (tutorialCanceled) return;
+
+        tutorialCanceled = true;
+        StopAllCoroutines();
+        ClearFinger();
+
+        // 🔓 카메라 / UI 복구
+        if (Camera.main != null)
+        {
+            var cam = Camera.main.GetComponent<CameraController>();
+            if (cam != null) cam.isCameraLocked = false;
+        }
+
+        Destroy(this);
     }
 
 }
