@@ -158,6 +158,8 @@ public class Game : MonoBehaviour
 
         cam.SetZoomLimits(currentLevel.minZoom, currentLevel.maxZoom);
 
+      
+
         cam.PlayIntro(
             currentLevel.startCameraPoint,
             currentLevel.endCameraPoint,
@@ -165,9 +167,21 @@ public class Game : MonoBehaviour
             currentLevel.endZoom
         );
 
-        // 🔥 줌 제한
-       
-        // 3️⃣ 슬라이더 동기화
+
+
+        if (currentLevel.cameraBounds != null)
+        {
+            cam.SetBoundsFromCollider(currentLevel.cameraBounds);
+        }
+        else
+        {
+            Debug.LogWarning(
+                $"[LoadLevel] CameraBounds not assigned on {currentLevel.name}"
+            );
+        }
+
+
+
 
     }
 

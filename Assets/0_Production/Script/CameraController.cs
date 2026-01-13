@@ -13,11 +13,12 @@ public class CameraController : MonoBehaviour
 
     private Camera cam;
 
-    //[Header("Camera Bounds")]
-    //public float minX = -20f;
-    //public float maxX = 20f;
-    //public float minZ = -20f;
-    //public float maxZ = 20f;
+    [Header("Camera Bounds")]
+    public float minX = -20f;
+    public float maxX = 20f;
+    public float minZ = -20f;
+    public float maxZ = 20f;
+
     public bool isCameraLocked = false;
     public Transform cameraPos;
 
@@ -125,7 +126,48 @@ private bool blockCameraThisInput = false;
             ref zoomVelocity,
             0.12f
         );
+
+        ClampTargetPosition();
     }
+    void ClampTargetPosition()
+    {
+        Vector3 camRight = cam.transform.right;
+        Vector3 camForward =
+            Vector3.ProjectOnPlane(
+                cam.transform.forward,
+                Vector3.up
+            ).normalized;
+
+        float halfHeight = targetZoom;
+        float halfWidth = halfHeight * cam.aspect;
+
+        float pitch =
+            Mathf.Abs(cam.transform.eulerAngles.x) * Mathf.Deg2Rad;
+
+        float forwardCompensation =
+            halfHeight * Mathf.Tan(pitch);
+
+        float x = Vector3.Dot(targetPos, camRight);
+        float z = Vector3.Dot(targetPos, camForward);
+
+        x = Mathf.Clamp(
+            x,
+            minX + halfWidth,
+            maxX - halfWidth
+        );
+
+        z = Mathf.Clamp(
+            z,
+            minZ + halfHeight - forwardCompensation,
+            maxZ - halfHeight - forwardCompensation
+        );
+
+        targetPos =
+            camRight * x +
+            camForward * z +
+            Vector3.up * targetPos.y;
+    }
+
 
     void AutoAdjustToGreenZombies()
     {
@@ -565,5 +607,15 @@ private bool blockCameraThisInput = false;
     public float GetZoomNormalized()
     {
         return Mathf.InverseLerp(minZoom, maxZoom, targetZoom);
+    }
+
+    public void SetBoundsFromCollider(BoxCollider col)
+    {
+        Bounds b = col.bounds;
+
+        minX = b.min.x;
+        maxX = b.max.x;
+        minZ = b.min.z;
+        maxZ = b.max.z;
     }
 }

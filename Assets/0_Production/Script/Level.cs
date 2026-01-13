@@ -8,13 +8,17 @@ public class Level : MonoBehaviour
     public LevelDifficulty difficulty = LevelDifficulty.Normal;
     public List<Breakable> Breakables { get; private set; }
 
+
     
-    [Header("Camera")]
+
+    [Header("Camera Intro Zoom")]
     public Transform startCameraPoint;   // ⭐ 여기만 사용
     public Transform endCameraPoint;
-    [Header("Camera Intro Zoom")]
     public float startZoom = 15f;
     public float endZoom = 15f;
+
+    [Header("Camera Move Limit Settings")]
+    public BoxCollider cameraBounds;
 
     [Header("Camera Zoom Limit")]
     public float minZoom = 5f;
