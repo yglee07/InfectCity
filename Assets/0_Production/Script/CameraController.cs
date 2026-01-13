@@ -611,6 +611,19 @@ private bool blockCameraThisInput = false;
 
     public void SetBoundsFromCollider(BoxCollider col)
     {
+        
+        if (col == null)
+        {
+            // 🔥 기본 안전 영역
+            minX = -200f;
+            maxX = 200f;
+            minZ = -200f;
+            maxZ = 200f;
+
+            Debug.LogWarning("[CameraBounds] BoxCollider 없음 → 기본 bounds (-40~40) 적용");
+            return;
+        }
+
         Bounds b = col.bounds;
 
         minX = b.min.x;

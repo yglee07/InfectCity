@@ -170,17 +170,8 @@ public class Game : MonoBehaviour
         );
 
 
-
-        if (currentLevel.cameraBounds != null)
-        {
-            cam.SetBoundsFromCollider(currentLevel.cameraBounds);
-        }
-        else
-        {
-            Debug.LogWarning(
-                $"[LoadLevel] CameraBounds not assigned on {currentLevel.name}"
-            );
-        }
+        cam.SetBoundsFromCollider(currentLevel.cameraBounds);
+ 
 
 
 

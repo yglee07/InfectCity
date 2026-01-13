@@ -189,10 +189,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 153a209a45101274ab3f6c8ac8cb9428, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  difficulty: 0
   startCameraPoint: {fileID: 9024846239476755357}
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 5
   endZoom: 15
+  cameraBounds: {fileID: 0}
+  minZoom: 5
+  maxZoom: 40
 --- !u!1 &2387067164591061729
 GameObject:
   m_ObjectHideFlags: 0

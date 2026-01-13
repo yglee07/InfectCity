@@ -147,7 +147,7 @@ public class LevelTutorial : MonoBehaviour
         if (Game.Instance.uiGame != null)
             Game.Instance.uiGame.gameObject.SetActive(false);
 
-        Game.Instance.EnterTutorial();
+        OnNewUnitTutorialStart();
         Vector3 originPos = cam.transform.position;
         float originZoom = cam.orthographicSize;
 
@@ -184,7 +184,7 @@ public class LevelTutorial : MonoBehaviour
             originZoom,
             0.35f
         );
-        Game.Instance.ExitTutorial();
+        OnNewUnitTutorialEnd();
         if (Game.Instance.uiGame != null)
             Game.Instance.uiGame.gameObject.SetActive(true);
         if (camCtrl != null)
@@ -728,7 +728,7 @@ public class LevelTutorial : MonoBehaviour
             camCtrl.isCameraLocked = true;
         if (Game.Instance.uiGame != null)
             Game.Instance.uiGame.gameObject.SetActive(false);
-        Game.Instance.EnterTutorial();
+        OnNewUnitTutorialStart();
 
         // 2️⃣ 원래 카메라 상태 저장
         Vector3 originPos = cam.transform.position;
@@ -780,7 +780,7 @@ public class LevelTutorial : MonoBehaviour
             )
         );
 
-        Game.Instance.ExitTutorial();
+        OnNewUnitTutorialEnd();
         if (Game.Instance.uiGame != null)
             Game.Instance.uiGame.gameObject.SetActive(true);
 
@@ -956,6 +956,20 @@ public class LevelTutorial : MonoBehaviour
         Debug.Log("[Tutorial] DRAG UNIT COMPLETE");
         //Game.Instance.dragInfector.Activate();
     }
+    void OnNewUnitTutorialStart()
+    {
+        Game.Instance.EnterTutorial();
 
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(false);
+    }
+
+    void OnNewUnitTutorialEnd()
+    {
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(true);
+
+        Game.Instance.ExitTutorial();
+    }
 
 }

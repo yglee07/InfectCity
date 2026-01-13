@@ -22,7 +22,7 @@ public class Level : MonoBehaviour
 
     [Header("Camera Zoom Limit")]
     public float minZoom = 5f;
-    public float maxZoom = 25f;
+    public float maxZoom = 40f;
 
 
     void Awake()
