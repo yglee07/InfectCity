@@ -160,6 +160,8 @@ public class NewsManager : MonoBehaviour
     string FormatVirus(string virus)
     {
         // 혹시 모를 태그 깨짐 방지
+        if (string.IsNullOrEmpty(virus))
+            return string.Empty;
         virus = virus.Replace("<", "").Replace(">", "");
 
         if (bracketVirus)
@@ -185,6 +187,7 @@ public class NewsManager : MonoBehaviour
 
     public void PlayNews(int stage, string virus, string country, int percent)
     {
+        Debug.Log("PlayNews: " + stage + ", " + virus + ", " + country + ", " + percent);
         string msg;
 
         // 🔹 Stage 1~5 : 고정 스토리 뉴스
