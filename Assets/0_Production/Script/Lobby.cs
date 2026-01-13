@@ -252,30 +252,40 @@ public class Lobby : MonoBehaviour
         float delayPerZombie = EXPLODE_DURATION / count;
 
         Bounds b = node.countryMesh.bounds;
-        float radius = Mathf.Max(b.size.x, b.size.z) * 0.4f;
+
+        // 살짝 안쪽으로 여유 (삐져나감 방지)
+        float margin = 0.15f;
+
+        float minX = b.min.x + b.size.x * margin;
+        float maxX = b.max.x - b.size.x * margin;
+
+        float minY = b.min.y + b.size.y * margin;
+        float maxY = b.max.y - b.size.y * margin;
 
         for (int i = 0; i < count; i++)
         {
-            Vector2 r = Random.insideUnitCircle * radius;
+            float x = Random.Range(minX, maxX);
+            float y = Random.Range(minY, maxY);
 
-            Vector3 pos =
-                center.position +
-                center.right * r.x +
-                center.forward * r.y +
-                center.up * 0.25f;
+            Vector3 pos = new Vector3(
+                x,
+                y,
+                node.center.position.z   // Z 고정 (XY 평면)
+            );
 
-            Quaternion rot = Quaternion.Euler(270f, 0f, 0f);
+            Quaternion rot = Quaternion.Euler(-90f, 0f, 0f);
 
             GameObject z = Instantiate(
                 greenZombiePrefab,
                 pos,
                 rot,
-                center
+                node.center
             );
 
             float delay = WAIT_TIME + i * delayPerZombie;
             z.GetComponent<ConquerZombie>().Init(node, delay);
         }
+
     }
 
 

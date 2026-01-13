@@ -197,7 +197,7 @@ private bool blockCameraThisInput = false;
         // ===============================
         // 🔥 1. 화면 여백 추가 (핵심)
         // ===============================
-        float screenPadding = Mathf.Min(Screen.width, Screen.height) * 0.18f;
+        float screenPadding = Mathf.Min(Screen.width, Screen.height) * 0.25f;
         min -= Vector2.one * screenPadding;
         max += Vector2.one * screenPadding;
 

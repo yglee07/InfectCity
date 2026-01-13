@@ -1,5 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class LevelTutorial : MonoBehaviour
@@ -108,7 +109,9 @@ public class LevelTutorial : MonoBehaviour
 
     IEnumerator NewUnitAndInfectTutorial()
     {
-        Debug.Log("[Tutorial] NEW UNIT + INFECT");
+       
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(false);
 
         CameraController camCtrl = Camera.main.GetComponent<CameraController>();
 
@@ -147,8 +150,7 @@ public class LevelTutorial : MonoBehaviour
         if (camCtrl != null)
             camCtrl.isCameraLocked = true;
 
-        if (Game.Instance.uiGame != null)
-            Game.Instance.uiGame.gameObject.SetActive(false);
+       
 
         Game.Instance.EnterTutorial();
        
@@ -427,11 +429,13 @@ public class LevelTutorial : MonoBehaviour
 
     public void EndTutorial()
     {
+        
         if (tutorialCanceled || tutorialFinished)
             return;
 
         tutorialFinished = true;
 
+        ClearFinger();
         Debug.Log("[Tutorial] END (CLEARED)");
 
         int stage = SaveSystem.Data.stage;
@@ -592,10 +596,14 @@ public class LevelTutorial : MonoBehaviour
 
         while (Mathf.Approximately(zoomSlider.value, startValue))
         {
+            Debug.Log(
+           $"[ZoomTutorial] dragging... value={zoomSlider.value}, selected={EventSystem.current?.currentSelectedGameObject}"
+       );
             yield return PlayFingerDragAnchored(from, to);
             yield return new WaitForSeconds(0.4f);
         }
 
+        Debug.Log("[ZoomTutorial] Slider value changed → EXIT LOOP");
         ClearFinger();
         yield return null;
     }
