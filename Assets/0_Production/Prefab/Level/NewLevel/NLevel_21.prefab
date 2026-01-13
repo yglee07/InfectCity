@@ -196,6 +196,7 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 5
   endZoom: 15
+  cameraBounds: {fileID: 0}
   minZoom: 5
   maxZoom: 25
 --- !u!114 &4644924242247725391
@@ -216,7 +217,7 @@ MonoBehaviour:
   newUnitTarget: {fileID: 8843706384207050728}
   unitDisplayName: Toilet Civilian
   unitDescription: Busy in the bathroom
-  tutorialType: 6
+  tutorialType: 7
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0

@@ -226,7 +226,7 @@ MonoBehaviour:
   newUnitTarget: {fileID: 1721634118923205262}
   unitDisplayName: Civilian
   unitDescription: A healthy Blue citizen.
-  tutorialType: 7
+  tutorialType: 8
 --- !u!1 &1374424334376155389
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,7 +278,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 18, y: 1, z: 30}
+  m_Size: {x: 18, y: 1, z: 40}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &5800050567432561391
 GameObject:
@@ -465,6 +465,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -508,14 +516,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -757,6 +757,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3100004
@@ -800,14 +808,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -901,6 +901,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -944,14 +952,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1385,6 +1385,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -1428,14 +1436,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2090,6 +2090,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -2133,14 +2141,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2234,6 +2234,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2277,14 +2285,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

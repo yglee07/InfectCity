@@ -195,6 +195,7 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 15
   endZoom: 12
+  cameraBounds: {fileID: 0}
   minZoom: 5
   maxZoom: 25
 --- !u!114 &4414777975332974552
@@ -215,7 +216,7 @@ MonoBehaviour:
   newUnitTarget: {fileID: 7420471290310773503}
   unitDisplayName: Purple Infected
   unitDescription: Civilians first. Everyone next
-  tutorialType: 6
+  tutorialType: 7
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0

@@ -195,6 +195,7 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 5
   endZoom: 15
+  cameraBounds: {fileID: 0}
   minZoom: 5
   maxZoom: 25
 --- !u!114 &5264225031719825553
@@ -214,8 +215,8 @@ MonoBehaviour:
   infiniteCameraPrefab: {fileID: 0}
   newUnitTarget: {fileID: 8472074773819709497}
   unitDisplayName: Door
-  unitDescription: Only Citizens can open and close this doo
-  tutorialType: 6
+  unitDescription: Only Citizens can open and close this door
+  tutorialType: 7
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0

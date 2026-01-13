@@ -30,6 +30,7 @@ public class LevelTutorial : MonoBehaviour
         Camera,
         CameraZoom,   // 👈 추가
         Infect,
+        DragUnit,
         SpecialZombie,
         NewUnit,
         NewUnitAndInfect   // 👈 추가
@@ -53,6 +54,12 @@ public class LevelTutorial : MonoBehaviour
         if (tutorialType == TutorialType.None)
             return;
         int stage = SaveSystem.Data.stage;
+        // 🔥 31 스테이지부터는 튜토리얼 자체를 안 함
+        if (stage >= 31)
+        {
+            Destroy(this);
+            return;
+        }
 
         // 🔥 이미 이 스테이지 튜토리얼 봤으면 스킵
         if (SaveSystem.Data.IsTutorialCleared(stage))
@@ -74,7 +81,9 @@ public class LevelTutorial : MonoBehaviour
             case TutorialType.CameraZoom:
                 yield return CameraZoomTutorial();
                 break;
-
+            case TutorialType.DragUnit:
+                yield return DragUnitTutorial();
+                break;
             case TutorialType.Speed:
                 yield return SpeedTutorial();
                 break;
@@ -326,7 +335,7 @@ public class LevelTutorial : MonoBehaviour
         // 손가락도 버튼 위에 고정 스폰
         SpawnFingerTouch(speedRT);
 
-        Game.Instance.SetGameSpeed(1f);
+       
 
         yield return new WaitUntil(() => Game.Instance.GameSpeed > 1f);
 
@@ -584,6 +593,7 @@ public class LevelTutorial : MonoBehaviour
         }
 
         ClearFinger();
+        yield return null;
     }
 
     bool zoomResetClicked = false;
@@ -875,5 +885,69 @@ public class LevelTutorial : MonoBehaviour
 
         Destroy(this);
     }
+    IEnumerator DragUnitTutorial()
+    {
+        Debug.Log("[Tutorial] DRAG UNIT");
+
+        if (fingerDragPrefab == null ||
+            Game.Instance == null ||
+            Game.Instance.uiGame == null ||
+            Game.Instance.uiGame.unitButton == null ||
+            Game.Instance.dragUnit == null)
+        {
+            yield break;
+        }
+
+        CameraController camCtrl = Camera.main.GetComponent<CameraController>();
+        if (camCtrl != null)
+            camCtrl.isCameraLocked = true;
+
+        // DragInfect 막고 DragUnit만 허용
+        if (Game.Instance.dragInfector != null)
+            Game.Instance.dragInfector.enabled = false;
+
+        Game.Instance.dragUnit.enabled = true;
+
+        CitizenBase targetCitizen = FindAnyCitizen();
+        if (targetCitizen == null)
+            yield break;
+
+        RectTransform unitButtonRT =
+            Game.Instance.uiGame.unitButton.GetComponent<RectTransform>();
+
+        Canvas canvas = unitButtonRT.GetComponentInParent<Canvas>();
+        RectTransform canvasRT = canvas.GetComponent<RectTransform>();
+        Camera uiCam = canvas.renderMode == RenderMode.ScreenSpaceOverlay
+            ? null
+            : canvas.worldCamera;
+
+        SpawnFingerDrag(unitButtonRT);
+
+        // 🔥 DragUnit 횟수가 0 될 때까지
+        while (Game.Instance.dragUnit.currentCharges > 0)
+        {
+            Vector2 from = WorldToCanvas(
+                unitButtonRT.TransformPoint(unitButtonRT.rect.center),
+                canvasRT,
+                uiCam
+            );
+
+            Vector2 to = WorldToCanvasFromMainCamera(
+                GetCitizenVisualCenter(targetCitizen),
+                canvasRT
+            );
+
+            yield return PlayFingerDragAnchored(from, to);
+            yield return new WaitForSeconds(0.3f);
+        }
+
+        ClearFinger();
+
+        if (camCtrl != null)
+            camCtrl.isCameraLocked = false;
+
+        Debug.Log("[Tutorial] DRAG UNIT COMPLETE");
+    }
+
 
 }

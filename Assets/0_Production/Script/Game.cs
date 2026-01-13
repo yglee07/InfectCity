@@ -75,6 +75,7 @@ public class Game : MonoBehaviour
     public void SetGameSpeed(float speed)
     {
         gameSpeed = speed;
+        SaveSystem.Data.lastGameSpeed = speed;
         ApplyTimeScale();
     }
 
@@ -133,8 +134,9 @@ public class Game : MonoBehaviour
 
         isPlaying = true;
 
-
-       SetGameSpeed(GameSpeed);
+        float savedSpeed = SaveSystem.Data.lastGameSpeed;
+        SetGameSpeed(savedSpeed > 0 ? savedSpeed : 1f);
+      
 
     }
 

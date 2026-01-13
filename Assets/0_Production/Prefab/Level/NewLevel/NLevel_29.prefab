@@ -195,6 +195,7 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 16
   endZoom: 26
+  cameraBounds: {fileID: 0}
   minZoom: 5
   maxZoom: 25
 --- !u!114 &1759031857989846164
@@ -215,7 +216,7 @@ MonoBehaviour:
   newUnitTarget: {fileID: 3707172350292713058}
   unitDisplayName: Clapping Civilian
   unitDescription: Thinks this is all part of the show
-  tutorialType: 6
+  tutorialType: 7
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0

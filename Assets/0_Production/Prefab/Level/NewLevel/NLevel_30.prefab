@@ -150,6 +150,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7111755280227385367}
   - component: {fileID: 6497089844581745962}
+  - component: {fileID: 5005082018184788537}
   m_Layer: 0
   m_Name: NLevel_30
   m_TagString: Untagged
@@ -194,6 +195,28 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 3
   endZoom: 8
+  cameraBounds: {fileID: 0}
+  minZoom: 5
+  maxZoom: 25
+--- !u!114 &5005082018184788537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261747436639895672}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 060e86e33bee876468128bc8d1d93187, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  fingerDragPrefab: {fileID: 580366791354799346, guid: 0686782d247b68e469d2bbe73d93733d, type: 3}
+  fingerTouchPrefab: {fileID: 0}
+  infiniteCameraPrefab: {fileID: 0}
+  newUnitTarget: {fileID: 0}
+  unitDisplayName: 
+  unitDescription: 
+  tutorialType: 5
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0
@@ -255,137 +278,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6175036463557492310}
-  - {fileID: 8019251485455565389}
-  - {fileID: 4413839083265893826}
-  - {fileID: 2207161583989846023}
-  - {fileID: 7906116708789578445}
-  - {fileID: 7987278227150362593}
   m_Father: {fileID: 7111755280227385367}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &1080543953301792709
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 3339958456297264515}
-    m_Modifications:
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 270
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7809207238147872883, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_Name
-      value: Citizen_Shooter_Stop (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c32e328506964e64da240941996b0d62, type: 3}
---- !u!4 &4413839083265893826 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-  m_PrefabInstance: {fileID: 1080543953301792709}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &3251228973868855808
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 3339958456297264515}
-    m_Modifications:
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7809207238147872883, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_Name
-      value: Citizen_Shooter_Stop (3)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c32e328506964e64da240941996b0d62, type: 3}
---- !u!4 &2207161583989846023 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-  m_PrefabInstance: {fileID: 3251228973868855808}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4532773585581171851
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -448,192 +342,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6539311133442297352, guid: 0c134ec19bfebcd4e9539ddc78861ad3, type: 3}
   m_PrefabInstance: {fileID: 4532773585581171851}
   m_PrefabAsset: {fileID: 0}
---- !u!1001 &6698503005914333258
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 3339958456297264515}
-    m_Modifications:
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: -0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 270
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7809207238147872883, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_Name
-      value: Citizen_Shooter_Stop (2)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c32e328506964e64da240941996b0d62, type: 3}
---- !u!4 &8019251485455565389 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-  m_PrefabInstance: {fileID: 6698503005914333258}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &6730424550681548262
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 3339958456297264515}
-    m_Modifications:
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7809207238147872883, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_Name
-      value: Citizen_Shooter_Stop (5)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c32e328506964e64da240941996b0d62, type: 3}
---- !u!4 &7987278227150362593 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-  m_PrefabInstance: {fileID: 6730424550681548262}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &6775644750895491274
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 3339958456297264515}
-    m_Modifications:
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.7071068
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7809207238147872883, guid: c32e328506964e64da240941996b0d62, type: 3}
-      propertyPath: m_Name
-      value: Citizen_Shooter_Stop (4)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c32e328506964e64da240941996b0d62, type: 3}
---- !u!4 &7906116708789578445 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
-  m_PrefabInstance: {fileID: 6775644750895491274}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7353785215361154129
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -652,7 +360,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: c32e328506964e64da240941996b0d62, type: 3}
       propertyPath: m_LocalRotation.w

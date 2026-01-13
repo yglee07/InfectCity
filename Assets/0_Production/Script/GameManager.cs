@@ -57,10 +57,15 @@ public class GameManager : MonoBehaviour
     // ============================
     public void ReturnToLobby()
     {
+        Game.Instance.SetGameSpeed(1f);
+        Game.Instance.ExitTutorial();
+
         ActivateLobbyView();
     }
     private void ActivateLobbyView()
     {
+      
+
         CameraController cam = Camera.main.GetComponent<CameraController>();
         if (cam != null)
             cam.SnapToOrigin();
@@ -75,9 +80,7 @@ public class GameManager : MonoBehaviour
         if (lobby != null)
             lobby.RefreshLobby();
 
-
-        Game.Instance.SetGameSpeed(1f);
-        Game.Instance.ExitTutorial();
+      
     }
     // ============================
     //     GAME CLEAR EVENT
