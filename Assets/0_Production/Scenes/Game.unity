@@ -801,6 +801,10 @@ MonoBehaviour:
   zoomSpeed: 1
   minZoom: 5
   maxZoom: 40
+  minX: -20
+  maxX: 20
+  minZ: -20
+  maxZ: 20
   isCameraLocked: 0
   cameraPos: {fileID: 892461535}
   startPos: {fileID: 0}
@@ -2189,6 +2193,10 @@ PrefabInstance:
       propertyPath: countrySprite
       value: 
       objectReference: {fileID: 21300000, guid: 477df3ed9df6e7047abc202b3c43d1f1, type: 3}
+    - target: {fileID: 2529335205903753736, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 99c221ab76521b54ca7e1fb8c0fd7be3, type: 2}
     - target: {fileID: 3307124265577289461, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
       propertyPath: m_LocalPosition.z
       value: 50
@@ -2210,8 +2218,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 21300000, guid: 8d6daac71aff32648964c344b31953b9, type: 3}
     - target: {fileID: 6175477521291722245, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175477521291722245, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 100
+      value: 98.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175477521291722245, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.87983394
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175477521291722245, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.4752812
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175477521291722245, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175477521291722245, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6175477521291722245, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -56.755
       objectReference: {fileID: 0}
     - target: {fileID: 6626169827326789656, guid: fab235660c72db84fb3c8765d19700f3, type: 3}
       propertyPath: countrySprite
