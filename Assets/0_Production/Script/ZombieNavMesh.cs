@@ -788,74 +788,74 @@ void RefreshMoveAnimation()
             Mathf.Clamp(z.z, bPos.z - half.z, bPos.z + half.z)
         );
     }
-#if UNITY_EDITOR
+//#if UNITY_EDITOR
 
-void OnDrawGizmos()
-{
-    if (!Application.isPlaying) return;
-    if (agent == null) return;
-    if (!agent.enabled) return;
-    if (!agent.isOnNavMesh) return;
+//void OnDrawGizmos()
+//{
+//    if (!Application.isPlaying) return;
+//    if (agent == null) return;
+//    if (!agent.enabled) return;
+//    if (!agent.isOnNavMesh) return;
 
-    Vector3 basePos = transform.position + Vector3.up * 3.0f;
+//    Vector3 basePos = transform.position + Vector3.up * 3.0f;
 
-    // =========================
-    // 상태 텍스트
-    // =========================
-    string text =
-        $"hasPath: {agent.hasPath}\n" +
-        $"pathPending: {agent.pathPending}\n" +
-        $"isStopped: {agent.isStopped}\n" +
-        $"velocity: {agent.velocity.magnitude:F2}\n" +
-        $"speed: {agent.speed:F2}\n" +
-        $"accel: {agent.acceleration:F2}\n" +
-        $"targetCitizen: {(targetCitizen ? targetCitizen.name : "None")}";
+//    // =========================
+//    // 상태 텍스트
+//    // =========================
+//    string text =
+//        $"hasPath: {agent.hasPath}\n" +
+//        $"pathPending: {agent.pathPending}\n" +
+//        $"isStopped: {agent.isStopped}\n" +
+//        $"velocity: {agent.velocity.magnitude:F2}\n" +
+//        $"speed: {agent.speed:F2}\n" +
+//        $"accel: {agent.acceleration:F2}\n" +
+//        $"targetCitizen: {(targetCitizen ? targetCitizen.name : "None")}";
 
-    Handles.Label(basePos, text);
+//    Handles.Label(basePos, text);
 
-    // =========================
-    // 1️⃣ destination (최종 목표)
-    // =========================
-    if (agent.hasPath)
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(agent.destination, 0.25f);
-        Gizmos.DrawLine(transform.position, agent.destination);
-    }
+//    // =========================
+//    // 1️⃣ destination (최종 목표)
+//    // =========================
+//    if (agent.hasPath)
+//    {
+//        Gizmos.color = Color.green;
+//        Gizmos.DrawSphere(agent.destination, 0.25f);
+//        Gizmos.DrawLine(transform.position, agent.destination);
+//    }
 
-    // =========================
-    // 2️⃣ steeringTarget (현재 코너 목표)
-    // =========================
-    Gizmos.color = Color.yellow;
-    Gizmos.DrawSphere(agent.steeringTarget, 0.2f);
-    Gizmos.DrawLine(transform.position, agent.steeringTarget);
+//    // =========================
+//    // 2️⃣ steeringTarget (현재 코너 목표)
+//    // =========================
+//    Gizmos.color = Color.yellow;
+//    Gizmos.DrawSphere(agent.steeringTarget, 0.2f);
+//    Gizmos.DrawLine(transform.position, agent.steeringTarget);
 
-    // =========================
-    // 3️⃣ desiredVelocity (실제 이동 벡터)
-    // =========================
-    Gizmos.color = Color.cyan;
-    Vector3 dv = agent.desiredVelocity;
-    if (dv.sqrMagnitude > 0.001f)
-    {
-        Gizmos.DrawRay(transform.position, dv.normalized * 1.5f);
-    }
+//    // =========================
+//    // 3️⃣ desiredVelocity (실제 이동 벡터)
+//    // =========================
+//    Gizmos.color = Color.cyan;
+//    Vector3 dv = agent.desiredVelocity;
+//    if (dv.sqrMagnitude > 0.001f)
+//    {
+//        Gizmos.DrawRay(transform.position, dv.normalized * 1.5f);
+//    }
 
-    // =========================
-    // 4️⃣ Path Corners
-    // =========================
-    var path = agent.path;
-    if (path != null && path.corners != null && path.corners.Length > 0)
-    {
-        Gizmos.color = Color.magenta;
-        for (int i = 0; i < path.corners.Length; i++)
-        {
-            Gizmos.DrawSphere(path.corners[i], 0.15f);
-            if (i > 0)
-                Gizmos.DrawLine(path.corners[i - 1], path.corners[i]);
-        }
-    }
-}
-#endif
+//    // =========================
+//    // 4️⃣ Path Corners
+//    // =========================
+//    var path = agent.path;
+//    if (path != null && path.corners != null && path.corners.Length > 0)
+//    {
+//        Gizmos.color = Color.magenta;
+//        for (int i = 0; i < path.corners.Length; i++)
+//        {
+//            Gizmos.DrawSphere(path.corners[i], 0.15f);
+//            if (i > 0)
+//                Gizmos.DrawLine(path.corners[i - 1], path.corners[i]);
+//        }
+//    }
+//}
+//#endif
 
 
 }
