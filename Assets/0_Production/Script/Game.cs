@@ -59,7 +59,7 @@ public class Game : MonoBehaviour
         CheckStageFail();
 
     }
-    void ApplyTimeScale()
+    public void ApplyTimeScale()
     {
         float scale = gameSpeed;
 
@@ -75,7 +75,7 @@ public class Game : MonoBehaviour
     public void SetGameSpeed(float speed)
     {
         gameSpeed = speed;
-        SaveSystem.Data.lastGameSpeed = speed;
+        
         ApplyTimeScale();
     }
 
@@ -92,7 +92,14 @@ public class Game : MonoBehaviour
     }
     public void ToggleSpeed()
     {
-        SetGameSpeed(Mathf.Approximately(gameSpeed, 1f) ? 2f : 1f);
+        float next =
+       Mathf.Approximately(GameSpeed, 1f) ? 2f : 1f;
+
+        SetGameSpeed(next);
+
+        // 🔥 유저 의도 → 여기서만 저장
+        SaveSystem.Data.lastGameSpeed = next;
+        SaveSystem.Save();
     }
 
     // =============================
@@ -134,9 +141,12 @@ public class Game : MonoBehaviour
 
         isPlaying = true;
 
-        float savedSpeed = SaveSystem.Data.lastGameSpeed;
-        SetGameSpeed(savedSpeed > 0 ? savedSpeed : 1f);
-      
+        float speed = SaveSystem.Data.lastGameSpeed > 0
+        ? SaveSystem.Data.lastGameSpeed
+        : 1f;
+
+        SetGameSpeed(speed);
+        Game.Instance.uiGame.UpdateLabel();
 
     }
 

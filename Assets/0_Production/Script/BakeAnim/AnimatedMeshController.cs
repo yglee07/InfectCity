@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class AnimatedMeshController : MonoBehaviour
 {
@@ -27,21 +27,21 @@ public class AnimatedMeshController : MonoBehaviour
         }
     }
 
-    private void OnGUI()
-    {
-        if (GUI.Button(new Rect(10, 10, 200, 30), "Run In Place"))
-        {
-            foreach (AnimatedMesh animator in Animators)
-            {
-                animator.Play("Run_S");
-            }
-        }
-        if (GUI.Button(new Rect(10, 45, 200, 25), "Idle"))
-        {
-            foreach (AnimatedMesh animator in Animators)
-            {
-                animator.Play("Idle");
-            }
-        }
-    }
+    //private void OnGUI()
+    //{
+    //    if (GUI.Button(new Rect(10, 10, 200, 30), "Run In Place"))
+    //    {
+    //        foreach (AnimatedMesh animator in Animators)
+    //        {
+    //            animator.Play("Run_S");
+    //        }
+    //    }
+    //    if (GUI.Button(new Rect(10, 45, 200, 25), "Idle"))
+    //    {
+    //        foreach (AnimatedMesh animator in Animators)
+    //        {
+    //            animator.Play("Idle");
+    //        }
+    //    }
+    //}
 }

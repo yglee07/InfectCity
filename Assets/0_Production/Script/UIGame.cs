@@ -138,7 +138,7 @@ public class UIGame : MonoBehaviour
         Game.Instance.ToggleSpeed();
         UpdateLabel();
     }
-      void UpdateLabel()
+     public void UpdateLabel()
     {
         if (speedText != null)
             speedText.text = $"{Game.Instance.GameSpeed:0.#}x";
