@@ -255,41 +255,34 @@ private bool blockCameraThisInput = false;
     void HandleMouseInput()
     {
         // =====================
-        // 마우스 다운
+        // 마우스 휠 → 줌 ONLY
         // =====================
-        if (Input.GetMouseButtonDown(0) ||
-           Mathf.Abs(Input.GetAxis("Mouse ScrollWheel")) > 0.001f)
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (Mathf.Abs(scroll) > 0.0001f)
         {
-            
-        
-        
-        // ⭐ UI에서 시작됐으면 카메라 입력 차단
-        blockCameraThisInput = IsPointerOverUI();
-        if (blockCameraThisInput)
-            return;
-
-        inputState = InputState.Drag;
-        lastDragWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
-        dragVelocity = Vector3.zero;
-    }
-
-    if (blockCameraThisInput)
-    {
-        if (Input.GetMouseButtonUp(0))
-            blockCameraThisInput = false;
-
-        return;
-    }
-      
+            targetZoom -= scroll * zoomSpeed * 10f;
+            targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
+        }
 
         // =====================
-        // 드래그 (마우스 좌클릭)
+        // 마우스 드래그 → 이동
         // =====================
         if (Input.GetMouseButtonDown(0))
         {
+            blockCameraThisInput = IsPointerOverUI();
+            if (blockCameraThisInput)
+                return;
+
             inputState = InputState.Drag;
             lastDragWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
             dragVelocity = Vector3.zero;
+        }
+
+        if (blockCameraThisInput)
+        {
+            if (Input.GetMouseButtonUp(0))
+                blockCameraThisInput = false;
+            return;
         }
 
         if (Input.GetMouseButton(0) && inputState == InputState.Drag)
@@ -307,65 +300,103 @@ private bool blockCameraThisInput = false;
         if (Input.GetMouseButtonUp(0))
         {
             inputState = InputState.None;
-
-           
         }
-    }  
+    }
+
     void HandleTouchInput()
 {
        
 
         if (Input.touchCount == 0)
-    {
-        inputState = InputState.None;
-        blockCameraThisInput = false;
-        return;
-    }
-
-    // =====================
-    // 1손가락 → 드래그
-    // =====================
-    Touch t = Input.GetTouch(0);
-
-    if (t.phase == TouchPhase.Began)
-    {
-        blockCameraThisInput = IsPointerOverUI();
-        if (blockCameraThisInput)
-            return;
-
-        inputState = InputState.Drag;
-        lastDragWorldPos = cam.ScreenToWorldPoint(t.position);
-        dragVelocity = Vector3.zero;
-    }
-
-    if (blockCameraThisInput)
-    {
-        if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
-            blockCameraThisInput = false;
-
-        return;
-    }
-
-    if (t.phase == TouchPhase.Moved && inputState == InputState.Drag)
-    {
-        Vector3 newPos = cam.ScreenToWorldPoint(t.position);
-        Vector3 diff = lastDragWorldPos - newPos;
-        diff.y = 0;
-
-        float zoomFactor = cam.orthographicSize * dragMultiplier;
-        targetPos += diff * zoomFactor;
-
-        lastDragWorldPos = newPos;
-    }
-
-        if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
         {
             inputState = InputState.None;
             blockCameraThisInput = false;
-            Debug.Log("lastUserInputTime reset on mouse up");
-            // 🔥 손 뗀 순간도 Idle 기준 리셋
-           
+            return;
         }
+        // =====================
+        // 2손가락 → 핀치 줌
+        // =====================
+        if (Input.touchCount == 2)
+        {
+            Touch t0 = Input.GetTouch(0);
+            Touch t1 = Input.GetTouch(1);
+
+            // 핀치 시작
+            if (inputState != InputState.Zoom)
+            {
+                blockCameraThisInput =
+                    IsPointerOverUI() ||
+                    EventSystem.current.IsPointerOverGameObject(t0.fingerId) ||
+                    EventSystem.current.IsPointerOverGameObject(t1.fingerId);
+
+                if (blockCameraThisInput)
+                    return;
+
+                inputState = InputState.Zoom;
+                prevPinchDistance = (t0.position - t1.position).magnitude;
+                return;
+            }
+
+            if (blockCameraThisInput)
+                return;
+
+            float currentDistance =
+                (t0.position - t1.position).magnitude;
+
+            float delta = currentDistance - prevPinchDistance;
+            prevPinchDistance = currentDistance;
+
+            // 줌 적용
+            targetZoom -= delta * zoomSpeed * 0.03f;
+            targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
+
+            return;
+        }
+
+        // =====================
+        // 1손가락 → 드래그
+        // =====================
+        Touch t = Input.GetTouch(0);
+
+        if (t.phase == TouchPhase.Began)
+        {
+            blockCameraThisInput = IsPointerOverUI();
+            if (blockCameraThisInput)
+                return;
+
+            inputState = InputState.Drag;
+            lastDragWorldPos = cam.ScreenToWorldPoint(t.position);
+            dragVelocity = Vector3.zero;
+        }
+
+        if (blockCameraThisInput)
+        {
+            if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
+                blockCameraThisInput = false;
+
+            return;
+        }
+
+        if (t.phase == TouchPhase.Moved && inputState == InputState.Drag)
+        {
+            Vector3 newPos = cam.ScreenToWorldPoint(t.position);
+            Vector3 diff = lastDragWorldPos - newPos;
+            diff.y = 0;
+
+            float zoomFactor = cam.orthographicSize * dragMultiplier;
+            targetPos += diff * zoomFactor;
+
+            lastDragWorldPos = newPos;
+        }
+
+            if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
+            {
+                inputState = InputState.None;
+                blockCameraThisInput = false;
+                Debug.Log("lastUserInputTime reset on mouse up");
+                // 🔥 손 뗀 순간도 Idle 기준 리셋
+           
+            }
     }
     private Vector3 dragVelocity = Vector3.zero;
 
