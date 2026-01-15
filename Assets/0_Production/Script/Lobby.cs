@@ -281,8 +281,9 @@ public class Lobby : MonoBehaviour
     {
         Debug.Log("Spawning " + count + " conquer zombies for " + node.countryId);
 
-        const float WAIT_TIME = 1.0f;
-        const float EXPLODE_DURATION = 1.0f;
+        const float WAIT_TIME = 1f;        // 거의 바로 시작
+        const float EXPLODE_DURATION = 0.4f; // 전체 연출 1.2초 컷
+
 
         Transform center = node.center;
         float delayPerZombie = EXPLODE_DURATION / count;
