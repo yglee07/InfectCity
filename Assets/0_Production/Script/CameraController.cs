@@ -183,8 +183,7 @@ private bool blockCameraThisInput = false;
         if (greens == null || greens.Count == 0)
             return;
 
-        Camera cam = this.cam;
-
+        // ===== 화면 영역 계산 =====
         Vector2 min = new Vector2(float.MaxValue, float.MaxValue);
         Vector2 max = new Vector2(float.MinValue, float.MinValue);
 
@@ -202,61 +201,47 @@ private bool blockCameraThisInput = false;
         if (min.x == float.MaxValue)
             return;
 
-        // ===============================
-        // 🔥 1. 화면 여백 추가 (핵심)
-        // ===============================
-        float screenPadding = Mathf.Min(Screen.width, Screen.height) * 0.25f;
-        min -= Vector2.one * screenPadding;
-        max += Vector2.one * screenPadding;
+        float padding = Mathf.Min(Screen.width, Screen.height) * 0.25f;
+        min -= Vector2.one * padding;
+        max += Vector2.one * padding;
 
+        // ===== 1️⃣ 위치는 항상 따라감 =====
         Vector2 centerScreen = (min + max) * 0.5f;
         Vector3 centerWorld =
             cam.ScreenToWorldPoint(
                 new Vector3(centerScreen.x, centerScreen.y, cam.nearClipPlane)
             );
 
-        float screenWidth = max.x - min.x;
-        float screenHeight = max.y - min.y;
-
-        float sizeByHeight =
-            (screenHeight / Screen.height) * cam.orthographicSize;
-        float sizeByWidth =
-            (screenWidth / Screen.width) * cam.orthographicSize;
-
-        float desiredZoom =
-            Mathf.Max(sizeByHeight, sizeByWidth) * 1.35f;
-
-        // ===============================
-        // 🔥 2. 줌 급변 방지 (중요)
-        // ===============================
-        float maxZoomStepPerFrame = 0.25f;
-        desiredZoom = Mathf.Clamp(
-            desiredZoom,
-            targetZoom - maxZoomStepPerFrame,
-            targetZoom + maxZoomStepPerFrame
-        );
-
-        // ===============================
-        // 🔥 3. 위치도 살짝 둔하게
-        // ===============================
         Vector3 desiredPos = new Vector3(
             centerWorld.x,
             targetPos.y,
             centerWorld.z
         );
 
-        targetPos = Vector3.Lerp(
-            targetPos,
-            desiredPos,
-            0.12f
-        );
+        targetPos = Vector3.Lerp(targetPos, desiredPos, 0.12f);
 
-        targetZoom = Mathf.Lerp(
-            targetZoom,
-            Mathf.Clamp(desiredZoom, minZoom, maxZoom),
-            0.15f
+        // ===== 2️⃣ 줌은 "필요할 때만 확대" =====
+        float screenWidth = max.x - min.x;
+        float screenHeight = max.y - min.y;
+
+        float requiredZoom =
+            Mathf.Max(
+                (screenHeight / Screen.height) * cam.orthographicSize,
+                (screenWidth / Screen.width) * cam.orthographicSize
+            ) * 1.25f;
+
+        // 🔒 이미 충분하면 아무것도 안 함
+        if (requiredZoom <= targetZoom)
+            return;
+
+        // 🔥 확대만 허용
+        float maxStep = 0.2f;
+        targetZoom = Mathf.Min(
+            targetZoom + maxStep,
+            Mathf.Clamp(requiredZoom, minZoom, maxZoom)
         );
     }
+
 
 
 

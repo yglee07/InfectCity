@@ -38,6 +38,8 @@ public class UIGame : MonoBehaviour
     bool autoCameraOn = false;
 
     [SerializeField] GameObject iconNo;   // Btn_Camera/Icon_None/No
+    [SerializeField] GameObject speed1xGO;
+    [SerializeField] GameObject speed2xGO;
     public void RefreshActionButtons(
         int bombCharges,
         int unitCharges
@@ -142,10 +144,16 @@ public class UIGame : MonoBehaviour
         Game.Instance.ToggleSpeed();
         UpdateLabel();
     }
-     public void UpdateLabel()
+    public void UpdateLabel()
     {
+        float speed = Game.Instance.GameSpeed;
+
         if (speedText != null)
-            speedText.text = $"{Game.Instance.GameSpeed:0.#}x";
+            speedText.text = $"{speed:0.#}x";
+
+        bool isFast = speed > 1.1f;
+        speed1xGO.SetActive(!isFast);
+        speed2xGO.SetActive(isFast);
     }
     public void UpdatePieChart()
     {
