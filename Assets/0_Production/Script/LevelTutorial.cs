@@ -255,7 +255,10 @@ public class LevelTutorial : MonoBehaviour
     IEnumerator InfectTutorial()
     {
         Debug.Log("[Tutorial] INFECT");
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(false);
 
+        
         if (fingerDragPrefab == null ||
             Game.Instance == null ||
             Game.Instance.uiGame == null ||
@@ -306,6 +309,11 @@ public class LevelTutorial : MonoBehaviour
         }
 
         ClearFinger();
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(true);
+
+
+
         Debug.Log("[Tutorial] INFECT COMPLETE");
     }
 
@@ -509,6 +517,8 @@ public class LevelTutorial : MonoBehaviour
     IEnumerator CameraTutorial()
     {
         Debug.Log("[Tutorial] CAMERA");
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(false);
 
         CameraController cam = Camera.main.GetComponent<CameraController>();
 
@@ -533,6 +543,8 @@ public class LevelTutorial : MonoBehaviour
         );
 
         Destroy(hint);
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(true);
         Debug.Log("[Tutorial] CAMERA COMPLETE");
     }
     IEnumerator CameraZoomTutorial()
