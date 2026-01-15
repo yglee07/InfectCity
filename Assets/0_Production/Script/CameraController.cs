@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 public class CameraController : MonoBehaviour
 {
+    [Header("Fixed Lobby Camera Rotation")]
+    public Vector3 fixedEulerRotation = new Vector3(90f, 0f, 0f);
     [Header("Move")]
     public float dragSpeed = 0.01f;
 
@@ -497,7 +499,7 @@ private bool blockCameraThisInput = false;
         Vector3 startPos = transform.position;
         float startZoom = cam.orthographicSize;
 
-        Quaternion fixedRot = Quaternion.identity; // (0,0,0)
+        Quaternion fixedRot = Quaternion.Euler(fixedEulerRotation);
 
         float t = 0f;
         while (t < 1f)
@@ -522,7 +524,7 @@ private bool blockCameraThisInput = false;
         StopAllCoroutines();
 
         transform.position = center.position + offset;
-        transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.Euler(fixedEulerRotation);
 
         cam.orthographicSize = zoom;
 

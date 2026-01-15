@@ -63,13 +63,13 @@ public class UILobby : MonoBehaviour
         // 국가명
         countryNameText.text = countryName;
 
-        // 퍼센트
-        int pct = Mathf.RoundToInt(progress * 100f);
-        percentText.text = pct + "%";
+        //// 퍼센트
+        //int pct = Mathf.RoundToInt(progress * 100f);
+        //percentText.text = pct + "%";
 
-        // 게이지
-        if (gaugeSlider != null)
-            gaugeSlider.value = progress;
+        //// 게이지
+        //if (gaugeSlider != null)
+        //    gaugeSlider.value = progress;
 
         // 현재 스테이지 표시
         int stage = SaveSystem.Data.stage;
@@ -203,5 +203,19 @@ public class UILobby : MonoBehaviour
             break;
     }
 }
+    // 🔥 연출 중에만 호출될 함수
+    public void UpdateCountryProgress(float progress)
+    {
+        progress = Mathf.Clamp01(progress);
+
+        if (gaugeSlider != null)
+            gaugeSlider.value = progress;
+
+        if (percentText != null)
+        {
+            int pct = Mathf.RoundToInt(progress * 100f);
+            percentText.text = pct + "%";
+        }
+    }
 
 }

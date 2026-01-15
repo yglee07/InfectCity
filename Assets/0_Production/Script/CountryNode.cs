@@ -1,5 +1,7 @@
-﻿using System.Collections;
+﻿using Linework.SurfaceFill;
+using System.Collections;
 using UnityEngine;
+using static UnityEngine.GraphicsBuffer;
 
 public class CountryNode : MonoBehaviour
 {
@@ -10,26 +12,17 @@ public class CountryNode : MonoBehaviour
 
     [Header("Conquer Settings")]
     public int stagesToConquer = 3;
-
-    [Header("Colors")]
-    public Color baseColor = Color.white;
-    public Color conqueredColor = new Color(0.3f, 0.8f, 0.3f, 1f);
-
-    [Header("Step Animation")]
-    public int conquerStepCount = 5;
-    public float stepLerpDuration = 0.15f;
-
+    
     [Header("UI")]
     public Sprite countrySprite; // 국기 or 국가 이미지
 
-    Material mat;
-    Coroutine stepRoutine;
+   
+    
 
     int currentStep;
     int totalSteps;
 
-    Color startColor;
-    Color targetColor;
+    public System.Action<float> OnConquerProgressChanged;
     public System.Action OnConquerAnimationFinished;
     [HideInInspector]
     public Vector3 baseLocalPos;
@@ -39,8 +32,17 @@ public class CountryNode : MonoBehaviour
     void Awake()
     {
         Bind();
-        mat = countryMesh.material;
-        mat.color = baseColor;
+        //mat = countryMesh.material;
+        //mat.color = baseColor;
+        //ApplyWorldBoundsToFillMaterial();
+        fillMPB = new MaterialPropertyBlock();
+
+        Bounds b = countryMesh.bounds;
+        fillMPB.SetFloat("_WorldMinX", b.min.x);
+        fillMPB.SetFloat("_WorldMaxX", b.max.x);
+        fillMPB.SetFloat("_Fill", 0f);
+
+        countryMesh.SetPropertyBlock(fillMPB, fillMaterialIndex);
 
         baseLocalPos = transform.localPosition;
     }
@@ -49,20 +51,18 @@ public class CountryNode : MonoBehaviour
     {
         countryId = gameObject.name;
 
-        center = transform.Find("Center");
-        if (center == null)
-            Debug.LogError($"[CountryNode] Center missing on {name}");
+        
 
-        Transform countryTf = transform.Find("Country");
-        if (countryTf == null)
-        {
-            Debug.LogError($"[CountryNode] Country object missing on {name}");
-            return;
-        }
+        //Transform countryTf = transform.Find("Country");
+        //if (countryTf == null)
+        //{
+        //    Debug.LogError($"[CountryNode] Country object missing on {name}");
+        //    return;
+        //}
 
-        countryMesh = countryTf.GetComponent<MeshRenderer>();
-        if (countryMesh == null)
-            Debug.LogError($"[CountryNode] MeshRenderer missing on Country in {name}");
+        //countryMesh = countryTf.GetComponent<MeshRenderer>();
+        //if (countryMesh == null)
+        //    Debug.LogError($"[CountryNode] MeshRenderer missing on Country in {name}");
     }
 
     // ===============================
@@ -71,7 +71,11 @@ public class CountryNode : MonoBehaviour
     public float GetSuggestedZoom(float padding = 1.2f)
     {
         if (countryMesh == null)
+        {
+            Debug.LogError("getSuggestedZoom: countryMesh is null");
             return 22f;
+        }
+         
 
         Bounds b = countryMesh.bounds;
 
@@ -85,95 +89,30 @@ public class CountryNode : MonoBehaviour
         return size * padding;
     }
 
-    // ===============================
-    // 🔥 핵심: 5단계 정복 색 연출
-    // ===============================
-    public void PlayConquerStepAnimation(int beforeCleared, int afterCleared)
-    {
-        Debug.Log(
-      $"[ConquerAnim] START country={countryId} " +
-      $"before={beforeCleared}, after={afterCleared}, steps={conquerStepCount}"
-  );
+  
 
-        if (stepRoutine != null)
-            StopCoroutine(stepRoutine);
-
-        stepRoutine = StartCoroutine(
-            ConquerStepRoutine(beforeCleared, afterCleared)
-        );
-    }
-
-    IEnumerator ConquerStepRoutine(int beforeCleared, int afterCleared)
-    {
-        float startT = Mathf.Clamp01((float)beforeCleared / stagesToConquer);
-        float targetT = Mathf.Clamp01((float)afterCleared / stagesToConquer);
-
-        for (int i = 1; i <= conquerStepCount; i++)
-        {
-            float stepT = Mathf.Lerp(
-                startT,
-                targetT,
-                (float)i / conquerStepCount
-            );
-
-            Color stepColor = Color.Lerp(
-                baseColor,
-                conqueredColor,
-                stepT
-            );
-
-            yield return StartCoroutine(
-                LerpColor(stepColor, stepLerpDuration)
-            );
-        }
-    }
-
-    IEnumerator LerpColor(Color target, float duration)
-    {
-        Color start = mat.color;
-        float t = 0f;
-
-        while (t < 1f)
-        {
-            t += Time.deltaTime / duration;
-            mat.color = Color.Lerp(start, target, t);
-            yield return null;
-        }
-
-        mat.color = target;
-    }
-
+    
     // ===============================
     // 즉시 상태 반영 (로비 진입용)
     // ===============================
     public void ApplyInstantProgress(int cleared)
     {
-        mat.color = GetStageColor(cleared);
+        float t = Mathf.Clamp01((float)cleared / stagesToConquer);
+        SetFill(t);
     }
-    public void PrepareConquerStepAnimation(
-    int beforeCleared,
-    int afterCleared,
-    int stepCount
-)
+    float startFill;
+    float targetFill;
+    public void PrepareConquerStepAnimation(int beforeCleared, int afterCleared, int stepCount)
     {
         totalSteps = Mathf.Max(1, stepCount);
         currentStep = 0;
 
-        float startT = (float)beforeCleared / stagesToConquer;
-        float targetT = (float)afterCleared / stagesToConquer;
+        startFill = Mathf.Clamp01((float)beforeCleared / stagesToConquer);
+        targetFill = Mathf.Clamp01((float)afterCleared / stagesToConquer);
 
-        startColor = GetStageColor(beforeCleared);
-        targetColor = GetStageColor(afterCleared);
-
-        mat.color = startColor;
-
-      
-
-        Debug.Log(
-            $"[CountryNode] PrepareConquerAnim steps={totalSteps} " +
-            $"startT={startT:F2} targetT={targetT:F2}"
-        );
+        SetFill(startFill);
     }
+
     public void OnZombieExplode()
     {
         if (currentStep >= totalSteps)
@@ -181,39 +120,54 @@ public class CountryNode : MonoBehaviour
 
         currentStep++;
 
-        float t = (float)currentStep / totalSteps;
-        Color newColor = Color.Lerp(startColor, targetColor, t);
-        mat.color = newColor;
+        float stepT = (float)currentStep / totalSteps;
+        float fill = Mathf.Lerp(startFill, targetFill, stepT);
 
-        Debug.Log(
-            $"[CountryNode] Step {currentStep}/{totalSteps}"
-        );
-
-        // 🔥 마지막 스텝이면 연출 종료 알림
+        SetFill(fill);
+   
         if (currentStep >= totalSteps)
-        {
-            Debug.Log("[CountryNode] Conquer animation FINISHED");
             OnConquerAnimationFinished?.Invoke();
-        }
-    }
-    public void OnConquerZombieExploded()
-    {
-        currentStep++;
-
-        float t = (float)currentStep / totalSteps;
-
-        Color newColor = Color.Lerp(startColor, targetColor, t);
-        mat.color = newColor;
-
-        if (currentStep >= totalSteps)
-        {
-            OnConquerAnimationFinished?.Invoke();
-        }
     }
 
-    Color GetStageColor(int stage)
+ 
+  
+    MaterialPropertyBlock fillMPB;
+
+    [SerializeField]
+    int fillMaterialIndex = 1; // CountryMaskFill
+    //[ContextMenu("FillMaterial")]
+    //void ApplyWorldBoundsToFillMaterial()
+    //{
+    //    if (countryMesh == null)
+    //        return;
+
+    //    var mats = countryMesh.materials;
+
+    //    if (fillMaterialIndex < 0 || fillMaterialIndex >= mats.Length)
+    //    {
+    //        Debug.LogWarning(
+    //            $"[CountryNode] Invalid material index {fillMaterialIndex} on {name}"
+    //        );
+    //        return;
+    //    }
+
+    //    Material mat = mats[fillMaterialIndex];
+    //    Bounds b = countryMesh.bounds;
+
+    //    mat.SetFloat("_WorldMinX", b.min.x);
+    //    mat.SetFloat("_WorldMaxX", b.max.x);
+
+    //    Debug.Log(
+    //        $"[CountryNode] {countryId} Bounds applied " +
+    //        $"MinX={b.min.x:F2}, MaxX={b.max.x:F2}"
+    //    );
+    //}
+    void SetFill(float t)
     {
-        float t = Mathf.Clamp01((float)stage / stagesToConquer);
-        return Color.Lerp(baseColor, conqueredColor, t);
+        t = Mathf.Clamp01(t);
+        fillMPB.SetFloat("_Fill", t);
+        countryMesh.SetPropertyBlock(fillMPB, fillMaterialIndex);
+
+        OnConquerProgressChanged?.Invoke(t);
     }
 }

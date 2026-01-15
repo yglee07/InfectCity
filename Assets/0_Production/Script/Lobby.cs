@@ -89,23 +89,54 @@ public class Lobby : MonoBehaviour
             nextCountry = countryMap[countryOrder[countryOrder.Count - 1]];
 
         currentCountry = nextCountry;
-       
-        // 2️⃣ 모든 국가 즉시 반영
+
+        // ===============================
+        // 2️⃣ 모든 국가 시각 상태 초기화
+        // ===============================
         foreach (var kv in countryMap)
         {
             CountryNode node = kv.Value;
             int cleared = GetClearedStageCount(node.countryId);
-            node.ApplyInstantProgress(cleared);
-        }
 
-        // 3️⃣ UI
-        int currentCleared = GetClearedStageCount(currentCountry.countryId);
-        float progress = (float)currentCleared / currentCountry.stagesToConquer;
+            // 🔥 연출 대상 국가는 BEFORE 상태로 고정
+            if (SaveSystem.Data.hasPendingConquerAnim &&
+                node.countryId == SaveSystem.Data.pendingCountryId)
+            {
+                node.ApplyInstantProgress(
+                    SaveSystem.Data.pendingBeforeCleared
+                );
+            }
+            else
+            {
+                node.ApplyInstantProgress(cleared);
+            }
+        }
+    
+        // ===============================
+        // 3️⃣ UI 초기값 세팅 (중요)
+        // ===============================
+        float uiProgress;
+
+        if (SaveSystem.Data.hasPendingConquerAnim &&
+            currentCountry.countryId == SaveSystem.Data.pendingCountryId)
+        {
+            // 🔥 연출 시작 전 값
+            uiProgress =
+                (float)SaveSystem.Data.pendingBeforeCleared
+                / currentCountry.stagesToConquer;
+        }
+        else
+        {
+            int cleared = GetClearedStageCount(currentCountry.countryId);
+            uiProgress =
+                (float)cleared
+                / currentCountry.stagesToConquer;
+        }
 
         ui.UpdateCountryUI(
             currentCountry.countryId,
-            progress,
-               currentCountry.countrySprite
+            uiProgress,
+            currentCountry.countrySprite
         );
 
         UpdateStageDifficulty(SaveSystem.Data.stage);
@@ -181,10 +212,15 @@ public class Lobby : MonoBehaviour
             SaveSystem.Data.pendingAfterCleared,
             steps
         );
-
+        node.OnConquerProgressChanged = (fill) =>
+        {
+            ui.UpdateCountryProgress(fill);
+        };
         // 🔥 3️⃣ 연출 종료 후 카메라 이동
         node.OnConquerAnimationFinished = () =>
         {
+            node.OnConquerProgressChanged = null;
+           
             StartCoroutine(MoveCameraToNextCountryDelayed(1f));
         };
 
@@ -245,37 +281,41 @@ public class Lobby : MonoBehaviour
     {
         Debug.Log("Spawning " + count + " conquer zombies for " + node.countryId);
 
-        const float WAIT_TIME = 1.0f;          // 👈 먼저 보여주는 시간
-        const float EXPLODE_DURATION = 1.0f;   // 👈 폭발 연출 시간
+        const float WAIT_TIME = 1.0f;
+        const float EXPLODE_DURATION = 1.0f;
 
         Transform center = node.center;
         float delayPerZombie = EXPLODE_DURATION / count;
 
         Bounds b = node.countryMesh.bounds;
 
-        // 살짝 안쪽으로 여유 (삐져나감 방지)
+        // 안쪽 여백
         float margin = 0.15f;
 
         float minX = b.min.x + b.size.x * margin;
         float maxX = b.max.x - b.size.x * margin;
 
-        float minY = b.min.y + b.size.y * margin;
-        float maxY = b.max.y - b.size.y * margin;
+        float minZ = b.min.z + b.size.z * margin;
+        float maxZ = b.max.z - b.size.z * margin;
+
+        // ⭐ 바닥 위로 살짝 띄우기
+        float yOffset = 0.25f;
 
         for (int i = 0; i < count; i++)
         {
             float x = Random.Range(minX, maxX);
-            float y = Random.Range(minY, maxY);
+            float z = Random.Range(minZ, maxZ);
 
             Vector3 pos = new Vector3(
                 x,
-                y,
-                node.center.position.z   // Z 고정 (XY 평면)
+                b.max.y + yOffset,   // 또는 node.center.position.y + yOffset
+                z
             );
 
-            Quaternion rot = Quaternion.Euler(-90f, 0f, 0f);
+            // 좀비는 바닥을 보게
+            Quaternion rot = Quaternion.Euler(0f, 0f, 0f);
 
-            GameObject z = Instantiate(
+            GameObject zmb = Instantiate(
                 greenZombiePrefab,
                 pos,
                 rot,
@@ -283,9 +323,8 @@ public class Lobby : MonoBehaviour
             );
 
             float delay = WAIT_TIME + i * delayPerZombie;
-            z.GetComponent<ConquerZombie>().Init(node, delay);
+            zmb.GetComponent<ConquerZombie>().Init(node, delay);
         }
-
     }
 
 
@@ -393,21 +432,7 @@ public class Lobby : MonoBehaviour
     ui.UpdateDifficulty(level.difficulty);
     Debug.Log("[Diff] UpdateDifficulty CALLED SUCCESSFULLY");
 }
-    public void PlayConquerAnimationAfterStageClear(
-    string countryId,
-    int beforeCleared,
-    int afterCleared
-)
-    {
-        if (!countryMap.TryGetValue(countryId, out CountryNode node))
-        {
-            Debug.LogWarning($"[Lobby] Country not found: {countryId}");
-            return;
-        }
 
-        node.PlayConquerStepAnimation(beforeCleared, afterCleared);
-    }
-  
     
     public void SkipConquerAnimation()
     {

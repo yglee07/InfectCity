@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-
 public class ConquerZombie : MonoBehaviour
 {
     CountryNode targetNode;
@@ -13,26 +12,30 @@ public class ConquerZombie : MonoBehaviour
         explodeDelay = delay;
         StartCoroutine(ExplodeRoutine());
     }
+
     IEnumerator ExplodeRoutine()
     {
         yield return new WaitForSecondsRealtime(explodeDelay);
+
         GameObject fx = PoolManager.Instance.Spawn(
             "SpikyExplosionGreen",
             transform.position,
             Quaternion.identity
         );
 
-        // ✅ 무조건 월드 루트
+        // 월드 루트에 유지
         fx.transform.SetParent(null, true);
-        // 💥 폭발 이펙트
-        // 🔊 사운드
-        // 📈 Country 색 변화 step
 
-        targetNode.OnConquerZombieExploded();
+        // 🔥 핵심: Fill 스텝 1회 진행
+        if (targetNode != null)
+        {
+            targetNode.OnZombieExplode();
+        }
 
         Die();
     }
-    public void Die()
+
+    void Die()
     {
         SoundManager.Instance.PlaySFX("InfectExplode");
         Destroy(gameObject);
