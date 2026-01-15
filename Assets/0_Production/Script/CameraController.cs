@@ -51,9 +51,10 @@ public class CameraController : MonoBehaviour
 private bool blockCameraThisInput = false;
 
     // CameraController.cs
-    float lastUserInputTime;
-    [SerializeField] float idleAutoDelay = 5f;
-
+    //float lastUserInputTime;
+    //[SerializeField] float idleAutoDelay = 5f;
+    [SerializeField]
+    bool autoCameraEnabled = false;
     bool IsPointerOverUI()
 {
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -100,17 +101,13 @@ private bool blockCameraThisInput = false;
 #else
     HandleTouchInput();
 #endif
-        if (IsAutoCameraAllowed())
+
+
+        if (autoCameraEnabled)
         {
             AutoAdjustToGreenZombies();
         }
-        // ===============================
-        // 🔥 자동 카메라 조절 (입력 없을 때)
-        // ===============================
-        bool noRecentInput =
-       Time.time - lastUserInputTime > idleAutoDelay;
 
-       
 
         // ===============================
         // 실제 적용
@@ -263,7 +260,7 @@ private bool blockCameraThisInput = false;
         if (Input.GetMouseButtonDown(0) ||
            Mathf.Abs(Input.GetAxis("Mouse ScrollWheel")) > 0.001f)
         {
-            lastUserInputTime = Time.time;
+            
         
         
         // ⭐ UI에서 시작됐으면 카메라 입력 차단
@@ -311,17 +308,12 @@ private bool blockCameraThisInput = false;
         {
             inputState = InputState.None;
 
-            // 🔥 손 뗀 순간도 Idle 기준 리셋
-            Debug.Log("lastUserInputTime reset on mouse up");
-            lastUserInputTime = Time.time;
+           
         }
     }  
     void HandleTouchInput()
 {
-        if (Input.touchCount > 0)
-        {
-            lastUserInputTime = Time.time;
-        }
+       
 
         if (Input.touchCount == 0)
     {
@@ -372,7 +364,7 @@ private bool blockCameraThisInput = false;
             blockCameraThisInput = false;
             Debug.Log("lastUserInputTime reset on mouse up");
             // 🔥 손 뗀 순간도 Idle 기준 리셋
-            lastUserInputTime = Time.time;
+           
         }
     }
     private Vector3 dragVelocity = Vector3.zero;
@@ -532,54 +524,15 @@ private bool blockCameraThisInput = false;
         targetZoom = zoom;
     }
 
-    bool IsAutoCameraAllowed()
-    {
-        return Time.time - lastUserInputTime > idleAutoDelay;
-    }
-//    void OnGUI()
-//    {
-//#if UNITY_EDITOR || DEVELOPMENT_BUILD
-//        float idleTime = Time.time - lastUserInputTime;
-//        bool autoAllowed = IsAutoCameraAllowed();
+    //bool IsAutoCameraAllowed()
+    //{
+    //    return Time.time - lastUserInputTime > idleAutoDelay;
+    //}
 
-//        GUILayout.BeginArea(
-//            new Rect(10, 10, 360, 150),
-//            GUI.skin.box
-//        );
-
-//        GUILayout.Label("<b>=== AUTO CAMERA DEBUG ===</b>",
-//            new GUIStyle(GUI.skin.label)
-//            {
-//                richText = true
-//            });
-
-//        GUILayout.Space(6);
-
-//        GUILayout.Label($"Idle Time : {idleTime:F2}s");
-//        GUILayout.Label($"Idle Auto Delay : {idleAutoDelay:F2}s");
-
-//        GUILayout.Space(6);
-
-//        GUILayout.Label(
-//            $"Auto Camera : <b>{(autoAllowed ? "ON" : "OFF")}</b>",
-//            new GUIStyle(GUI.skin.label)
-//            {
-//                richText = true,
-//                normal =
-//                {
-//                textColor = autoAllowed ? Color.green : Color.red
-//                }
-//            }
-//        );
-
-//        GUILayout.EndArea();
-//#endif
-//    }
-
-    public void ResetIdleTimer()
-    {
-        lastUserInputTime = Time.time;
-    }
+    //public void ResetIdleTimer()
+    //{
+    //    lastUserInputTime = Time.time;
+    //}
 
     public void SetZoomNormalized(float t)
     {
@@ -589,12 +542,12 @@ private bool blockCameraThisInput = false;
         targetZoom = z;
 
         // 🔥 유저 입력으로 간주 → 자동 카메라 잠시 비활성
-        lastUserInputTime = Time.time;
+        //lastUserInputTime = Time.time;
     }
     public void ResetZoom()
     {
         targetZoom = introEndZoom > 0 ? introEndZoom : cam.orthographicSize;
-        lastUserInputTime = Time.time;
+        //lastUserInputTime = Time.time;
     }
 
     public void SetZoomLimits(float min, float max)
@@ -633,9 +586,14 @@ private bool blockCameraThisInput = false;
         minZ = b.min.z;
         maxZ = b.max.z;
     }
-    public void ForceAutoCameraNow()
+    public void SetAutoCamera(bool enable)
     {
-        // 자동 카메라 즉시 허용 상태로 만듦
-        lastUserInputTime = -9999f;
+        autoCameraEnabled = enable;
+
+        if (enable)
+        {
+            // 켜는 순간 한 번 즉시 맞춰줌
+            AutoAdjustToGreenZombies();
+        }
     }
 }

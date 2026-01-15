@@ -85,11 +85,7 @@ public class DragUnitController : MonoBehaviour
     Game.Instance.dragInfector.currentCharges,
     currentCharges
 );
-        CameraController cam = FindObjectOfType<CameraController>();
-        if (cam != null)
-        {
-            cam.ResetIdleTimer();
-        }
+       
     }
 
     // =========================
