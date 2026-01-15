@@ -17,7 +17,7 @@ public class Lobby : MonoBehaviour
     private GameObject currentCountryInstance;
     [Header("Camera")]
     [SerializeField]
-    Vector3 cameraOffset = new Vector3(0f, 0f, -10f);
+    Vector3 cameraOffset = new Vector3(0f, 5f, 0f);
     CountryNode floatingNode;
     Coroutine floatRoutine;
 
