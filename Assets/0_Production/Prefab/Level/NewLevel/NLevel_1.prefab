@@ -355,6 +355,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -398,14 +406,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -647,6 +647,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.3100004
@@ -690,14 +698,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -791,6 +791,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -834,14 +842,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1275,6 +1275,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -1318,14 +1326,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1599,6 +1599,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2196824046056021858, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2261867217790376239, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
       propertyPath: m_Name
       value: Room
@@ -1711,39 +1715,40 @@ PrefabInstance:
     - {fileID: 6964867245349363334, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
     - {fileID: 6964867245349363332, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
     - {fileID: 6964867245349363354, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
+    - {fileID: 2196824046056021858, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 41
+      insertIndex: 40
       addedObject: {fileID: 1416518337888934191}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 43
+      insertIndex: 42
       addedObject: {fileID: 8444082104273254419}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 45
+      insertIndex: 44
       addedObject: {fileID: 3478976515482686664}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 65
+      insertIndex: 64
       addedObject: {fileID: 6787109164251365026}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 67
+      insertIndex: 66
       addedObject: {fileID: 3282611645265773559}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 69
+      insertIndex: 68
       addedObject: {fileID: 7238268661496617666}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 77
+      insertIndex: 76
       addedObject: {fileID: 274000083385501754}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 79
+      insertIndex: 78
       addedObject: {fileID: 2963066601365756187}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 81
+      insertIndex: 80
       addedObject: {fileID: 7022652791446599628}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 89
+      insertIndex: 88
       addedObject: {fileID: 5453667055858429499}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: 91
+      insertIndex: 90
       addedObject: {fileID: 7015212733052013324}
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
       insertIndex: -1
@@ -1988,6 +1993,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1
@@ -2031,14 +2044,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle (5)
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2132,6 +2137,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3339958456297264515}
     m_Modifications:
+    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: behaviorType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
+      propertyPath: m_Constraints
+      value: 112
+      objectReference: {fileID: 0}
     - target: {fileID: 3728917005830668807, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -2175,14 +2188,6 @@ PrefabInstance:
     - target: {fileID: 7809207238147872883, guid: 6028bf052ace70b4cb3329fc29b5a0f6, type: 3}
       propertyPath: m_Name
       value: Citizen_Idle
-      objectReference: {fileID: 0}
-    - target: {fileID: 3945762368813651091, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: behaviorType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4767420023573079894, guid: 2c980df5e89d26845b620c70ed25270f, type: 3}
-      propertyPath: m_Constraints
-      value: 112
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

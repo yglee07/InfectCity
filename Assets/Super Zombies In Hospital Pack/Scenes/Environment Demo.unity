@@ -11107,6 +11107,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8041520011391120937, guid: a6997ce2759c2ee4699960af52669ef5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -39062,6 +39066,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 092c8c92c57506e4ab06dd7bd0a758de, type: 3}
+--- !u!1001 &4170599727359986028
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3282009494135124876, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_Name
+      value: Room_4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732856703629325352, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732856703629325352, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732856703629325352, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732856703629325352, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732856703629325352, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732856703629325352, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732856703629325352, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732856703629325352, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732856703629325352, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4732856703629325352, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 72aabf92c41658e4ba80d1e69c48c6e6, type: 3}
 --- !u!1001 &4173469483527743165
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40421,6 +40482,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Room_2
       objectReference: {fileID: 0}
+    - target: {fileID: 2261867217790376239, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -40791,6 +40856,10 @@ PrefabInstance:
     - target: {fileID: 8041520011391120937, guid: a6997ce2759c2ee4699960af52669ef5, type: 3}
       propertyPath: m_Name
       value: Room1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8041520011391120937, guid: a6997ce2759c2ee4699960af52669ef5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -42201,3 +42270,4 @@ SceneRoots:
   - {fileID: 554718916}
   - {fileID: 6011841001481598049}
   - {fileID: 4700571862706335848}
+  - {fileID: 4170599727359986028}

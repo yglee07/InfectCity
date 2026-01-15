@@ -1,12 +1,5 @@
 fileFormatVersion: 2
 guid: 8d09e67ea952f0149acb1f81d5614c71
-AssetOrigin:
-  serializedVersion: 1
-  productId: 203033
-  packageName: Pandazole - Home interior lowpoly pack
-  packageVersion: 1.0.0
-  assetPath: Assets/PandazoleHome/Textures/PandaMat.png
-  uploadId: 453028
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -72,7 +65,7 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 4
     buildTarget: DefaultTexturePlatform
