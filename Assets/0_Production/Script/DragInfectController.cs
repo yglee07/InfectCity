@@ -277,15 +277,6 @@ public class DragInfectController : MonoBehaviour
     );
 
         Deactivate();
-        CameraController cam = Camera.main.GetComponent<CameraController>();
-        if (cam != null && currentCharges <= 0)
-        {
-            cam.ForceAutoCameraNow();
-        }
-        else
-        {
-            cam.ResetIdleTimer();
-        }
            
      
     }

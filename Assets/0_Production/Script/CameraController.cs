@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 public class CameraController : MonoBehaviour
 {
+    public static CameraController Instance { get; private set; }
+
+    [Header("Fixed Lobby Camera Rotation")]
+    public Vector3 fixedEulerRotation = new Vector3(90f, 0f, 0f);
     [Header("Move")]
     public float dragSpeed = 0.01f;
 
@@ -49,9 +53,10 @@ public class CameraController : MonoBehaviour
 private bool blockCameraThisInput = false;
 
     // CameraController.cs
-    float lastUserInputTime;
-    [SerializeField] float idleAutoDelay = 5f;
-
+    //float lastUserInputTime;
+    //[SerializeField] float idleAutoDelay = 5f;
+    [SerializeField]
+    bool autoCameraEnabled = false;
     bool IsPointerOverUI()
 {
 #if UNITY_EDITOR || UNITY_STANDALONE
@@ -69,7 +74,14 @@ private bool blockCameraThisInput = false;
 
     void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+
         cam = Camera.main;
         cam.orthographic = true; // Orthographic 강제\
         targetPos = transform.position;        // ⭐ 추가
@@ -98,17 +110,13 @@ private bool blockCameraThisInput = false;
 #else
     HandleTouchInput();
 #endif
-        if (IsAutoCameraAllowed())
+
+
+        if (autoCameraEnabled)
         {
             AutoAdjustToGreenZombies();
         }
-        // ===============================
-        // 🔥 자동 카메라 조절 (입력 없을 때)
-        // ===============================
-        bool noRecentInput =
-       Time.time - lastUserInputTime > idleAutoDelay;
 
-       
 
         // ===============================
         // 실제 적용
@@ -256,41 +264,34 @@ private bool blockCameraThisInput = false;
     void HandleMouseInput()
     {
         // =====================
-        // 마우스 다운
+        // 마우스 휠 → 줌 ONLY
         // =====================
-        if (Input.GetMouseButtonDown(0) ||
-           Mathf.Abs(Input.GetAxis("Mouse ScrollWheel")) > 0.001f)
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        if (Mathf.Abs(scroll) > 0.0001f)
         {
-            lastUserInputTime = Time.time;
-        
-        
-        // ⭐ UI에서 시작됐으면 카메라 입력 차단
-        blockCameraThisInput = IsPointerOverUI();
-        if (blockCameraThisInput)
-            return;
-
-        inputState = InputState.Drag;
-        lastDragWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
-        dragVelocity = Vector3.zero;
-    }
-
-    if (blockCameraThisInput)
-    {
-        if (Input.GetMouseButtonUp(0))
-            blockCameraThisInput = false;
-
-        return;
-    }
-      
+            targetZoom -= scroll * zoomSpeed * 10f;
+            targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
+        }
 
         // =====================
-        // 드래그 (마우스 좌클릭)
+        // 마우스 드래그 → 이동
         // =====================
         if (Input.GetMouseButtonDown(0))
         {
+            blockCameraThisInput = IsPointerOverUI();
+            if (blockCameraThisInput)
+                return;
+
             inputState = InputState.Drag;
             lastDragWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
             dragVelocity = Vector3.zero;
+        }
+
+        if (blockCameraThisInput)
+        {
+            if (Input.GetMouseButtonUp(0))
+                blockCameraThisInput = false;
+            return;
         }
 
         if (Input.GetMouseButton(0) && inputState == InputState.Drag)
@@ -308,70 +309,103 @@ private bool blockCameraThisInput = false;
         if (Input.GetMouseButtonUp(0))
         {
             inputState = InputState.None;
-
-            // 🔥 손 뗀 순간도 Idle 기준 리셋
-            Debug.Log("lastUserInputTime reset on mouse up");
-            lastUserInputTime = Time.time;
         }
-    }  
+    }
+
     void HandleTouchInput()
 {
-        if (Input.touchCount > 0)
-        {
-            lastUserInputTime = Time.time;
-        }
+       
 
         if (Input.touchCount == 0)
-    {
-        inputState = InputState.None;
-        blockCameraThisInput = false;
-        return;
-    }
-
-    // =====================
-    // 1손가락 → 드래그
-    // =====================
-    Touch t = Input.GetTouch(0);
-
-    if (t.phase == TouchPhase.Began)
-    {
-        blockCameraThisInput = IsPointerOverUI();
-        if (blockCameraThisInput)
-            return;
-
-        inputState = InputState.Drag;
-        lastDragWorldPos = cam.ScreenToWorldPoint(t.position);
-        dragVelocity = Vector3.zero;
-    }
-
-    if (blockCameraThisInput)
-    {
-        if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
-            blockCameraThisInput = false;
-
-        return;
-    }
-
-    if (t.phase == TouchPhase.Moved && inputState == InputState.Drag)
-    {
-        Vector3 newPos = cam.ScreenToWorldPoint(t.position);
-        Vector3 diff = lastDragWorldPos - newPos;
-        diff.y = 0;
-
-        float zoomFactor = cam.orthographicSize * dragMultiplier;
-        targetPos += diff * zoomFactor;
-
-        lastDragWorldPos = newPos;
-    }
-
-        if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
         {
             inputState = InputState.None;
             blockCameraThisInput = false;
-            Debug.Log("lastUserInputTime reset on mouse up");
-            // 🔥 손 뗀 순간도 Idle 기준 리셋
-            lastUserInputTime = Time.time;
+            return;
         }
+        // =====================
+        // 2손가락 → 핀치 줌
+        // =====================
+        if (Input.touchCount == 2)
+        {
+            Touch t0 = Input.GetTouch(0);
+            Touch t1 = Input.GetTouch(1);
+
+            // 핀치 시작
+            if (inputState != InputState.Zoom)
+            {
+                blockCameraThisInput =
+                    IsPointerOverUI() ||
+                    EventSystem.current.IsPointerOverGameObject(t0.fingerId) ||
+                    EventSystem.current.IsPointerOverGameObject(t1.fingerId);
+
+                if (blockCameraThisInput)
+                    return;
+
+                inputState = InputState.Zoom;
+                prevPinchDistance = (t0.position - t1.position).magnitude;
+                return;
+            }
+
+            if (blockCameraThisInput)
+                return;
+
+            float currentDistance =
+                (t0.position - t1.position).magnitude;
+
+            float delta = currentDistance - prevPinchDistance;
+            prevPinchDistance = currentDistance;
+
+            // 줌 적용
+            targetZoom -= delta * zoomSpeed * 0.03f;
+            targetZoom = Mathf.Clamp(targetZoom, minZoom, maxZoom);
+
+            return;
+        }
+
+        // =====================
+        // 1손가락 → 드래그
+        // =====================
+        Touch t = Input.GetTouch(0);
+
+        if (t.phase == TouchPhase.Began)
+        {
+            blockCameraThisInput = IsPointerOverUI();
+            if (blockCameraThisInput)
+                return;
+
+            inputState = InputState.Drag;
+            lastDragWorldPos = cam.ScreenToWorldPoint(t.position);
+            dragVelocity = Vector3.zero;
+        }
+
+        if (blockCameraThisInput)
+        {
+            if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
+                blockCameraThisInput = false;
+
+            return;
+        }
+
+        if (t.phase == TouchPhase.Moved && inputState == InputState.Drag)
+        {
+            Vector3 newPos = cam.ScreenToWorldPoint(t.position);
+            Vector3 diff = lastDragWorldPos - newPos;
+            diff.y = 0;
+
+            float zoomFactor = cam.orthographicSize * dragMultiplier;
+            targetPos += diff * zoomFactor;
+
+            lastDragWorldPos = newPos;
+        }
+
+            if (t.phase == TouchPhase.Ended || t.phase == TouchPhase.Canceled)
+            {
+                inputState = InputState.None;
+                blockCameraThisInput = false;
+                Debug.Log("lastUserInputTime reset on mouse up");
+                // 🔥 손 뗀 순간도 Idle 기준 리셋
+           
+            }
     }
     private Vector3 dragVelocity = Vector3.zero;
 
@@ -497,7 +531,7 @@ private bool blockCameraThisInput = false;
         Vector3 startPos = transform.position;
         float startZoom = cam.orthographicSize;
 
-        Quaternion fixedRot = Quaternion.identity; // (0,0,0)
+        Quaternion fixedRot = Quaternion.Euler(fixedEulerRotation);
 
         float t = 0f;
         while (t < 1f)
@@ -522,7 +556,7 @@ private bool blockCameraThisInput = false;
         StopAllCoroutines();
 
         transform.position = center.position + offset;
-        transform.rotation = Quaternion.identity;
+        transform.rotation = Quaternion.Euler(fixedEulerRotation);
 
         cam.orthographicSize = zoom;
 
@@ -530,54 +564,15 @@ private bool blockCameraThisInput = false;
         targetZoom = zoom;
     }
 
-    bool IsAutoCameraAllowed()
-    {
-        return Time.time - lastUserInputTime > idleAutoDelay;
-    }
-//    void OnGUI()
-//    {
-//#if UNITY_EDITOR || DEVELOPMENT_BUILD
-//        float idleTime = Time.time - lastUserInputTime;
-//        bool autoAllowed = IsAutoCameraAllowed();
+    //bool IsAutoCameraAllowed()
+    //{
+    //    return Time.time - lastUserInputTime > idleAutoDelay;
+    //}
 
-//        GUILayout.BeginArea(
-//            new Rect(10, 10, 360, 150),
-//            GUI.skin.box
-//        );
-
-//        GUILayout.Label("<b>=== AUTO CAMERA DEBUG ===</b>",
-//            new GUIStyle(GUI.skin.label)
-//            {
-//                richText = true
-//            });
-
-//        GUILayout.Space(6);
-
-//        GUILayout.Label($"Idle Time : {idleTime:F2}s");
-//        GUILayout.Label($"Idle Auto Delay : {idleAutoDelay:F2}s");
-
-//        GUILayout.Space(6);
-
-//        GUILayout.Label(
-//            $"Auto Camera : <b>{(autoAllowed ? "ON" : "OFF")}</b>",
-//            new GUIStyle(GUI.skin.label)
-//            {
-//                richText = true,
-//                normal =
-//                {
-//                textColor = autoAllowed ? Color.green : Color.red
-//                }
-//            }
-//        );
-
-//        GUILayout.EndArea();
-//#endif
-//    }
-
-    public void ResetIdleTimer()
-    {
-        lastUserInputTime = Time.time;
-    }
+    //public void ResetIdleTimer()
+    //{
+    //    lastUserInputTime = Time.time;
+    //}
 
     public void SetZoomNormalized(float t)
     {
@@ -587,12 +582,12 @@ private bool blockCameraThisInput = false;
         targetZoom = z;
 
         // 🔥 유저 입력으로 간주 → 자동 카메라 잠시 비활성
-        lastUserInputTime = Time.time;
+        //lastUserInputTime = Time.time;
     }
     public void ResetZoom()
     {
         targetZoom = introEndZoom > 0 ? introEndZoom : cam.orthographicSize;
-        lastUserInputTime = Time.time;
+        //lastUserInputTime = Time.time;
     }
 
     public void SetZoomLimits(float min, float max)
@@ -631,9 +626,14 @@ private bool blockCameraThisInput = false;
         minZ = b.min.z;
         maxZ = b.max.z;
     }
-    public void ForceAutoCameraNow()
+    public void SetAutoCamera(bool enable)
     {
-        // 자동 카메라 즉시 허용 상태로 만듦
-        lastUserInputTime = -9999f;
+        autoCameraEnabled = enable;
+
+        if (enable)
+        {
+            // 켜는 순간 한 번 즉시 맞춰줌
+            AutoAdjustToGreenZombies();
+        }
     }
 }
