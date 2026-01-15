@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 public class CameraController : MonoBehaviour
 {
+    public static CameraController Instance { get; private set; }
+
     [Header("Fixed Lobby Camera Rotation")]
     public Vector3 fixedEulerRotation = new Vector3(90f, 0f, 0f);
     [Header("Move")]
@@ -72,7 +74,14 @@ private bool blockCameraThisInput = false;
 
     void Awake()
     {
-        
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+
+
         cam = Camera.main;
         cam.orthographic = true; // Orthographic 강제\
         targetPos = transform.position;        // ⭐ 추가

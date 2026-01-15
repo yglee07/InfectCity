@@ -34,7 +34,10 @@ public class UIGame : MonoBehaviour
 
     public Slider zoomSlider;
     public Button zoomResetButton;
+    [SerializeField] Button autoCameraButton;
+    bool autoCameraOn = false;
 
+    [SerializeField] GameObject iconNo;   // Btn_Camera/Icon_None/No
     public void RefreshActionButtons(
         int bombCharges,
         int unitCharges
@@ -65,7 +68,8 @@ public class UIGame : MonoBehaviour
         {
             zoomResetButton.onClick.AddListener(OnClickResetZoom);
         }
-
+        if (autoCameraButton != null)
+            autoCameraButton.onClick.AddListener(OnClickAutoCamera);
     }
     void OnZoomChanged(float value)
     {
@@ -220,5 +224,15 @@ public class UIGame : MonoBehaviour
 
         zoomSlider.SetValueWithoutNotify(normalized);
     }
-
+    void OnClickAutoCamera()
+    {
+        autoCameraOn = !autoCameraOn;
+        CameraController.Instance.SetAutoCamera(autoCameraOn);
+        UpdateAutoCameraUI();
+    }
+    void UpdateAutoCameraUI()
+    {
+       
+        iconNo.SetActive(!autoCameraOn);
+    }
 }
