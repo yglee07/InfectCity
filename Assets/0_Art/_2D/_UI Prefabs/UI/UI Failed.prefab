@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 7992095443538886445}
   - component: {fileID: 3840260422971647463}
   m_Layer: 5
-  m_Name: Act_Dark_UI Failed
+  m_Name: UI Failed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -156,7 +156,7 @@ MonoBehaviour:
   m_text: Retry
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 428db5baeccce40bc901ecb6eacb5d35, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f6053b9a51dc58d43a66359ac7c68239, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: 200f7766a48bac34bb7c3e6c5db163ad, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -548,7 +548,7 @@ MonoBehaviour:
   m_text: Level 999
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 428db5baeccce40bc901ecb6eacb5d35, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f6053b9a51dc58d43a66359ac7c68239, type: 2}
+  m_sharedMaterial: {fileID: -8153996753179492114, guid: 428db5baeccce40bc901ecb6eacb5d35, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -685,7 +685,7 @@ MonoBehaviour:
   m_text: Failed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 428db5baeccce40bc901ecb6eacb5d35, type: 2}
-  m_sharedMaterial: {fileID: 2100000, guid: f6053b9a51dc58d43a66359ac7c68239, type: 2}
+  m_sharedMaterial: {fileID: -8153996753179492114, guid: 428db5baeccce40bc901ecb6eacb5d35, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

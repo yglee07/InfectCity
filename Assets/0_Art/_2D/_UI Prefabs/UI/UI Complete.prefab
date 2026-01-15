@@ -678,7 +678,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7715069298062892691
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1251,7 +1251,7 @@ GameObject:
   - component: {fileID: 7992095443538886445}
   - component: {fileID: 3840260422971647463}
   m_Layer: 5
-  m_Name: Act_Dark_UI Complete
+  m_Name: UI Complete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1543,7 +1543,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: +999
+  m_text: Next
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 428db5baeccce40bc901ecb6eacb5d35, type: 2}
   m_sharedMaterial: {fileID: 2100000, guid: 200f7766a48bac34bb7c3e6c5db163ad, type: 2}
@@ -1707,7 +1707,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &220404906027014892
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1722,10 +1722,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8193045015635531249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 60}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 39.205, y: -54}
+  m_SizeDelta: {x: 60, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6888028669210699446
 CanvasRenderer:
@@ -2285,7 +2285,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7590717544186795071
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3366,7 +3366,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6297043265905095775
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3381,10 +3381,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8193045015635531249}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 56}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 90.79, y: -54}
+  m_SizeDelta: {x: 56, y: 56}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7920248711569795811
 CanvasRenderer:
@@ -3689,7 +3689,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7387616464556171669
 RectTransform:
   m_ObjectHideFlags: 0
