@@ -23,7 +23,11 @@ public class LevelTutorial : MonoBehaviour
     RectTransform canvasRT;
     Camera uiCamera;
 
+    [Header("Zoom Tutorial")]
+    [SerializeField] GameObject zoomHintPrefab;
 
+    GameObject zoomHintInstance;
+    Animator zoomHintAnimator;
     public enum TutorialType
     {
         None,
@@ -551,22 +555,66 @@ public class LevelTutorial : MonoBehaviour
     {
         Debug.Log("[Tutorial] CAMERA ZOOM");
 
-        CameraController cam = Camera.main.GetComponent<CameraController>();
+        Camera cam = Camera.main;
+        CameraController camCtrl = cam.GetComponent<CameraController>();
 
         // 🔒 인트로 끝날 때까지 대기
-        yield return new WaitUntil(() => cam.isCameraLocked == false);
+        yield return new WaitUntil(() => camCtrl == null || !camCtrl.isCameraLocked);
 
-        // =========================
-        // STEP 1 : 슬라이더 이동
-        // =========================
-        yield return ZoomSliderStep();
+        SpawnZoomHint();
 
-        // =========================
-        // STEP 2 : Reset 버튼 클릭
-        // =========================
-        yield return ZoomResetButtonStep();
+        // =====================
+        // STEP 1 : ZOOM IN
+        // =====================
+        float baseZoom = cam.orthographicSize;
+
+        SetZoomHint(1); // Zoom In
+        yield return new WaitUntil(
+            () => cam.orthographicSize < baseZoom - 0.5f
+        );
+
+        // =====================
+        // STEP 2 : ZOOM OUT
+        // =====================
+        baseZoom = cam.orthographicSize;
+
+        SetZoomHint(2); // Zoom Out
+        yield return new WaitUntil(
+            () => cam.orthographicSize > baseZoom + 0.5f
+        );
+
+        // 종료
+        SetZoomHint(0);
+        ClearZoomHint();
 
         Debug.Log("[Tutorial] CAMERA ZOOM COMPLETE");
+    }
+    void SpawnZoomHint()
+    {
+        if (zoomHintInstance != null)
+            return;
+
+        zoomHintInstance = Instantiate(zoomHintPrefab, canvas.transform);
+        zoomHintAnimator = zoomHintInstance.GetComponent<Animator>();
+
+        RectTransform rt = zoomHintInstance.GetComponent<RectTransform>();
+        rt.anchoredPosition = Vector2.zero;
+        rt.localScale = Vector3.one;
+    }
+    void ClearZoomHint()
+    {
+        if (zoomHintInstance != null)
+            Destroy(zoomHintInstance);
+
+        zoomHintInstance = null;
+        zoomHintAnimator = null;
+    }
+    void SetZoomHint(int state)
+    {
+        if (zoomHintAnimator == null)
+            return;
+
+        zoomHintAnimator.SetInteger("ZoomState", state);
     }
     IEnumerator ZoomSliderStep()
     {
