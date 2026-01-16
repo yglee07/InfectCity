@@ -554,7 +554,8 @@ public class LevelTutorial : MonoBehaviour
     IEnumerator CameraZoomTutorial()
     {
         Debug.Log("[Tutorial] CAMERA ZOOM");
-
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(false);
         Camera cam = Camera.main;
         CameraController camCtrl = cam.GetComponent<CameraController>();
 
@@ -569,9 +570,12 @@ public class LevelTutorial : MonoBehaviour
         float baseZoom = cam.orthographicSize;
 
         SetZoomHint(1); // Zoom In
-        yield return new WaitUntil(
-            () => cam.orthographicSize < baseZoom - 0.5f
-        );
+        yield return StartCoroutine(
+       WaitZoomOrTimeout(
+           () => cam.orthographicSize < baseZoom - 0.5f,
+           5f   // 🔥 10초 제한
+       )
+   );
 
         // =====================
         // STEP 2 : ZOOM OUT
@@ -579,15 +583,34 @@ public class LevelTutorial : MonoBehaviour
         baseZoom = cam.orthographicSize;
 
         SetZoomHint(2); // Zoom Out
-        yield return new WaitUntil(
-            () => cam.orthographicSize > baseZoom + 0.5f
-        );
+        yield return StartCoroutine(
+       WaitZoomOrTimeout(
+           () => cam.orthographicSize > baseZoom + 0.5f,
+           5f   // 🔥 10초 제한
+       )
+   );
 
         // 종료
         SetZoomHint(0);
         ClearZoomHint();
 
+        if (Game.Instance.uiGame != null)
+            Game.Instance.uiGame.gameObject.SetActive(true);
         Debug.Log("[Tutorial] CAMERA ZOOM COMPLETE");
+    }
+    IEnumerator WaitZoomOrTimeout(System.Func<bool> condition, float timeout)
+    {
+        float t = 0f;
+        while (t < timeout)
+        {
+            if (condition())
+                yield break;
+
+            t += Time.unscaledDeltaTime;
+            yield return null;
+        }
+
+        Debug.Log("[Tutorial] Zoom step timeout → auto skip");
     }
     void SpawnZoomHint()
     {

@@ -424,13 +424,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 060e86e33bee876468128bc8d1d93187, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fingerDragPrefab: {fileID: 580366791354799346, guid: 0686782d247b68e469d2bbe73d93733d, type: 3}
-  fingerTouchPrefab: {fileID: 4391201975038585818, guid: 7682fa7ef618f1342acdd6d0515ada4e, type: 3}
-  infiniteCameraPrefab: {fileID: 0}
+  fingerDragPrefab: {fileID: 0}
+  fingerTouchPrefab: {fileID: 0}
+  infiniteCameraPrefab: {fileID: 3737263554142389640, guid: 963a55de4535af440b50042ffaae3c7b, type: 3}
   newUnitTarget: {fileID: 0}
   unitDisplayName: 
   unitDescription: 
-  tutorialType: 3
+  zoomHintPrefab: {fileID: 0}
+  tutorialType: 2
 --- !u!1 &2024614424518713851
 GameObject:
   m_ObjectHideFlags: 0

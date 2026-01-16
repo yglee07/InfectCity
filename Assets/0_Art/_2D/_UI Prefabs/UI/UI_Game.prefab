@@ -1815,7 +1815,6 @@ GameObject:
   - component: {fileID: 4938090917513398005}
   - component: {fileID: 3990580267102858865}
   - component: {fileID: 6654841213426586627}
-  - component: {fileID: 2209629427937042691}
   m_Layer: 5
   m_Name: Btn_Camera
   m_TagString: Untagged
@@ -1897,21 +1896,6 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &2209629427937042691
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4541531491152832545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3761159b97a9e754f9e6175dc1a19e4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unlockType: 1
-  txtLock: {fileID: 0}
-  imgLock: {fileID: 0}
 --- !u!1 &4544715946314272011
 GameObject:
   m_ObjectHideFlags: 0
@@ -3307,7 +3291,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &3402503065832558891
 RectTransform:
   m_ObjectHideFlags: 0

@@ -410,11 +410,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fingerDragPrefab: {fileID: 0}
   fingerTouchPrefab: {fileID: 0}
-  infiniteCameraPrefab: {fileID: 3737263554142389640, guid: 963a55de4535af440b50042ffaae3c7b, type: 3}
+  infiniteCameraPrefab: {fileID: 0}
   newUnitTarget: {fileID: 0}
   unitDisplayName: 
   unitDescription: 
-  tutorialType: 2
+  zoomHintPrefab: {fileID: 1763128048782683387, guid: 7b6882ab6ed8b17499cb4c22de7da14a, type: 3}
+  tutorialType: 3
 --- !u!1 &5800050567432561391
 GameObject:
   m_ObjectHideFlags: 0
