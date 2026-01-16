@@ -468,5 +468,16 @@ public class Lobby : MonoBehaviour
         SaveSystem.Save();
     }
 
+    public List<CountryNode> GetCountryProgressOrder()
+    {
+        if (countryProgressOrder == null || countryProgressOrder.Count == 0)
+        {
+            Debug.LogError("[Lobby] CountryProgressOrder is NULL or EMPTY");
+            return new List<CountryNode>();
+        }
+
+        return countryProgressOrder;
+    }
+
 
 }

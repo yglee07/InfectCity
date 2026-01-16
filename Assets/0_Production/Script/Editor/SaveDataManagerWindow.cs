@@ -62,6 +62,19 @@ public class SaveDataManagerWindow : EditorWindow
 
             Debug.Log($"[SaveDataManager] Stage → {targetStage}");
         }
+
+        if (GUILayout.Button("Stage 기준으로 국가 진행도 재계산"))
+        {
+            if (!EditorUtility.DisplayDialog(
+                "국가 진행도 재계산",
+                $"Stage {SaveSystem.Data.stage} 기준으로\ncountry cleared 값을 자동 재계산합니다.",
+                "재계산",
+                "취소"
+            ))
+                return;
+
+            RecalculateCountryProgress();
+        }
     }
 
     void DrawReset()
@@ -103,5 +116,63 @@ public class SaveDataManagerWindow : EditorWindow
             "SaveData.json"
         );
     }
+
+    void RecalculateCountryProgress()
+    {
+        SaveSystem.Load();
+
+        Lobby lobby = FindObjectOfType<Lobby>();
+        if (lobby == null)
+        {
+            Debug.LogError("[SaveDataManager] Lobby not found");
+            return;
+        }
+
+        int stage = SaveSystem.Data.stage;
+        int remaining = stage;
+
+        // 🔥 기존 cleared 전부 제거
+        SaveSystem.Data.countryStages.Clear();
+
+        var order = lobby.GetCountryProgressOrder();
+
+        foreach (var node in order)
+        {
+            if (node == null) continue;
+
+            int cleared = Mathf.Min(
+                node.stagesToConquer,
+                remaining
+            );
+
+            if (cleared > 0)
+            {
+                SaveSystem.Data.countryStages.Add(
+                    new CountryStageEntry
+                    {
+                        countryId = node.countryId,
+                        cleared = cleared
+                    }
+                );
+            }
+
+            remaining -= cleared;
+            if (remaining <= 0)
+                break;
+        }
+    
+
+        // 🔥 연출 관련 데이터 정리 (꼭 필요)
+        SaveSystem.Data.hasPendingConquerAnim = false;
+        SaveSystem.Data.pendingCountryId = null;
+        SaveSystem.Data.pendingBeforeCleared = 0;
+        SaveSystem.Data.pendingAfterCleared = 0;
+        SaveSystem.Data.pendingGreenZombieCount = 0;
+
+        SaveSystem.Save();
+
+        Debug.Log("[SaveDataManager] Country cleared recalculated from stage");
+    }
+
 }
 #endif
