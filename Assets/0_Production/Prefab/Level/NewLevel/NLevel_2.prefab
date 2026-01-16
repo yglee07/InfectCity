@@ -395,7 +395,7 @@ MonoBehaviour:
   endZoom: 22
   cameraBounds: {fileID: 8970122623328121409}
   minZoom: 5
-  maxZoom: 20
+  maxZoom: 25
 --- !u!114 &5614159677400293540
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -497,7 +497,7 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 30, y: 1, z: 50}
+  m_Size: {x: 40, y: 1, z: 55}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &6673908422196654553
 GameObject:
@@ -9976,23 +9976,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 198928330420979672, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: InitialModule.startLifetime.scalar
-      value: 8
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 198928330420979672, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0.69182384
+      value: 0.51876897
       objectReference: {fileID: 0}
     - target: {fileID: 198928330420979672, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.69182384
+      value: 0.51876897
       objectReference: {fileID: 0}
     - target: {fileID: 198928330420979672, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 0.69182384
+      value: 0.54088044
       objectReference: {fileID: 0}
     - target: {fileID: 198928330420979672, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: InitialModule.startLifetime.minScalar
-      value: 6
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 198928330420979672, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: EmissionModule.rateOverDistance.scalar
