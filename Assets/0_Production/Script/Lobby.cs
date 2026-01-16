@@ -66,7 +66,7 @@ public class Lobby : MonoBehaviour
                 snapTarget = countryMap[countryOrder[countryOrder.Count - 1]];
 
             CameraController cam = Camera.main.GetComponent<CameraController>();
-            float zoom = snapTarget.GetSuggestedZoom(2f);
+            float zoom = snapTarget.GetSuggestedZoom(1f);
             cam.SnapTo(snapTarget.center, cameraOffset, zoom);
         }
 
@@ -203,7 +203,7 @@ public class Lobby : MonoBehaviour
         CameraController cam = Camera.main.GetComponent<CameraController>();
 
         // 🔥 1️⃣ 연출 시작 기준점으로 즉시 스냅
-        float zoom = node.GetSuggestedZoom(2f);
+        float zoom = node.GetSuggestedZoom(1f);
         cam.SnapTo(node.center, cameraOffset, zoom);
 
         // 🔥 2️⃣ 연출 준비
@@ -361,7 +361,7 @@ public class Lobby : MonoBehaviour
     void FocusCamera(Transform center)
     {
         CameraController cam = Camera.main.GetComponent<CameraController>();
-        float zoom = currentCountry.GetSuggestedZoom(2f);
+        float zoom = currentCountry.GetSuggestedZoom(1f);
         cam.FocusOn(center, cameraOffset, zoom);
     }
 
