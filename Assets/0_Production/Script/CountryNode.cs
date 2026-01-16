@@ -51,8 +51,9 @@ public class CountryNode : MonoBehaviour
     {
         countryId = gameObject.name;
 
-        
 
+        center = gameObject.transform;
+        countryMesh = GetComponent<MeshRenderer>();
         //Transform countryTf = transform.Find("Country");
         //if (countryTf == null)
         //{

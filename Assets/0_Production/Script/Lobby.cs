@@ -5,32 +5,32 @@ using static CountryNode;
 
 public class Lobby : MonoBehaviour
 {
-    //public CountryDatabase countryDB;   // ← ScriptableObject 연결
-    public Transform countryContainer;
-  
+ 
     Dictionary<string, CountryNode> countryMap;
     List<string> countryOrder;
     public CountryNode currentCountry;
 
     public UILobby ui;
 
-    private GameObject currentCountryInstance;
+
     [Header("Camera")]
     [SerializeField]
     Vector3 cameraOffset = new Vector3(0f, 5f, 0f);
-    CountryNode floatingNode;
-    Coroutine floatRoutine;
+ 
 
     public NewsManager newsManager;
     bool newsPlayedThisEntry;
+
+    [Header("Country Progress Order")]
+    [SerializeField]
+    List<CountryNode> countryProgressOrder;
     void Awake()
     {
         countryMap = new Dictionary<string, CountryNode>();
         countryOrder = new List<string>();
 
-        foreach (Transform child in countryContainer)
+        foreach (var node in countryProgressOrder)
         {
-            CountryNode node = child.GetComponent<CountryNode>();
             if (node == null) continue;
 
             countryMap[node.countryId] = node;
