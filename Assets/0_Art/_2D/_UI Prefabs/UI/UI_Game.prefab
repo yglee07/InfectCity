@@ -3885,6 +3885,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4842854323658360298}
     m_Modifications:
+    - target: {fileID: 2157328284916242736, guid: 1d4ed20066f907f45a778ed022e13f3f, type: 3}
+      propertyPath: m_text
+      value: Infection Failed
+      objectReference: {fileID: 0}
     - target: {fileID: 2450212476051633933, guid: 1d4ed20066f907f45a778ed022e13f3f, type: 3}
       propertyPath: m_Name
       value: UI Failed
@@ -3971,6 +3975,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3314672846255213047, guid: 1d4ed20066f907f45a778ed022e13f3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7225212376650450607, guid: 1d4ed20066f907f45a778ed022e13f3f, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4263,6 +4271,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 4842854323658360298}
     m_Modifications:
+    - target: {fileID: 2157328284916242736, guid: eb9a34651e9e52843919f642d3c04dd6, type: 3}
+      propertyPath: m_text
+      value: Infection Complete
+      objectReference: {fileID: 0}
     - target: {fileID: 2450212476051633933, guid: eb9a34651e9e52843919f642d3c04dd6, type: 3}
       propertyPath: m_Name
       value: UI Complete

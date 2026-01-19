@@ -215,7 +215,11 @@ MonoBehaviour:
   infiniteCameraPrefab: {fileID: 0}
   newUnitTarget: {fileID: 8472074773819709497}
   unitDisplayName: Door
-  unitDescription: Only Citizens can open and close this door
+  unitDescription: 'Only Citizens can open and close this door.
+
+    Infected will
+    break it.'
+  zoomHintPrefab: {fileID: 0}
   tutorialType: 7
 --- !u!1 &5800050567432561391
 GameObject:
