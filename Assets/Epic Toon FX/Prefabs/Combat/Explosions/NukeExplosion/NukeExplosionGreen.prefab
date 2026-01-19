@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 420964}
   - component: {fileID: 19809020}
   - component: {fileID: 19978290}
+  - component: {fileID: 8151816913414396431}
   m_Layer: 0
   m_Name: NukeExplosionGreen
   m_TagString: Untagged
@@ -4836,6 +4837,19 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &8151816913414396431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 136800}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8ccca94546aaa541afb7291cf976064, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  poolKey: NukeExplosionGreen
 --- !u!1 &163170
 GameObject:
   m_ObjectHideFlags: 0
