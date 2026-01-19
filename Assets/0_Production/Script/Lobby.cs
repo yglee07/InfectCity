@@ -174,6 +174,9 @@ public class Lobby : MonoBehaviour
         if (!string.IsNullOrEmpty(SaveSystem.Data.infectorName))
             return;
 
+        // 아직 타이밍 아님
+        if (SaveSystem.Data.stage < 4)
+            return;
         ui.namePopup.SetActive(true);
 
         Debug.Log("[Lobby] First lobby entry → show name popup");
