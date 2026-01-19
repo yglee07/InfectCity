@@ -171,8 +171,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4362458509883290565}
   - {fileID: 7424934582693331141}
+  - {fileID: 4362458509883290565}
   - {fileID: 3261999927470881985}
   - {fileID: 8238720482363189597}
   - {fileID: 7936604230030689865}
@@ -458,7 +458,7 @@ GameObject:
   - component: {fileID: 7424934582693331141}
   - component: {fileID: 8970122623328121409}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Camera Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

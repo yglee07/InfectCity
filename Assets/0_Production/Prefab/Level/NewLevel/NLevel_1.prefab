@@ -171,6 +171,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 8866800191105574865}
   - {fileID: 4521392645856186442}
   - {fileID: 9128085690852980652}
   - {fileID: 3339958456297264515}
@@ -225,6 +226,7 @@ MonoBehaviour:
   newUnitTarget: {fileID: 1721634118923205262}
   unitDisplayName: Civilian
   unitDescription: A healthy Blue citizen.
+  zoomHintPrefab: {fileID: 0}
   tutorialType: 8
 --- !u!1 &1374424334376155389
 GameObject:
@@ -237,7 +239,7 @@ GameObject:
   - component: {fileID: 4521392645856186442}
   - component: {fileID: 8555148763852849923}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Camera Bounds
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1753,9 +1755,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
       insertIndex: -1
       addedObject: {fileID: 671896377432837291}
-    - targetCorrespondingSourceObject: {fileID: 899786547019583882, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 8866800191105574865}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 46ce47cbbf27d8843888f42d73929882, type: 3}
 --- !u!4 &4931164385478253595 stripped
@@ -2489,7 +2488,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 4931164385478253595}
+    m_TransformParent: {fileID: 7111755280227385367}
     m_Modifications:
     - target: {fileID: 1123812537236566, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: m_Name
@@ -2509,15 +2508,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4984123321710276, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.29
       objectReference: {fileID: 0}
     - target: {fileID: 4984123321710276, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.9999996
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4984123321710276, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -3
+      value: 2.477909
       objectReference: {fileID: 0}
     - target: {fileID: 4984123321710276, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2529,11 +2528,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4984123321710276, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4984123321710276, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4984123321710276, guid: ae8cdb4df4beec9469c8ddc73783a7c6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
