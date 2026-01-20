@@ -31,6 +31,59 @@ Transform:
   m_Children: []
   m_Father: {fileID: 7111755280227385367}
   m_LocalEulerAnglesHint: {x: 15, y: 0, z: 0}
+--- !u!1 &475309297430901832
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6698352740972043096}
+  - component: {fileID: 6496004609970365374}
+  m_Layer: 0
+  m_Name: Camera_Bounds_Lv13
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6698352740972043096
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475309297430901832}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7111755280227385367}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6496004609970365374
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 475309297430901832}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 25, y: 1, z: 35}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &681667657612934324
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,6 +228,7 @@ Transform:
   - {fileID: 9024846239476755357}
   - {fileID: 8490257635079841451}
   - {fileID: 6319164776581511782}
+  - {fileID: 6698352740972043096}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6497089844581745962
@@ -194,9 +248,9 @@ MonoBehaviour:
   endCameraPoint: {fileID: 8490257635079841451}
   startZoom: 5
   endZoom: 15
-  cameraBounds: {fileID: 0}
+  cameraBounds: {fileID: 6496004609970365374}
   minZoom: 5
-  maxZoom: 40
+  maxZoom: 18
 --- !u!1 &2387067164591061729
 GameObject:
   m_ObjectHideFlags: 0
@@ -1411,6 +1465,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Square_12x12_3
       objectReference: {fileID: 0}
+    - target: {fileID: 1998802987015244874, guid: 00a1ae0379aedc448a9d61fe77e24a76, type: 3}
+      propertyPath: m_NavMeshData
+      value: 
+      objectReference: {fileID: 23800000, guid: d34a37913cf8def40b979fe290a22775, type: 2}
     - target: {fileID: 6539311133442297352, guid: 00a1ae0379aedc448a9d61fe77e24a76, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1452,7 +1510,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 1447834187768515581, guid: 00a1ae0379aedc448a9d61fe77e24a76, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 00a1ae0379aedc448a9d61fe77e24a76, type: 3}
