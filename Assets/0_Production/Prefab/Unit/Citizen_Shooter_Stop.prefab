@@ -217,6 +217,14 @@ MonoBehaviour:
   anim: {fileID: 0}
   animatedMesh: {fileID: 0}
   debugLog: 0
+  useDoorAssist: 1
+  doorAssistCheckInterval: 0.6
+  doorAssistMaxDist: 7
+  doorAssistForwardDot: 0.35
+  doorApproachDangerRadius: 1.8
+  doorInsideDangerRadius: 2.2
+  doorPassPushDistance: 2
+  fleeNoPathTimeout: 0.6
   thinkInterval: 0.2
   fleeRetargetInterval: 0.4
   mode: 0
@@ -225,6 +233,9 @@ MonoBehaviour:
   damage: 1
   shootTimer: 0
   viewAngle: 60
+  obstacleMask:
+    serializedVersion: 2
+    m_Bits: 768
   debugReason: 
   muzzlePoint: {fileID: 5840165745554140030}
   hitFxPoolKey: RoundHitYellow

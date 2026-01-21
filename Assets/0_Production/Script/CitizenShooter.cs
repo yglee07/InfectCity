@@ -1,4 +1,4 @@
-using UnityEditor;
+﻿using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -16,9 +16,10 @@ public class CitizenShooter : CitizenBase
 
     [Header("Vision")]
     public float viewAngle = 90f;
+    public LayerMask obstacleMask; // Wall 레이어 지정
 
 #if UNITY_EDITOR
-[SerializeField, TextArea(2, 6)]
+    [SerializeField, TextArea(2, 6)]
 private string debugReason = "";
 #endif
     private ZombieNavMesh currentTarget;
@@ -149,9 +150,9 @@ else
 
             if (closest.gameObject.activeInHierarchy &&
                 dist <= shootRange &&
-                IsInFront(closest))
+                IsInFront(closest) &&
+                HasLineOfSight(closest))
             {
-                if (debugLog) Debug.Log("[Target] closest 조건 통과 → 타겟 확정");
                 return closest;
             }
             else
@@ -188,6 +189,8 @@ else
                 if (debugLog) Debug.Log($"[Target] 후보 {z.name} 실패: 시야각 바깥");
                 continue;
             }
+            if (!HasLineOfSight(z))   // ⭐⭐⭐ 여기
+                continue;
 
             if (dist < bestDist)
             {
@@ -282,6 +285,30 @@ else
     target.TakeDamage(damage);
 }
 
+    bool HasLineOfSight(ZombieNavMesh target)
+    {
+        Vector3 origin = muzzlePoint != null
+            ? muzzlePoint.position
+            : transform.position + Vector3.up * 0.8f;
+
+        Vector3 targetPos = target.GetHitPoint();
+        Vector3 dir = targetPos - origin;
+        float dist = dir.magnitude;
+
+        if (Physics.Raycast(origin, dir.normalized, out RaycastHit hit, dist, obstacleMask))
+        {
+            // 벽에 먼저 맞음 → LOS 차단
+#if UNITY_EDITOR
+            Debug.DrawLine(origin, hit.point, Color.red, 0.1f);
+#endif
+            return false;
+        }
+
+#if UNITY_EDITOR
+        Debug.DrawLine(origin, targetPos, Color.green, 0.1f);
+#endif
+        return true;
+    }
 
 
 
