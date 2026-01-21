@@ -137,7 +137,7 @@ public class UIGame : MonoBehaviour
 
     public void UpdateCharges(int current, int max)
     {
-        dragChargesText.text = $"Drag Me\n{current}/{max}";
+        dragChargesText.text = $"{current}/{max}";
     }
    void OnClickToggleSpeed()
     {
