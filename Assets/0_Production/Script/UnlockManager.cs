@@ -1,4 +1,4 @@
-public static class UnlockManager
+﻿public static class UnlockManager
 {
     public static bool IsUnlocked(UnlockType type)
     {

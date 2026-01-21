@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class UnlockableButton : MonoBehaviour
@@ -8,6 +8,7 @@ public class UnlockableButton : MonoBehaviour
     [Header("Lock UI")]
     public GameObject txtLock;
     public GameObject imgLock;
+    public GameObject txt;
 
     Button button;
 
@@ -27,6 +28,9 @@ public class UnlockableButton : MonoBehaviour
 
         if (txtLock != null)
             txtLock.SetActive(!unlocked);
+
+        if(txt != null)
+            txt.SetActive(unlocked);
 
         if (imgLock != null)
             imgLock.SetActive(!unlocked);
